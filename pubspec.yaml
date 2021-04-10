@@ -18,14 +18,15 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  freezed_annotation: ^0.14.0
+  freezed_annotation: ^0.14.1
   flutter_hooks: ^0.16.0
   hooks_riverpod: ^0.13.1
+  sqflite: ^2.0.0+3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -35,9 +36,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_serializable: ^4.0.2
-  build_runner: ^1.11.5
-  freezed: ^0.14.0+1
+  json_serializable: ^4.1.0
+  build_runner: ^1.12.2
+  freezed: ^0.14.1+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -51,7 +52,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/pokedex.db
+    - assets/query/
+    - assets/icons/pokemon/regular/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
