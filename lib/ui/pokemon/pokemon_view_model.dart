@@ -6,7 +6,7 @@ final pokemonNameProvider = StateProvider((ref) => '');
 
 final pokemonViewModelProvider =
     ChangeNotifierProvider<PokemonViewModel>((ref) {
-  final name = ref.read(pokemonNameProvider).state;
+  final name = ref.watch(pokemonNameProvider).state;
   return PokemonViewModel(ref, name);
 });
 
