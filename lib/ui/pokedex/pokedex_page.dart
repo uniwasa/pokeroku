@@ -9,24 +9,13 @@ import '../../routes.dart';
 class PokedexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final pokedexViewModel = useProvider(pokedexViewModelProvider);
-    // pokedexViewModel.fetchDefaultPokemons();
-    // final pokemons =
-    //     useProvider(pokedexViewModelProvider.select((value) => value.pokemons));
-    //
-    // if (pokemons == null) return Scaffold();
-    // final pokemonImage = Image.asset(
-    //   'assets/images/regular/venusaur.png',
-    //   alignment: Alignment(20, 20),
-    // );
-    print('gakgaklg;j');
+    //初回ポケモン取得
+    context.read(pokedexViewModelProvider).fetchDefaultPokemons();
     return Scaffold(
       appBar: AppBar(
         title: Text('Pokedex'),
       ),
       body: HookBuilder(builder: (context) {
-        final pokedexViewModel = context.read(pokedexViewModelProvider);
-        pokedexViewModel.fetchDefaultPokemons();
         final pokemons = useProvider(
             pokedexViewModelProvider.select((value) => value.pokemons));
         //ポケモンまだ読み込まれてないなら
@@ -81,8 +70,7 @@ class PokedexPage extends StatelessWidget {
       floatingActionButton: HookBuilder(builder: (context) {
         return FloatingActionButton(
           onPressed: () async {
-            final pokedexViewModel = context.read(pokedexViewModelProvider);
-            pokedexViewModel.fetchDefaultPokemons();
+            context.read(pokedexViewModelProvider).fetchDefaultPokemons();
           },
         );
       }),

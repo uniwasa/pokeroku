@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sqlite_example/model/pokedex/pokemon.dart';
 
-final pokemonNameProvider = StateProvider((ref) => '');
+final pokemonNameProvider =
+    StateProvider((ref) => ''); //todo: currentpokemonとかに変更しよう
 
 final pokemonViewModelProvider =
     ChangeNotifierProvider<PokemonViewModel>((ref) {
