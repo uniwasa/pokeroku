@@ -67,13 +67,11 @@ class PokedexPage extends StatelessWidget {
           itemCount: pokemons.length,
         );
       }),
-      floatingActionButton: HookBuilder(builder: (context) {
-        return FloatingActionButton(
-          onPressed: () async {
-            context.read(pokedexViewModelProvider).fetchDefaultPokemons();
-          },
-        );
-      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          context.read(pokedexViewModelProvider).fetchDefaultPokemons();
+        },
+      ),
     );
   }
 }
