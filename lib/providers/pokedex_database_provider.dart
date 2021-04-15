@@ -6,9 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-final pokedexDatabaseHelperProvider = Provider<DatabaseHelper>((ref) {
-  return DatabaseHelper(databaseName: 'pokedex.db');
-});
+final pokedexDatabaseHelperProvider = Provider<DatabaseHelper>(
+    (ref) => DatabaseHelper(databaseName: 'pokedex.db'));
 
 class DatabaseHelper {
   DatabaseHelper({required String databaseName}) : _databaseName = databaseName;
