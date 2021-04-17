@@ -1,1 +1,1 @@
-select * from pokemon_species
+select * from pokemon_species where id = ?

@@ -25,10 +25,11 @@ class PokedexPage extends StatelessWidget {
         //ポケモン読み込まれてたら
         return ListView.builder(
           itemBuilder: (BuildContext context, int index) {
-            final pokemeon = pokemons[index];
-            // final isPrevGenIcon = pokemeon.gen8!.forms!['\$']!.isPrevGenIcon!;
+            final pokemon = pokemons[index];
+            final pokemonId = pokemon.id!;
+            // final isPrevGenIcon = pokemon.gen8!.forms!['\$']!.isPrevGenIcon!;
             final Image pokemonImage = Image.asset(
-              'assets/icons/pokemon/regular/' + pokemeon.identifier! + '.png',
+              'assets/icons/pokemon/regular/' + pokemon.identifier! + '.png',
               // scale: isPrevGenIcon ? 0.8 : 1,
               isAntiAlias: true,
               fit: BoxFit.contain,
@@ -43,24 +44,25 @@ class PokedexPage extends StatelessWidget {
                     Positioned(
                       top: 0,
                       child: Hero(
-                        tag: pokemeon.identifier!,
+                        tag: pokemon.identifier!,
                         child: pokemonImage,
                       ),
                     ),
                   ],
                 ),
               ),
-              // leading: Text(pokemeon.id!.toString()),
+              // leading: Text(pokemon.id!.toString()),
               title: Text(
-                pokemeon.identifier!,
+                pokemon.identifier!,
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
-              onTap: () {
+              onTap: () async {
                 // final pokemonViewModel = context.read(pokemonViewModelProvider);
-                // pokemonViewModel.setName(pokemeon.identifier!);
-                context.read(pokemonNameProvider).state = pokemeon.identifier!;
+                // pokemonViewModel.setName(pokemon.identifier!);
+                context.read(pokemonIdProvider).state = pokemonId;
+                // await context.read(pokemonViewModelProvider).fetchPokemon();
                 Navigator.pushNamed(context, Routes.pokemon);
               },
             );

@@ -9,7 +9,11 @@ class PokemonPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final pokemonViewModel = useProvider(pokemonViewModelProvider);
-    final name = pokemonViewModel.name;
+    final pokemon = pokemonViewModel.pokemon;
+    if (pokemon == null) {
+      print('空でーす');
+      return Scaffold();
+    }
 
     // final pokemonImage = Image.asset(
     //   'assets/images/regular/venusaur.png',
@@ -41,7 +45,7 @@ class PokemonPage extends HookWidget {
             SliverPadding(
               padding: EdgeInsets.only(bottom: 0.0),
               sliver: SliverPersistentHeader(
-                delegate: PokemonSliverDelegate(name),
+                delegate: PokemonSliverDelegate(pokemon.identifier!),
                 pinned: true,
               ),
             ),
@@ -65,7 +69,7 @@ class PokemonPage extends HookWidget {
           // context
           //     .read(pokemonViewModelProvider)
           //     .setName('dragapult'); //context.read使わんでもいいかも
-          context.read(pokemonNameProvider).state = 'dragapult';
+          context.read(pokemonIdProvider).state = 887;
         },
       ),
     );
@@ -89,8 +93,8 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     var topSpace = maxExtent - rounded_container_height - shrinkOffset;
     double opacity = max(0.0, 1 - shrinkOffset / (maxExtent - minExtent));
-    print(opacity);
-    print((MediaQuery.of(context).padding.top + kToolbarHeight));
+    // print(opacity);
+    // print((MediaQuery.of(context).padding.top + kToolbarHeight));
     return Stack(
       children: <Widget>[
         Container(

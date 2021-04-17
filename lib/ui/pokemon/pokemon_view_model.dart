@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sqlite_example/model/pokedex/pokemon.dart';
+import 'package:sqlite_example/provider/pokedex_data_source_provider.dart';
 
-final pokemonNameProvider =
-    StateProvider((ref) => ''); //todo: currentpokemonとかに変更しよう
+final pokemonIdProvider = StateProvider((ref) => 0);
 
 final pokemonViewModelProvider =
     ChangeNotifierProvider<PokemonViewModel>((ref) {
-  final name = ref.watch(pokemonNameProvider).state;
-  return PokemonViewModel(ref, name);
+  final pokemonId = ref.watch(pokemonIdProvider).state;
+  return PokemonViewModel(
+      dataSource: ref.read(pokedexDataSourceProvider), id: pokemonId);
 });
 
 class PokemonViewModel extends ChangeNotifier {
-  PokemonViewModel._(this.ref, this.name);
-
-  factory PokemonViewModel(ProviderReference ref, String name) {
-    final pokemonViewModel = PokemonViewModel._(ref, name);
-    return pokemonViewModel;
+  PokemonViewModel({required PokedexDataSource dataSource, required int id})
+      : _dataSource = dataSource,
+        _id = id {
+    fetchPokemon(); //todo:ここの初期処理の方法考えろ
   }
 
-  String name;
+  final PokedexDataSource _dataSource;
+  int _id;
+  Pokemon? pokemon;
 
-  List<Pokemon> _pokemons = [];
-
-  List<Pokemon> get pokemons => _pokemons;
-
-  ProviderReference ref;
-
-  void setName(String s) {
-    this.name = s;
+  Future<void> fetchPokemon() async {
+    final pokemon = await _dataSource.getPokemon(_id);
+    this.pokemon = pokemon;
     notifyListeners();
   }
 }
