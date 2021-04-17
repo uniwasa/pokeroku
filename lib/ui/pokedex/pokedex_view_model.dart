@@ -1,38 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sqlite_example/model/pokedex/pokemon.dart';
 import 'package:sqlite_example/providers/pokedex_data_source_provider.dart';
+import 'package:sqlite_example/state/pokedex_state.dart';
 
-final pokedexViewModelProvider =
-    ChangeNotifierProvider<PokedexViewModel>((ref) {
+final pokedexViewModelProvider = StateNotifierProvider<PokedexViewModel>((ref) {
   return PokedexViewModel(dataSource: ref.read(pokedexDataSourceProvider));
 });
 
-class PokedexViewModel extends ChangeNotifier {
+class PokedexViewModel extends StateNotifier<PokedexState> {
   final PokedexDataSource _dataSource;
 
   PokedexViewModel({required PokedexDataSource dataSource})
-      : _dataSource = dataSource;
-
-  // ProviderReference ref;
-  // PokedexViewModel._(this.ref);
-  // factory PokedexViewModel(ProviderReference ref) {
-  //   final pokedexViewModel = PokedexViewModel._(ref);
-  //   pokedexViewModel.fetchDefaultPokemons();
-  //   return pokedexViewModel;
-  // }
-
-  List<Pokemon>? _pokemons;
-
-  List<Pokemon>? get pokemons => _pokemons;
+      : _dataSource = dataSource,
+        super(const PokedexState());
 
   Future<void> fetchDefaultPokemons() async {
-    // final db = await ref.read(pokedexDatabaseHelperProvider).database;
-    // String query = await rootBundle.loadString('assets/query/pokemon.sql');
-    // List<Map<String, dynamic>> list = await db.rawQuery(query);
-    //
-    // _pokemons = list.map((e) => Pokemon.fromJson(e)).toList();
-    _pokemons = await _dataSource.getPokemons();
-    notifyListeners();
+    final pokemons = await _dataSource.getPokemons();
+    state = state.copyWith(pokemons: pokemons);
   }
 }

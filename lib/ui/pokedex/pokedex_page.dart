@@ -16,8 +16,10 @@ class PokedexPage extends StatelessWidget {
         title: Text('Pokedex'),
       ),
       body: HookBuilder(builder: (context) {
-        final pokemons = useProvider(
-            pokedexViewModelProvider.select((value) => value.pokemons));
+        // final pokemons = useProvider(
+        //     pokedexViewModelProvider.select((value) => value.pokemons));
+        final pokemonState = useProvider(pokedexViewModelProvider.state);
+        final pokemons = pokemonState.pokemons;
         //ポケモンまだ読み込まれてないなら
         if (pokemons == null) return ListView();
         //ポケモン読み込まれてたら

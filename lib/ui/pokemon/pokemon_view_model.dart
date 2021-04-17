@@ -15,7 +15,6 @@ class PokemonViewModel extends ChangeNotifier {
   PokemonViewModel._(this.ref, this.name);
 
   factory PokemonViewModel(ProviderReference ref, String name) {
-    print('gggggg');
     final pokemonViewModel = PokemonViewModel._(ref, name);
     return pokemonViewModel;
   }
