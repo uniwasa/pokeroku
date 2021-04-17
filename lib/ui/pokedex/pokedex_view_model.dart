@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sqlite_example/providers/pokedex_data_source_provider.dart';
+import 'package:sqlite_example/provider/pokedex_data_source_provider.dart';
 import 'package:sqlite_example/state/pokedex_state.dart';
 
 final pokedexViewModelProvider = StateNotifierProvider<PokedexViewModel>((ref) {

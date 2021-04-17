@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sqlite_example/model/pokedex/pokemon.dart';
-import 'package:sqlite_example/providers/pokedex_database_provider.dart';
+import 'package:sqlite_example/provider/pokedex_database_provider.dart';
 
 final pokedexDataSourceProvider = Provider<PokedexDataSource>((ref) {
   return PokedexDataSource(
