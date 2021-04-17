@@ -69,7 +69,7 @@ class PokemonPage extends HookWidget {
           // context
           //     .read(pokemonViewModelProvider)
           //     .setName('dragapult'); //context.read使わんでもいいかも
-          context.read(pokemonIdProvider).state = 887;
+          context.read(pokemonViewModelProvider).fetchPokemon(887);
         },
       ),
     );
@@ -80,7 +80,7 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
   PokemonSliverDelegate(this.name);
 
   String name;
-  double rounded_container_height = 60;
+  double roundedContainerHeight = 60;
 
   @override
   double get maxExtent => 380;
@@ -91,10 +91,7 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    var topSpace = maxExtent - rounded_container_height - shrinkOffset;
     double opacity = max(0.0, 1 - shrinkOffset / (maxExtent - minExtent));
-    // print(opacity);
-    // print((MediaQuery.of(context).padding.top + kToolbarHeight));
     return Stack(
       children: <Widget>[
         Container(
@@ -108,7 +105,7 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
           left: 0,
           bottom: 0,
           child: Container(
-            height: rounded_container_height,
+            height: roundedContainerHeight,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,

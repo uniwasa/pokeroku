@@ -61,8 +61,8 @@ class PokedexPage extends StatelessWidget {
               onTap: () async {
                 // final pokemonViewModel = context.read(pokemonViewModelProvider);
                 // pokemonViewModel.setName(pokemon.identifier!);
-                context.read(pokemonIdProvider).state = pokemonId;
-                // await context.read(pokemonViewModelProvider).fetchPokemon();
+                // context.read(pokemonIdProvider).state = pokemonId;
+                await context.read(pokemonViewModelProvider).fetchPokemon(pokemonId);
                 Navigator.pushNamed(context, Routes.pokemon);
               },
             );
