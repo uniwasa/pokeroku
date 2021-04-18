@@ -22,4 +22,9 @@ class PokemonViewModel extends ChangeNotifier {
     _pokemon = pokemon;
     notifyListeners();
   }
+
+  void setPokemon(Pokemon pokemon) {
+    _pokemon = pokemon;
+    notifyListeners();
+  }
 }

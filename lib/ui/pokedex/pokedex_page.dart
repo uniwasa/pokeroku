@@ -26,7 +26,6 @@ class PokedexPage extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             final pokemon = pokemons[index];
-            final pokemonId = pokemon.id!;
             // final isPrevGenIcon = pokemon.gen8!.forms!['\$']!.isPrevGenIcon!;
             final Image pokemonImage = Image.asset(
               'assets/icons/pokemon/regular/' + pokemon.identifier! + '.png',
@@ -58,11 +57,8 @@ class PokedexPage extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              onTap: () async {
-                // final pokemonViewModel = context.read(pokemonViewModelProvider);
-                // pokemonViewModel.setName(pokemon.identifier!);
-                // context.read(pokemonIdProvider).state = pokemonId;
-                await context.read(pokemonViewModelProvider).fetchPokemon(pokemonId);
+              onTap: () {
+                context.read(pokemonViewModelProvider).setPokemon(pokemon);
                 Navigator.pushNamed(context, Routes.pokemon);
               },
             );
