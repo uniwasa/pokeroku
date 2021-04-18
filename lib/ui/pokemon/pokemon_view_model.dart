@@ -13,11 +13,13 @@ class PokemonViewModel extends ChangeNotifier {
       : _dataSource = dataSource;
 
   final PokedexDataSource _dataSource;
-  Pokemon? pokemon;
+  Pokemon? _pokemon;
+
+  Pokemon? get pokemon => _pokemon;
 
   Future<void> fetchPokemon(int id) async {
     final pokemon = await _dataSource.getPokemon(id);
-    this.pokemon = pokemon;
+    _pokemon = pokemon;
     notifyListeners();
   }
 }
