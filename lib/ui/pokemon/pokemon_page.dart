@@ -9,33 +9,11 @@ import 'package:sqlite_example/ui/pokemon/pokemon_view_model.dart';
 class PokemonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final pokemonImage = Image.asset(
-    //   'assets/images/regular/venusaur.png',
-    //   alignment: Alignment(20, 20),
-    // );
     return Scaffold(
       body: Container(
         color: Theme.of(context).cardColor,
         child: CustomScrollView(
           slivers: <Widget>[
-            // SliverAppBar(
-            //   flexibleSpace: FlexibleSpaceBar(
-            //     background: Image.asset(
-            //       'assets/icons/pokemon/regular/' + name + '.png',
-            //       isAntiAlias: true,
-            //       fit: BoxFit.fitHeight,
-            //       filterQuality: FilterQuality.none,
-            //     ),
-            //     stretchModes: [],
-            //   ),
-            //   floating: true,
-            //   pinned: true,
-            //   expandedHeight: 200,
-            //   // backgroundColor: Colors.green,
-            //   onStretchTrigger: () async {
-            //     print('hello');
-            //   },
-            // ),
             HookBuilder(builder: (context) {
               final currentPokemon = useProvider(currentPokemonProvider);
               final pokemon = currentPokemon.pokemon;
@@ -85,7 +63,7 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 380;
 
   @override
-  double get minExtent => 163;
+  double get minExtent => 163; //ステータスバーの高さとか計算した結果
 
   @override
   Widget build(
