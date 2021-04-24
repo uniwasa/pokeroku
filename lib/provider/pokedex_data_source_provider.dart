@@ -15,7 +15,8 @@ class PokedexDataSource {
 
   Future<List<Pokemon>> getPokemons() async {
     final db = await _databaseHelper.database;
-    String query = await rootBundle.loadString('assets/query/pokemons.sql');
+    String query =
+        await rootBundle.loadString('assets/query/default_pokemons.sql');
     List<Map<String, dynamic>> list = await db.rawQuery(query);
 
     return list.map((e) => Pokemon.fromJson(e)).toList();

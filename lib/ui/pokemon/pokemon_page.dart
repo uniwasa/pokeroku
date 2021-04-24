@@ -3,18 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sqlite_example/model/pokedex/pokemon.dart';
 import 'package:sqlite_example/ui/pokemon/pokemon_view_model.dart';
 
-class PokemonPage extends HookWidget {
+class PokemonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final pokemonViewModel = useProvider(pokemonViewModelProvider);
-    final pokemon = pokemonViewModel.pokemon;
-    if (pokemon == null) {
-      print('空でーす');
-      return Scaffold();
-    }
-
     // final pokemonImage = Image.asset(
     //   'assets/images/regular/venusaur.png',
     //   alignment: Alignment(20, 20),
@@ -42,13 +36,18 @@ class PokemonPage extends HookWidget {
             //     print('hello');
             //   },
             // ),
-            SliverPadding(
-              padding: EdgeInsets.only(bottom: 0.0),
-              sliver: SliverPersistentHeader(
-                delegate: PokemonSliverDelegate(pokemon.identifier!),
-                pinned: true,
-              ),
-            ),
+            HookBuilder(builder: (context) {
+              final currentPokemon = useProvider(currentPokemonProvider);
+              final pokemon = currentPokemon.pokemon;
+              if (pokemon == null) return SliverAppBar(); //空のSliverAppBar
+              return SliverPadding(
+                padding: EdgeInsets.only(bottom: 0.0),
+                sliver: SliverPersistentHeader(
+                  delegate: PokemonSliverDelegate(pokemon: pokemon),
+                  pinned: true,
+                ),
+              );
+            }),
             SliverList(
               delegate: SliverChildBuilderDelegate((_, __) {
                 return Container(
@@ -69,7 +68,7 @@ class PokemonPage extends HookWidget {
           // context
           //     .read(pokemonViewModelProvider)
           //     .setName('dragapult'); //context.read使わんでもいいかも
-          context.read(pokemonViewModelProvider).fetchPokemon(887);
+          context.read(currentPokemonProvider).fetchPokemon(887);
         },
       ),
     );
@@ -77,9 +76,9 @@ class PokemonPage extends HookWidget {
 }
 
 class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
-  PokemonSliverDelegate(this.name);
+  PokemonSliverDelegate({required Pokemon pokemon}) : _pokemon = pokemon;
 
-  String name;
+  Pokemon _pokemon;
   double roundedContainerHeight = 60;
 
   @override
@@ -98,7 +97,7 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
           width: MediaQuery.of(context).size.width,
           height: maxExtent,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: _pokemon.color,
           ),
         ),
         Positioned(
@@ -123,9 +122,11 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
             child: Opacity(
               opacity: opacity,
               child: Hero(
-                tag: name,
+                tag: _pokemon.speciesIdentifier,
                 child: Image.asset(
-                  'assets/icons/pokemon/regular/' + name + '.png',
+                  'assets/icons/pokemon/regular/' +
+                      _pokemon.speciesIdentifier +
+                      '.png',
                   isAntiAlias: true,
                   fit: BoxFit.contain,
                   filterQuality: FilterQuality.none,
@@ -140,7 +141,7 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            name,
+            _pokemon.nameJp,
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),

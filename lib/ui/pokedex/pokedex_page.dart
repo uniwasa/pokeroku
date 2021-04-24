@@ -28,7 +28,9 @@ class PokedexPage extends StatelessWidget {
             final pokemon = pokemons[index];
             // final isPrevGenIcon = pokemon.gen8!.forms!['\$']!.isPrevGenIcon!;
             final Image pokemonImage = Image.asset(
-              'assets/icons/pokemon/regular/' + pokemon.identifier! + '.png',
+              'assets/icons/pokemon/regular/' +
+                  pokemon.speciesIdentifier +
+                  '.png',
               // scale: isPrevGenIcon ? 0.8 : 1,
               isAntiAlias: true,
               fit: BoxFit.contain,
@@ -43,7 +45,7 @@ class PokedexPage extends StatelessWidget {
                     Positioned(
                       top: 0,
                       child: Hero(
-                        tag: pokemon.identifier!,
+                        tag: pokemon.speciesIdentifier,
                         child: pokemonImage,
                       ),
                     ),
@@ -52,13 +54,13 @@ class PokedexPage extends StatelessWidget {
               ),
               // leading: Text(pokemon.id!.toString()),
               title: Text(
-                pokemon.identifier!,
+                pokemon.nameJp,
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
               onTap: () {
-                context.read(pokemonViewModelProvider).setPokemon(pokemon);
+                context.read(currentPokemonProvider).setPokemon(pokemon);
                 Navigator.pushNamed(context, Routes.pokemon);
               },
             );

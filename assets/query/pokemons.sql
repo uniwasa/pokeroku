@@ -1,1 +1,0 @@
-select * from pokemon_species
