@@ -244,41 +244,47 @@ class _TabViewItemState extends State<TabViewItem>
             },
             child: NestedScrollViewInnerScrollPositionKeyWidget(
               widget.tabKey,
-              CustomScrollView(
-                slivers: <Widget>[
-                  SliverOverlapInjector(
-                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                        context)!,
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.all(8.0),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          return Column(
-                            children: <Widget>[
-                              Container(
-                                height: 150,
-                                width: double.infinity,
-                                color: Colors.blueGrey,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text('${widget.tabName} $index')
-                                  ],
+              NotificationListener<ScrollNotification>(
+                onNotification: (ScrollNotification scrollInfo) {
+                  print(scrollInfo.metrics.pixels);
+                  return true;
+                },
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverOverlapInjector(
+                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                          context)!,
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.all(8.0),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 150,
+                                  width: double.infinity,
+                                  color: Colors.blueGrey,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text('${widget.tabName} $index')
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              )
-                            ],
-                          );
-                        },
-                        childCount: 30,
+                                SizedBox(
+                                  height: 8,
+                                )
+                              ],
+                            );
+                          },
+                          childCount: 30,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
