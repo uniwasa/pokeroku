@@ -8,125 +8,112 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sqlite_example/model/pokedex/pokemon.dart';
 import 'package:sqlite_example/ui/pokemon/pokemon_view_model.dart';
 
-class PokemonPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _PokemonPageState();
-}
-
-class _PokemonPageState extends State<PokemonPage>
-    with TickerProviderStateMixin {
+class PokemonPage extends StatelessWidget {
   final List<String> _tabs = <String>[
     "Featured",
     "Popular",
     "Latest",
   ];
-  TabController? _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Theme.of(context).cardColor,
-        child: NestedScrollView(
-          headerSliverBuilder:
-              (BuildContext context, bool? innerBoxIsScrolled) {
-            return <Widget>[
-              SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context)!,
-                sliver: SliverSafeArea(
-                  top: false,
-                  bottom: Platform.isIOS ? false : true,
-                  sliver: HookBuilder(builder: (context) {
-                    final currentPokemon = useProvider(currentPokemonProvider);
-                    final pokemon = currentPokemon.pokemon;
-                    if (pokemon == null) return SliverAppBar(); //空のSliverAppBar
-                    return SliverPadding(
-                      padding: EdgeInsets.only(bottom: 0.0),
-                      sliver: SliverPersistentHeader(
-                        delegate: PokemonSliverDelegate(
-                          pokemon: pokemon,
-                          tabBar: TabBar(
-                            controller: _tabController,
-                            tabs: _tabs
-                                .map((String name) => Tab(text: name))
-                                .toList(),
+    return DefaultTabController(
+      length: _tabs.length,
+      child: Builder(builder: (context) {
+        return Scaffold(
+          body: Container(
+            color: Theme.of(context).cardColor,
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool? innerBoxIsScrolled) {
+                return <Widget>[
+                  SliverOverlapAbsorber(
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context)!,
+                    sliver: SliverSafeArea(
+                      top: false,
+                      bottom: Platform.isIOS ? false : true,
+                      sliver: HookBuilder(builder: (context) {
+                        final currentPokemon =
+                            useProvider(currentPokemonProvider);
+                        final pokemon = currentPokemon.pokemon;
+                        if (pokemon == null)
+                          return SliverAppBar(); //空のSliverAppBar
+                        return SliverPadding(
+                          padding: EdgeInsets.only(bottom: 0.0),
+                          sliver: SliverPersistentHeader(
+                            delegate: PokemonSliverDelegate(
+                              pokemon: pokemon,
+                              tabBar: TabBar(
+                                tabs: _tabs
+                                    .map((String name) => Tab(text: name))
+                                    .toList(),
+                              ),
+                            ),
+                            pinned: true,
                           ),
-                        ),
-                        pinned: true,
-                      ),
-                    );
-                  }),
-                ),
+                        );
+                      }),
+                    ),
+                  )
+                ];
+              },
+              innerScrollPositionKeyBuilder: () {
+                return Key('Tab${DefaultTabController.of(context)!.index}');
+              },
+              body: TabBarView(
+                children: _tabs.asMap().entries.map((entry) {
+                  return TabViewItem(
+                    tabKey: Key('Tab${entry.key}'),
+                    tabName: entry.value,
+                  );
+                }).toList(),
               ),
-            ];
-          },
-          innerScrollPositionKeyBuilder: () {
-            return Key('Tab${_tabController!.index}');
-          },
-          body: TabBarView(
-            controller: _tabController,
-            children: _tabs.asMap().entries.map((entry) {
-              return TabViewItem(
-                tabKey: Key('Tab${entry.key}'),
-                tabName: entry.value,
-              );
-            }).toList(),
+            ),
+            // child: CustomScrollView(
+            //   slivers: <Widget>[
+            //     HookBuilder(builder: (context) {
+            //       final currentPokemon = useProvider(currentPokemonProvider);
+            //       final pokemon = currentPokemon.pokemon;
+            //       if (pokemon == null) return SliverAppBar(); //空のSliverAppBar
+            //       return SliverPadding(
+            //         padding: EdgeInsets.only(bottom: 0.0),
+            //         sliver: SliverPersistentHeader(
+            //           delegate: PokemonSliverDelegate(pokemon: pokemon),
+            //           pinned: true,
+            //         ),
+            //       );
+            //     }),
+            //     SliverList(
+            //       delegate: SliverChildBuilderDelegate((_, __) {
+            //         return Container(
+            //           child: Column(
+            //             children: List.generate(
+            //               100,
+            //               (index) => Container(
+            //                 child: ListTile(
+            //                   title: Text("$index nothing"),
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         );
+            //       }, childCount: 1),
+            //     )
+            //   ],
+            // ),
           ),
-        ),
-        // child: CustomScrollView(
-        //   slivers: <Widget>[
-        //     HookBuilder(builder: (context) {
-        //       final currentPokemon = useProvider(currentPokemonProvider);
-        //       final pokemon = currentPokemon.pokemon;
-        //       if (pokemon == null) return SliverAppBar(); //空のSliverAppBar
-        //       return SliverPadding(
-        //         padding: EdgeInsets.only(bottom: 0.0),
-        //         sliver: SliverPersistentHeader(
-        //           delegate: PokemonSliverDelegate(pokemon: pokemon),
-        //           pinned: true,
-        //         ),
-        //       );
-        //     }),
-        //     SliverList(
-        //       delegate: SliverChildBuilderDelegate((_, __) {
-        //         return Container(
-        //           child: Column(
-        //             children: List.generate(
-        //               100,
-        //               (index) => Container(
-        //                 child: ListTile(
-        //                   title: Text("$index nothing"),
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         );
-        //       }, childCount: 1),
-        //     )
-        //   ],
-        // ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // context
-          //     .read(pokemonViewModelProvider)
-          //     .setName('dragapult'); //context.read使わんでもいいかも
-          context.read(currentPokemonProvider).fetchPokemon(887);
-        },
-      ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              // context
+              //     .read(pokemonViewModelProvider)
+              //     .setName('dragapult'); //context.read使わんでもいいかも
+              // context.read(currentPokemonProvider).fetchPokemon(887);
+              print(DefaultTabController.of(context)?.index);
+            },
+          ),
+        );
+      }),
     );
   }
 }
