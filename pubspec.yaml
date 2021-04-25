@@ -27,6 +27,7 @@ dependencies:
   flutter_hooks: ^0.16.0
   hooks_riverpod: ^0.13.1
   sqflite: ^2.0.0+3
+  extended_nested_scroll_view: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
