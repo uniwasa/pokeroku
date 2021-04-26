@@ -10,9 +10,9 @@ import 'package:sqlite_example/ui/pokemon/pokemon_view_model.dart';
 
 class PokemonPage extends StatelessWidget {
   final List<String> _tabs = <String>[
-    "Featured",
-    "Popular",
-    "Latest",
+    "きほん",
+    "わざ",
+    "そのた",
   ];
 
   @override
@@ -24,6 +24,9 @@ class PokemonPage extends StatelessWidget {
           body: Container(
             color: Theme.of(context).cardColor,
             child: NestedScrollView(
+              pinnedHeaderSliverHeightBuilder: () {
+                return 163;
+              },
               headerSliverBuilder:
                   (BuildContext context, bool? innerBoxIsScrolled) {
                 return <Widget>[
@@ -48,6 +51,8 @@ class PokemonPage extends StatelessWidget {
                                 tabs: _tabs
                                     .map((String name) => Tab(text: name))
                                     .toList(),
+                                indicatorColor: pokemon.color,
+                                indicatorWeight: 4,
                               ),
                             ),
                             pinned: true,
@@ -155,8 +160,8 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50),
-                topRight: Radius.circular(50),
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
               ),
             ),
           ),
@@ -170,7 +175,7 @@ class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
         ),
         Positioned(
           // top: 0,
-          bottom: 0,
+          bottom: 30,
           child: Center(
             child: Opacity(
               opacity: opacity,
@@ -231,6 +236,9 @@ class TabViewItem extends StatefulWidget {
 class _TabViewItemState extends State<TabViewItem>
     with AutomaticKeepAliveClientMixin {
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return SafeArea(
@@ -238,61 +246,47 @@ class _TabViewItemState extends State<TabViewItem>
       bottom: false,
       child: Builder(
         builder: (BuildContext context) {
-          return NotificationListener<ScrollNotification>(
-            onNotification: (scrollNotification) {
-              return true;
-            },
-            child: NestedScrollViewInnerScrollPositionKeyWidget(
-              widget.tabKey,
-              NotificationListener<ScrollNotification>(
-                onNotification: (ScrollNotification scrollInfo) {
-                  print(scrollInfo.metrics.pixels);
-                  return true;
-                },
-                child: CustomScrollView(
-                  slivers: <Widget>[
-                    SliverOverlapInjector(
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          context)!,
-                    ),
-                    SliverPadding(
-                      padding: const EdgeInsets.all(8.0),
-                      sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 150,
-                                  width: double.infinity,
-                                  color: Colors.blueGrey,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text('${widget.tabName} $index')
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                )
-                              ],
-                            );
-                          },
-                          childCount: 30,
-                        ),
-                      ),
-                    ),
-                  ],
+          return NestedScrollViewInnerScrollPositionKeyWidget(
+            widget.tabKey,
+            CustomScrollView(
+              slivers: <Widget>[
+                SliverOverlapInjector(
+                  handle:
+                      NestedScrollView.sliverOverlapAbsorberHandleFor(context)!,
                 ),
-              ),
+                SliverPadding(
+                  padding: const EdgeInsets.all(8.0),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return Column(
+                          children: <Widget>[
+                            Container(
+                              height: 150,
+                              width: double.infinity,
+                              color: Colors.blueGrey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('${widget.tabName} $index')
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            )
+                          ],
+                        );
+                      },
+                      childCount: 30,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
