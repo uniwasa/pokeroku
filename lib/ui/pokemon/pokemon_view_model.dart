@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sqlite_example/model/pokedex/pokemon.dart';
-import 'package:sqlite_example/provider/pokedex_data_source_provider.dart';
+import 'package:pokeroku/model/pokedex/pokemon.dart';
+import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 
 final currentPokemonProvider = ChangeNotifierProvider<CurrentPokemon>((ref) {
   return CurrentPokemon(dataSource: ref.read(pokedexDataSourceProvider));

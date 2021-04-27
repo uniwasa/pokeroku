@@ -5,8 +5,8 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sqlite_example/model/pokedex/pokemon.dart';
-import 'package:sqlite_example/ui/pokemon/pokemon_view_model.dart';
+import 'package:pokeroku/model/pokedex/pokemon.dart';
+import 'package:pokeroku/ui/pokemon/pokemon_view_model.dart';
 
 class PokemonPage extends StatelessWidget {
   final List<String> _tabs = <String>[

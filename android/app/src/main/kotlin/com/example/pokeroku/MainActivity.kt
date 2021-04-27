@@ -1,4 +1,4 @@
-package com.example.sqlite_example
+package com.example.pokeroku
 
 import io.flutter.embedding.android.FlutterActivity
 

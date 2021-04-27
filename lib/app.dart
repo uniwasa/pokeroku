@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:sqlite_example/routes.dart';
-import 'package:sqlite_example/ui/pokedex/pokedex_page.dart';
-import 'package:sqlite_example/ui/pokemon/pokemon_page.dart';
+import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
+import 'package:pokeroku/ui/pokemon/pokemon_page.dart';
 
 class App extends HookWidget {
   @override

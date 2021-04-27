@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sqlite_example/ui/pokedex/pokedex_view_model.dart';
-import 'package:sqlite_example/ui/pokemon/pokemon_view_model.dart';
+import 'package:pokeroku/ui/pokedex/pokedex_view_model.dart';
+import 'package:pokeroku/ui/pokemon/pokemon_view_model.dart';
 
 import '../../routes.dart';
 

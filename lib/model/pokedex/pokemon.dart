@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:sqlite_example/const/type_color.dart';
+import 'package:pokeroku/const/type_color.dart';
 
 part 'pokemon.freezed.dart';
 
