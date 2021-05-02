@@ -38,7 +38,15 @@ class _$PokemonTearOff {
       @JsonKey(name: 'first_type_name')
           required String firstTypeName,
       @JsonKey(name: 'second_type_name')
-          String? secondTypeName}) {
+          String? secondTypeName,
+      required int hp,
+      required int attack,
+      required int defense,
+      @JsonKey(name: 'special_attack')
+          required int specialAttack,
+      @JsonKey(name: 'special_defense')
+          required int specialDefense,
+      required int speed}) {
     return _Pokemon(
       id: id,
       identifier: identifier,
@@ -50,6 +58,12 @@ class _$PokemonTearOff {
       secondTypeIdentifier: secondTypeIdentifier,
       firstTypeName: firstTypeName,
       secondTypeName: secondTypeName,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
     );
   }
 
@@ -81,6 +95,14 @@ mixin _$Pokemon {
   String get firstTypeName => throw _privateConstructorUsedError;
   @JsonKey(name: 'second_type_name')
   String? get secondTypeName => throw _privateConstructorUsedError;
+  int get hp => throw _privateConstructorUsedError;
+  int get attack => throw _privateConstructorUsedError;
+  int get defense => throw _privateConstructorUsedError;
+  @JsonKey(name: 'special_attack')
+  int get specialAttack => throw _privateConstructorUsedError;
+  @JsonKey(name: 'special_defense')
+  int get specialDefense => throw _privateConstructorUsedError;
+  int get speed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -101,7 +123,13 @@ abstract class $PokemonCopyWith<$Res> {
       @JsonKey(name: 'first_type_identifier') String firstTypeIdentifier,
       @JsonKey(name: 'second_type_identifier') String? secondTypeIdentifier,
       @JsonKey(name: 'first_type_name') String firstTypeName,
-      @JsonKey(name: 'second_type_name') String? secondTypeName});
+      @JsonKey(name: 'second_type_name') String? secondTypeName,
+      int hp,
+      int attack,
+      int defense,
+      @JsonKey(name: 'special_attack') int specialAttack,
+      @JsonKey(name: 'special_defense') int specialDefense,
+      int speed});
 }
 
 /// @nodoc
@@ -124,6 +152,12 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
     Object? secondTypeIdentifier = freezed,
     Object? firstTypeName = freezed,
     Object? secondTypeName = freezed,
+    Object? hp = freezed,
+    Object? attack = freezed,
+    Object? defense = freezed,
+    Object? specialAttack = freezed,
+    Object? specialDefense = freezed,
+    Object? speed = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -166,6 +200,30 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
           ? _value.secondTypeName
           : secondTypeName // ignore: cast_nullable_to_non_nullable
               as String?,
+      hp: hp == freezed
+          ? _value.hp
+          : hp // ignore: cast_nullable_to_non_nullable
+              as int,
+      attack: attack == freezed
+          ? _value.attack
+          : attack // ignore: cast_nullable_to_non_nullable
+              as int,
+      defense: defense == freezed
+          ? _value.defense
+          : defense // ignore: cast_nullable_to_non_nullable
+              as int,
+      specialAttack: specialAttack == freezed
+          ? _value.specialAttack
+          : specialAttack // ignore: cast_nullable_to_non_nullable
+              as int,
+      specialDefense: specialDefense == freezed
+          ? _value.specialDefense
+          : specialDefense // ignore: cast_nullable_to_non_nullable
+              as int,
+      speed: speed == freezed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -185,7 +243,13 @@ abstract class _$PokemonCopyWith<$Res> implements $PokemonCopyWith<$Res> {
       @JsonKey(name: 'first_type_identifier') String firstTypeIdentifier,
       @JsonKey(name: 'second_type_identifier') String? secondTypeIdentifier,
       @JsonKey(name: 'first_type_name') String firstTypeName,
-      @JsonKey(name: 'second_type_name') String? secondTypeName});
+      @JsonKey(name: 'second_type_name') String? secondTypeName,
+      int hp,
+      int attack,
+      int defense,
+      @JsonKey(name: 'special_attack') int specialAttack,
+      @JsonKey(name: 'special_defense') int specialDefense,
+      int speed});
 }
 
 /// @nodoc
@@ -209,6 +273,12 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
     Object? secondTypeIdentifier = freezed,
     Object? firstTypeName = freezed,
     Object? secondTypeName = freezed,
+    Object? hp = freezed,
+    Object? attack = freezed,
+    Object? defense = freezed,
+    Object? specialAttack = freezed,
+    Object? specialDefense = freezed,
+    Object? speed = freezed,
   }) {
     return _then(_Pokemon(
       id: id == freezed
@@ -251,6 +321,30 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
           ? _value.secondTypeName
           : secondTypeName // ignore: cast_nullable_to_non_nullable
               as String?,
+      hp: hp == freezed
+          ? _value.hp
+          : hp // ignore: cast_nullable_to_non_nullable
+              as int,
+      attack: attack == freezed
+          ? _value.attack
+          : attack // ignore: cast_nullable_to_non_nullable
+              as int,
+      defense: defense == freezed
+          ? _value.defense
+          : defense // ignore: cast_nullable_to_non_nullable
+              as int,
+      specialAttack: specialAttack == freezed
+          ? _value.specialAttack
+          : specialAttack // ignore: cast_nullable_to_non_nullable
+              as int,
+      specialDefense: specialDefense == freezed
+          ? _value.specialDefense
+          : specialDefense // ignore: cast_nullable_to_non_nullable
+              as int,
+      speed: speed == freezed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -269,7 +363,13 @@ class _$_Pokemon extends _Pokemon {
       @JsonKey(name: 'first_type_identifier') required this.firstTypeIdentifier,
       @JsonKey(name: 'second_type_identifier') this.secondTypeIdentifier,
       @JsonKey(name: 'first_type_name') required this.firstTypeName,
-      @JsonKey(name: 'second_type_name') this.secondTypeName})
+      @JsonKey(name: 'second_type_name') this.secondTypeName,
+      required this.hp,
+      required this.attack,
+      required this.defense,
+      @JsonKey(name: 'special_attack') required this.specialAttack,
+      @JsonKey(name: 'special_defense') required this.specialDefense,
+      required this.speed})
       : super._();
 
   factory _$_Pokemon.fromJson(Map<String, dynamic> json) =>
@@ -303,10 +403,24 @@ class _$_Pokemon extends _Pokemon {
   @override
   @JsonKey(name: 'second_type_name')
   final String? secondTypeName;
+  @override
+  final int hp;
+  @override
+  final int attack;
+  @override
+  final int defense;
+  @override
+  @JsonKey(name: 'special_attack')
+  final int specialAttack;
+  @override
+  @JsonKey(name: 'special_defense')
+  final int specialDefense;
+  @override
+  final int speed;
 
   @override
   String toString() {
-    return 'Pokemon(id: $id, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, firstType: $firstType, secondType: $secondType, firstTypeIdentifier: $firstTypeIdentifier, secondTypeIdentifier: $secondTypeIdentifier, firstTypeName: $firstTypeName, secondTypeName: $secondTypeName)';
+    return 'Pokemon(id: $id, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, firstType: $firstType, secondType: $secondType, firstTypeIdentifier: $firstTypeIdentifier, secondTypeIdentifier: $secondTypeIdentifier, firstTypeName: $firstTypeName, secondTypeName: $secondTypeName, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed)';
   }
 
   @override
@@ -340,7 +454,22 @@ class _$_Pokemon extends _Pokemon {
                     .equals(other.firstTypeName, firstTypeName)) &&
             (identical(other.secondTypeName, secondTypeName) ||
                 const DeepCollectionEquality()
-                    .equals(other.secondTypeName, secondTypeName)));
+                    .equals(other.secondTypeName, secondTypeName)) &&
+            (identical(other.hp, hp) ||
+                const DeepCollectionEquality().equals(other.hp, hp)) &&
+            (identical(other.attack, attack) ||
+                const DeepCollectionEquality().equals(other.attack, attack)) &&
+            (identical(other.defense, defense) ||
+                const DeepCollectionEquality()
+                    .equals(other.defense, defense)) &&
+            (identical(other.specialAttack, specialAttack) ||
+                const DeepCollectionEquality()
+                    .equals(other.specialAttack, specialAttack)) &&
+            (identical(other.specialDefense, specialDefense) ||
+                const DeepCollectionEquality()
+                    .equals(other.specialDefense, specialDefense)) &&
+            (identical(other.speed, speed) ||
+                const DeepCollectionEquality().equals(other.speed, speed)));
   }
 
   @override
@@ -355,7 +484,13 @@ class _$_Pokemon extends _Pokemon {
       const DeepCollectionEquality().hash(firstTypeIdentifier) ^
       const DeepCollectionEquality().hash(secondTypeIdentifier) ^
       const DeepCollectionEquality().hash(firstTypeName) ^
-      const DeepCollectionEquality().hash(secondTypeName);
+      const DeepCollectionEquality().hash(secondTypeName) ^
+      const DeepCollectionEquality().hash(hp) ^
+      const DeepCollectionEquality().hash(attack) ^
+      const DeepCollectionEquality().hash(defense) ^
+      const DeepCollectionEquality().hash(specialAttack) ^
+      const DeepCollectionEquality().hash(specialDefense) ^
+      const DeepCollectionEquality().hash(speed);
 
   @JsonKey(ignore: true)
   @override
@@ -387,7 +522,15 @@ abstract class _Pokemon extends Pokemon {
       @JsonKey(name: 'first_type_name')
           required String firstTypeName,
       @JsonKey(name: 'second_type_name')
-          String? secondTypeName}) = _$_Pokemon;
+          String? secondTypeName,
+      required int hp,
+      required int attack,
+      required int defense,
+      @JsonKey(name: 'special_attack')
+          required int specialAttack,
+      @JsonKey(name: 'special_defense')
+          required int specialDefense,
+      required int speed}) = _$_Pokemon;
   const _Pokemon._() : super._();
 
   factory _Pokemon.fromJson(Map<String, dynamic> json) = _$_Pokemon.fromJson;
@@ -420,6 +563,20 @@ abstract class _Pokemon extends Pokemon {
   @override
   @JsonKey(name: 'second_type_name')
   String? get secondTypeName => throw _privateConstructorUsedError;
+  @override
+  int get hp => throw _privateConstructorUsedError;
+  @override
+  int get attack => throw _privateConstructorUsedError;
+  @override
+  int get defense => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'special_attack')
+  int get specialAttack => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'special_defense')
+  int get specialDefense => throw _privateConstructorUsedError;
+  @override
+  int get speed => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonCopyWith<_Pokemon> get copyWith =>

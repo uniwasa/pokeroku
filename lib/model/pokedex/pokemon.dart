@@ -21,6 +21,12 @@ class Pokemon with _$Pokemon {
     @JsonKey(name: 'second_type_identifier') String? secondTypeIdentifier,
     @JsonKey(name: 'first_type_name') required String firstTypeName,
     @JsonKey(name: 'second_type_name') String? secondTypeName,
+    required int hp,
+    required int attack,
+    required int defense,
+    @JsonKey(name: 'special_attack') required int specialAttack,
+    @JsonKey(name: 'special_defense') required int specialDefense,
+    required int speed,
   }) = _Pokemon;
 
   factory Pokemon.fromJson(Map<String, dynamic> json) =>

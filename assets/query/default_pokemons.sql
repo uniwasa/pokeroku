@@ -8,12 +8,12 @@ select
 	,max(case when pokemon_types.slot = 2 then types.identifier end) as second_type_identifier
 	,max(case when pokemon_types.slot = 1 then type_names.name end) as first_type_name
 	,max(case when pokemon_types.slot = 2 then type_names.name end) as second_type_name
-	,max(case when pokemon_stats.stat_id = 1 then base_stat end) as H
-	,max(case when pokemon_stats.stat_id = 2 then base_stat end) as A
-	,max(case when pokemon_stats.stat_id = 3 then base_stat end) as B
-	,max(case when pokemon_stats.stat_id = 4 then base_stat end) as C
-	,max(case when pokemon_stats.stat_id = 5 then base_stat end) as D
-	,max(case when pokemon_stats.stat_id = 6 then base_stat end) as S
+	,max(case when pokemon_stats.stat_id = 1 then base_stat end) as hp
+	,max(case when pokemon_stats.stat_id = 2 then base_stat end) as attack
+	,max(case when pokemon_stats.stat_id = 3 then base_stat end) as defense
+	,max(case when pokemon_stats.stat_id = 4 then base_stat end) as special_attack
+	,max(case when pokemon_stats.stat_id = 5 then base_stat end) as special_defense
+	,max(case when pokemon_stats.stat_id = 6 then base_stat end) as speed
 	,pokemon_species_names.name as name_jp
 	from pokemon
 inner join pokemon_species

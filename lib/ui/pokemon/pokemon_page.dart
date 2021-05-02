@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/model/pokedex/pokemon.dart';
+import 'package:pokeroku/ui/component/pokemon_header_sliver_delegate.dart';
+import 'package:pokeroku/ui/component/pokemon_stats_chart.dart';
+import 'package:pokeroku/ui/component/tab_view_item.dart';
 import 'package:pokeroku/ui/pokemon/pokemon_view_model.dart';
 
 class PokemonPage extends StatelessWidget {
@@ -14,6 +15,12 @@ class PokemonPage extends StatelessWidget {
     "わざ",
     "そのた",
   ];
+
+  double _appBarHeight(BuildContext context) {
+    return MediaQuery.of(context).padding.top + kToolbarHeight;
+  }
+
+  double _bottomAppBarHeight = 70;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class PokemonPage extends StatelessWidget {
             color: Theme.of(context).cardColor,
             child: NestedScrollView(
               pinnedHeaderSliverHeightBuilder: () {
-                return 163;
+                return _appBarHeight(context) + _bottomAppBarHeight;
               },
               headerSliverBuilder:
                   (BuildContext context, bool? innerBoxIsScrolled) {
@@ -45,7 +52,7 @@ class PokemonPage extends StatelessWidget {
                         return SliverPadding(
                           padding: EdgeInsets.only(bottom: 0.0),
                           sliver: SliverPersistentHeader(
-                            delegate: PokemonSliverDelegate(
+                            delegate: PokemonHeaderSliverDelegate(
                               pokemon: pokemon,
                               tabBar: TabBar(
                                 tabs: _tabs
@@ -54,6 +61,8 @@ class PokemonPage extends StatelessWidget {
                                 indicatorColor: pokemon.color,
                                 indicatorWeight: 4,
                               ),
+                              appBarHeight: _appBarHeight(context),
+                              bottomAppBarHeight: _bottomAppBarHeight,
                             ),
                             pinned: true,
                           ),
@@ -64,49 +73,38 @@ class PokemonPage extends StatelessWidget {
                 ];
               },
               innerScrollPositionKeyBuilder: () {
-                return Key('Tab${DefaultTabController.of(context)!.index}');
+                return Key('tab_${DefaultTabController.of(context)!.index}');
               },
               body: TabBarView(
-                children: _tabs.asMap().entries.map((entry) {
-                  return TabViewItem(
-                    tabKey: Key('Tab${entry.key}'),
-                    tabName: entry.value,
-                  );
-                }).toList(),
+                children: [
+                  TabViewItem(
+                    tabKey: Key('tab_0'),
+                    body: Column(
+                      children: <Widget>[
+                        HookBuilder(builder: (context) {
+                          final currentPokemon =
+                              useProvider(currentPokemonProvider);
+                          final pokemon = currentPokemon.pokemon;
+                          if (pokemon == null) return Container();
+                          return PokemonStatsChart(pokemon: pokemon);
+                        }),
+                        SizedBox(
+                          height: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                  TabViewItem(
+                    tabKey: Key('tab_1'),
+                    body: Container(),
+                  ),
+                  TabViewItem(
+                    tabKey: Key('tab_2'),
+                    body: Container(),
+                  )
+                ],
               ),
             ),
-            // child: CustomScrollView(
-            //   slivers: <Widget>[
-            //     HookBuilder(builder: (context) {
-            //       final currentPokemon = useProvider(currentPokemonProvider);
-            //       final pokemon = currentPokemon.pokemon;
-            //       if (pokemon == null) return SliverAppBar(); //空のSliverAppBar
-            //       return SliverPadding(
-            //         padding: EdgeInsets.only(bottom: 0.0),
-            //         sliver: SliverPersistentHeader(
-            //           delegate: PokemonSliverDelegate(pokemon: pokemon),
-            //           pinned: true,
-            //         ),
-            //       );
-            //     }),
-            //     SliverList(
-            //       delegate: SliverChildBuilderDelegate((_, __) {
-            //         return Container(
-            //           child: Column(
-            //             children: List.generate(
-            //               100,
-            //               (index) => Container(
-            //                 child: ListTile(
-            //                   title: Text("$index nothing"),
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         );
-            //       }, childCount: 1),
-            //     )
-            //   ],
-            // ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
@@ -119,174 +117,6 @@ class PokemonPage extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class PokemonSliverDelegate extends SliverPersistentHeaderDelegate {
-  PokemonSliverDelegate({required Pokemon pokemon, required TabBar tabBar})
-      : _pokemon = pokemon,
-        _tabBar = tabBar;
-
-  Pokemon _pokemon;
-  TabBar _tabBar;
-  double roundedContainerHeight = 60;
-
-  @override
-  double get maxExtent => 380;
-
-  @override
-  double get minExtent => 163; //ステータスバーの高さとか計算した結果
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    double opacity = max(0.0, 1 - shrinkOffset / (maxExtent - minExtent));
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: maxExtent,
-          decoration: BoxDecoration(
-            color: _pokemon.color,
-          ),
-        ),
-        Positioned(
-          left: 0,
-          bottom: 0,
-          child: Container(
-            height: roundedContainerHeight,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          left: 0,
-          bottom: 0,
-          height: roundedContainerHeight,
-          width: MediaQuery.of(context).size.width,
-          child: _tabBar,
-        ),
-        Positioned(
-          // top: 0,
-          bottom: 30,
-          child: Center(
-            child: Opacity(
-              opacity: opacity,
-              child: Hero(
-                tag: _pokemon.speciesIdentifier,
-                child: Image.asset(
-                  'assets/icons/pokemon/regular/' +
-                      _pokemon.speciesIdentifier +
-                      '.png',
-                  isAntiAlias: true,
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.none,
-                  width: MediaQuery.of(context).size.width,
-                  // height: maxExtent,
-                ),
-              ),
-            ),
-          ),
-        ),
-        AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            _pokemon.nameJp,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.favorite_border,
-                ),
-                onPressed: () => {})
-          ],
-        ),
-      ],
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-}
-
-class TabViewItem extends StatefulWidget {
-  final Key tabKey;
-  final String tabName;
-
-  const TabViewItem({Key? key, required this.tabKey, required this.tabName})
-      : super(key: key);
-
-  @override
-  _TabViewItemState createState() => _TabViewItemState();
-}
-
-class _TabViewItemState extends State<TabViewItem>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Builder(
-        builder: (BuildContext context) {
-          return NestedScrollViewInnerScrollPositionKeyWidget(
-            widget.tabKey,
-            CustomScrollView(
-              slivers: <Widget>[
-                SliverOverlapInjector(
-                  handle:
-                      NestedScrollView.sliverOverlapAbsorberHandleFor(context)!,
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.all(8.0),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return Column(
-                          children: <Widget>[
-                            Container(
-                              height: 150,
-                              width: double.infinity,
-                              color: Colors.blueGrey,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text('${widget.tabName} $index')
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            )
-                          ],
-                        );
-                      },
-                      childCount: 30,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
     );
   }
 }
