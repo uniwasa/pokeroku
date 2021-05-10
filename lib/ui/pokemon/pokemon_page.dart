@@ -112,7 +112,7 @@ class PokemonPage extends StatelessWidget {
               //     .read(pokemonViewModelProvider)
               //     .setName('dragapult'); //context.read使わんでもいいかも
               // context.read(currentPokemonProvider).fetchPokemon(887);
-              print(DefaultTabController.of(context)?.index);
+              // print(DefaultTabController.of(context)?.index);
             },
           ),
         );

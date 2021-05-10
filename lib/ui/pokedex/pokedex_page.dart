@@ -9,13 +9,42 @@ import '../../routes.dart';
 class PokedexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //初回ポケモン取得
-    context.read(pokedexViewModelProvider).fetchDefaultPokemons();
+    //初期ポケモン取得
+    context.read(pokedexViewModelProvider).fetchInitialPokemons();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pokedex'),
+        leading: Icon(Icons.menu),
+        actions: [
+          Container(
+            width: kToolbarHeight,
+            child: Icon(Icons.filter_alt),
+          ),
+        ],
+        title: Container(
+          height: kToolbarHeight - 16,
+          child: TextField(
+            onChanged: (text) {
+              final pokedexViewModel = context.read(pokedexViewModelProvider);
+              pokedexViewModel.searchForText(text);
+            },
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search, color: Colors.white54),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+              fillColor: Colors.black,
+              filled: true,
+            ),
+          ),
+        ),
       ),
       body: HookBuilder(builder: (context) {
+        // return Container();
         // final pokemons = useProvider(
         //     pokedexViewModelProvider.select((value) => value.pokemons));
         final pokemonState = useProvider(pokedexViewModelProvider.state);
@@ -23,55 +52,109 @@ class PokedexPage extends StatelessWidget {
         //ポケモンまだ読み込まれてないなら
         if (pokemons == null) return ListView();
         //ポケモン読み込まれてたら
-        return ListView.builder(
+        return GridView.builder(
+          padding: EdgeInsets.all(5),
           itemBuilder: (BuildContext context, int index) {
             final pokemon = pokemons[index];
             // final isPrevGenIcon = pokemon.gen8!.forms!['\$']!.isPrevGenIcon!;
             final Image pokemonImage = Image.asset(
-              'assets/icons/pokemon/regular/' +
-                  pokemon.speciesIdentifier +
-                  '.png',
-              // scale: isPrevGenIcon ? 0.8 : 1,
+              pokemon.imageName,
               isAntiAlias: true,
               fit: BoxFit.contain,
               filterQuality: FilterQuality.none,
             );
-            final listTile = ListTile(
-              leading: Container(
-                width: 68,
-                height: 56,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 0,
-                      child: Hero(
-                        tag: pokemon.speciesIdentifier,
-                        child: pokemonImage,
+            final pokemonHeroImage = Hero(
+              tag: pokemon.identifier,
+              child: pokemonImage,
+            );
+
+            return Padding(
+                padding: const EdgeInsets.all(5),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Material(
+                    color: Theme.of(context).cardColor,
+                    child: InkWell(
+                      onTap: () {
+                        context
+                            .read(currentPokemonProvider)
+                            .setPokemon(pokemon);
+                        Navigator.pushNamed(context, Routes.pokemon);
+                      },
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            // color: pokemon.color,
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: AspectRatio(
+                                aspectRatio: 1.25,
+                                child: pokemonHeroImage,
+                              ),
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    pokemon.nameJp,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  if (pokemon.formNameJp != null)
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8),
+                                      child: Text(
+                                        pokemon.formNameJp!,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              // Text(
+                              //   pokemon.fullNameEn,
+                              //   style: TextStyle(
+                              //     color: Colors.white70,
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding: EdgeInsets.only(top: 8, right: 8),
+                            child: Text(
+                              '#' +
+                                  pokemon.speciesId.toString().padLeft(3, "0"),
+                              style: TextStyle(
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              // leading: Text(pokemon.id!.toString()),
-              title: Text(
-                pokemon.nameJp,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              onTap: () {
-                context.read(currentPokemonProvider).setPokemon(pokemon);
-                Navigator.pushNamed(context, Routes.pokemon);
-              },
-            );
-            return listTile;
+                  ),
+                ));
           },
           itemCount: pokemons.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1,
+            childAspectRatio: 5,
+          ),
         );
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          context.read(pokedexViewModelProvider).fetchDefaultPokemons();
+          context.read(pokedexViewModelProvider).fetchInitialPokemons();
         },
       ),
     );

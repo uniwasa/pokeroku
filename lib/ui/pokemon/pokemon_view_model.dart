@@ -49,15 +49,4 @@ class PokemonViewModel extends ChangeNotifier {
   // Pokemon? _pokemon;
 
   Pokemon? get pokemon => _currentPokemon.pokemon;
-
-// Future<void> fetchPokemon(int id) async {
-//   final pokemon = await _dataSource.getPokemon(id);
-//   _pokemon = pokemon;
-//   notifyListeners();
-// }
-//
-// void setPokemon(Pokemon pokemon) {
-//   _pokemon = pokemon;
-//   notifyListeners();
-// }
 }

@@ -62,11 +62,9 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
             child: Opacity(
               opacity: opacity,
               child: Hero(
-                tag: _pokemon.speciesIdentifier,
+                tag: _pokemon.identifier,
                 child: Image.asset(
-                  'assets/icons/pokemon/regular/' +
-                      _pokemon.speciesIdentifier +
-                      '.png',
+                  _pokemon.imageName,
                   isAntiAlias: true,
                   fit: BoxFit.contain,
                   filterQuality: FilterQuality.none,
@@ -81,7 +79,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            _pokemon.nameJp,
+            _pokemon.fullNameJp,
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
