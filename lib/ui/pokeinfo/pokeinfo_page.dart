@@ -7,9 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/ui/component/pokemon_header_sliver_delegate.dart';
 import 'package:pokeroku/ui/component/pokemon_stats_chart.dart';
 import 'package:pokeroku/ui/component/tab_view_item.dart';
-import 'package:pokeroku/ui/pokemon/pokemon_view_model.dart';
+import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
 
-class PokemonPage extends StatelessWidget {
+class PokeinfoPage extends StatelessWidget {
   final List<String> _tabs = <String>[
     "きほん",
     "わざ",
@@ -20,7 +20,7 @@ class PokemonPage extends StatelessWidget {
     return MediaQuery.of(context).padding.top + kToolbarHeight;
   }
 
-  double _bottomAppBarHeight = 70;
+  final double _bottomAppBarHeight = 70;
 
   @override
   Widget build(BuildContext context) {

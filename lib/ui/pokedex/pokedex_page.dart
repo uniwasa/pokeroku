@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_view_model.dart';
-import 'package:pokeroku/ui/pokemon/pokemon_view_model.dart';
+import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
 
 import '../../routes.dart';
 
@@ -77,7 +77,7 @@ class PokedexPage extends StatelessWidget {
                         context
                             .read(currentPokemonProvider)
                             .setPokemon(pokemon);
-                        Navigator.pushNamed(context, Routes.pokemon);
+                        Navigator.pushNamed(context, Routes.pokeinfo);
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

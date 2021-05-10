@@ -28,16 +28,16 @@ class CurrentPokemon extends ChangeNotifier {
   }
 }
 
-final pokemonViewModelProvider =
-    ChangeNotifierProvider<PokemonViewModel>((ref) {
+final pokeinfoViewModelProvider =
+    ChangeNotifierProvider<PokeinfoViewModel>((ref) {
   final currentPokemon = ref.watch(currentPokemonProvider);
-  return PokemonViewModel(
+  return PokeinfoViewModel(
       dataSource: ref.read(pokedexDataSourceProvider),
       currentPokemon: currentPokemon);
 });
 
-class PokemonViewModel extends ChangeNotifier {
-  PokemonViewModel(
+class PokeinfoViewModel extends ChangeNotifier {
+  PokeinfoViewModel(
       {required PokedexDataSource dataSource,
       required CurrentPokemon currentPokemon})
       : _dataSource = dataSource,

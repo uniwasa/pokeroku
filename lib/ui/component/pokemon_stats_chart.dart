@@ -5,7 +5,7 @@ import 'package:pokeroku/model/pokedex/pokemon.dart';
 class PokemonStatsChart extends StatelessWidget {
   PokemonStatsChart({required Pokemon pokemon}) : _pokemon = pokemon;
 
-  Pokemon _pokemon;
+  final Pokemon _pokemon;
 
   Color barColor(int value) {
     if (value < 60) {
