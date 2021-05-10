@@ -9,8 +9,6 @@ import '../../routes.dart';
 class PokedexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //初期ポケモン取得
-    context.read(pokedexViewModelProvider).fetchInitialPokemons();
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.menu),

@@ -14,7 +14,9 @@ class PokedexViewModel extends StateNotifier<PokedexState> {
 
   PokedexViewModel({required PokedexDataSource dataSource})
       : _dataSource = dataSource,
-        super(const PokedexState());
+        super(const PokedexState()) {
+    fetchInitialPokemons();
+  }
 
   Future<void> fetchInitialPokemons() async {
     final pokemons = await _dataSource.getPokemons();
