@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pokeroku/const/type_color.dart';
 
-import '../../util.dart';
+import '../util.dart';
 
 part 'pokemon.freezed.dart';
 part 'pokemon.g.dart';

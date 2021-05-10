@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pokeroku/model/pokedex/pokemon.dart';
+import 'package:pokeroku/model/pokemon.dart';
 
 part 'pokedex_state.freezed.dart';
 

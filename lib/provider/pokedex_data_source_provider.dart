@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/model/pokedex/pokemon.dart';
+import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/provider/pokedex_database_provider.dart';
 
 final pokedexDataSourceProvider = Provider<PokedexDataSource>((ref) {

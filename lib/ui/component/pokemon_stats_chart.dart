@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:pokeroku/model/pokedex/pokemon.dart';
+import 'package:pokeroku/model/pokemon.dart';
 
 class PokemonStatsChart extends StatelessWidget {
   PokemonStatsChart({required Pokemon pokemon}) : _pokemon = pokemon;

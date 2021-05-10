@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/model/pokedex/pokemon.dart';
+import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 
 final currentPokemonProvider = ChangeNotifierProvider<CurrentPokemon>((ref) {
