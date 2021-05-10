@@ -4,6 +4,7 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/ui/component/pokemon_header_sliver_delegate.dart';
 import 'package:pokeroku/ui/component/pokemon_stats_chart.dart';
 import 'package:pokeroku/ui/component/tab_view_item.dart';
