@@ -8,7 +8,7 @@ final pokeinfoViewModelProvider =
     ChangeNotifierProvider<PokeinfoViewModel>((ref) {
   return PokeinfoViewModel(
       dataSource: ref.read(pokedexDataSourceProvider),
-      currentPokemon: ref.watch(currentPokemonProvider).state);
+      currentPokemon: ref.watch(currentPokemonProvider.state));
 });
 
 class PokeinfoViewModel extends ChangeNotifier {
