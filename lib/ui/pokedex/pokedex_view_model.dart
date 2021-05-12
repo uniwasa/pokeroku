@@ -18,18 +18,26 @@ class PokedexViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
   }
 
   Future<void> fetchInitialPokemons() async {
-    final pokemons = await _dataSource.getPokemons();
-    initialPokemons = pokemons;
-    state = AsyncValue.data(pokemons);
+    try {
+      final pokemons = await _dataSource.getPokemons();
+      initialPokemons = pokemons;
+      state = AsyncValue.data(pokemons);
+    } on Exception catch (error) {
+      state = AsyncValue.error(error);
+    }
   }
 
   void searchForText(String input) {
-    final pokemons = initialPokemons;
-    if (pokemons != null) {
-      final filtered = pokemons.where((pokemon) {
-        return hiraToKana(pokemon.nameJp).contains(hiraToKana(input));
-      }).toList();
-      state = AsyncValue.data(filtered);
+    try {
+      final pokemons = initialPokemons;
+      if (pokemons != null) {
+        final filtered = pokemons.where((pokemon) {
+          return hiraToKana(pokemon.nameJp).contains(hiraToKana(input));
+        }).toList();
+        state = AsyncValue.data(filtered);
+      }
+    } on Exception catch (error) {
+      state = AsyncValue.error(error);
     }
   }
 }

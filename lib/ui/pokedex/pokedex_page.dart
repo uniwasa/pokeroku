@@ -155,7 +155,9 @@ class PokedexPage extends StatelessWidget {
           loading: () => Center(
             child: CircularProgressIndicator(),
           ),
-          error: (error, _) => ListView(),
+          error: (error, _) => Center(
+            child: Text(error.toString()),
+          ),
         );
       }),
       floatingActionButton: FloatingActionButton(
