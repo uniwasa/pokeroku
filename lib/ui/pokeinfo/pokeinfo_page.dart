@@ -8,6 +8,7 @@ import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/ui/component/pokemon_header_sliver_delegate.dart';
 import 'package:pokeroku/ui/component/pokemon_stats_chart.dart';
 import 'package:pokeroku/ui/component/tab_view_item.dart';
+import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
 
 class PokeinfoPage extends StatelessWidget {
   final List<String> _tabs = <String>[
@@ -44,9 +45,8 @@ class PokeinfoPage extends StatelessWidget {
                       top: false,
                       bottom: Platform.isIOS ? false : true,
                       sliver: HookBuilder(builder: (context) {
-                        final currentPokemonState =
+                        final pokemon =
                             useProvider(currentPokemonProvider.state);
-                        final pokemon = currentPokemonState.pokemon;
                         if (pokemon == null)
                           return SliverAppBar(); //空のSliverAppBar
                         return SliverPadding(
@@ -82,9 +82,8 @@ class PokeinfoPage extends StatelessWidget {
                     body: Column(
                       children: <Widget>[
                         HookBuilder(builder: (context) {
-                          final currentPokemonState =
+                          final pokemon =
                               useProvider(currentPokemonProvider.state);
-                          final pokemon = currentPokemonState.pokemon;
                           if (pokemon == null) return Container();
                           return PokemonStatsChart(pokemon: pokemon);
                         }),
