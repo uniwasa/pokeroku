@@ -19,6 +19,7 @@ class PokedexViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
 
   Future<void> fetchInitialPokemons() async {
     try {
+      state = AsyncValue.loading();
       final pokemons = await _dataSource.getPokemons();
       initialPokemons = pokemons;
       state = AsyncValue.data(pokemons);

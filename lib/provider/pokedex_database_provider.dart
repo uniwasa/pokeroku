@@ -16,13 +16,10 @@ class DatabaseHelper {
   Database? _database;
 
   Future<Database> get database async {
-    if (_database == null) {
-      await init();
-    }
-    return _database!;
+    return _database ??= await _createDatabase();
   }
 
-  Future<void> init() async {
+  Future<Database> _createDatabase() async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, _databaseName);
 // delete existing if any
@@ -32,11 +29,11 @@ class DatabaseHelper {
       await Directory(dirname(path)).create(recursive: true);
     } catch (_) {}
 // Copy from asset
-    ByteData data = await rootBundle.load(join('assets', 'pokedex.db'));
+    ByteData data = await rootBundle.load(join('assets', _databaseName));
     List<int> bytes =
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await new File(path).writeAsBytes(bytes, flush: true);
 // open the database
-    _database = await openDatabase(path, readOnly: true);
+    return await openDatabase(path, readOnly: true);
   }
 }
