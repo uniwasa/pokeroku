@@ -3,15 +3,14 @@ import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/util.dart';
 
-final pokedexViewModelProvider = StateNotifierProvider<PokedexViewModel>((ref) {
-  return PokedexViewModel(dataSource: ref.read(pokedexDataSourceProvider));
+final allPokemonsProvider = StateNotifierProvider<AllPokemons>((ref) {
+  return AllPokemons(dataSource: ref.read(pokedexDataSourceProvider));
 });
 
-class PokedexViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
+class AllPokemons extends StateNotifier<AsyncValue<List<Pokemon>>> {
   final PokedexDataSource _dataSource;
-  List<Pokemon>? initialPokemons;
 
-  PokedexViewModel({required PokedexDataSource dataSource})
+  AllPokemons({required PokedexDataSource dataSource})
       : _dataSource = dataSource,
         super(const AsyncValue.loading()) {
     fetchInitialPokemons();
@@ -21,24 +20,44 @@ class PokedexViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
     try {
       state = AsyncValue.loading();
       final pokemons = await _dataSource.getPokemons();
-      initialPokemons = pokemons;
       state = AsyncValue.data(pokemons);
     } on Exception catch (error) {
       state = AsyncValue.error(error);
     }
   }
+}
+
+final pokedexViewModelProvider = StateNotifierProvider<PokedexViewModel>((ref) {
+  return PokedexViewModel(pokemons: ref.watch(allPokemonsProvider.state));
+});
+
+class PokedexViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
+  final AsyncValue<List<Pokemon>> _allPokemons;
+
+  PokedexViewModel({required AsyncValue<List<Pokemon>> pokemons})
+      : _allPokemons = pokemons,
+        super(pokemons);
 
   void searchForText(String input) {
-    try {
-      final pokemons = initialPokemons;
-      if (pokemons != null) {
-        final filtered = pokemons.where((pokemon) {
+    _allPokemons.when(
+      data: (allPokemons) {
+        final filtered = allPokemons.where((pokemon) {
           return hiraToKana(pokemon.nameJp).contains(hiraToKana(input));
         }).toList();
         state = AsyncValue.data(filtered);
-      }
-    } on Exception catch (error) {
-      state = AsyncValue.error(error);
-    }
+      },
+      loading: () {
+        state = AsyncValue.loading();
+      },
+      error: (error, _) {
+        state = AsyncValue.error(error);
+      },
+    );
+    // _allPokemons.whenData((allPokemons) {
+    //   final filtered = allPokemons.where((pokemon) {
+    //     return hiraToKana(pokemon.nameJp).contains(hiraToKana(input));
+    //   }).toList();
+    //   state = AsyncValue.data(filtered);
+    // });
   }
 }

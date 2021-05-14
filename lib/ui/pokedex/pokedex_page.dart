@@ -162,7 +162,7 @@ class PokedexPage extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          context.read(pokedexViewModelProvider).fetchInitialPokemons();
+          // context.read(pokedexViewModelProvider).fetchInitialPokemons();
         },
       ),
     );
