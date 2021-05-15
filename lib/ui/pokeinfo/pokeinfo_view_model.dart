@@ -5,19 +5,24 @@ import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 
 final pokeinfoViewModelProvider =
-    ChangeNotifierProvider<PokeinfoViewModel>((ref) {
+    StateNotifierProvider<PokeinfoViewModel>((ref) {
   return PokeinfoViewModel(
       dataSource: ref.read(pokedexDataSourceProvider),
       currentPokemon: ref.watch(currentPokemonProvider.state));
 });
 
-class PokeinfoViewModel extends ChangeNotifier {
+class PokeinfoViewModel extends StateNotifier<AsyncValue> {
   PokeinfoViewModel({
     required PokedexDataSource dataSource,
     required Pokemon? currentPokemon,
   })   : _dataSource = dataSource,
-        _currentPokemon = currentPokemon {
-    print('hello');
+        _currentPokemon = currentPokemon,
+        super(const AsyncValue.loading()) {
+    fetchExtraInfo();
+  }
+
+  Future<void> fetchExtraInfo() async {
+
   }
 
   final PokedexDataSource _dataSource;
