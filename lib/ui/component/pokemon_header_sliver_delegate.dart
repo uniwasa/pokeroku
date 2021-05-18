@@ -70,6 +70,20 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           ),
         ),
         Positioned(
+          right: 0,
+          top: _appBarHeight,
+          child: Opacity(
+            opacity: opacity,
+            child: Padding(
+              padding: EdgeInsets.only(right: 10, top: 5),
+              child: Text(
+                '#' + _pokemon.speciesId.toString().padLeft(3, "0"),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
           left: 0,
           right: 0,
           bottom: 0,
