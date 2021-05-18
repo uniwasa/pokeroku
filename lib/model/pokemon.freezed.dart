@@ -22,6 +22,10 @@ class _$PokemonTearOff {
 
   _Pokemon call(
       {required int id,
+      required int height,
+      required int weight,
+      @JsonKey(name: 'base_experience')
+          required int baseExperience,
       @JsonKey(name: 'species_id')
           required int speciesId,
       required String identifier,
@@ -61,6 +65,9 @@ class _$PokemonTearOff {
           String? formNameEn}) {
     return _Pokemon(
       id: id,
+      height: height,
+      weight: weight,
+      baseExperience: baseExperience,
       speciesId: speciesId,
       identifier: identifier,
       speciesIdentifier: speciesIdentifier,
@@ -96,6 +103,10 @@ const $Pokemon = _$PokemonTearOff();
 /// @nodoc
 mixin _$Pokemon {
   int get id => throw _privateConstructorUsedError;
+  int get height => throw _privateConstructorUsedError;
+  int get weight => throw _privateConstructorUsedError;
+  @JsonKey(name: 'base_experience')
+  int get baseExperience => throw _privateConstructorUsedError;
   @JsonKey(name: 'species_id')
   int get speciesId => throw _privateConstructorUsedError;
   String get identifier => throw _privateConstructorUsedError;
@@ -145,6 +156,9 @@ abstract class $PokemonCopyWith<$Res> {
       _$PokemonCopyWithImpl<$Res>;
   $Res call(
       {int id,
+      int height,
+      int weight,
+      @JsonKey(name: 'base_experience') int baseExperience,
       @JsonKey(name: 'species_id') int speciesId,
       String identifier,
       @JsonKey(name: 'species_identifier') String speciesIdentifier,
@@ -179,6 +193,9 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? baseExperience = freezed,
     Object? speciesId = freezed,
     Object? identifier = freezed,
     Object? speciesIdentifier = freezed,
@@ -205,6 +222,18 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      height: height == freezed
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int,
+      weight: weight == freezed
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as int,
+      baseExperience: baseExperience == freezed
+          ? _value.baseExperience
+          : baseExperience // ignore: cast_nullable_to_non_nullable
               as int,
       speciesId: speciesId == freezed
           ? _value.speciesId
@@ -301,6 +330,9 @@ abstract class _$PokemonCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   @override
   $Res call(
       {int id,
+      int height,
+      int weight,
+      @JsonKey(name: 'base_experience') int baseExperience,
       @JsonKey(name: 'species_id') int speciesId,
       String identifier,
       @JsonKey(name: 'species_identifier') String speciesIdentifier,
@@ -336,6 +368,9 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? baseExperience = freezed,
     Object? speciesId = freezed,
     Object? identifier = freezed,
     Object? speciesIdentifier = freezed,
@@ -362,6 +397,18 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      height: height == freezed
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int,
+      weight: weight == freezed
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as int,
+      baseExperience: baseExperience == freezed
+          ? _value.baseExperience
+          : baseExperience // ignore: cast_nullable_to_non_nullable
               as int,
       speciesId: speciesId == freezed
           ? _value.speciesId
@@ -457,6 +504,9 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
 class _$_Pokemon extends _Pokemon {
   const _$_Pokemon(
       {required this.id,
+      required this.height,
+      required this.weight,
+      @JsonKey(name: 'base_experience') required this.baseExperience,
       @JsonKey(name: 'species_id') required this.speciesId,
       required this.identifier,
       @JsonKey(name: 'species_identifier') required this.speciesIdentifier,
@@ -485,6 +535,13 @@ class _$_Pokemon extends _Pokemon {
 
   @override
   final int id;
+  @override
+  final int height;
+  @override
+  final int weight;
+  @override
+  @JsonKey(name: 'base_experience')
+  final int baseExperience;
   @override
   @JsonKey(name: 'species_id')
   final int speciesId;
@@ -546,7 +603,7 @@ class _$_Pokemon extends _Pokemon {
 
   @override
   String toString() {
-    return 'Pokemon(id: $id, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, firstType: $firstType, secondType: $secondType, firstTypeIdentifier: $firstTypeIdentifier, secondTypeIdentifier: $secondTypeIdentifier, firstTypeName: $firstTypeName, secondTypeName: $secondTypeName, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formNameJp: $formNameJp, formNameEn: $formNameEn)';
+    return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, firstType: $firstType, secondType: $secondType, firstTypeIdentifier: $firstTypeIdentifier, secondTypeIdentifier: $secondTypeIdentifier, firstTypeName: $firstTypeName, secondTypeName: $secondTypeName, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formNameJp: $formNameJp, formNameEn: $formNameEn)';
   }
 
   @override
@@ -555,6 +612,13 @@ class _$_Pokemon extends _Pokemon {
         (other is _Pokemon &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.height, height) ||
+                const DeepCollectionEquality().equals(other.height, height)) &&
+            (identical(other.weight, weight) ||
+                const DeepCollectionEquality().equals(other.weight, weight)) &&
+            (identical(other.baseExperience, baseExperience) ||
+                const DeepCollectionEquality()
+                    .equals(other.baseExperience, baseExperience)) &&
             (identical(other.speciesId, speciesId) ||
                 const DeepCollectionEquality()
                     .equals(other.speciesId, speciesId)) &&
@@ -619,6 +683,9 @@ class _$_Pokemon extends _Pokemon {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(height) ^
+      const DeepCollectionEquality().hash(weight) ^
+      const DeepCollectionEquality().hash(baseExperience) ^
       const DeepCollectionEquality().hash(speciesId) ^
       const DeepCollectionEquality().hash(identifier) ^
       const DeepCollectionEquality().hash(speciesIdentifier) ^
@@ -655,6 +722,10 @@ class _$_Pokemon extends _Pokemon {
 abstract class _Pokemon extends Pokemon {
   const factory _Pokemon(
       {required int id,
+      required int height,
+      required int weight,
+      @JsonKey(name: 'base_experience')
+          required int baseExperience,
       @JsonKey(name: 'species_id')
           required int speciesId,
       required String identifier,
@@ -698,6 +769,13 @@ abstract class _Pokemon extends Pokemon {
 
   @override
   int get id => throw _privateConstructorUsedError;
+  @override
+  int get height => throw _privateConstructorUsedError;
+  @override
+  int get weight => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'base_experience')
+  int get baseExperience => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'species_id')
   int get speciesId => throw _privateConstructorUsedError;

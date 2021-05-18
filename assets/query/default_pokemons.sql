@@ -1,5 +1,8 @@
 select
 	pokemon.id
+	,pokemon.height
+	,pokemon.weight
+	,pokemon.base_experience
 	,pokemon_species.id as species_id
 	,pokemon.identifier
 	,pokemon_species.identifier as species_identifier

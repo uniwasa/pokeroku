@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon.dart';
 
+import '../../util.dart';
+
 class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
   PokemonHeaderSliverDelegate({
     required Pokemon pokemon,
@@ -37,11 +39,39 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           width: MediaQuery.of(context).size.width,
           height: maxExtent - shrinkOffset.ceil(),
           decoration: BoxDecoration(
-            color: _pokemon.color,
+            color: _pokemon.firstTypeColor,
           ),
         ),
         Positioned(
           left: 0,
+          top: _appBarHeight,
+          child: Opacity(
+            opacity: opacity,
+            child: Padding(
+              padding: EdgeInsets.only(left: 5, top: 5),
+              child: Column(
+                children: [
+                  buildBadge(
+                    text: _pokemon.firstTypeName,
+                    color: Colors.black.withOpacity(.1),
+                  ),
+                  if (_pokemon.secondTypeName != null &&
+                      _pokemon.secondTypeColor != null)
+                    Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: buildBadge(
+                        text: _pokemon.secondTypeName!,
+                        color: _pokemon.secondTypeColor!,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
           bottom: 0,
           child: Container(
             height: _bottomAppBarHeight,
@@ -56,7 +86,9 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           ),
         ),
         Positioned(
-          // top: 0,
+          top: 0,
+          left: 0,
+          right: 0,
           bottom: 30,
           child: Center(
             child: Opacity(
@@ -94,9 +126,9 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
         ),
         Positioned(
           left: 0,
+          right: 0,
           bottom: 0,
           height: _bottomAppBarHeight - 20,
-          width: MediaQuery.of(context).size.width,
           child: _tabBar,
         ),
       ],

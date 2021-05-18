@@ -5,6 +5,7 @@ import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_view_model.dart';
 
 import '../../routes.dart';
+import '../../util.dart';
 
 class PokedexPage extends StatelessWidget {
   @override
@@ -128,15 +129,38 @@ class PokedexPage extends StatelessWidget {
                               ),
                               Spacer(),
                               Padding(
-                                padding: EdgeInsets.only(top: 8, right: 8),
-                                child: Text(
-                                  '#' +
-                                      pokemon.speciesId
-                                          .toString()
-                                          .padLeft(3, "0"),
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                  ),
+                                padding: EdgeInsets.only(
+                                  top: 8,
+                                  right: 8,
+                                  bottom: 8,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '#' +
+                                          pokemon.speciesId
+                                              .toString()
+                                              .padLeft(3, "0"),
+                                      style: TextStyle(
+                                        color: Colors.white70,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Row(
+                                      children: [
+                                        buildCircle(
+                                            color: pokemon.firstTypeColor),
+                                        if (pokemon.secondTypeColor != null)
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 5),
+                                            child: buildCircle(
+                                              color: pokemon.secondTypeColor!,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

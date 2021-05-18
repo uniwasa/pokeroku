@@ -13,6 +13,9 @@ class Pokemon with _$Pokemon {
 
   const factory Pokemon({
     required int id,
+    required int height,
+    required int weight,
+    @JsonKey(name: 'base_experience') required int baseExperience,
     @JsonKey(name: 'species_id') required int speciesId,
     required String identifier,
     @JsonKey(name: 'species_identifier') required String speciesIdentifier,
@@ -39,7 +42,12 @@ class Pokemon with _$Pokemon {
   factory Pokemon.fromJson(Map<String, dynamic> json) =>
       _$PokemonFromJson(json);
 
-  Color get color => PokemonTypeExtension.init(this.firstTypeIdentifier).color;
+  Color get firstTypeColor =>
+      PokemonTypeExtension.init(this.firstTypeIdentifier).color;
+
+  Color? get secondTypeColor => this.secondTypeIdentifier != null
+      ? PokemonTypeExtension.init(this.secondTypeIdentifier!).color
+      : null;
 
   String get imageName {
     String path;
