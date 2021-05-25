@@ -501,7 +501,7 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Pokemon extends _Pokemon {
+class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   const _$_Pokemon(
       {required this.id,
       required this.height,
@@ -602,8 +602,40 @@ class _$_Pokemon extends _Pokemon {
   final String? formNameEn;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, firstType: $firstType, secondType: $secondType, firstTypeIdentifier: $firstTypeIdentifier, secondTypeIdentifier: $secondTypeIdentifier, firstTypeName: $firstTypeName, secondTypeName: $secondTypeName, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formNameJp: $formNameJp, formNameEn: $formNameEn)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Pokemon'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('height', height))
+      ..add(DiagnosticsProperty('weight', weight))
+      ..add(DiagnosticsProperty('baseExperience', baseExperience))
+      ..add(DiagnosticsProperty('speciesId', speciesId))
+      ..add(DiagnosticsProperty('identifier', identifier))
+      ..add(DiagnosticsProperty('speciesIdentifier', speciesIdentifier))
+      ..add(DiagnosticsProperty('nameJp', nameJp))
+      ..add(DiagnosticsProperty('nameEn', nameEn))
+      ..add(DiagnosticsProperty('firstType', firstType))
+      ..add(DiagnosticsProperty('secondType', secondType))
+      ..add(DiagnosticsProperty('firstTypeIdentifier', firstTypeIdentifier))
+      ..add(DiagnosticsProperty('secondTypeIdentifier', secondTypeIdentifier))
+      ..add(DiagnosticsProperty('firstTypeName', firstTypeName))
+      ..add(DiagnosticsProperty('secondTypeName', secondTypeName))
+      ..add(DiagnosticsProperty('hp', hp))
+      ..add(DiagnosticsProperty('attack', attack))
+      ..add(DiagnosticsProperty('defense', defense))
+      ..add(DiagnosticsProperty('specialAttack', specialAttack))
+      ..add(DiagnosticsProperty('specialDefense', specialDefense))
+      ..add(DiagnosticsProperty('speed', speed))
+      ..add(DiagnosticsProperty('isDefault', isDefault))
+      ..add(DiagnosticsProperty('pokespritePath', pokespritePath))
+      ..add(DiagnosticsProperty('formNameJp', formNameJp))
+      ..add(DiagnosticsProperty('formNameEn', formNameEn));
   }
 
   @override

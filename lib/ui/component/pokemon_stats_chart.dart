@@ -19,12 +19,10 @@ class PokemonStatsChart extends StatelessWidget {
     }
   }
 
-  final Color barBackgroundColor = const Color(0xff555555);
-
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1,
+      aspectRatio: 1.2,
       child: Stack(
         children: <Widget>[
           Padding(
@@ -66,7 +64,7 @@ class PokemonStatsChart extends StatelessWidget {
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
             y: 200,
-            colors: [barBackgroundColor],
+            colors: [Colors.white.withOpacity(0.1)],
           ),
         ),
       ],

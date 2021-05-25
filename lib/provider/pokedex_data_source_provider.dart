@@ -22,12 +22,27 @@ class PokedexDataSource {
     return list.map((e) => Pokemon.fromJson(e)).toList();
   }
 
-  Future<Pokemon> getPokemon(int id) async {
+  Future<Pokemon> getPokemon(int pokemonId) async {
     final db = await _databaseHelper.database;
     String query = await rootBundle.loadString('assets/query/pokemon.sql');
-    final result = (await db.rawQuery(query, [id])).first;
+    final result = (await db.rawQuery(query, [pokemonId])).first;
     final pokemon = Pokemon.fromJson(result);
 
     return pokemon;
+  }
+
+  Future<Map<String, dynamic>> getPokemonExtraInfo(int pokemonId) async {
+    final db = await _databaseHelper.database;
+    String query = await rootBundle.loadString('assets/query/pokemon_ex.sql');
+    final result = (await db.rawQuery(query, [pokemonId])).first;
+
+    return result;
+  }
+
+  Future<List<Map<String, dynamic>>> getEvolutions(int pokemonId) async {
+    final db = await _databaseHelper.database;
+    String query = await rootBundle.loadString('assets/query/evolutions.sql');
+    final evolutions = await db.rawQuery(query, [pokemonId]);
+    return evolutions;
   }
 }
