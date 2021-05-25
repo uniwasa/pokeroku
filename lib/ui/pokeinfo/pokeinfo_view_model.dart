@@ -78,14 +78,10 @@ class PokeinfoViewModel extends StateNotifier<AsyncValue<PokemonEx>> {
     List<Map<String, dynamic>> preStage,
   ) {
     return evolutions.where((element) {
-      bool isMatch = false;
-      for (Map<String, dynamic> preEvolved in preStage) {
-        if (preEvolved['species_id'] == element['evolves_from_species_id']) {
-          isMatch = true;
-          break;
-        }
-      }
-      return isMatch;
+      return preStage
+          .map((e) => e['species_id'])
+          .toList()
+          .contains(element['evolves_from_species_id']);
     }).toList();
   }
 
