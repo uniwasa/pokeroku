@@ -23,7 +23,7 @@ class PokedexPage extends StatelessWidget {
           height: kToolbarHeight - 16,
           child: TextField(
             onChanged: (text) {
-              final pokedexViewModel = context.read(pokedexViewModelProvider);
+              final pokedexViewModel = context.read(pokedexViewModelProvider.notifier);
               pokedexViewModel.searchForText(text);
             },
             decoration: InputDecoration(
@@ -46,7 +46,7 @@ class PokedexPage extends StatelessWidget {
         // return Container();
         // final pokemons = useProvider(
         //     pokedexViewModelProvider.select((value) => value.pokemons));
-        final pokemonState = useProvider(pokedexViewModelProvider.state);
+        final pokemonState = useProvider(pokedexViewModelProvider);
         return pokemonState.when(
           data: (pokemons) {
             //ポケモン読み込まれてたら
@@ -75,7 +75,7 @@ class PokedexPage extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             context
-                                .read(currentPokemonProvider)
+                                .read(currentPokemonProvider.notifier)
                                 .setPokemon(pokemon);
                             Navigator.pushNamed(context, Routes.pokeinfo);
                           },

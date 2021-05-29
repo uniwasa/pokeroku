@@ -7,11 +7,11 @@ import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/util.dart';
 
 final pokeinfoViewModelProvider =
-    StateNotifierProvider<PokeinfoViewModel>((ref) {
+    StateNotifierProvider<PokeinfoViewModel, AsyncValue<PokemonEx>>((ref) {
   return PokeinfoViewModel(
     dataSource: ref.read(pokedexDataSourceProvider),
-    currentPokemon: ref.watch(currentPokemonProvider.state),
-    allPokemons: ref.watch(allPokemonsProvider.state),
+    currentPokemon: ref.watch(currentPokemonProvider),
+    allPokemons: ref.watch(allPokemonsProvider),
   );
 });
 

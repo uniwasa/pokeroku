@@ -48,7 +48,7 @@ class PokeinfoPage extends StatelessWidget {
                       bottom: Platform.isIOS ? false : true,
                       sliver: HookBuilder(builder: (context) {
                         final pokemon =
-                            useProvider(currentPokemonProvider.state);
+                            useProvider(currentPokemonProvider);
                         if (pokemon == null)
                           return SliverAppBar(); //空のSliverAppBar
                         return SliverPadding(
@@ -79,9 +79,9 @@ class PokeinfoPage extends StatelessWidget {
               },
               body: HookBuilder(builder: (context) {
                 final pokemonExState =
-                    useProvider(pokeinfoViewModelProvider.state);
+                    useProvider(pokeinfoViewModelProvider);
                 final currentPokemon =
-                    useProvider(currentPokemonProvider.state);
+                    useProvider(currentPokemonProvider);
 
                 return pokemonExState.when(
                   data: (pokemonEx) {
@@ -290,7 +290,7 @@ class PokeinfoPage extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       context
-                          .read(currentPokemonProvider)
+                          .read(currentPokemonProvider.notifier)
                           .setPokemon(stagePokemon);
                     },
                     child: Padding(
