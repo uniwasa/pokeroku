@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon.dart';
 
-import '../../util.dart';
+import '../../../util.dart';
 
 class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
   PokemonHeaderSliverDelegate({

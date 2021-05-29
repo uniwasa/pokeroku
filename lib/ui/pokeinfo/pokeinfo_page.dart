@@ -7,10 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/current_pokemon_provider.dart';
-import 'package:pokeroku/ui/component/pokemon_header_sliver_delegate.dart';
-import 'package:pokeroku/ui/component/pokemon_stats_chart.dart';
-import 'package:pokeroku/ui/component/tab_view_item.dart';
+import 'package:pokeroku/ui/pokeinfo/component/pokemon_header_sliver_delegate.dart';
+import 'package:pokeroku/ui/pokeinfo/component/tab_view_item.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
+
+import 'component/pokemon_stats_chart.dart';
 
 class PokeinfoPage extends StatelessWidget {
   final List<String> _tabs = <String>[
@@ -47,8 +48,7 @@ class PokeinfoPage extends StatelessWidget {
                       top: false,
                       bottom: Platform.isIOS ? false : true,
                       sliver: HookBuilder(builder: (context) {
-                        final pokemon =
-                            useProvider(currentPokemonProvider);
+                        final pokemon = useProvider(currentPokemonProvider);
                         if (pokemon == null)
                           return SliverAppBar(); //空のSliverAppBar
                         return SliverPadding(
@@ -78,10 +78,8 @@ class PokeinfoPage extends StatelessWidget {
                 return Key('tab_${DefaultTabController.of(context)!.index}');
               },
               body: HookBuilder(builder: (context) {
-                final pokemonExState =
-                    useProvider(pokeinfoViewModelProvider);
-                final currentPokemon =
-                    useProvider(currentPokemonProvider);
+                final pokemonExState = useProvider(pokeinfoViewModelProvider);
+                final currentPokemon = useProvider(currentPokemonProvider);
 
                 return pokemonExState.when(
                   data: (pokemonEx) {
