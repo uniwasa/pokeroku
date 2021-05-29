@@ -17,10 +17,13 @@ class _$PokemonExTearOff {
   const _$PokemonExTearOff();
 
   _PokemonEx call(
-      {required String flavorTextJp, required List<List<Pokemon>> evolutions}) {
+      {required String flavorTextJp,
+      required List<List<Pokemon>> evolutions,
+      required List<double>? genderRatio}) {
     return _PokemonEx(
       flavorTextJp: flavorTextJp,
       evolutions: evolutions,
+      genderRatio: genderRatio,
     );
   }
 }
@@ -32,6 +35,7 @@ const $PokemonEx = _$PokemonExTearOff();
 mixin _$PokemonEx {
   String get flavorTextJp => throw _privateConstructorUsedError;
   List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
+  List<double>? get genderRatio => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokemonExCopyWith<PokemonEx> get copyWith =>
@@ -42,7 +46,10 @@ mixin _$PokemonEx {
 abstract class $PokemonExCopyWith<$Res> {
   factory $PokemonExCopyWith(PokemonEx value, $Res Function(PokemonEx) then) =
       _$PokemonExCopyWithImpl<$Res>;
-  $Res call({String flavorTextJp, List<List<Pokemon>> evolutions});
+  $Res call(
+      {String flavorTextJp,
+      List<List<Pokemon>> evolutions,
+      List<double>? genderRatio});
 }
 
 /// @nodoc
@@ -57,6 +64,7 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
   $Res call({
     Object? flavorTextJp = freezed,
     Object? evolutions = freezed,
+    Object? genderRatio = freezed,
   }) {
     return _then(_value.copyWith(
       flavorTextJp: flavorTextJp == freezed
@@ -67,6 +75,10 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
           ? _value.evolutions
           : evolutions // ignore: cast_nullable_to_non_nullable
               as List<List<Pokemon>>,
+      genderRatio: genderRatio == freezed
+          ? _value.genderRatio
+          : genderRatio // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
     ));
   }
 }
@@ -77,7 +89,10 @@ abstract class _$PokemonExCopyWith<$Res> implements $PokemonExCopyWith<$Res> {
           _PokemonEx value, $Res Function(_PokemonEx) then) =
       __$PokemonExCopyWithImpl<$Res>;
   @override
-  $Res call({String flavorTextJp, List<List<Pokemon>> evolutions});
+  $Res call(
+      {String flavorTextJp,
+      List<List<Pokemon>> evolutions,
+      List<double>? genderRatio});
 }
 
 /// @nodoc
@@ -93,6 +108,7 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
   $Res call({
     Object? flavorTextJp = freezed,
     Object? evolutions = freezed,
+    Object? genderRatio = freezed,
   }) {
     return _then(_PokemonEx(
       flavorTextJp: flavorTextJp == freezed
@@ -103,23 +119,32 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
           ? _value.evolutions
           : evolutions // ignore: cast_nullable_to_non_nullable
               as List<List<Pokemon>>,
+      genderRatio: genderRatio == freezed
+          ? _value.genderRatio
+          : genderRatio // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
     ));
   }
 }
 
 /// @nodoc
 class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
-  const _$_PokemonEx({required this.flavorTextJp, required this.evolutions})
+  const _$_PokemonEx(
+      {required this.flavorTextJp,
+      required this.evolutions,
+      required this.genderRatio})
       : super._();
 
   @override
   final String flavorTextJp;
   @override
   final List<List<Pokemon>> evolutions;
+  @override
+  final List<double>? genderRatio;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PokemonEx(flavorTextJp: $flavorTextJp, evolutions: $evolutions)';
+    return 'PokemonEx(flavorTextJp: $flavorTextJp, evolutions: $evolutions, genderRatio: $genderRatio)';
   }
 
   @override
@@ -128,7 +153,8 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'PokemonEx'))
       ..add(DiagnosticsProperty('flavorTextJp', flavorTextJp))
-      ..add(DiagnosticsProperty('evolutions', evolutions));
+      ..add(DiagnosticsProperty('evolutions', evolutions))
+      ..add(DiagnosticsProperty('genderRatio', genderRatio));
   }
 
   @override
@@ -140,14 +166,18 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
                     .equals(other.flavorTextJp, flavorTextJp)) &&
             (identical(other.evolutions, evolutions) ||
                 const DeepCollectionEquality()
-                    .equals(other.evolutions, evolutions)));
+                    .equals(other.evolutions, evolutions)) &&
+            (identical(other.genderRatio, genderRatio) ||
+                const DeepCollectionEquality()
+                    .equals(other.genderRatio, genderRatio)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(flavorTextJp) ^
-      const DeepCollectionEquality().hash(evolutions);
+      const DeepCollectionEquality().hash(evolutions) ^
+      const DeepCollectionEquality().hash(genderRatio);
 
   @JsonKey(ignore: true)
   @override
@@ -158,13 +188,16 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
 abstract class _PokemonEx extends PokemonEx {
   const factory _PokemonEx(
       {required String flavorTextJp,
-      required List<List<Pokemon>> evolutions}) = _$_PokemonEx;
+      required List<List<Pokemon>> evolutions,
+      required List<double>? genderRatio}) = _$_PokemonEx;
   const _PokemonEx._() : super._();
 
   @override
   String get flavorTextJp => throw _privateConstructorUsedError;
   @override
   List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
+  @override
+  List<double>? get genderRatio => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonExCopyWith<_PokemonEx> get copyWith =>

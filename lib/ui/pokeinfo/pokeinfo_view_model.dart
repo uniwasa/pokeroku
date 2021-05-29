@@ -4,6 +4,7 @@ import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/util.dart';
 
 final pokeinfoViewModelProvider =
     StateNotifierProvider<PokeinfoViewModel>((ref) {
@@ -41,8 +42,12 @@ class PokeinfoViewModel extends StateNotifier<AsyncValue<PokemonEx>> {
 
         //進化取得
         final evolutions = await fetchEvolutions(allPokemons, pokemonId);
-        final pokemonEx =
-            PokemonEx(flavorTextJp: flavorTextJp, evolutions: evolutions);
+        final genderRate = makeGenderRatio(extraInfo['gender_rate']);
+
+        final pokemonEx = PokemonEx(
+            flavorTextJp: flavorTextJp,
+            evolutions: evolutions,
+            genderRatio: genderRate);
 
         state = AsyncValue.data(pokemonEx);
       }

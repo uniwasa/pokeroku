@@ -22,8 +22,10 @@ class _$PokemonTearOff {
 
   _Pokemon call(
       {required int id,
-      required int height,
-      required int weight,
+      @JsonKey(fromJson: makeOneTenth)
+          required double height,
+      @JsonKey(fromJson: makeOneTenth)
+          required double weight,
       @JsonKey(name: 'base_experience')
           required int baseExperience,
       @JsonKey(name: 'species_id')
@@ -103,8 +105,10 @@ const $Pokemon = _$PokemonTearOff();
 /// @nodoc
 mixin _$Pokemon {
   int get id => throw _privateConstructorUsedError;
-  int get height => throw _privateConstructorUsedError;
-  int get weight => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: makeOneTenth)
+  double get height => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: makeOneTenth)
+  double get weight => throw _privateConstructorUsedError;
   @JsonKey(name: 'base_experience')
   int get baseExperience => throw _privateConstructorUsedError;
   @JsonKey(name: 'species_id')
@@ -156,8 +160,8 @@ abstract class $PokemonCopyWith<$Res> {
       _$PokemonCopyWithImpl<$Res>;
   $Res call(
       {int id,
-      int height,
-      int weight,
+      @JsonKey(fromJson: makeOneTenth) double height,
+      @JsonKey(fromJson: makeOneTenth) double weight,
       @JsonKey(name: 'base_experience') int baseExperience,
       @JsonKey(name: 'species_id') int speciesId,
       String identifier,
@@ -226,11 +230,11 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
       height: height == freezed
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       weight: weight == freezed
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       baseExperience: baseExperience == freezed
           ? _value.baseExperience
           : baseExperience // ignore: cast_nullable_to_non_nullable
@@ -330,8 +334,8 @@ abstract class _$PokemonCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   @override
   $Res call(
       {int id,
-      int height,
-      int weight,
+      @JsonKey(fromJson: makeOneTenth) double height,
+      @JsonKey(fromJson: makeOneTenth) double weight,
       @JsonKey(name: 'base_experience') int baseExperience,
       @JsonKey(name: 'species_id') int speciesId,
       String identifier,
@@ -401,11 +405,11 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
       height: height == freezed
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       weight: weight == freezed
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       baseExperience: baseExperience == freezed
           ? _value.baseExperience
           : baseExperience // ignore: cast_nullable_to_non_nullable
@@ -504,8 +508,8 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
 class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   const _$_Pokemon(
       {required this.id,
-      required this.height,
-      required this.weight,
+      @JsonKey(fromJson: makeOneTenth) required this.height,
+      @JsonKey(fromJson: makeOneTenth) required this.weight,
       @JsonKey(name: 'base_experience') required this.baseExperience,
       @JsonKey(name: 'species_id') required this.speciesId,
       required this.identifier,
@@ -536,9 +540,11 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   @override
   final int id;
   @override
-  final int height;
+  @JsonKey(fromJson: makeOneTenth)
+  final double height;
   @override
-  final int weight;
+  @JsonKey(fromJson: makeOneTenth)
+  final double weight;
   @override
   @JsonKey(name: 'base_experience')
   final int baseExperience;
@@ -754,8 +760,10 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
 abstract class _Pokemon extends Pokemon {
   const factory _Pokemon(
       {required int id,
-      required int height,
-      required int weight,
+      @JsonKey(fromJson: makeOneTenth)
+          required double height,
+      @JsonKey(fromJson: makeOneTenth)
+          required double weight,
       @JsonKey(name: 'base_experience')
           required int baseExperience,
       @JsonKey(name: 'species_id')
@@ -802,9 +810,11 @@ abstract class _Pokemon extends Pokemon {
   @override
   int get id => throw _privateConstructorUsedError;
   @override
-  int get height => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: makeOneTenth)
+  double get height => throw _privateConstructorUsedError;
   @override
-  int get weight => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: makeOneTenth)
+  double get weight => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'base_experience')
   int get baseExperience => throw _privateConstructorUsedError;

@@ -11,5 +11,6 @@ class PokemonEx with _$PokemonEx {
   const factory PokemonEx({
     required String flavorTextJp,
     required List<List<Pokemon>> evolutions,
+    required List<double>? genderRatio,
   }) = _PokemonEx;
 }

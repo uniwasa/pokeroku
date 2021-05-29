@@ -4,6 +4,7 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/ui/component/pokemon_header_sliver_delegate.dart';
@@ -88,40 +89,10 @@ class PokeinfoPage extends StatelessWidget {
                       children: [
                         TabViewItem(
                           tabKey: Key('tab_0'),
-                          body: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).canvasColor,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 12,
-                                        top: 4,
-                                        right: 12,
-                                        bottom: 12),
-                                    child: Center(
-                                      child: Text(
-                                        pokemonEx.flavorTextJp
-                                            .replaceAll(RegExp(r'\n'), ''),
-                                        style: TextStyle(
-                                            height: 2,
-                                            letterSpacing: 1,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              if (currentPokemon != null)
-                                PokemonStatsChart(pokemon: currentPokemon),
-                            ],
-                          ),
+                          body: buildBasic(
+                              context: context,
+                              pokemonEx: pokemonEx,
+                              currentPokemon: currentPokemon),
                         ),
                         TabViewItem(
                           tabKey: Key('tab_1'),
@@ -157,6 +128,146 @@ class PokeinfoPage extends StatelessWidget {
         );
       }),
     );
+  }
+
+  Widget buildBasic(
+      {required BuildContext context,
+      required PokemonEx pokemonEx,
+      required Pokemon? currentPokemon}) {
+    if (currentPokemon != null) {
+      return Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 12, top: 4, right: 12, bottom: 12),
+                child: Center(
+                  child: Text(
+                    pokemonEx.flavorTextJp.replaceAll(RegExp(r'\n'), ''),
+                    style: TextStyle(
+                        height: 2,
+                        letterSpacing: 1,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        currentPokemon.height.toString(),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        'm',
+                        style: TextStyle(
+                          color: Theme.of(context).hintColor,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        currentPokemon.weight.toString(),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        'kg',
+                        style: TextStyle(
+                          color: Theme.of(context).hintColor,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: pokemonEx.genderRatio != null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.male,
+                        color: Colors.lightBlue,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            pokemonEx.genderRatio!.first.toString(),
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            '%',
+                            style: TextStyle(
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.female,
+                        color: Colors.pinkAccent,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            pokemonEx.genderRatio!.last.toString(),
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            '%',
+                            style: TextStyle(
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Text('性別ふめい'),
+          ),
+          PokemonStatsChart(pokemon: currentPokemon),
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget buildEvolutions(

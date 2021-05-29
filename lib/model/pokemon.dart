@@ -14,8 +14,8 @@ class Pokemon with _$Pokemon {
 
   const factory Pokemon({
     required int id,
-    required int height,
-    required int weight,
+    @JsonKey(fromJson: makeOneTenth) required double height,
+    @JsonKey(fromJson: makeOneTenth) required double weight,
     @JsonKey(name: 'base_experience') required int baseExperience,
     @JsonKey(name: 'species_id') required int speciesId,
     required String identifier,

@@ -1,6 +1,7 @@
 select
 	pokemon.id
 	,pokemon_species.id as species_id
+	,pokemon_species.gender_rate
 	,max(case when pokemon_species_flavor_text.language_id = 11 then pokemon_species_flavor_text.flavor_text end) as flavor_text_jp
 from pokemon
 inner join pokemon_species

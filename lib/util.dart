@@ -70,3 +70,15 @@ Widget buildCircle({required Color color}) {
     ),
   );
 }
+
+List<double>? makeGenderRatio(int value) {
+  if (value >= 0 && value <= 8) {
+    final double femaleRate = value / 8 * 100;
+    final double maleRate = 100 - femaleRate;
+    return [maleRate, femaleRate];
+  }
+}
+
+double makeOneTenth(int value) {
+  return value / 10;
+}
