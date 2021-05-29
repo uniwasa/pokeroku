@@ -76,41 +76,37 @@ class PokeinfoPage extends StatelessWidget {
                 return Key('tab_${DefaultTabController.of(context)!.index}');
               },
               body: HookBuilder(builder: (context) {
-                final pokemonBase = useProvider(currentPokemonProvider);
                 final pokemonExState = useProvider(pokeinfoViewModelProvider);
-                return pokemonBase != null
-                    ? pokemonExState.when(
-                        data: (pokemonEx) {
-                          return TabBarView(
-                            children: [
-                              TabViewItem(
-                                tabKey: Key('tab_0'),
-                                body: TabContentBase(
-                                  pokemonBase: pokemonBase,
-                                  pokemonEx: pokemonEx,
-                                ),
-                              ),
-                              TabViewItem(
-                                tabKey: Key('tab_1'),
-                                body: TabContentEvolution(
-                                  pokemonEx: pokemonEx,
-                                ),
-                              ),
-                              TabViewItem(
-                                tabKey: Key('tab_2'),
-                                body: Container(),
-                              )
-                            ],
-                          );
-                        },
-                        loading: () => Center(
-                          child: CircularProgressIndicator(),
+                return pokemonExState.when(
+                  data: (pokemonEx) {
+                    return TabBarView(
+                      children: [
+                        TabViewItem(
+                          tabKey: Key('tab_0'),
+                          body: TabContentBase(
+                            pokemonEx: pokemonEx,
+                          ),
                         ),
-                        error: (error, _) => Center(
-                          child: Text(error.toString()),
+                        TabViewItem(
+                          tabKey: Key('tab_1'),
+                          body: TabContentEvolution(
+                            pokemonEx: pokemonEx,
+                          ),
                         ),
-                      )
-                    : Container();
+                        TabViewItem(
+                          tabKey: Key('tab_2'),
+                          body: Container(),
+                        )
+                      ],
+                    );
+                  },
+                  loading: () => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  error: (error, _) => Center(
+                    child: Text(error.toString()),
+                  ),
+                );
               }),
             ),
           ),

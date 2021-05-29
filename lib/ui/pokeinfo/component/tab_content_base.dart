@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_stats_chart.dart';
 
 class TabContentBase extends StatelessWidget {
-  TabContentBase({required Pokemon pokemonBase, required PokemonEx pokemonEx})
-      : _pokemonEx = pokemonEx,
-        _pokemonBase = pokemonBase;
-  final Pokemon _pokemonBase;
+  TabContentBase({required PokemonEx pokemonEx}) : _pokemonEx = pokemonEx;
   final PokemonEx _pokemonEx;
   @override
   Widget build(BuildContext context) {
@@ -48,7 +44,7 @@ class TabContentBase extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      _pokemonBase.height.toString(),
+                      _pokemonEx.base.height.toString(),
                       style: TextStyle(
                         fontSize: 18,
                       ),
@@ -69,7 +65,7 @@ class TabContentBase extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      _pokemonBase.weight.toString(),
+                      _pokemonEx.base.weight.toString(),
                       style: TextStyle(
                         fontSize: 18,
                       ),
@@ -138,7 +134,7 @@ class TabContentBase extends StatelessWidget {
                 )
               : Text('性別ふめい'),
         ),
-        PokemonStatsChart(pokemon: _pokemonBase),
+        PokemonStatsChart(pokemon: _pokemonEx.base),
       ],
     );
   }

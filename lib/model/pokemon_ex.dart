@@ -9,6 +9,7 @@ class PokemonEx with _$PokemonEx {
   const PokemonEx._();
 
   const factory PokemonEx({
+    required Pokemon base,
     required String flavorTextJp,
     required List<List<Pokemon>> evolutions,
     required List<double>? genderRatio,

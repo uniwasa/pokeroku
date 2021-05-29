@@ -20,7 +20,7 @@ class PokeinfoViewModel extends StateNotifier<AsyncValue<PokemonEx>> {
     required PokedexDataSource dataSource,
     required Pokemon? currentPokemon,
     required AsyncValue<List<Pokemon>> allPokemons,
-  })   : _dataSource = dataSource,
+  })  : _dataSource = dataSource,
         _currentPokemon = currentPokemon,
         _allPokemons = allPokemons,
         super(const AsyncValue.loading()) {
@@ -45,6 +45,7 @@ class PokeinfoViewModel extends StateNotifier<AsyncValue<PokemonEx>> {
         final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
         final pokemonEx = PokemonEx(
+            base: currentPokemon,
             flavorTextJp: flavorTextJp,
             evolutions: evolutions,
             genderRatio: genderRate);
