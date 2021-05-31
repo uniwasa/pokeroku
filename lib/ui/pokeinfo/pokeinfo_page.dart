@@ -4,7 +4,10 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/provider/current_pokemon_provider.dart';
+import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/model/pokemon_ex.dart';
+import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_header_sliver_delegate.dart';
 import 'package:pokeroku/ui/pokeinfo/component/tab_content_base.dart';
 import 'package:pokeroku/ui/pokeinfo/component/tab_content_evolution.dart';
@@ -12,6 +15,21 @@ import 'package:pokeroku/ui/pokeinfo/component/tab_view_item.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
 
 class PokeinfoPage extends StatelessWidget {
+  PokeinfoPage({Key? key, required Pokemon pokemon}) : super(key: key) {
+    final provider =
+        StateNotifierProvider<PokeinfoViewModel, AsyncValue<PokemonEx>>((ref) {
+      return PokeinfoViewModel(
+        dataSource: ref.read(pokedexDataSourceProvider),
+        currentPokemon: pokemon,
+        allPokemons: ref.watch(allPokemonsProvider),
+      );
+    });
+    _provider = provider;
+  }
+
+  late final StateNotifierProvider<PokeinfoViewModel, AsyncValue<PokemonEx>>
+      _provider;
+
   final List<String> _tabs = <String>[
     "きほん",
     "しんか",
@@ -46,9 +64,8 @@ class PokeinfoPage extends StatelessWidget {
                       top: false,
                       bottom: Platform.isIOS ? false : true,
                       sliver: HookBuilder(builder: (context) {
-                        final pokemon = useProvider(currentPokemonProvider);
-                        if (pokemon == null)
-                          return SliverAppBar(); //空のSliverAppBar
+                        final pokemon = useProvider(_provider.notifier
+                            .select((value) => value.currentPokemon));
                         return SliverPadding(
                           padding: EdgeInsets.only(bottom: 0.0),
                           sliver: SliverPersistentHeader(
@@ -76,7 +93,7 @@ class PokeinfoPage extends StatelessWidget {
                 return Key('tab_${DefaultTabController.of(context)!.index}');
               },
               body: HookBuilder(builder: (context) {
-                final pokemonExState = useProvider(pokeinfoViewModelProvider);
+                final pokemonExState = useProvider(_provider);
                 return pokemonExState.when(
                   data: (pokemonEx) {
                     return TabBarView(
@@ -112,6 +129,11 @@ class PokeinfoPage extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
+              // Navigator.popUntil(context, (route) => route.isFirst);
+              final allPokemons = context.read(allPokemonsProvider);
+              allPokemons.whenData((data) =>
+                  context.read(_provider.notifier).setPokemon(data.first));
+
               // context
               //     .read(pokemonViewModelProvider)
               //     .setName('dragapult'); //context.read使わんでもいいかも

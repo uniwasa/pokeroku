@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
-import 'package:pokeroku/provider/current_pokemon_provider.dart';
+import 'package:pokeroku/routes.dart';
 
 class TabContentEvolution extends StatelessWidget {
   TabContentEvolution({required PokemonEx pokemonEx}) : _pokemonEx = pokemonEx;
@@ -25,9 +24,8 @@ class TabContentEvolution extends StatelessWidget {
                   );
                   return InkWell(
                     onTap: () {
-                      context
-                          .read(currentPokemonProvider.notifier)
-                          .setPokemon(stagePokemon);
+                      Navigator.pushNamed(context, Routes.pokeinfo,
+                          arguments: stagePokemon);
                     },
                     child: Padding(
                       child: pokemonImage,

@@ -1,24 +1,13 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
-import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
-import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/util.dart';
-
-final pokeinfoViewModelProvider =
-    StateNotifierProvider<PokeinfoViewModel, AsyncValue<PokemonEx>>((ref) {
-  return PokeinfoViewModel(
-    dataSource: ref.read(pokedexDataSourceProvider),
-    currentPokemon: ref.watch(currentPokemonProvider),
-    allPokemons: ref.watch(allPokemonsProvider),
-  );
-});
 
 class PokeinfoViewModel extends StateNotifier<AsyncValue<PokemonEx>> {
   PokeinfoViewModel({
     required PokedexDataSource dataSource,
-    required Pokemon? currentPokemon,
+    required Pokemon currentPokemon,
     required AsyncValue<List<Pokemon>> allPokemons,
   })  : _dataSource = dataSource,
         _currentPokemon = currentPokemon,
@@ -29,29 +18,33 @@ class PokeinfoViewModel extends StateNotifier<AsyncValue<PokemonEx>> {
   }
 
   final PokedexDataSource _dataSource;
-  final Pokemon? _currentPokemon;
+  Pokemon _currentPokemon;
   final AsyncValue<List<Pokemon>> _allPokemons;
+
+  Pokemon get currentPokemon => _currentPokemon;
+
+  Future<void> setPokemon(Pokemon pokemon) async {
+    _currentPokemon = pokemon;
+    _allPokemons.whenData((data) => fetchExtraInfo(data));
+  }
 
   Future<void> fetchExtraInfo(List<Pokemon> allPokemons) async {
     try {
-      final currentPokemon = _currentPokemon;
-      if (currentPokemon != null) {
-        final pokemonId = currentPokemon.id;
-        final extraInfo = await _dataSource.getPokemonExtraInfo(pokemonId);
-        final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
+      final pokemonId = currentPokemon.id;
+      final extraInfo = await _dataSource.getPokemonExtraInfo(pokemonId);
+      final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
 
-        //進化取得
-        final evolutions = await fetchEvolutions(allPokemons, pokemonId);
-        final genderRate = makeGenderRatio(extraInfo['gender_rate']);
+      //進化取得
+      final evolutions = await fetchEvolutions(allPokemons, pokemonId);
+      final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
-        final pokemonEx = PokemonEx(
-            base: currentPokemon,
-            flavorTextJp: flavorTextJp,
-            evolutions: evolutions,
-            genderRatio: genderRate);
+      final pokemonEx = PokemonEx(
+          base: currentPokemon,
+          flavorTextJp: flavorTextJp,
+          evolutions: evolutions,
+          genderRatio: genderRate);
 
-        state = AsyncValue.data(pokemonEx);
-      }
+      state = AsyncValue.data(pokemonEx);
     } on Exception catch (error) {
       state = AsyncValue.error(error);
     }
@@ -90,8 +83,4 @@ class PokeinfoViewModel extends StateNotifier<AsyncValue<PokemonEx>> {
           .contains(element['evolves_from_species_id']);
     }).toList();
   }
-
-// Pokemon? _pokemon;
-
-// Pokemon? get pokemon => _currentPokemon.pokemon;
 }

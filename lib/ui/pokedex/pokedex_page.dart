@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/provider/current_pokemon_provider.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_view_model.dart';
 
 import '../../routes.dart';
@@ -23,7 +22,8 @@ class PokedexPage extends StatelessWidget {
           height: kToolbarHeight - 16,
           child: TextField(
             onChanged: (text) {
-              final pokedexViewModel = context.read(pokedexViewModelProvider.notifier);
+              final pokedexViewModel =
+                  context.read(pokedexViewModelProvider.notifier);
               pokedexViewModel.searchForText(text);
             },
             decoration: InputDecoration(
@@ -74,10 +74,8 @@ class PokedexPage extends StatelessWidget {
                         color: Theme.of(context).cardColor,
                         child: InkWell(
                           onTap: () {
-                            context
-                                .read(currentPokemonProvider.notifier)
-                                .setPokemon(pokemon);
-                            Navigator.pushNamed(context, Routes.pokeinfo);
+                            Navigator.pushNamed(context, Routes.pokeinfo,
+                                arguments: pokemon);
                           },
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
