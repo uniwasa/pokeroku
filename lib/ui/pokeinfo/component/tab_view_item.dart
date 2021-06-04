@@ -9,7 +9,7 @@ class TabViewItem extends StatefulWidget {
     Key? key,
     required Key tabKey,
     required Widget body,
-  })   : _tabKey = tabKey,
+  })  : _tabKey = tabKey,
         _body = body,
         super(key: key);
 
@@ -39,7 +39,7 @@ class _TabViewItemState extends State<TabViewItem>
                       NestedScrollView.sliverOverlapAbsorberHandleFor(context)!,
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(0.0),
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
