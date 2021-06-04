@@ -19,7 +19,6 @@ class PokeinfoPage extends StatelessWidget {
     _provider =
         StateNotifierProvider.autoDispose<PokeinfoViewModel, PokeinfoState>(
             (ref) {
-      ref.onDispose(() => print('bye'));
       return PokeinfoViewModel(
         dataSource: ref.read(pokedexDataSourceProvider),
         allPokemons: ref.watch(allPokemonsProvider),

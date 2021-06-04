@@ -1,9 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/pokeinfo_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/util.dart';
+import 'package:collection/collection.dart';
 
 class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   PokeinfoViewModel({
@@ -37,16 +39,30 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
       final evolutions = await fetchEvolutions(allPokemons, pokemonId);
       final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
+      final abilities = await fetchAbilities(pokemonId);
+      final normalAbilities =
+          abilities.where((element) => element.isHidden == false).toList();
+      final hiddenAbility =
+          abilities.firstWhereOrNull((element) => element.isHidden == true);
+
       final pokemonEx = PokemonEx(
           base: state.pokemonBase,
           flavorTextJp: flavorTextJp,
           evolutions: evolutions,
-          genderRatio: genderRate);
+          genderRatio: genderRate,
+          normalAbilities: normalAbilities,
+          hiddenAbility: hiddenAbility);
 
       state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
     } on Exception catch (error) {
       state = state.copyWith(asyncPokemonEx: AsyncValue.error(error));
     }
+  }
+
+  Future<List<Ability>> fetchAbilities(int pokemonId) async {
+    final abilities = await _dataSource.getPokemonAbilities(pokemonId);
+    final result = abilities.map((e) => Ability.fromJson(e)).toList();
+    return result;
   }
 
   Future<List<List<Pokemon>>> fetchEvolutions(

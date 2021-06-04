@@ -20,12 +20,16 @@ class _$PokemonExTearOff {
       {required Pokemon base,
       required String flavorTextJp,
       required List<List<Pokemon>> evolutions,
-      required List<double>? genderRatio}) {
+      required List<double>? genderRatio,
+      required List<Ability> normalAbilities,
+      required Ability? hiddenAbility}) {
     return _PokemonEx(
       base: base,
       flavorTextJp: flavorTextJp,
       evolutions: evolutions,
       genderRatio: genderRatio,
+      normalAbilities: normalAbilities,
+      hiddenAbility: hiddenAbility,
     );
   }
 }
@@ -39,6 +43,8 @@ mixin _$PokemonEx {
   String get flavorTextJp => throw _privateConstructorUsedError;
   List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
   List<double>? get genderRatio => throw _privateConstructorUsedError;
+  List<Ability> get normalAbilities => throw _privateConstructorUsedError;
+  Ability? get hiddenAbility => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokemonExCopyWith<PokemonEx> get copyWith =>
@@ -53,9 +59,12 @@ abstract class $PokemonExCopyWith<$Res> {
       {Pokemon base,
       String flavorTextJp,
       List<List<Pokemon>> evolutions,
-      List<double>? genderRatio});
+      List<double>? genderRatio,
+      List<Ability> normalAbilities,
+      Ability? hiddenAbility});
 
   $PokemonCopyWith<$Res> get base;
+  $AbilityCopyWith<$Res>? get hiddenAbility;
 }
 
 /// @nodoc
@@ -72,6 +81,8 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
     Object? flavorTextJp = freezed,
     Object? evolutions = freezed,
     Object? genderRatio = freezed,
+    Object? normalAbilities = freezed,
+    Object? hiddenAbility = freezed,
   }) {
     return _then(_value.copyWith(
       base: base == freezed
@@ -90,6 +101,14 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
           ? _value.genderRatio
           : genderRatio // ignore: cast_nullable_to_non_nullable
               as List<double>?,
+      normalAbilities: normalAbilities == freezed
+          ? _value.normalAbilities
+          : normalAbilities // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
+      hiddenAbility: hiddenAbility == freezed
+          ? _value.hiddenAbility
+          : hiddenAbility // ignore: cast_nullable_to_non_nullable
+              as Ability?,
     ));
   }
 
@@ -97,6 +116,17 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
   $PokemonCopyWith<$Res> get base {
     return $PokemonCopyWith<$Res>(_value.base, (value) {
       return _then(_value.copyWith(base: value));
+    });
+  }
+
+  @override
+  $AbilityCopyWith<$Res>? get hiddenAbility {
+    if (_value.hiddenAbility == null) {
+      return null;
+    }
+
+    return $AbilityCopyWith<$Res>(_value.hiddenAbility!, (value) {
+      return _then(_value.copyWith(hiddenAbility: value));
     });
   }
 }
@@ -111,10 +141,14 @@ abstract class _$PokemonExCopyWith<$Res> implements $PokemonExCopyWith<$Res> {
       {Pokemon base,
       String flavorTextJp,
       List<List<Pokemon>> evolutions,
-      List<double>? genderRatio});
+      List<double>? genderRatio,
+      List<Ability> normalAbilities,
+      Ability? hiddenAbility});
 
   @override
   $PokemonCopyWith<$Res> get base;
+  @override
+  $AbilityCopyWith<$Res>? get hiddenAbility;
 }
 
 /// @nodoc
@@ -132,6 +166,8 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
     Object? flavorTextJp = freezed,
     Object? evolutions = freezed,
     Object? genderRatio = freezed,
+    Object? normalAbilities = freezed,
+    Object? hiddenAbility = freezed,
   }) {
     return _then(_PokemonEx(
       base: base == freezed
@@ -150,6 +186,14 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
           ? _value.genderRatio
           : genderRatio // ignore: cast_nullable_to_non_nullable
               as List<double>?,
+      normalAbilities: normalAbilities == freezed
+          ? _value.normalAbilities
+          : normalAbilities // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
+      hiddenAbility: hiddenAbility == freezed
+          ? _value.hiddenAbility
+          : hiddenAbility // ignore: cast_nullable_to_non_nullable
+              as Ability?,
     ));
   }
 }
@@ -161,7 +205,9 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
       {required this.base,
       required this.flavorTextJp,
       required this.evolutions,
-      required this.genderRatio})
+      required this.genderRatio,
+      required this.normalAbilities,
+      required this.hiddenAbility})
       : super._();
 
   @override
@@ -172,10 +218,14 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
   final List<List<Pokemon>> evolutions;
   @override
   final List<double>? genderRatio;
+  @override
+  final List<Ability> normalAbilities;
+  @override
+  final Ability? hiddenAbility;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PokemonEx(base: $base, flavorTextJp: $flavorTextJp, evolutions: $evolutions, genderRatio: $genderRatio)';
+    return 'PokemonEx(base: $base, flavorTextJp: $flavorTextJp, evolutions: $evolutions, genderRatio: $genderRatio, normalAbilities: $normalAbilities, hiddenAbility: $hiddenAbility)';
   }
 
   @override
@@ -186,7 +236,9 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('base', base))
       ..add(DiagnosticsProperty('flavorTextJp', flavorTextJp))
       ..add(DiagnosticsProperty('evolutions', evolutions))
-      ..add(DiagnosticsProperty('genderRatio', genderRatio));
+      ..add(DiagnosticsProperty('genderRatio', genderRatio))
+      ..add(DiagnosticsProperty('normalAbilities', normalAbilities))
+      ..add(DiagnosticsProperty('hiddenAbility', hiddenAbility));
   }
 
   @override
@@ -203,7 +255,13 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
                     .equals(other.evolutions, evolutions)) &&
             (identical(other.genderRatio, genderRatio) ||
                 const DeepCollectionEquality()
-                    .equals(other.genderRatio, genderRatio)));
+                    .equals(other.genderRatio, genderRatio)) &&
+            (identical(other.normalAbilities, normalAbilities) ||
+                const DeepCollectionEquality()
+                    .equals(other.normalAbilities, normalAbilities)) &&
+            (identical(other.hiddenAbility, hiddenAbility) ||
+                const DeepCollectionEquality()
+                    .equals(other.hiddenAbility, hiddenAbility)));
   }
 
   @override
@@ -212,7 +270,9 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(base) ^
       const DeepCollectionEquality().hash(flavorTextJp) ^
       const DeepCollectionEquality().hash(evolutions) ^
-      const DeepCollectionEquality().hash(genderRatio);
+      const DeepCollectionEquality().hash(genderRatio) ^
+      const DeepCollectionEquality().hash(normalAbilities) ^
+      const DeepCollectionEquality().hash(hiddenAbility);
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +285,9 @@ abstract class _PokemonEx extends PokemonEx {
       {required Pokemon base,
       required String flavorTextJp,
       required List<List<Pokemon>> evolutions,
-      required List<double>? genderRatio}) = _$_PokemonEx;
+      required List<double>? genderRatio,
+      required List<Ability> normalAbilities,
+      required Ability? hiddenAbility}) = _$_PokemonEx;
   const _PokemonEx._() : super._();
 
   @override
@@ -236,6 +298,10 @@ abstract class _PokemonEx extends PokemonEx {
   List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
   @override
   List<double>? get genderRatio => throw _privateConstructorUsedError;
+  @override
+  List<Ability> get normalAbilities => throw _privateConstructorUsedError;
+  @override
+  Ability? get hiddenAbility => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonExCopyWith<_PokemonEx> get copyWith =>
