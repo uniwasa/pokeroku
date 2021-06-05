@@ -15,7 +15,6 @@ class PokemonEx with _$PokemonEx {
     required String flavorTextJp,
     required List<List<Pokemon>> evolutions,
     required List<double>? genderRatio,
-    required List<Ability> normalAbilities,
-    required Ability? hiddenAbility,
+    required List<Ability> abilities,
   }) = _PokemonEx;
 }

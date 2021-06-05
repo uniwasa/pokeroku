@@ -10,7 +10,7 @@ class TabContentBase extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).canvasColor,
@@ -23,10 +23,11 @@ class TabContentBase extends StatelessWidget {
                 child: Text(
                   _pokemonEx.flavorTextJp.replaceAll(RegExp(r'\n'), ''),
                   style: TextStyle(
-                      height: 2,
-                      letterSpacing: 1,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
+                    height: 2,
+                    letterSpacing: 1,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -133,6 +134,80 @@ class TabContentBase extends StatelessWidget {
                   ],
                 )
               : Text('性別ふめい'),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: Container(
+              // decoration: BoxDecoration(
+              //   boxShadow: [
+              //     BoxShadow(
+              //       color: Theme.of(context).canvasColor,
+              //       spreadRadius: 4.0,
+              //       blurRadius: 10.0,
+              //       offset: Offset(2, 2),
+              //     ),
+              //   ],
+              //   color: Theme.of(context).cardColor,
+              //   borderRadius: BorderRadius.circular(10),
+              // ),
+              child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: _pokemonEx.abilities
+                  .map((ability) => Container(
+                        width: double.infinity,
+                        child: Material(
+                          child: InkWell(
+                            onTap: () {
+                              print(ability.nameJp);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 10, top: 10, right: 10, bottom: 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        ability.nameJp,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      if (ability.isHidden)
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8),
+                                          child: Text(
+                                            '夢特性',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                        )
+                                    ],
+                                  ),
+                                  Text(
+                                    ability.flavorTextJp
+                                            .replaceAll(RegExp(r'\n'), '') +
+                                        '\n', // 末尾に改行いれて擬似的にminLines実現
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white70,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ))
+                  .toList(),
+            ),
+          )),
         ),
         PokemonStatsChart(pokemon: _pokemonEx.base),
       ],

@@ -54,9 +54,12 @@ class TabContentEvolution extends StatelessWidget {
     }
     evolutionsWidget.removeLast();
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: evolutionsWidget,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: evolutionsWidget,
+      ),
     );
   }
 }

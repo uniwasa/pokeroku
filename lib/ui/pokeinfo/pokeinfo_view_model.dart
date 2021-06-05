@@ -5,7 +5,6 @@ import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/util.dart';
-import 'package:collection/collection.dart';
 
 class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   PokeinfoViewModel({
@@ -40,18 +39,14 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
       final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
       final abilities = await fetchAbilities(pokemonId);
-      final normalAbilities =
-          abilities.where((element) => element.isHidden == false).toList();
-      final hiddenAbility =
-          abilities.firstWhereOrNull((element) => element.isHidden == true);
 
       final pokemonEx = PokemonEx(
-          base: state.pokemonBase,
-          flavorTextJp: flavorTextJp,
-          evolutions: evolutions,
-          genderRatio: genderRate,
-          normalAbilities: normalAbilities,
-          hiddenAbility: hiddenAbility);
+        base: state.pokemonBase,
+        flavorTextJp: flavorTextJp,
+        evolutions: evolutions,
+        genderRatio: genderRate,
+        abilities: abilities,
+      );
 
       state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
     } on Exception catch (error) {
