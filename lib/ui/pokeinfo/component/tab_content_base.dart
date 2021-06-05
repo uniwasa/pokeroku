@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
+import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_stats_chart.dart';
 
 class TabContentBase extends StatelessWidget {
@@ -159,7 +160,10 @@ class TabContentBase extends StatelessWidget {
                         child: Material(
                           child: InkWell(
                             onTap: () {
-                              print(ability.nameJp);
+                              Navigator.pushNamed(
+                                context,
+                                Routes.abilityInfo,
+                              );
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
