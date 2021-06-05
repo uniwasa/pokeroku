@@ -53,4 +53,12 @@ class PokedexDataSource {
     final abilities = await db.rawQuery(query, [pokemonId]);
     return abilities;
   }
+
+  Future<List<Map<String, dynamic>>> getAbilityPokemons(int abilityId) async {
+    final db = await _databaseHelper.database;
+    String query =
+        await rootBundle.loadString('assets/query/ability_pokemons.sql');
+    final abilities = await db.rawQuery(query, [abilityId]);
+    return abilities;
+  }
 }

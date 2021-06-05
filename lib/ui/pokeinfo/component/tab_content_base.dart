@@ -163,6 +163,7 @@ class TabContentBase extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 Routes.abilityInfo,
+                                arguments: ability,
                               );
                             },
                             child: Padding(

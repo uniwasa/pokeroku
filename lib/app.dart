@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
@@ -29,10 +30,13 @@ class App extends HookWidget {
               return null;
             }
           case Routes.abilityInfo:
-            return MaterialPageRoute(
-              builder: (context) => AbilityInfoPage(),
-            );
-
+            if (arguments is Ability) {
+              return MaterialPageRoute(
+                builder: (context) => AbilityInfoPage(ability: arguments),
+              );
+            } else {
+              return null;
+            }
           default:
             return null;
         }
