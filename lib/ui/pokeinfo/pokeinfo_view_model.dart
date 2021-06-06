@@ -15,8 +15,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
         _allPokemons = allPokemons,
         super(PokeinfoState(
             pokemonBase: pokemon, asyncPokemonEx: AsyncValue.loading())) {
-    //ポケモン一覧が読み込まれてるときのみ実行
-    _allPokemons.whenData((data) => fetchExtraInfo(data));
+    fetchExtraInfo();
   }
 
   final PokedexDataSource _dataSource;
@@ -25,33 +24,36 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   Future<void> setPokemon(Pokemon pokemon) async {
     state = state.copyWith(
         pokemonBase: pokemon, asyncPokemonEx: AsyncValue.loading());
-    _allPokemons.whenData((data) => fetchExtraInfo(data));
+    fetchExtraInfo();
   }
 
-  Future<void> fetchExtraInfo(List<Pokemon> allPokemons) async {
-    try {
-      final pokemonId = state.pokemonBase.id;
-      final extraInfo = await _dataSource.getPokemonExtraInfo(pokemonId);
-      final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
+  Future<void> fetchExtraInfo() async {
+    //ポケモン一覧が読み込まれてるときのみ実行
+    _allPokemons.whenData((allPokemons) async {
+      try {
+        final pokemonId = state.pokemonBase.id;
+        final extraInfo = await _dataSource.getPokemonExtraInfo(pokemonId);
+        final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
 
-      //進化取得
-      final evolutions = await fetchEvolutions(allPokemons, pokemonId);
-      final genderRate = makeGenderRatio(extraInfo['gender_rate']);
+        //進化取得
+        final evolutions = await fetchEvolutions(allPokemons, pokemonId);
+        final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
-      final abilities = await fetchAbilities(pokemonId);
+        final abilities = await fetchAbilities(pokemonId);
 
-      final pokemonEx = PokemonEx(
-        base: state.pokemonBase,
-        flavorTextJp: flavorTextJp,
-        evolutions: evolutions,
-        genderRatio: genderRate,
-        abilities: abilities,
-      );
+        final pokemonEx = PokemonEx(
+          base: state.pokemonBase,
+          flavorTextJp: flavorTextJp,
+          evolutions: evolutions,
+          genderRatio: genderRate,
+          abilities: abilities,
+        );
 
-      state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
-    } on Exception catch (error) {
-      state = state.copyWith(asyncPokemonEx: AsyncValue.error(error));
-    }
+        state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
+      } on Exception catch (error) {
+        state = state.copyWith(asyncPokemonEx: AsyncValue.error(error));
+      }
+    });
   }
 
   Future<List<Ability>> fetchAbilities(int pokemonId) async {
