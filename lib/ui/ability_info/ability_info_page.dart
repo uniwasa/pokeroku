@@ -71,7 +71,26 @@ class AbilityInfoPage extends StatelessWidget {
                       child: pokemonImage,
                     );
                     return ListTile(
-                      title: Text(pokemon.nameJp),
+                      title: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            pokemon.nameJp,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          if (pokemon.formNameJp != null)
+                            Padding(
+                              padding: EdgeInsets.only(left: 8),
+                              child: Text(
+                                pokemon.formNameJp!,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white54,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                       leading: Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: pokemonHeroImage,
