@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/ability_info_state.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
+import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_info/ability_info_view_model.dart';
 
 class AbilityInfoPage extends StatelessWidget {
@@ -54,15 +55,41 @@ class AbilityInfoPage extends StatelessWidget {
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  print(index);
-                  return ListTile(
-                    title: Text('hello'),
-                  );
-                },
-                childCount: 100,
+            asyncPokemons.when(
+              data: (pokemons) => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    final pokemon = pokemons[index];
+                    final Image pokemonImage = Image.asset(
+                      pokemon.imageName,
+                      isAntiAlias: true,
+                      fit: BoxFit.contain,
+                      filterQuality: FilterQuality.none,
+                    );
+                    final pokemonHeroImage = Hero(
+                      tag: pokemon.identifier,
+                      child: pokemonImage,
+                    );
+                    return ListTile(
+                      title: Text(pokemon.nameJp),
+                      leading: Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: pokemonHeroImage,
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.pokeinfo,
+                            arguments: pokemon);
+                      },
+                    );
+                  },
+                  childCount: pokemons.length,
+                ),
+              ),
+              loading: () => SliverFillRemaining(
+                child: Center(child: CircularProgressIndicator()),
+              ),
+              error: (error, _) => SliverFillRemaining(
+                child: Center(child: Text(error.toString())),
               ),
             ),
           ],
