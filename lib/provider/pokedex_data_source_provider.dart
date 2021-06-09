@@ -45,10 +45,8 @@ class PokedexDataSource {
 
   Future<List<Pokemon>> getPokemons() async {
     final db = await _databaseHelper.database;
-    String query =
-        await rootBundle.loadString('assets/query/default_pokemons.sql');
+    String query = await rootBundle.loadString('assets/query/all_pokemons.sql');
     List<Map<String, dynamic>> rawPokemons = await db.rawQuery(query);
-
     final pokemonTypes = await getPokemonTypes();
 
     return rawPokemons.map((rawPokemon) {
@@ -94,7 +92,6 @@ class PokedexDataSource {
     String query =
         await rootBundle.loadString('assets/query/ability_pokemons.sql');
     final rawPokemons = await db.rawQuery(query, [abilityId]);
-
     final pokemonTypes = await getPokemonTypes();
 
     return rawPokemons.map((rawPokemon) {

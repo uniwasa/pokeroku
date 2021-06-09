@@ -30,14 +30,11 @@ from (
 				,pokemon.is_default
 				,max(case when pokemon_species_names.local_language_id = 1 then pokemon_species_names.name end) as name_jp
 				,max(case when pokemon_species_names.local_language_id = 9 then pokemon_species_names.name end) as name_en
-			from pokemon_abilities
-			inner join pokemon
-				on pokemon_abilities.pokemon_id = pokemon.id
+			from pokemon
 			inner join pokemon_species
 				on pokemon.species_id = pokemon_species.id
 			inner join pokemon_species_names
 				on pokemon_species.id = pokemon_species_names.pokemon_species_id
-			where pokemon_abilities.ability_id = ?
 			group by pokemon.id
 		) s1
 		inner join pokemon_types
