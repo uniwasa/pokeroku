@@ -148,12 +148,12 @@ class PokedexPage extends StatelessWidget {
                                     Row(
                                       children: [
                                         buildCircle(
-                                            color: pokemon.firstTypeColor),
-                                        if (pokemon.secondTypeColor != null)
+                                            color: pokemon.firstType.color),
+                                        if (pokemon.secondType != null)
                                           Padding(
                                             padding: EdgeInsets.only(left: 5),
                                             child: buildCircle(
-                                              color: pokemon.secondTypeColor!,
+                                              color: pokemon.secondType!.color,
                                             ),
                                           ),
                                       ],

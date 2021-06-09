@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/const/type_color.dart';
 import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/model/pokemon_type.dart';
 import 'package:pokeroku/provider/pokedex_database_provider.dart';
 
 final pokedexDataSourceProvider = Provider<PokedexDataSource>((ref) {
@@ -13,20 +15,53 @@ class PokedexDataSource {
       : _databaseHelper = databaseHelper;
   DatabaseHelper _databaseHelper;
 
+  Future<List<PokemonType>> getPokemonTypes() async {
+    final db = await _databaseHelper.database;
+    String typeQuery = await rootBundle.loadString('assets/query/types.sql');
+    List<Map<String, dynamic>> rawTypes = await db.rawQuery(typeQuery);
+    String typeEfficacyQuery =
+        await rootBundle.loadString('assets/query/type_efficacy.sql');
+    List<Map<String, dynamic>> rawTypeEfficacy =
+        await db.rawQuery(typeEfficacyQuery);
+
+    final List<PokemonType> pokemonTypes = rawTypes.map((e) {
+      final efficacy = rawTypeEfficacy
+          .where((element) => e['id'] == element['target_type_id']);
+      Map<int, dynamic> damageFactors = Map();
+      efficacy.forEach((element) {
+        final int id = element['damage_type_id'];
+        damageFactors[id] = element['damage_factor'];
+      });
+      return PokemonType(
+          id: e['id'],
+          identifier: e['identifier'],
+          nameJp: e['name_jp'],
+          damageFactors: damageFactors,
+          color: PokemonTypeExtension.init(e['identifier']).color);
+    }).toList();
+
+    return pokemonTypes;
+  }
+
   Future<List<Pokemon>> getPokemons() async {
     final db = await _databaseHelper.database;
     String query =
         await rootBundle.loadString('assets/query/default_pokemons.sql');
-    List<Map<String, dynamic>> list = await db.rawQuery(query);
+    List<Map<String, dynamic>> rawPokemons = await db.rawQuery(query);
 
-    return list.map((e) => Pokemon.fromJson(e)).toList();
+    final pokemonTypes = await getPokemonTypes();
+
+    return rawPokemons.map((rawPokemon) {
+      return Pokemon.type(rawPokemon, pokemonTypes);
+    }).toList();
   }
 
   Future<Pokemon> getPokemon(int pokemonId) async {
     final db = await _databaseHelper.database;
     String query = await rootBundle.loadString('assets/query/pokemon.sql');
-    final result = (await db.rawQuery(query, [pokemonId])).first;
-    final pokemon = Pokemon.fromJson(result);
+    final rawPokemon = (await db.rawQuery(query, [pokemonId])).first;
+    final pokemonTypes = await getPokemonTypes();
+    final pokemon = Pokemon.type(rawPokemon, pokemonTypes);
 
     return pokemon;
   }
@@ -54,11 +89,16 @@ class PokedexDataSource {
     return abilities;
   }
 
-  Future<List<Map<String, dynamic>>> getAbilityPokemons(int abilityId) async {
+  Future<List<Pokemon>> getAbilityPokemons(int abilityId) async {
     final db = await _databaseHelper.database;
     String query =
         await rootBundle.loadString('assets/query/ability_pokemons.sql');
-    final abilities = await db.rawQuery(query, [abilityId]);
-    return abilities;
+    final rawPokemons = await db.rawQuery(query, [abilityId]);
+
+    final pokemonTypes = await getPokemonTypes();
+
+    return rawPokemons.map((rawPokemon) {
+      return Pokemon.type(rawPokemon, pokemonTypes);
+    }).toList();
   }
 }

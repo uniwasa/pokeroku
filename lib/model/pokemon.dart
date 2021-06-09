@@ -1,16 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pokeroku/const/type_color.dart';
+import 'package:pokeroku/model/pokemon_type.dart';
 
 import '../util.dart';
 
 part 'pokemon.freezed.dart';
-part 'pokemon.g.dart';
+// part 'pokemon.g.dart';
 
 @freezed
 class Pokemon with _$Pokemon {
   const Pokemon._();
+
+  factory Pokemon.type(
+      Map<String, dynamic> pokemon, List<PokemonType> pokemonTypes) {
+    final firstType = pokemonTypes
+        .firstWhere((element) => element.id == pokemon['first_type_id']);
+    final secondType = pokemonTypes
+        .firstWhereOrNull((element) => element.id == pokemon['second_type_id']);
+    return Pokemon(
+      id: pokemon['id'],
+      height: makeOneTenth(pokemon['height']),
+      weight: makeOneTenth(pokemon['weight']),
+      baseExperience: pokemon['base_experience'],
+      speciesId: pokemon['species_id'],
+      identifier: pokemon['identifier'],
+      speciesIdentifier: pokemon['species_identifier'],
+      nameJp: pokemon['name_jp'],
+      nameEn: pokemon['name_en'],
+      firstType: firstType,
+      secondType: secondType,
+      hp: pokemon['hp'],
+      attack: pokemon['attack'],
+      defense: pokemon['defense'],
+      specialAttack: pokemon['special_attack'],
+      specialDefense: pokemon['special_defense'],
+      speed: pokemon['speed'],
+      isDefault: intToBool(pokemon['is_default']),
+      formNameEn: pokemon['formNameEn'],
+      pokespritePath: pokemon['pokesprite_path'],
+      formNameJp: pokemon['form_name_jp'],
+    );
+  }
 
   const factory Pokemon({
     required int id,
@@ -22,12 +53,8 @@ class Pokemon with _$Pokemon {
     @JsonKey(name: 'species_identifier') required String speciesIdentifier,
     @JsonKey(name: 'name_jp') required String nameJp,
     @JsonKey(name: 'name_en') required String nameEn,
-    @JsonKey(name: 'first_type') required int firstType,
-    @JsonKey(name: 'second_type') int? secondType,
-    @JsonKey(name: 'first_type_identifier') required String firstTypeIdentifier,
-    @JsonKey(name: 'second_type_identifier') String? secondTypeIdentifier,
-    @JsonKey(name: 'first_type_name') required String firstTypeName,
-    @JsonKey(name: 'second_type_name') String? secondTypeName,
+    @JsonKey(name: 'first_type') required PokemonType firstType,
+    @JsonKey(name: 'second_type') required PokemonType? secondType,
     required int hp,
     required int attack,
     required int defense,
@@ -35,20 +62,10 @@ class Pokemon with _$Pokemon {
     @JsonKey(name: 'special_defense') required int specialDefense,
     required int speed,
     @JsonKey(name: 'is_default', fromJson: intToBool) required bool isDefault,
-    @JsonKey(name: 'pokesprite_path') String? pokespritePath,
-    @JsonKey(name: 'form_name_jp') String? formNameJp,
-    @JsonKey(name: 'form_name_en') String? formNameEn,
+    @JsonKey(name: 'pokesprite_path') required String? pokespritePath,
+    @JsonKey(name: 'form_name_jp') required String? formNameJp,
+    @JsonKey(name: 'form_name_en') required String? formNameEn,
   }) = _Pokemon;
-
-  factory Pokemon.fromJson(Map<String, dynamic> json) =>
-      _$PokemonFromJson(json);
-
-  Color get firstTypeColor =>
-      PokemonTypeExtension.init(this.firstTypeIdentifier).color;
-
-  Color? get secondTypeColor => this.secondTypeIdentifier != null
-      ? PokemonTypeExtension.init(this.secondTypeIdentifier!).color
-      : null;
 
   String get imageName {
     String path;

@@ -6,12 +6,8 @@ select
 	,pokemon_species.id as species_id
 	,pokemon.identifier
 	,pokemon_species.identifier as species_identifier
-	,max(case when pokemon_types.slot = 1 then pokemon_types.type_id end) as first_type
-	,max(case when pokemon_types.slot = 2 then pokemon_types.type_id end) as second_type
-	,max(case when pokemon_types.slot = 1 then types.identifier end) as first_type_identifier
-	,max(case when pokemon_types.slot = 2 then types.identifier end) as second_type_identifier
-	,max(case when pokemon_types.slot = 1 then type_names.name end) as first_type_name
-	,max(case when pokemon_types.slot = 2 then type_names.name end) as second_type_name
+	,max(case when pokemon_types.slot = 1 then pokemon_types.type_id end) as first_type_id
+	,max(case when pokemon_types.slot = 2 then pokemon_types.type_id end) as second_type_id
 	,max(case when pokemon_stats.stat_id = 1 then base_stat end) as hp
 	,max(case when pokemon_stats.stat_id = 2 then base_stat end) as attack
 	,max(case when pokemon_stats.stat_id = 3 then base_stat end) as defense
@@ -24,7 +20,6 @@ select
 	,max(case when pokemon_form_names.local_language_id = 1 then pokemon_form_names.form_name end) as form_name_jp
 	,max(case when pokemon_form_names.local_language_id = 9 then pokemon_form_names.form_name end) as form_name_en
 	,pokesprite_icons.path as pokesprite_path
-	
 from pokemon_abilities
 inner join pokemon
 	on pokemon_abilities.pokemon_id = pokemon.id
@@ -34,11 +29,6 @@ inner join pokemon_species_names
 	on pokemon_species.id = pokemon_species_names.pokemon_species_id
 inner join pokemon_types
 	on pokemon.id = pokemon_types.pokemon_id
-inner join types
-	on pokemon_types.type_id = types.id
-inner join type_names
-	on types.id = type_names.type_id
-	and type_names.local_language_id = 1
 inner join pokemon_stats
 	on pokemon.id = pokemon_stats.pokemon_id
 inner join pokemon_forms

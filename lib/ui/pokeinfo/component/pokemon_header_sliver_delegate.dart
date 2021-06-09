@@ -11,7 +11,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
     required TabBar tabBar,
     required double appBarHeight,
     required double bottomAppBarHeight,
-  })   : _pokemon = pokemon,
+  })  : _pokemon = pokemon,
         _tabBar = tabBar,
         _appBarHeight = appBarHeight,
         _bottomAppBarHeight = bottomAppBarHeight;
@@ -39,7 +39,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           width: MediaQuery.of(context).size.width,
           height: maxExtent - shrinkOffset.ceil(),
           decoration: BoxDecoration(
-            color: _pokemon.firstTypeColor,
+            color: _pokemon.firstType.color,
           ),
         ),
         Positioned(
@@ -52,16 +52,15 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
               child: Column(
                 children: [
                   buildBadge(
-                    text: _pokemon.firstTypeName,
+                    text: _pokemon.firstType.nameJp,
                     color: Colors.black.withOpacity(.1),
                   ),
-                  if (_pokemon.secondTypeName != null &&
-                      _pokemon.secondTypeColor != null)
+                  if (_pokemon.secondType != null)
                     Padding(
                       padding: EdgeInsets.only(top: 5),
                       child: buildBadge(
-                        text: _pokemon.secondTypeName!,
-                        color: _pokemon.secondTypeColor!,
+                        text: _pokemon.secondType!.nameJp,
+                        color: _pokemon.secondType!.color,
                       ),
                     ),
                 ],

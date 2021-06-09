@@ -1,0 +1,1 @@
+select * from type_efficacy

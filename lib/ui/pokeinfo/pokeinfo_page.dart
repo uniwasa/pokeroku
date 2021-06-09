@@ -75,7 +75,7 @@ class PokeinfoPage extends StatelessWidget {
                                 tabs: _tabs
                                     .map((String name) => Tab(text: name))
                                     .toList(),
-                                indicatorColor: pokemon.firstTypeColor,
+                                indicatorColor: pokemon.firstType.color,
                                 indicatorWeight: 4,
                               ),
                               appBarHeight: _appBarHeight(context),

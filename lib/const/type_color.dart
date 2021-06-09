@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum PokemonType {
+enum PokemonTypeEnum {
   normal,
   fighting,
   flying,
@@ -22,65 +22,65 @@ enum PokemonType {
   unknown,
 }
 
-extension PokemonTypeExtension on PokemonType {
+extension PokemonTypeExtension on PokemonTypeEnum {
   String get toShortString => this.toString().split('.').last;
 
-  static PokemonType init(String rawValue) {
-    final type = PokemonType.values.firstWhere(
+  static PokemonTypeEnum init(String rawValue) {
+    final type = PokemonTypeEnum.values.firstWhere(
       (element) =>
           element.toShortString.toLowerCase() == rawValue.toLowerCase(),
-      orElse: () => PokemonType.unknown,
+      orElse: () => PokemonTypeEnum.unknown,
     );
     return type;
   }
 
   Color get color {
     switch (this) {
-      case PokemonType.normal:
-        return TypeColor.normal.color;
-      case PokemonType.fighting:
-        return TypeColor.fighting.color;
-      case PokemonType.flying:
-        return TypeColor.flying.color;
-      case PokemonType.poison:
-        return TypeColor.poison.color;
-      case PokemonType.ground:
-        return TypeColor.ground.color;
-      case PokemonType.rock:
-        return TypeColor.rock.color;
-      case PokemonType.bug:
-        return TypeColor.bug.color;
-      case PokemonType.ghost:
-        return TypeColor.ghost.color;
-      case PokemonType.steel:
-        return TypeColor.steel.color;
-      case PokemonType.fire:
-        return TypeColor.fire.color;
-      case PokemonType.water:
-        return TypeColor.water.color;
-      case PokemonType.grass:
-        return TypeColor.grass.color;
-      case PokemonType.electric:
-        return TypeColor.electric.color;
-      case PokemonType.psychic:
-        return TypeColor.psychic.color;
-      case PokemonType.ice:
-        return TypeColor.ice.color;
-      case PokemonType.dragon:
-        return TypeColor.dragon.color;
-      case PokemonType.dark:
-        return TypeColor.dark.color;
-      case PokemonType.fairy:
-        return TypeColor.fairy.color;
-      case PokemonType.unknown:
-        return TypeColor.unknown.color;
+      case PokemonTypeEnum.normal:
+        return TypeColorEnum.normal.color;
+      case PokemonTypeEnum.fighting:
+        return TypeColorEnum.fighting.color;
+      case PokemonTypeEnum.flying:
+        return TypeColorEnum.flying.color;
+      case PokemonTypeEnum.poison:
+        return TypeColorEnum.poison.color;
+      case PokemonTypeEnum.ground:
+        return TypeColorEnum.ground.color;
+      case PokemonTypeEnum.rock:
+        return TypeColorEnum.rock.color;
+      case PokemonTypeEnum.bug:
+        return TypeColorEnum.bug.color;
+      case PokemonTypeEnum.ghost:
+        return TypeColorEnum.ghost.color;
+      case PokemonTypeEnum.steel:
+        return TypeColorEnum.steel.color;
+      case PokemonTypeEnum.fire:
+        return TypeColorEnum.fire.color;
+      case PokemonTypeEnum.water:
+        return TypeColorEnum.water.color;
+      case PokemonTypeEnum.grass:
+        return TypeColorEnum.grass.color;
+      case PokemonTypeEnum.electric:
+        return TypeColorEnum.electric.color;
+      case PokemonTypeEnum.psychic:
+        return TypeColorEnum.psychic.color;
+      case PokemonTypeEnum.ice:
+        return TypeColorEnum.ice.color;
+      case PokemonTypeEnum.dragon:
+        return TypeColorEnum.dragon.color;
+      case PokemonTypeEnum.dark:
+        return TypeColorEnum.dark.color;
+      case PokemonTypeEnum.fairy:
+        return TypeColorEnum.fairy.color;
+      case PokemonTypeEnum.unknown:
+        return TypeColorEnum.unknown.color;
       default:
-        return TypeColor.unknown.color;
+        return TypeColorEnum.unknown.color;
     }
   }
 }
 
-enum TypeColor {
+enum TypeColorEnum {
   normal,
   fighting,
   flying,
@@ -102,46 +102,46 @@ enum TypeColor {
   unknown,
 }
 
-extension TypeColorExtension on TypeColor {
+extension TypeColorExtension on TypeColorEnum {
   Color get color {
     switch (this) {
-      case TypeColor.normal:
+      case TypeColorEnum.normal:
         return Color(0xFFA8A878);
-      case TypeColor.fighting:
+      case TypeColorEnum.fighting:
         return Color(0xFFC03028);
-      case TypeColor.flying:
+      case TypeColorEnum.flying:
         return Color(0xFFA890F0);
-      case TypeColor.poison:
+      case TypeColorEnum.poison:
         return Color(0xFFA040A0);
-      case TypeColor.ground:
+      case TypeColorEnum.ground:
         return Color(0xFFE0C068);
-      case TypeColor.rock:
+      case TypeColorEnum.rock:
         return Color(0xFFB8A038);
-      case TypeColor.bug:
+      case TypeColorEnum.bug:
         return Color(0xFFA8B820);
-      case TypeColor.ghost:
+      case TypeColorEnum.ghost:
         return Color(0xFF705898);
-      case TypeColor.steel:
+      case TypeColorEnum.steel:
         return Color(0xFFB8B8D0);
-      case TypeColor.fire:
+      case TypeColorEnum.fire:
         return Color(0xFFF08030);
-      case TypeColor.water:
+      case TypeColorEnum.water:
         return Color(0xFF6890F0);
-      case TypeColor.grass:
+      case TypeColorEnum.grass:
         return Color(0xFF78C850);
-      case TypeColor.electric:
+      case TypeColorEnum.electric:
         return Color(0xFFF8D030);
-      case TypeColor.psychic:
+      case TypeColorEnum.psychic:
         return Color(0xFFF85888);
-      case TypeColor.ice:
+      case TypeColorEnum.ice:
         return Color(0xFF98D8D8);
-      case TypeColor.dragon:
+      case TypeColorEnum.dragon:
         return Color(0xFF7038F8);
-      case TypeColor.dark:
+      case TypeColorEnum.dark:
         return Color(0xFF705848);
-      case TypeColor.fairy:
+      case TypeColorEnum.fairy:
         return Color(0xFFEE99AC);
-      case TypeColor.unknown:
+      case TypeColorEnum.unknown:
         return Color(0xFF555555);
       default:
         return Color(0xFF555555);
