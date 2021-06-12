@@ -36,6 +36,7 @@ class _$PokemonTearOff {
       required int speed,
       @JsonKey(name: 'is_default', fromJson: intToBool) required bool isDefault,
       @JsonKey(name: 'pokesprite_path') required String? pokespritePath,
+      @JsonKey(name: 'form_identifier') required String? formIdentifier,
       @JsonKey(name: 'form_name_jp') required String? formNameJp,
       @JsonKey(name: 'form_name_en') required String? formNameEn}) {
     return _Pokemon(
@@ -58,6 +59,7 @@ class _$PokemonTearOff {
       speed: speed,
       isDefault: isDefault,
       pokespritePath: pokespritePath,
+      formIdentifier: formIdentifier,
       formNameJp: formNameJp,
       formNameEn: formNameEn,
     );
@@ -101,6 +103,8 @@ mixin _$Pokemon {
   bool get isDefault => throw _privateConstructorUsedError;
   @JsonKey(name: 'pokesprite_path')
   String? get pokespritePath => throw _privateConstructorUsedError;
+  @JsonKey(name: 'form_identifier')
+  String? get formIdentifier => throw _privateConstructorUsedError;
   @JsonKey(name: 'form_name_jp')
   String? get formNameJp => throw _privateConstructorUsedError;
   @JsonKey(name: 'form_name_en')
@@ -134,6 +138,7 @@ abstract class $PokemonCopyWith<$Res> {
       int speed,
       @JsonKey(name: 'is_default', fromJson: intToBool) bool isDefault,
       @JsonKey(name: 'pokesprite_path') String? pokespritePath,
+      @JsonKey(name: 'form_identifier') String? formIdentifier,
       @JsonKey(name: 'form_name_jp') String? formNameJp,
       @JsonKey(name: 'form_name_en') String? formNameEn});
 
@@ -170,6 +175,7 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
     Object? speed = freezed,
     Object? isDefault = freezed,
     Object? pokespritePath = freezed,
+    Object? formIdentifier = freezed,
     Object? formNameJp = freezed,
     Object? formNameEn = freezed,
   }) {
@@ -250,6 +256,10 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
           ? _value.pokespritePath
           : pokespritePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      formIdentifier: formIdentifier == freezed
+          ? _value.formIdentifier
+          : formIdentifier // ignore: cast_nullable_to_non_nullable
+              as String?,
       formNameJp: formNameJp == freezed
           ? _value.formNameJp
           : formNameJp // ignore: cast_nullable_to_non_nullable
@@ -305,6 +315,7 @@ abstract class _$PokemonCopyWith<$Res> implements $PokemonCopyWith<$Res> {
       int speed,
       @JsonKey(name: 'is_default', fromJson: intToBool) bool isDefault,
       @JsonKey(name: 'pokesprite_path') String? pokespritePath,
+      @JsonKey(name: 'form_identifier') String? formIdentifier,
       @JsonKey(name: 'form_name_jp') String? formNameJp,
       @JsonKey(name: 'form_name_en') String? formNameEn});
 
@@ -344,6 +355,7 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
     Object? speed = freezed,
     Object? isDefault = freezed,
     Object? pokespritePath = freezed,
+    Object? formIdentifier = freezed,
     Object? formNameJp = freezed,
     Object? formNameEn = freezed,
   }) {
@@ -424,6 +436,10 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
           ? _value.pokespritePath
           : pokespritePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      formIdentifier: formIdentifier == freezed
+          ? _value.formIdentifier
+          : formIdentifier // ignore: cast_nullable_to_non_nullable
+              as String?,
       formNameJp: formNameJp == freezed
           ? _value.formNameJp
           : formNameJp // ignore: cast_nullable_to_non_nullable
@@ -459,6 +475,7 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       required this.speed,
       @JsonKey(name: 'is_default', fromJson: intToBool) required this.isDefault,
       @JsonKey(name: 'pokesprite_path') required this.pokespritePath,
+      @JsonKey(name: 'form_identifier') required this.formIdentifier,
       @JsonKey(name: 'form_name_jp') required this.formNameJp,
       @JsonKey(name: 'form_name_en') required this.formNameEn})
       : super._();
@@ -515,6 +532,9 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   @JsonKey(name: 'pokesprite_path')
   final String? pokespritePath;
   @override
+  @JsonKey(name: 'form_identifier')
+  final String? formIdentifier;
+  @override
   @JsonKey(name: 'form_name_jp')
   final String? formNameJp;
   @override
@@ -523,7 +543,7 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, firstType: $firstType, secondType: $secondType, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formNameJp: $formNameJp, formNameEn: $formNameEn)';
+    return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, firstType: $firstType, secondType: $secondType, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formIdentifier: $formIdentifier, formNameJp: $formNameJp, formNameEn: $formNameEn)';
   }
 
   @override
@@ -550,6 +570,7 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('speed', speed))
       ..add(DiagnosticsProperty('isDefault', isDefault))
       ..add(DiagnosticsProperty('pokespritePath', pokespritePath))
+      ..add(DiagnosticsProperty('formIdentifier', formIdentifier))
       ..add(DiagnosticsProperty('formNameJp', formNameJp))
       ..add(DiagnosticsProperty('formNameEn', formNameEn));
   }
@@ -607,6 +628,9 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
             (identical(other.pokespritePath, pokespritePath) ||
                 const DeepCollectionEquality()
                     .equals(other.pokespritePath, pokespritePath)) &&
+            (identical(other.formIdentifier, formIdentifier) ||
+                const DeepCollectionEquality()
+                    .equals(other.formIdentifier, formIdentifier)) &&
             (identical(other.formNameJp, formNameJp) ||
                 const DeepCollectionEquality()
                     .equals(other.formNameJp, formNameJp)) &&
@@ -637,6 +661,7 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(speed) ^
       const DeepCollectionEquality().hash(isDefault) ^
       const DeepCollectionEquality().hash(pokespritePath) ^
+      const DeepCollectionEquality().hash(formIdentifier) ^
       const DeepCollectionEquality().hash(formNameJp) ^
       const DeepCollectionEquality().hash(formNameEn);
 
@@ -667,6 +692,7 @@ abstract class _Pokemon extends Pokemon {
       required int speed,
       @JsonKey(name: 'is_default', fromJson: intToBool) required bool isDefault,
       @JsonKey(name: 'pokesprite_path') required String? pokespritePath,
+      @JsonKey(name: 'form_identifier') required String? formIdentifier,
       @JsonKey(name: 'form_name_jp') required String? formNameJp,
       @JsonKey(name: 'form_name_en') required String? formNameEn}) = _$_Pokemon;
   const _Pokemon._() : super._();
@@ -722,6 +748,9 @@ abstract class _Pokemon extends Pokemon {
   @override
   @JsonKey(name: 'pokesprite_path')
   String? get pokespritePath => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'form_identifier')
+  String? get formIdentifier => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'form_name_jp')
   String? get formNameJp => throw _privateConstructorUsedError;

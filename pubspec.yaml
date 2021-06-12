@@ -60,6 +60,7 @@ flutter:
     - assets/pokedex.db
     - assets/query/
     - assets/icons/pokemon/regular/
+    - assets/icons/pokemon/regular_female/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

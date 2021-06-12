@@ -12,6 +12,31 @@ part 'pokemon.freezed.dart';
 class Pokemon with _$Pokemon {
   const Pokemon._();
 
+  const factory Pokemon({
+    required int id,
+    @JsonKey(fromJson: makeOneTenth) required double height,
+    @JsonKey(fromJson: makeOneTenth) required double weight,
+    @JsonKey(name: 'base_experience') required int baseExperience,
+    @JsonKey(name: 'species_id') required int speciesId,
+    required String identifier,
+    @JsonKey(name: 'species_identifier') required String speciesIdentifier,
+    @JsonKey(name: 'name_jp') required String nameJp,
+    @JsonKey(name: 'name_en') required String nameEn,
+    @JsonKey(name: 'first_type') required PokemonType firstType,
+    @JsonKey(name: 'second_type') required PokemonType? secondType,
+    required int hp,
+    required int attack,
+    required int defense,
+    @JsonKey(name: 'special_attack') required int specialAttack,
+    @JsonKey(name: 'special_defense') required int specialDefense,
+    required int speed,
+    @JsonKey(name: 'is_default', fromJson: intToBool) required bool isDefault,
+    @JsonKey(name: 'pokesprite_path') required String? pokespritePath,
+    @JsonKey(name: 'form_identifier') required String? formIdentifier,
+    @JsonKey(name: 'form_name_jp') required String? formNameJp,
+    @JsonKey(name: 'form_name_en') required String? formNameEn,
+  }) = _Pokemon;
+
   factory Pokemon.type(
       Map<String, dynamic> pokemon, List<PokemonType> pokemonTypes) {
     final firstType = pokemonTypes
@@ -37,44 +62,23 @@ class Pokemon with _$Pokemon {
       specialDefense: pokemon['special_defense'],
       speed: pokemon['speed'],
       isDefault: intToBool(pokemon['is_default']),
-      formNameEn: pokemon['formNameEn'],
-      pokespritePath: pokemon['pokesprite_path'],
+      formIdentifier: pokemon['form_identifier'],
       formNameJp: pokemon['form_name_jp'],
+      formNameEn: pokemon['form_name_en'],
+      pokespritePath: pokemon['pokesprite_path'],
     );
   }
-
-  const factory Pokemon({
-    required int id,
-    @JsonKey(fromJson: makeOneTenth) required double height,
-    @JsonKey(fromJson: makeOneTenth) required double weight,
-    @JsonKey(name: 'base_experience') required int baseExperience,
-    @JsonKey(name: 'species_id') required int speciesId,
-    required String identifier,
-    @JsonKey(name: 'species_identifier') required String speciesIdentifier,
-    @JsonKey(name: 'name_jp') required String nameJp,
-    @JsonKey(name: 'name_en') required String nameEn,
-    @JsonKey(name: 'first_type') required PokemonType firstType,
-    @JsonKey(name: 'second_type') required PokemonType? secondType,
-    required int hp,
-    required int attack,
-    required int defense,
-    @JsonKey(name: 'special_attack') required int specialAttack,
-    @JsonKey(name: 'special_defense') required int specialDefense,
-    required int speed,
-    @JsonKey(name: 'is_default', fromJson: intToBool) required bool isDefault,
-    @JsonKey(name: 'pokesprite_path') required String? pokespritePath,
-    @JsonKey(name: 'form_name_jp') required String? formNameJp,
-    @JsonKey(name: 'form_name_en') required String? formNameEn,
-  }) = _Pokemon;
 
   String get imageName {
     String path;
     if (isDefault) {
-      path = speciesIdentifier;
+      path = 'regular/' + speciesIdentifier;
+    } else if (formIdentifier == 'female') {
+      path = 'regular_female/' + speciesIdentifier;
     } else {
-      path = pokespritePath ?? identifier;
+      path = 'regular/' + (pokespritePath ?? identifier);
     }
-    return 'assets/icons/pokemon/regular/' + path + '.png';
+    return 'assets/icons/pokemon/' + path + '.png';
   }
 
   String get fullNameJp {

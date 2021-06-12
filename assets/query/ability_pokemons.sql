@@ -1,8 +1,9 @@
 select
 	s3.*
+	,pokemon_forms.form_identifier
 	,max(case when pokemon_form_names.local_language_id = 1 then pokemon_form_names.form_name end) as form_name_jp
 	,max(case when pokemon_form_names.local_language_id = 9 then pokemon_form_names.form_name end) as form_name_en
-	,pokesprite_icons.path as pokesprite_path
+	,my_pokesprite_icons.path as pokesprite_path
 from (
 	select
 		s2.*
@@ -53,6 +54,6 @@ inner join pokemon_forms
 	and pokemon_forms.is_default = 1
 left join pokemon_form_names
 	on pokemon_forms.id = pokemon_form_names.pokemon_form_id
-left join pokesprite_icons
-	on s3.identifier = pokesprite_icons.pokemon_identifier
+left join my_pokesprite_icons
+	on s3.identifier = my_pokesprite_icons.pokemon_identifier
 group by s3.id
