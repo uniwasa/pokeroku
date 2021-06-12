@@ -61,6 +61,8 @@ flutter:
     - assets/query/
     - assets/icons/pokemon/regular/
     - assets/icons/pokemon/regular_female/
+    - assets/icons/pokemon/shiny/
+    - assets/icons/pokemon/shiny_female/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

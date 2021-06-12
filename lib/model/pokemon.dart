@@ -81,6 +81,18 @@ class Pokemon with _$Pokemon {
     return 'assets/icons/pokemon/' + path + '.png';
   }
 
+  String get shinyImageName {
+    String path;
+    if (isDefault) {
+      path = 'shiny/' + speciesIdentifier;
+    } else if (formIdentifier == 'female') {
+      path = 'shiny_female/' + speciesIdentifier;
+    } else {
+      path = 'shiny/' + (pokespritePath ?? identifier);
+    }
+    return 'assets/icons/pokemon/' + path + '.png';
+  }
+
   String get fullNameJp {
     if (formNameJp == null) return nameJp;
     return nameJp + ' (' + formNameJp! + ')';
