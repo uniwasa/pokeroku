@@ -49,6 +49,9 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
           abilities: abilities,
         );
 
+        final moves = await _dataSource.getPokemonMoves(pokemonId);
+        print(moves);
+
         state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
       } on Exception catch (error) {
         state = state.copyWith(asyncPokemonEx: AsyncValue.error(error));
