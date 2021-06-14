@@ -3,14 +3,14 @@ import 'package:flutter/material.dart' hide NestedScrollView;
 
 class TabViewItem extends StatefulWidget {
   final Key _tabKey;
-  final Widget _body;
+  final List<Widget> _slivers;
 
   const TabViewItem({
     Key? key,
     required Key tabKey,
-    required Widget body,
+    required List<Widget> slivers,
   })  : _tabKey = tabKey,
-        _body = body,
+        _slivers = slivers,
         super(key: key);
 
   @override
@@ -38,17 +38,7 @@ class _TabViewItemState extends State<TabViewItem>
                   handle:
                       NestedScrollView.sliverOverlapAbsorberHandleFor(context)!,
                 ),
-                SliverPadding(
-                  padding: const EdgeInsets.all(0.0),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return widget._body;
-                      },
-                      childCount: 1,
-                    ),
-                  ),
-                ),
+                for (Widget sliver in widget._slivers) sliver
               ],
             ),
           );

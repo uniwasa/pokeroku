@@ -14,7 +14,10 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   })  : _dataSource = dataSource,
         _allPokemons = allPokemons,
         super(PokeinfoState(
-            pokemonBase: pokemon, asyncPokemonEx: AsyncValue.loading())) {
+          pokemonBase: pokemon,
+          asyncPokemonEx: AsyncValue.loading(),
+          asyncMoves: AsyncValue.loading(),
+        )) {
     fetchExtraInfo();
   }
 
@@ -23,7 +26,10 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
 
   Future<void> setPokemon(Pokemon pokemon) async {
     state = state.copyWith(
-        pokemonBase: pokemon, asyncPokemonEx: AsyncValue.loading());
+      pokemonBase: pokemon,
+      asyncPokemonEx: AsyncValue.loading(),
+      asyncMoves: AsyncValue.loading(),
+    );
     fetchExtraInfo();
   }
 
@@ -50,11 +56,16 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
         );
 
         final moves = await _dataSource.getPokemonMoves(pokemonId);
-        print(moves);
 
-        state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
+        state = state.copyWith(
+          asyncPokemonEx: AsyncValue.data(pokemonEx),
+          asyncMoves: AsyncValue.data(moves),
+        );
       } on Exception catch (error) {
-        state = state.copyWith(asyncPokemonEx: AsyncValue.error(error));
+        state = state.copyWith(
+          asyncPokemonEx: AsyncValue.error(error),
+          asyncMoves: AsyncValue.error(error),
+        );
       }
     });
   }

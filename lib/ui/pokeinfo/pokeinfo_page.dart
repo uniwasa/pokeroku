@@ -4,15 +4,21 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokeinfo_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
+import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_header_sliver_delegate.dart';
-import 'package:pokeroku/ui/pokeinfo/component/tab_content_base.dart';
-import 'package:pokeroku/ui/pokeinfo/component/tab_content_evolution.dart';
+import 'package:pokeroku/ui/pokeinfo/component/pokemon_stats_chart.dart';
 import 'package:pokeroku/ui/pokeinfo/component/tab_view_item.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
+
+part './component/tab_content_base.dart';
+part './component/tab_content_evolution.dart';
+part './component/tab_content_move.dart';
 
 class PokeinfoPage extends StatelessWidget {
   PokeinfoPage({Key? key, required Pokemon pokemon}) : super(key: key) {
@@ -101,20 +107,25 @@ class PokeinfoPage extends StatelessWidget {
                       children: [
                         TabViewItem(
                           tabKey: Key('tab_0'),
-                          body: TabContentBase(
-                            pokemonEx: pokemonEx,
-                          ),
+                          slivers: buildTabContentBase(
+                              context: context, pokemonEx: pokemonEx),
                         ),
                         TabViewItem(
                           tabKey: Key('tab_1'),
-                          body: TabContentEvolution(
-                            pokemonEx: pokemonEx,
-                          ),
+                          slivers: buildTabContentBase(
+                              context: context, pokemonEx: pokemonEx),
                         ),
-                        TabViewItem(
-                          tabKey: Key('tab_2'),
-                          body: Container(),
-                        )
+                        HookBuilder(
+                          builder: (context) {
+                            final asyncMoves = useProvider(
+                                _provider.select((value) => value.asyncMoves));
+                            return TabViewItem(
+                              tabKey: Key('tab_2'),
+                              slivers: buildTabContentMove(
+                                  context: context, asyncMoves: asyncMoves),
+                            );
+                          },
+                        ),
                       ],
                     );
                   },

@@ -1,14 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:pokeroku/model/pokemon_ex.dart';
-import 'package:pokeroku/routes.dart';
+part of '../pokeinfo_page.dart';
 
-class TabContentEvolution extends StatelessWidget {
-  TabContentEvolution({required PokemonEx pokemonEx}) : _pokemonEx = pokemonEx;
-  final PokemonEx _pokemonEx;
-  @override
-  Widget build(BuildContext context) {
+extension TabContentEvolution on PokeinfoPage {
+  List<Widget> buildTabContentEvolution(
+      {required BuildContext context, required PokemonEx pokemonEx}) {
     List<Widget> evolutionsWidget = [];
-    for (final stage in _pokemonEx.evolutions) {
+    for (final stage in pokemonEx.evolutions) {
       final stageWidget = Expanded(
           flex: stage.length < 5 ? 3 : 10,
           child: Container(
@@ -54,12 +50,16 @@ class TabContentEvolution extends StatelessWidget {
     }
     evolutionsWidget.removeLast();
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: evolutionsWidget,
-      ),
-    );
+    return [
+      SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: evolutionsWidget,
+          ),
+        ),
+      )
+    ];
   }
 }
