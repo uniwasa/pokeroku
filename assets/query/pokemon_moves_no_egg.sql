@@ -13,6 +13,7 @@ inner join move_flavor_text
 		(select max(version_group_id) from move_flavor_text move_flavor_text_copy
 		where move_flavor_text.move_id = move_flavor_text_copy.move_id)
 where pokemon_moves.pokemon_id = ?
+	and pokemon_moves.pokemon_move_method_id != 2
 	and pokemon_moves.version_group_id =
 		(select max(version_group_id) from pokemon_moves pokemon_moves_copy
 		where pokemon_moves.pokemon_id = pokemon_moves_copy.pokemon_id)

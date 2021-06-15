@@ -56,14 +56,11 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
           genderRatio: genderRate,
           abilities: abilities,
         );
+        state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
 
         final moves = await _dataSource.getPokemonMoves(pokemonId);
         allMoves = moves;
-
-        state = state.copyWith(
-          asyncPokemonEx: AsyncValue.data(pokemonEx),
-          asyncMoves: AsyncValue.data(moves),
-        );
+        state = state.copyWith(asyncMoves: AsyncValue.data(moves));
       } on Exception catch (error) {
         state = state.copyWith(
           asyncPokemonEx: AsyncValue.error(error),
