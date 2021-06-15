@@ -112,7 +112,7 @@ class PokeinfoPage extends StatelessWidget {
                         ),
                         TabViewItem(
                           tabKey: Key('tab_1'),
-                          slivers: buildTabContentBase(
+                          slivers: buildTabContentEvolution(
                               context: context, pokemonEx: pokemonEx),
                         ),
                         HookBuilder(
@@ -145,11 +145,6 @@ class PokeinfoPage extends StatelessWidget {
               final allPokemons = context.read(allPokemonsProvider);
               allPokemons.whenData((data) =>
                   context.read(_provider.notifier).setPokemon(data.first));
-
-              // context
-              //     .read(pokemonViewModelProvider)
-              //     .setName('dragapult'); //context.read使わんでもいいかも
-              // context.read(currentPokemonProvider).fetchPokemon(887);
               // print(DefaultTabController.of(context)?.index);
             },
           ),

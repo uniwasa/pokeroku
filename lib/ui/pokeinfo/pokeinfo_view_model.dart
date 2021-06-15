@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/ability.dart';
+import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokeinfo_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
@@ -23,6 +24,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
 
   final PokedexDataSource _dataSource;
   final AsyncValue<List<Pokemon>> _allPokemons;
+  List<Move> allMoves = [];
 
   Future<void> setPokemon(Pokemon pokemon) async {
     state = state.copyWith(
@@ -56,6 +58,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
         );
 
         final moves = await _dataSource.getPokemonMoves(pokemonId);
+        allMoves = moves;
 
         state = state.copyWith(
           asyncPokemonEx: AsyncValue.data(pokemonEx),
@@ -108,5 +111,12 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
           .toList()
           .contains(element['evolves_from_species_id']);
     }).toList();
+  }
+
+  void searchForMoves(String input) {
+    final filtered = allMoves.where((move) {
+      return hiraToKana(move.nameJp).contains(hiraToKana(input));
+    }).toList();
+    state = state.copyWith(asyncMoves: AsyncValue.data(filtered));
   }
 }
