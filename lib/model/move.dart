@@ -24,6 +24,7 @@ class Move with _$Move {
     @JsonKey(name: 'effect_chance') required int? effectChance,
     @JsonKey(name: 'name_jp') required String nameJp,
     @JsonKey(name: 'flavor_text_jp') required String flavorTextJp,
+    @JsonKey(name: 'item_identifier') required String? itemIdentifier,
     required PokemonType type,
   }) = _Move;
 
@@ -46,6 +47,7 @@ class Move with _$Move {
       effectChance: move['effect_chance'],
       nameJp: move['name_jp'],
       flavorTextJp: move['flavor_text_jp'],
+      itemIdentifier: move['item_identifier'],
       type: type,
     );
   }

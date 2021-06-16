@@ -3,6 +3,7 @@ select
 	,moves.*
 	,max(case when move_names.local_language_id = 11 then move_names.name end) as name_jp
 	,max(case when move_flavor_text.language_id = 11 then move_flavor_text.flavor_text end) as flavor_text_jp
+	,items.identifier as item_identifier
 from pokemon
 inner join pokemon_species
 	on pokemon.species_id = pokemon_species.id
@@ -18,6 +19,11 @@ inner join pokemon_moves
 		where pokemon_moves.pokemon_id = pokemon_moves_copy.pokemon_id)
 inner join moves
 	on pokemon_moves.move_id = moves.id
+left join machines
+	on moves.id = machines.move_id
+	and machines.version_group_id = 20
+left join items
+	on machines.item_id = items.id
 inner join move_names
 	on moves.id = move_names.move_id
 inner join move_flavor_text

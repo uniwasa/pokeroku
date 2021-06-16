@@ -32,6 +32,7 @@ class _$MoveTearOff {
       @JsonKey(name: 'effect_chance') required int? effectChance,
       @JsonKey(name: 'name_jp') required String nameJp,
       @JsonKey(name: 'flavor_text_jp') required String flavorTextJp,
+      @JsonKey(name: 'item_identifier') required String? itemIdentifier,
       required PokemonType type}) {
     return _Move(
       id: id,
@@ -49,6 +50,7 @@ class _$MoveTearOff {
       effectChance: effectChance,
       nameJp: nameJp,
       flavorTextJp: flavorTextJp,
+      itemIdentifier: itemIdentifier,
       type: type,
     );
   }
@@ -81,6 +83,8 @@ mixin _$Move {
   String get nameJp => throw _privateConstructorUsedError;
   @JsonKey(name: 'flavor_text_jp')
   String get flavorTextJp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'item_identifier')
+  String? get itemIdentifier => throw _privateConstructorUsedError;
   PokemonType get type => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -107,6 +111,7 @@ abstract class $MoveCopyWith<$Res> {
       @JsonKey(name: 'effect_chance') int? effectChance,
       @JsonKey(name: 'name_jp') String nameJp,
       @JsonKey(name: 'flavor_text_jp') String flavorTextJp,
+      @JsonKey(name: 'item_identifier') String? itemIdentifier,
       PokemonType type});
 
   $PokemonTypeCopyWith<$Res> get type;
@@ -137,6 +142,7 @@ class _$MoveCopyWithImpl<$Res> implements $MoveCopyWith<$Res> {
     Object? effectChance = freezed,
     Object? nameJp = freezed,
     Object? flavorTextJp = freezed,
+    Object? itemIdentifier = freezed,
     Object? type = freezed,
   }) {
     return _then(_value.copyWith(
@@ -200,6 +206,10 @@ class _$MoveCopyWithImpl<$Res> implements $MoveCopyWith<$Res> {
           ? _value.flavorTextJp
           : flavorTextJp // ignore: cast_nullable_to_non_nullable
               as String,
+      itemIdentifier: itemIdentifier == freezed
+          ? _value.itemIdentifier
+          : itemIdentifier // ignore: cast_nullable_to_non_nullable
+              as String?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -236,6 +246,7 @@ abstract class _$MoveCopyWith<$Res> implements $MoveCopyWith<$Res> {
       @JsonKey(name: 'effect_chance') int? effectChance,
       @JsonKey(name: 'name_jp') String nameJp,
       @JsonKey(name: 'flavor_text_jp') String flavorTextJp,
+      @JsonKey(name: 'item_identifier') String? itemIdentifier,
       PokemonType type});
 
   @override
@@ -268,6 +279,7 @@ class __$MoveCopyWithImpl<$Res> extends _$MoveCopyWithImpl<$Res>
     Object? effectChance = freezed,
     Object? nameJp = freezed,
     Object? flavorTextJp = freezed,
+    Object? itemIdentifier = freezed,
     Object? type = freezed,
   }) {
     return _then(_Move(
@@ -331,6 +343,10 @@ class __$MoveCopyWithImpl<$Res> extends _$MoveCopyWithImpl<$Res>
           ? _value.flavorTextJp
           : flavorTextJp // ignore: cast_nullable_to_non_nullable
               as String,
+      itemIdentifier: itemIdentifier == freezed
+          ? _value.itemIdentifier
+          : itemIdentifier // ignore: cast_nullable_to_non_nullable
+              as String?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -365,6 +381,8 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
           required this.nameJp,
       @JsonKey(name: 'flavor_text_jp')
           required this.flavorTextJp,
+      @JsonKey(name: 'item_identifier')
+          required this.itemIdentifier,
       required this.type})
       : super._();
 
@@ -406,11 +424,14 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
   @JsonKey(name: 'flavor_text_jp')
   final String flavorTextJp;
   @override
+  @JsonKey(name: 'item_identifier')
+  final String? itemIdentifier;
+  @override
   final PokemonType type;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Move(id: $id, identifier: $identifier, versionGroupId: $versionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId, level: $level, order: $order, power: $power, pp: $pp, accuracy: $accuracy, priority: $priority, targetId: $targetId, damageClassId: $damageClassId, effectChance: $effectChance, nameJp: $nameJp, flavorTextJp: $flavorTextJp, type: $type)';
+    return 'Move(id: $id, identifier: $identifier, versionGroupId: $versionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId, level: $level, order: $order, power: $power, pp: $pp, accuracy: $accuracy, priority: $priority, targetId: $targetId, damageClassId: $damageClassId, effectChance: $effectChance, nameJp: $nameJp, flavorTextJp: $flavorTextJp, itemIdentifier: $itemIdentifier, type: $type)';
   }
 
   @override
@@ -433,6 +454,7 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('effectChance', effectChance))
       ..add(DiagnosticsProperty('nameJp', nameJp))
       ..add(DiagnosticsProperty('flavorTextJp', flavorTextJp))
+      ..add(DiagnosticsProperty('itemIdentifier', itemIdentifier))
       ..add(DiagnosticsProperty('type', type));
   }
 
@@ -479,6 +501,9 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
             (identical(other.flavorTextJp, flavorTextJp) ||
                 const DeepCollectionEquality()
                     .equals(other.flavorTextJp, flavorTextJp)) &&
+            (identical(other.itemIdentifier, itemIdentifier) ||
+                const DeepCollectionEquality()
+                    .equals(other.itemIdentifier, itemIdentifier)) &&
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)));
   }
@@ -501,6 +526,7 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(effectChance) ^
       const DeepCollectionEquality().hash(nameJp) ^
       const DeepCollectionEquality().hash(flavorTextJp) ^
+      const DeepCollectionEquality().hash(itemIdentifier) ^
       const DeepCollectionEquality().hash(type);
 
   @JsonKey(ignore: true)
@@ -526,6 +552,7 @@ abstract class _Move extends Move {
       @JsonKey(name: 'effect_chance') required int? effectChance,
       @JsonKey(name: 'name_jp') required String nameJp,
       @JsonKey(name: 'flavor_text_jp') required String flavorTextJp,
+      @JsonKey(name: 'item_identifier') required String? itemIdentifier,
       required PokemonType type}) = _$_Move;
   const _Move._() : super._();
 
@@ -566,6 +593,9 @@ abstract class _Move extends Move {
   @override
   @JsonKey(name: 'flavor_text_jp')
   String get flavorTextJp => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'item_identifier')
+  String? get itemIdentifier => throw _privateConstructorUsedError;
   @override
   PokemonType get type => throw _privateConstructorUsedError;
   @override
