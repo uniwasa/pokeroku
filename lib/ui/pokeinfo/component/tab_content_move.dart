@@ -5,13 +5,54 @@ extension TabContentMove on PokeinfoPage {
       {required BuildContext context,
       required AsyncValue<List<Move>> asyncMoves}) {
     return asyncMoves.when(
-      data: (moves) {
+      data: (allMoves) {
+        final movesLevel =
+            allMoves.where((move) => move.pokemonMoveMethodId == 1).toList();
+        final movesEgg =
+            allMoves.where((move) => move.pokemonMoveMethodId == 2).toList();
+        final movesTutor =
+            allMoves.where((move) => move.pokemonMoveMethodId == 3).toList();
+        final movesMachine =
+            allMoves.where((move) => move.pokemonMoveMethodId == 4).toList();
+
+        final moveGroup = {
+          'レベル': movesLevel,
+          'マシン': movesMachine,
+          'タマゴ': movesEgg,
+          '教え技': movesTutor,
+        };
+        final moveGroupSlivers = moveGroup.entries.map((e) {
+          final key = e.key;
+          final moves = e.value;
+          return SliverStickyHeader(
+            header: Container(
+              height: 30.0,
+              color: Theme.of(context).backgroundColor,
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                key,
+                style: const TextStyle(color: Colors.white54),
+              ),
+            ),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return ListTile(title: Text(moves[index].nameJp));
+                },
+                childCount: moves.length,
+              ),
+            ),
+          );
+        }).toList();
+
+        // コンテンツ本体
         return [
           useMemoized(
             () => SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 8, top: 10, right: 8, bottom: 5),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                 child: TextField(
                   onChanged: (text) {
                     final pokedexViewModel = context.read(_provider.notifier);
@@ -35,14 +76,7 @@ extension TabContentMove on PokeinfoPage {
               ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return ListTile(title: Text(moves[index].nameJp));
-              },
-              childCount: moves.length,
-            ),
-          )
+          for (Widget sliver in moveGroupSlivers) sliver
         ];
       },
       loading: () => [

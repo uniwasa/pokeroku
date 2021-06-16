@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   kana_kit: ^2.0.0
   collection: ^1.15.0
+  flutter_sticky_header: ^0.6.0
 
 dev_dependencies:
   flutter_test:
