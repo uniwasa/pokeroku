@@ -48,6 +48,7 @@ extension TabContentMove on PokeinfoPage {
                     trailingText = move.itemIdentifier?.toUpperCase() ?? '';
                   }
                   return Material(
+                    color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
                         print('hello');

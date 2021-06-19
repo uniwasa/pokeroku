@@ -71,6 +71,19 @@ Widget buildCircle({required Color color}) {
   );
 }
 
+Widget buildHeaderLabel({required Color color,required String text}) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 8, bottom: 2),
+    child: Text(
+        text,
+      style: TextStyle(
+          color: color,
+          fontSize: 16,
+          fontWeight: FontWeight.bold),
+    ),
+  );
+}
+
 List<double>? makeGenderRatio(int value) {
   if (value >= 0 && value <= 8) {
     final double femaleRate = value / 8 * 100;

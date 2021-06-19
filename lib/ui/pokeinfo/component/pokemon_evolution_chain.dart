@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/util.dart';
 
 class PokemonEvolutionChain extends StatelessWidget {
   PokemonEvolutionChain({required PokemonEx pokemonEx})
@@ -65,18 +66,24 @@ class PokemonEvolutionChain extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          color: Theme.of(context).canvasColor,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: evolutionsWidget,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildHeaderLabel(color: _pokemonEx.base.firstType.color, text: '進化'),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              color: Theme.of(context).canvasColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: evolutionsWidget,
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
