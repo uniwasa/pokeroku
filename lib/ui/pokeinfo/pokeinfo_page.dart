@@ -16,6 +16,7 @@ import 'package:pokeroku/ui/pokeinfo/component/pokemon_header_sliver_delegate.da
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_stats_chart.dart';
 import 'package:pokeroku/ui/pokeinfo/component/tab_view_item.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
+import 'package:pokeroku/util.dart';
 
 part './component/tab_content_base.dart';
 part './component/tab_content_evolution.dart';
