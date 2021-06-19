@@ -1,10 +1,17 @@
-part of '../pokeinfo_page.dart';
+import 'package:flutter/material.dart';
+import 'package:pokeroku/model/pokemon_ex.dart';
+import 'package:pokeroku/routes.dart';
 
-extension TabContentEvolution on PokeinfoPage {
-  List<Widget> buildTabContentEvolution(
-      {required BuildContext context, required PokemonEx pokemonEx}) {
+class PokemonEvolutionChain extends StatelessWidget {
+  PokemonEvolutionChain({required PokemonEx pokemonEx})
+      : _pokemonEx = pokemonEx;
+
+  final PokemonEx _pokemonEx;
+
+  @override
+  Widget build(BuildContext context) {
     List<Widget> evolutionsWidget = [];
-    for (final stage in pokemonEx.evolutions) {
+    for (final stage in _pokemonEx.evolutions) {
       final stageWidget = Expanded(
         flex: stage.length < 5 ? 3 : 10,
         child: Center(
@@ -25,7 +32,7 @@ extension TabContentEvolution on PokeinfoPage {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        final currentPokemon = pokemonEx.base;
+                        final currentPokemon = _pokemonEx.base;
                         if (currentPokemon != stagePokemon)
                           Navigator.pushNamed(context, Routes.pokeinfo,
                               arguments: stagePokemon);
@@ -56,25 +63,21 @@ extension TabContentEvolution on PokeinfoPage {
     }
     evolutionsWidget.removeLast();
 
-    return [
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              color: Theme.of(context).canvasColor,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: evolutionsWidget,
-                ),
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          color: Theme.of(context).canvasColor,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: evolutionsWidget,
             ),
           ),
         ),
-      )
-    ];
+      ),
+    );
   }
 }

@@ -12,6 +12,7 @@ import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/pokeinfo/component/pokemon_evolution_chain.dart';
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_header_sliver_delegate.dart';
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_stats_chart.dart';
 import 'package:pokeroku/ui/pokeinfo/component/tab_view_item.dart';
@@ -19,7 +20,7 @@ import 'package:pokeroku/ui/pokeinfo/pokeinfo_view_model.dart';
 import 'package:pokeroku/util.dart';
 
 part './component/tab_content_base.dart';
-part './component/tab_content_evolution.dart';
+part './component/tab_content_stats.dart';
 part './component/tab_content_move.dart';
 
 class PokeinfoPage extends StatelessWidget {
@@ -40,7 +41,7 @@ class PokeinfoPage extends StatelessWidget {
 
   final List<String> _tabs = <String>[
     "きほん",
-    "しんか",
+    "のうりょく",
     "わざ",
   ];
 
@@ -114,7 +115,7 @@ class PokeinfoPage extends StatelessWidget {
                         ),
                         TabViewItem(
                           tabKey: Key('tab_1'),
-                          slivers: buildTabContentEvolution(
+                          slivers: buildTabContentStats(
                               context: context, pokemonEx: pokemonEx),
                         ),
                         HookBuilder(

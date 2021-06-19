@@ -212,7 +212,7 @@ extension TabContentBase on PokeinfoPage {
                 ),
               )),
             ),
-            PokemonStatsChart(pokemon: pokemonEx.base),
+            PokemonEvolutionChain(pokemonEx: pokemonEx),
           ],
         ),
       )
