@@ -25,8 +25,10 @@ extension TabContentEvolution on PokeinfoPage {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.pokeinfo,
-                            arguments: stagePokemon);
+                        final currentPokemon = pokemonEx.base;
+                        if (currentPokemon != stagePokemon)
+                          Navigator.pushNamed(context, Routes.pokeinfo,
+                              arguments: stagePokemon);
                       },
                       child: Padding(
                         child: pokemonImage,
