@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pokeroku/model/ability.dart';
+import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
+import 'package:pokeroku/ui/move_info/move_info_page.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_page.dart';
 
@@ -33,6 +35,14 @@ class App extends HookWidget {
             if (arguments is Ability) {
               return MaterialPageRoute(
                 builder: (context) => AbilityInfoPage(ability: arguments),
+              );
+            } else {
+              return null;
+            }
+          case Routes.moveInfo:
+            if (arguments is Move) {
+              return MaterialPageRoute(
+                builder: (context) => MoveInfoPage(move: arguments),
               );
             } else {
               return null;

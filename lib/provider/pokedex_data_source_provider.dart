@@ -114,4 +114,16 @@ class PokedexDataSource {
 
     return rawMoves.map((rawMove) => Move.type(rawMove, pokemonTypes)).toList();
   }
+
+  Future<List<Pokemon>> getMovePokemons(int moveId) async {
+    final db = await _databaseHelper.database;
+    String query =
+        await rootBundle.loadString('assets/query/move_pokemons.sql');
+    final rawPokemons = await db.rawQuery(query, [moveId]);
+    final pokemonTypes = await getPokemonTypes();
+
+    return rawPokemons.map((rawPokemon) {
+      return Pokemon.type(rawPokemon, pokemonTypes);
+    }).toList();
+  }
 }

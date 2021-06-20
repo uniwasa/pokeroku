@@ -51,7 +51,11 @@ extension TabContentMove on PokeinfoPage {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        print('hello');
+                        Navigator.pushNamed(
+                          context,
+                          Routes.moveInfo,
+                          arguments: move,
+                        );
                       },
                       child: ListTile(
                         leading: Column(

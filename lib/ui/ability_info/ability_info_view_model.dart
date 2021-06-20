@@ -10,7 +10,6 @@ class AbilityInfoViewModel extends StateNotifier<AbilityInfoState> {
   })  : _dataSource = dataSource,
         super(AbilityInfoState(
             ability: ability, asyncPokemons: AsyncValue.loading())) {
-    //ポケモン一覧が読み込まれてるときのみ実行
     fetchPokemons();
   }
 
