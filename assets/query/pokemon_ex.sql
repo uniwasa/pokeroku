@@ -11,6 +11,6 @@ inner join pokemon_species_flavor_text
 	and pokemon_species_flavor_text.version_id = 
 		(select max(version_id) from pokemon_species_flavor_text flavor 
 		where pokemon_species_flavor_text.species_id = flavor.species_id
-		and flavor.flavor_text != '')
+		and trim(flavor.flavor_text) != '')
 where pokemon.id = ?
 group by pokemon.id
