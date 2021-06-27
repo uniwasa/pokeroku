@@ -31,6 +31,7 @@ from (
 				,pokemon.is_default
 				,max(case when pokemon_species_names.local_language_id = 1 then pokemon_species_names.name end) as name_jp
 				,max(case when pokemon_species_names.local_language_id = 9 then pokemon_species_names.name end) as name_en
+				,max(pokemon_moves.version_group_id) as pokemon_move_version_group_id
 			from pokemon_moves
 			inner join pokemon
 				on pokemon_moves.pokemon_id = pokemon.id
@@ -57,3 +58,4 @@ left join pokemon_form_names
 left join my_pokesprite_icons
 	on s3.identifier = my_pokesprite_icons.pokemon_identifier
 group by s3.id
+order by s3.pokemon_move_version_group_id desc, s3.id asc

@@ -117,6 +117,8 @@ class MoveInfoPage extends StatelessWidget {
                       tag: pokemon.identifier,
                       child: pokemonImage,
                     );
+                    String trailingText =
+                        pokemon.pokemonMoveVersionGroupId != 20 ? '剣盾以前' : '';
                     return ListTile(
                       title: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -142,6 +144,9 @@ class MoveInfoPage extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: pokemonHeroImage,
                       ),
+                      trailing: Text(trailingText,
+                          style:
+                              TextStyle(color: Colors.white54, fontSize: 10)),
                       onTap: () {
                         Navigator.pushNamed(context, Routes.pokeinfo,
                             arguments: pokemon);
