@@ -6,6 +6,7 @@ import 'package:pokeroku/model/move_info_state.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/move_info/move_info_view_model.dart';
+import 'package:pokeroku/util.dart';
 
 class MoveInfoPage extends StatelessWidget {
   MoveInfoPage({Key? key, required Move move}) : super(key: key) {
@@ -32,6 +33,51 @@ class MoveInfoPage extends StatelessWidget {
             SliverAppBar(
               title: Text(move.nameJp),
               pinned: true,
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        buildDataItem(
+                          label: 'タイプ',
+                          widget: Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: buildBadge(
+                                text: move.type.nameJp, color: move.type.color),
+                          ),
+                        ),
+                        buildDataItem(
+                          label: '分類',
+                          widget: Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: buildBadge(
+                                text: move.damageClassNameJp,
+                                color: move.damageClassColor,
+                                isSquare: true),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        buildDataTextItem(
+                            label: '威力', text: (move.power ?? '-').toString()),
+                        buildDataTextItem(
+                            label: '命中率',
+                            text: (move.accuracy ?? '-').toString()),
+                        buildDataTextItem(
+                            label: 'PP', text: move.pp.toString()),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -115,6 +161,38 @@ class MoveInfoPage extends StatelessWidget {
           ],
         );
       }),
+    );
+  }
+
+  Widget buildDataItem({required String label, required Widget widget}) {
+    final context = useContext();
+    return Expanded(
+      child: Center(
+        child: Column(
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                color: Theme.of(context).hintColor,
+                fontSize: 12,
+              ),
+            ),
+            widget
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildDataTextItem({required String label, required String text}) {
+    return buildDataItem(
+      label: label,
+      widget: Text(
+        text,
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
     );
   }
 }

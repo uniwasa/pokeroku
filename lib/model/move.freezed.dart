@@ -19,21 +19,31 @@ class _$MoveTearOff {
   _Move call(
       {required int id,
       required String identifier,
-      @JsonKey(name: 'version_group_id') required int versionGroupId,
-      @JsonKey(name: 'pokemon_move_method_id') required int pokemonMoveMethodId,
+      @JsonKey(name: 'version_group_id')
+          required int versionGroupId,
+      @JsonKey(name: 'pokemon_move_method_id')
+          required int pokemonMoveMethodId,
       required int level,
       required int? order,
       required int? power,
       required int pp,
       required int? accuracy,
       required int priority,
-      @JsonKey(name: 'target_id') required int targetId,
-      @JsonKey(name: 'damage_class_id') required int damageClassId,
-      @JsonKey(name: 'effect_chance') required int? effectChance,
-      @JsonKey(name: 'name_jp') required String nameJp,
-      @JsonKey(name: 'flavor_text_jp') required String flavorTextJp,
-      @JsonKey(name: 'item_identifier') required String? itemIdentifier,
-      required PokemonType type}) {
+      @JsonKey(name: 'target_id')
+          required int targetId,
+      @JsonKey(name: 'damage_class_id')
+          required int damageClassId,
+      @JsonKey(name: 'effect_chance')
+          required int? effectChance,
+      @JsonKey(name: 'name_jp')
+          required String nameJp,
+      @JsonKey(name: 'flavor_text_jp')
+          required String flavorTextJp,
+      @JsonKey(name: 'item_identifier')
+          required String? itemIdentifier,
+      required PokemonType type,
+      @JsonKey(name: 'damage_class_name_jp')
+          required String damageClassNameJp}) {
     return _Move(
       id: id,
       identifier: identifier,
@@ -52,6 +62,7 @@ class _$MoveTearOff {
       flavorTextJp: flavorTextJp,
       itemIdentifier: itemIdentifier,
       type: type,
+      damageClassNameJp: damageClassNameJp,
     );
   }
 }
@@ -86,6 +97,8 @@ mixin _$Move {
   @JsonKey(name: 'item_identifier')
   String? get itemIdentifier => throw _privateConstructorUsedError;
   PokemonType get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'damage_class_name_jp')
+  String get damageClassNameJp => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MoveCopyWith<Move> get copyWith => throw _privateConstructorUsedError;
@@ -112,7 +125,8 @@ abstract class $MoveCopyWith<$Res> {
       @JsonKey(name: 'name_jp') String nameJp,
       @JsonKey(name: 'flavor_text_jp') String flavorTextJp,
       @JsonKey(name: 'item_identifier') String? itemIdentifier,
-      PokemonType type});
+      PokemonType type,
+      @JsonKey(name: 'damage_class_name_jp') String damageClassNameJp});
 
   $PokemonTypeCopyWith<$Res> get type;
 }
@@ -144,6 +158,7 @@ class _$MoveCopyWithImpl<$Res> implements $MoveCopyWith<$Res> {
     Object? flavorTextJp = freezed,
     Object? itemIdentifier = freezed,
     Object? type = freezed,
+    Object? damageClassNameJp = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -214,6 +229,10 @@ class _$MoveCopyWithImpl<$Res> implements $MoveCopyWith<$Res> {
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as PokemonType,
+      damageClassNameJp: damageClassNameJp == freezed
+          ? _value.damageClassNameJp
+          : damageClassNameJp // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -247,7 +266,8 @@ abstract class _$MoveCopyWith<$Res> implements $MoveCopyWith<$Res> {
       @JsonKey(name: 'name_jp') String nameJp,
       @JsonKey(name: 'flavor_text_jp') String flavorTextJp,
       @JsonKey(name: 'item_identifier') String? itemIdentifier,
-      PokemonType type});
+      PokemonType type,
+      @JsonKey(name: 'damage_class_name_jp') String damageClassNameJp});
 
   @override
   $PokemonTypeCopyWith<$Res> get type;
@@ -281,6 +301,7 @@ class __$MoveCopyWithImpl<$Res> extends _$MoveCopyWithImpl<$Res>
     Object? flavorTextJp = freezed,
     Object? itemIdentifier = freezed,
     Object? type = freezed,
+    Object? damageClassNameJp = freezed,
   }) {
     return _then(_Move(
       id: id == freezed
@@ -351,6 +372,10 @@ class __$MoveCopyWithImpl<$Res> extends _$MoveCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as PokemonType,
+      damageClassNameJp: damageClassNameJp == freezed
+          ? _value.damageClassNameJp
+          : damageClassNameJp // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -383,7 +408,9 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
           required this.flavorTextJp,
       @JsonKey(name: 'item_identifier')
           required this.itemIdentifier,
-      required this.type})
+      required this.type,
+      @JsonKey(name: 'damage_class_name_jp')
+          required this.damageClassNameJp})
       : super._();
 
   @override
@@ -428,10 +455,13 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
   final String? itemIdentifier;
   @override
   final PokemonType type;
+  @override
+  @JsonKey(name: 'damage_class_name_jp')
+  final String damageClassNameJp;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Move(id: $id, identifier: $identifier, versionGroupId: $versionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId, level: $level, order: $order, power: $power, pp: $pp, accuracy: $accuracy, priority: $priority, targetId: $targetId, damageClassId: $damageClassId, effectChance: $effectChance, nameJp: $nameJp, flavorTextJp: $flavorTextJp, itemIdentifier: $itemIdentifier, type: $type)';
+    return 'Move(id: $id, identifier: $identifier, versionGroupId: $versionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId, level: $level, order: $order, power: $power, pp: $pp, accuracy: $accuracy, priority: $priority, targetId: $targetId, damageClassId: $damageClassId, effectChance: $effectChance, nameJp: $nameJp, flavorTextJp: $flavorTextJp, itemIdentifier: $itemIdentifier, type: $type, damageClassNameJp: $damageClassNameJp)';
   }
 
   @override
@@ -455,7 +485,8 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('nameJp', nameJp))
       ..add(DiagnosticsProperty('flavorTextJp', flavorTextJp))
       ..add(DiagnosticsProperty('itemIdentifier', itemIdentifier))
-      ..add(DiagnosticsProperty('type', type));
+      ..add(DiagnosticsProperty('type', type))
+      ..add(DiagnosticsProperty('damageClassNameJp', damageClassNameJp));
   }
 
   @override
@@ -505,7 +536,10 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
                 const DeepCollectionEquality()
                     .equals(other.itemIdentifier, itemIdentifier)) &&
             (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)));
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.damageClassNameJp, damageClassNameJp) ||
+                const DeepCollectionEquality()
+                    .equals(other.damageClassNameJp, damageClassNameJp)));
   }
 
   @override
@@ -527,7 +561,8 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(nameJp) ^
       const DeepCollectionEquality().hash(flavorTextJp) ^
       const DeepCollectionEquality().hash(itemIdentifier) ^
-      const DeepCollectionEquality().hash(type);
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(damageClassNameJp);
 
   @JsonKey(ignore: true)
   @override
@@ -539,21 +574,31 @@ abstract class _Move extends Move {
   const factory _Move(
       {required int id,
       required String identifier,
-      @JsonKey(name: 'version_group_id') required int versionGroupId,
-      @JsonKey(name: 'pokemon_move_method_id') required int pokemonMoveMethodId,
+      @JsonKey(name: 'version_group_id')
+          required int versionGroupId,
+      @JsonKey(name: 'pokemon_move_method_id')
+          required int pokemonMoveMethodId,
       required int level,
       required int? order,
       required int? power,
       required int pp,
       required int? accuracy,
       required int priority,
-      @JsonKey(name: 'target_id') required int targetId,
-      @JsonKey(name: 'damage_class_id') required int damageClassId,
-      @JsonKey(name: 'effect_chance') required int? effectChance,
-      @JsonKey(name: 'name_jp') required String nameJp,
-      @JsonKey(name: 'flavor_text_jp') required String flavorTextJp,
-      @JsonKey(name: 'item_identifier') required String? itemIdentifier,
-      required PokemonType type}) = _$_Move;
+      @JsonKey(name: 'target_id')
+          required int targetId,
+      @JsonKey(name: 'damage_class_id')
+          required int damageClassId,
+      @JsonKey(name: 'effect_chance')
+          required int? effectChance,
+      @JsonKey(name: 'name_jp')
+          required String nameJp,
+      @JsonKey(name: 'flavor_text_jp')
+          required String flavorTextJp,
+      @JsonKey(name: 'item_identifier')
+          required String? itemIdentifier,
+      required PokemonType type,
+      @JsonKey(name: 'damage_class_name_jp')
+          required String damageClassNameJp}) = _$_Move;
   const _Move._() : super._();
 
   @override
@@ -598,6 +643,9 @@ abstract class _Move extends Move {
   String? get itemIdentifier => throw _privateConstructorUsedError;
   @override
   PokemonType get type => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'damage_class_name_jp')
+  String get damageClassNameJp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$MoveCopyWith<_Move> get copyWith => throw _privateConstructorUsedError;

@@ -30,12 +30,15 @@ Color lighten(Color color, [double amount = .1]) {
   return hslLight.toColor();
 }
 
-Widget buildBadge({required String text, required Color color}) {
+Widget buildBadge(
+    {required String text, required Color color, bool? isSquare}) {
   return Container(
     width: 80,
     decoration: new BoxDecoration(
       color: color,
-      borderRadius: BorderRadius.all(Radius.circular(100)),
+      borderRadius: isSquare == true
+          ? BorderRadius.all(Radius.circular(5))
+          : BorderRadius.all(Radius.circular(100)),
     ),
     child: Center(
       child: Padding(
@@ -71,15 +74,12 @@ Widget buildCircle({required Color color}) {
   );
 }
 
-Widget buildHeaderLabel({required Color color,required String text}) {
+Widget buildHeaderLabel({required Color color, required String text}) {
   return Padding(
     padding: const EdgeInsets.only(left: 8, bottom: 2),
     child: Text(
-        text,
-      style: TextStyle(
-          color: color,
-          fontSize: 16,
-          fontWeight: FontWeight.bold),
+      text,
+      style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.bold),
     ),
   );
 }
