@@ -117,9 +117,14 @@ class PokedexDataSource {
 
   Future<List<Pokemon>> getMovePokemons(int moveId) async {
     final db = await _databaseHelper.database;
-    String query =
-        await rootBundle.loadString('assets/query/move_pokemons.sql');
-    final rawPokemons = await db.rawQuery(query, [moveId]);
+    String pokemonsNoEggQuery =
+        await rootBundle.loadString('assets/query/move_pokemons_no_egg.sql');
+    final rawPokemonsNoEgg = await db.rawQuery(pokemonsNoEggQuery, [moveId]);
+    String pokemonsEggQuery =
+        await rootBundle.loadString('assets/query/move_pokemons_egg.sql');
+    final rawPokemonsEgg = await db.rawQuery(pokemonsEggQuery, [moveId]);
+    final rawPokemons = rawPokemonsNoEgg + rawPokemonsEgg;
+
     final pokemonTypes = await getPokemonTypes();
 
     return rawPokemons.map((rawPokemon) {

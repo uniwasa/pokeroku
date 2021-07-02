@@ -37,6 +37,7 @@ class Pokemon with _$Pokemon {
     @JsonKey(name: 'form_name_en') required String? formNameEn,
     @JsonKey(name: 'pokemon_move_version_group_id')
         required int? pokemonMoveVersionGroupId,
+    @JsonKey(name: 'pokemon_move_method_id') required int? pokemonMoveMethodId,
   }) = _Pokemon;
 
   factory Pokemon.type(
@@ -69,6 +70,7 @@ class Pokemon with _$Pokemon {
       formNameEn: pokemon['form_name_en'],
       pokespritePath: pokemon['pokesprite_path'],
       pokemonMoveVersionGroupId: pokemon['pokemon_move_version_group_id'],
+      pokemonMoveMethodId: pokemon['pokemon_move_method_id'],
     );
   }
 
