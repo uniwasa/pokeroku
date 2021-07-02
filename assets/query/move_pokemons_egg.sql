@@ -4,6 +4,7 @@ select
 	,max(case when pokemon_form_names.local_language_id = 1 then pokemon_form_names.form_name end) as form_name_jp
 	,max(case when pokemon_form_names.local_language_id = 9 then pokemon_form_names.form_name end) as form_name_en
 	,my_pokesprite_icons.path as pokesprite_path
+	,(select max(version_group_id) from pokemon_moves where pokemon_moves.pokemon_id = s3.id) as pokemon_move_version_group_id
 from (
 	select
 		s2.*
@@ -31,7 +32,6 @@ from (
 				,pokemon.is_default
 				,max(case when pokemon_species_names.local_language_id = 1 then pokemon_species_names.name end) as name_jp
 				,max(case when pokemon_species_names.local_language_id = 9 then pokemon_species_names.name end) as name_en
-				,pokemon_moves.version_group_id as pokemon_move_version_group_id
 				,pokemon_moves.pokemon_move_method_id
 			from pokemon_moves
 			inner join pokemon pokemon_temp
@@ -67,4 +67,4 @@ left join pokemon_form_names
 left join my_pokesprite_icons
 	on s3.identifier = my_pokesprite_icons.pokemon_identifier
 group by s3.identifier
-order by s3.pokemon_move_version_group_id desc, s3.id asc
+order by pokemon_move_version_group_id desc, s3.id asc
