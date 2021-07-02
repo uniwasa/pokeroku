@@ -49,15 +49,15 @@ from (
 				and pokemon_moves.version_group_id =
 					(select max(version_group_id) from pokemon_moves pokemon_moves_copy
 					where pokemon_moves.pokemon_id = pokemon_moves_copy.pokemon_id)
-			group by pokemon.id, pokemon_moves.pokemon_move_method_id
+			group by pokemon.identifier
 		) s1
 		inner join pokemon_types
 			on s1.id = pokemon_types.pokemon_id
-		group by s1.id, s1.pokemon_move_method_id
+		group by s1.identifier
 	) s2
 	inner join pokemon_stats
 		on s2.id = pokemon_stats.pokemon_id
-	group by s2.id, s2.pokemon_move_method_id
+	group by s2.identifier
 ) s3
 inner join pokemon_forms
 	on s3.id = pokemon_forms.pokemon_id
@@ -66,5 +66,5 @@ left join pokemon_form_names
 	on pokemon_forms.id = pokemon_form_names.pokemon_form_id
 left join my_pokesprite_icons
 	on s3.identifier = my_pokesprite_icons.pokemon_identifier
-group by s3.id, s3.pokemon_move_method_id
+group by s3.identifier
 order by s3.pokemon_move_version_group_id desc, s3.id asc
