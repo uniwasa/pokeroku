@@ -11,15 +11,15 @@ from (
 			,moves.*
 			,max(case when move_names.local_language_id = 11 then move_names.name end) as name_jp
 			,items.identifier as item_identifier
-		from pokemon
+		from pokemon pokemon_temp
+		inner join pokemon_species pokemon_species_temp
+			on pokemon_temp.species_id = pokemon_species_temp.id
 		inner join pokemon_species
-			on pokemon.species_id = pokemon_species.id
-		inner join pokemon_species pokemon_species_target
-			on pokemon_species.evolution_chain_id = pokemon_species_target.evolution_chain_id
-		inner join pokemon pokemon_target
-			on pokemon_species_target.id = pokemon_target.species_id
+			on pokemon_species_temp.evolution_chain_id = pokemon_species.evolution_chain_id
+		inner join pokemon
+			on pokemon_species.id = pokemon.species_id
 		inner join pokemon_moves
-			on pokemon_target.id = pokemon_moves.pokemon_id
+			on pokemon.id = pokemon_moves.pokemon_id
 			and pokemon_moves.pokemon_move_method_id = 2
 			and pokemon_moves.version_group_id =
 				(select max(version_group_id) from pokemon_moves pokemon_moves_copy
@@ -33,7 +33,7 @@ from (
 			on machines.item_id = items.id
 		inner join move_names
 			on moves.id = move_names.move_id
-		where pokemon.id = ?
+		where pokemon_temp.id = ?
 		group by moves.id
 		) s1
 	inner join move_flavor_text
