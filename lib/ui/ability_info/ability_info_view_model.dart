@@ -16,18 +16,22 @@ class AbilityInfoViewModel extends StateNotifier<AbilityInfoState> {
   final PokedexDataSource _dataSource;
 
   Future<void> setAbility(Ability ability) async {
-    state =
-        state.copyWith(ability: ability, asyncPokemons: AsyncValue.loading());
-    fetchPokemons();
+    if (mounted) {
+      state =
+          state.copyWith(ability: ability, asyncPokemons: AsyncValue.loading());
+      fetchPokemons();
+    }
   }
 
   Future<void> fetchPokemons() async {
     try {
       final abilityId = state.ability.id;
       final pokemons = await _dataSource.getAbilityPokemons(abilityId);
-      state = state.copyWith(asyncPokemons: AsyncValue.data(pokemons));
+      if (mounted)
+        state = state.copyWith(asyncPokemons: AsyncValue.data(pokemons));
     } on Exception catch (error) {
-      state = state.copyWith(asyncPokemons: AsyncValue.error(error));
+      if (mounted)
+        state = state.copyWith(asyncPokemons: AsyncValue.error(error));
     }
   }
 }

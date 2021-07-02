@@ -27,47 +27,58 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   List<Move> allMoves = [];
 
   Future<void> setPokemon(Pokemon pokemon) async {
-    state = state.copyWith(
-      pokemonBase: pokemon,
-      asyncPokemonEx: AsyncValue.loading(),
-      asyncMoves: AsyncValue.loading(),
-    );
-    fetchExtraInfo();
+    if (mounted) {
+      state = state.copyWith(
+        pokemonBase: pokemon,
+        asyncPokemonEx: AsyncValue.loading(),
+        asyncMoves: AsyncValue.loading(),
+      );
+      fetchExtraInfo();
+    }
   }
 
   Future<void> fetchExtraInfo() async {
-    //ポケモン一覧が読み込まれてるときのみ実行
-    _allPokemons.whenData((allPokemons) async {
-      try {
-        final pokemonId = state.pokemonBase.id;
-        final extraInfo = await _dataSource.getPokemonExtraInfo(pokemonId);
-        final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
+    if (mounted) {
+      final pokemonBase = state.pokemonBase;
+      //ポケモン一覧が読み込まれてるときのみ実行
+      _allPokemons.whenData(
+        (allPokemons) async {
+          try {
+            final pokemonId = pokemonBase.id;
+            final extraInfo = await _dataSource.getPokemonExtraInfo(pokemonId);
+            final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
 
-        //進化取得
-        final evolutions = await fetchEvolutions(allPokemons, pokemonId);
-        final genderRate = makeGenderRatio(extraInfo['gender_rate']);
+            //進化取得
+            final evolutions = await fetchEvolutions(allPokemons, pokemonId);
+            final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
-        final abilities = await fetchAbilities(pokemonId);
+            final abilities = await fetchAbilities(pokemonId);
 
-        final pokemonEx = PokemonEx(
-          base: state.pokemonBase,
-          flavorTextJp: flavorTextJp,
-          evolutions: evolutions,
-          genderRatio: genderRate,
-          abilities: abilities,
-        );
-        state = state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
+            final pokemonEx = PokemonEx(
+              base: pokemonBase,
+              flavorTextJp: flavorTextJp,
+              evolutions: evolutions,
+              genderRatio: genderRate,
+              abilities: abilities,
+            );
+            if (mounted)
+              state =
+                  state.copyWith(asyncPokemonEx: AsyncValue.data(pokemonEx));
 
-        final moves = await _dataSource.getPokemonMoves(pokemonId);
-        allMoves = moves;
-        state = state.copyWith(asyncMoves: AsyncValue.data(moves));
-      } on Exception catch (error) {
-        state = state.copyWith(
-          asyncPokemonEx: AsyncValue.error(error),
-          asyncMoves: AsyncValue.error(error),
-        );
-      }
-    });
+            final moves = await _dataSource.getPokemonMoves(pokemonId);
+            allMoves = moves;
+            if (mounted)
+              state = state.copyWith(asyncMoves: AsyncValue.data(moves));
+          } on Exception catch (error) {
+            if (mounted)
+              state = state.copyWith(
+                asyncPokemonEx: AsyncValue.error(error),
+                asyncMoves: AsyncValue.error(error),
+              );
+          }
+        },
+      );
+    }
   }
 
   Future<List<Ability>> fetchAbilities(int pokemonId) async {
@@ -114,6 +125,6 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
     final filtered = allMoves.where((move) {
       return hiraToKana(move.nameJp).contains(hiraToKana(input));
     }).toList();
-    state = state.copyWith(asyncMoves: AsyncValue.data(filtered));
+    if (mounted) state = state.copyWith(asyncMoves: AsyncValue.data(filtered));
   }
 }

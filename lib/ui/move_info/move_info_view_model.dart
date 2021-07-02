@@ -15,17 +15,23 @@ class MoveInfoViewModel extends StateNotifier<MoveInfoState> {
   final PokedexDataSource _dataSource;
 
   Future<void> setMove(Move move) async {
-    state = state.copyWith(move: move, asyncPokemons: AsyncValue.loading());
-    fetchPokemons();
+    if (mounted) {
+      state = state.copyWith(move: move, asyncPokemons: AsyncValue.loading());
+      fetchPokemons();
+    }
   }
 
   Future<void> fetchPokemons() async {
-    try {
+    if (mounted) {
       final moveId = state.move.id;
-      final pokemons = await _dataSource.getMovePokemons(moveId);
-      state = state.copyWith(asyncPokemons: AsyncValue.data(pokemons));
-    } on Exception catch (error) {
-      state = state.copyWith(asyncPokemons: AsyncValue.error(error));
+      try {
+        final pokemons = await _dataSource.getMovePokemons(moveId);
+        if (mounted)
+          state = state.copyWith(asyncPokemons: AsyncValue.data(pokemons));
+      } on Exception catch (error) {
+        if (mounted)
+          state = state.copyWith(asyncPokemons: AsyncValue.error(error));
+      }
     }
   }
 }
