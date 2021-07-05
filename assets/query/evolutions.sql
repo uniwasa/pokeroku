@@ -15,7 +15,7 @@ inner join pokemon_forms
 left join pokemon_form_names
 	on pokemon_forms.id = pokemon_form_names.pokemon_form_id
 	and pokemon_form_names.local_language_id = 9
-where pokemon_temp.id = 1
+where pokemon_temp.id = ?
 and (
 	pokemon.is_default = 1
 	or pokemon_form_names.form_name = 'Galarian Form'
