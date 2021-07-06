@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
         PersistentBottomNavBarItem(
           icon: Icon(Icons.format_list_numbered),
           title: ('ポケモン'),
-          activeColorPrimary: Theme.of(context).accentColor,
+          activeColorPrimary: Colors.white,
           inactiveColorPrimary: Theme.of(context).hintColor,
           routeAndNavigatorSettings: RouteAndNavigatorSettings(
             onGenerateRoute: onGenerateRoute,
@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
         PersistentBottomNavBarItem(
           icon: Icon(Icons.save),
           title: ('パーティ'),
-          activeColorPrimary: Theme.of(context).accentColor,
+          activeColorPrimary: Colors.white,
           inactiveColorPrimary: Theme.of(context).hintColor,
           routeAndNavigatorSettings: RouteAndNavigatorSettings(
             onGenerateRoute: onGenerateRoute,
