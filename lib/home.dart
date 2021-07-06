@@ -31,6 +31,9 @@ class Home extends StatelessWidget {
           title: ('パーティ'),
           activeColorPrimary: Theme.of(context).accentColor,
           inactiveColorPrimary: Theme.of(context).hintColor,
+          routeAndNavigatorSettings: RouteAndNavigatorSettings(
+            onGenerateRoute: onGenerateRoute,
+          ),
         ),
       ],
       navBarStyle: NavBarStyle.style1,
@@ -39,33 +42,20 @@ class Home extends StatelessWidget {
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
+    Widget page;
     switch (settings.name) {
       case Routes.pokeinfo:
-        if (arguments is Pokemon) {
-          return MaterialPageRoute(
-            builder: (context) => PokeinfoPage(pokemon: arguments),
-          );
-        } else {
-          return null;
-        }
+        page = PokeinfoPage(pokemon: arguments as Pokemon);
+        break;
       case Routes.abilityInfo:
-        if (arguments is Ability) {
-          return MaterialPageRoute(
-            builder: (context) => AbilityInfoPage(ability: arguments),
-          );
-        } else {
-          return null;
-        }
+        page = AbilityInfoPage(ability: arguments as Ability);
+        break;
       case Routes.moveInfo:
-        if (arguments is Move) {
-          return MaterialPageRoute(
-            builder: (context) => MoveInfoPage(move: arguments),
-          );
-        } else {
-          return null;
-        }
+        page = MoveInfoPage(move: arguments as Move);
+        break;
       default:
-        return null;
+        page = PokedexPage();
     }
+    return MaterialPageRoute(builder: (context) => page);
   }
 }
