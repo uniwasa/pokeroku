@@ -87,7 +87,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           right: 0,
           bottom: -1,
           child: Container(
-            height: _bottomAppBarHeight,
+            height: _bottomAppBarHeight + 1 + (12 * opacity),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
@@ -102,7 +102,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           top: 0,
           left: 0,
           right: 0,
-          bottom: 30,
+          bottom: 28,
           child: Center(
             child: Opacity(
               opacity: opacity,
@@ -141,7 +141,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           left: 0,
           right: 0,
           bottom: 0,
-          height: _bottomAppBarHeight - 20,
+          height: _bottomAppBarHeight,
           child: _tabBar,
         ),
       ],

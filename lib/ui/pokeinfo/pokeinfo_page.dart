@@ -49,7 +49,7 @@ class PokeinfoPage extends StatelessWidget {
     return MediaQuery.of(context).padding.top + kToolbarHeight;
   }
 
-  final double _bottomAppBarHeight = 70;
+  final double _bottomAppBarHeight = kToolbarHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +86,9 @@ class PokeinfoPage extends StatelessWidget {
                                     .toList(),
                                 indicatorColor: pokemon.firstType.color,
                                 indicatorSize: TabBarIndicatorSize.label,
-                                indicatorPadding: EdgeInsets.only(bottom: 10),
+                                indicatorPadding: EdgeInsets.only(bottom: 8),
                                 indicatorWeight: 3,
+                                labelPadding: EdgeInsets.only(top: 8),
                               ),
                               appBarHeight: _appBarHeight(context),
                               bottomAppBarHeight: _bottomAppBarHeight,
