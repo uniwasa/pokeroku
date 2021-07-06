@@ -85,7 +85,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
         Positioned(
           left: 0,
           right: 0,
-          bottom: 0,
+          bottom: -1,
           child: Container(
             height: _bottomAppBarHeight,
             width: MediaQuery.of(context).size.width,
