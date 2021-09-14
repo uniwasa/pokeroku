@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/team_list_state.dart';
@@ -14,6 +15,10 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
   final PokedexDataSource _dataSource;
 
   Future<void> init() async {
-    print('hello');
+    print(bool.fromEnvironment('dart.vm.product'));
+    print(const String.fromEnvironment('FLAVOR'));
+    final collection =
+        await FirebaseFirestore.instance.collection('example').get();
+    print(collection.docs.first.get('name'));
   }
 }
