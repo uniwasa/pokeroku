@@ -32,6 +32,7 @@ class TeamListPage extends StatelessWidget {
         title: Text('パーティ'),
       ),
       body: HookBuilder(builder: (context) {
+        useProvider(_provider);
         return Text('hello');
       }),
     );
