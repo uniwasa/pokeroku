@@ -8,6 +8,7 @@ import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
 import 'package:pokeroku/ui/move_info/move_info_page.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_page.dart';
+import 'package:pokeroku/ui/team_list/team_list_page.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class Home extends StatelessWidget {
     return PersistentTabView(
       context,
       backgroundColor: Theme.of(context).primaryColor,
-      screens: [PokedexPage(), PokedexPage()],
+      screens: [PokedexPage(), TeamListPage()],
       items: [
         PersistentBottomNavBarItem(
           icon: Icon(Icons.format_list_numbered),
@@ -52,6 +53,9 @@ class Home extends StatelessWidget {
         break;
       case Routes.moveInfo:
         page = MoveInfoPage(move: arguments as Move);
+        break;
+      case Routes.teamList:
+        page = TeamListPage();
         break;
       default:
         page = PokedexPage();
