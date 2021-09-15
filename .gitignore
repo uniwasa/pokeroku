@@ -47,3 +47,7 @@ app.*.map.json
 
 # Flutter 2.5
 dgph
+
+# Firebase
+**/ios/Flutter/DartDefines.xcconfig
+**/GoogleService-Info.plist
