@@ -12,7 +12,7 @@ final authServiceProvider = StateNotifierProvider<AuthService, User?>(
 
 class AuthService extends StateNotifier<User?> {
   final Reader _read;
-  AuthService(this._read) : super(_read(firebaseAuthProvider).currentUser) {
+  AuthService(this._read) : super(null) {
     init();
   }
 
