@@ -8,6 +8,8 @@ abstract class TeamRepository {
   Future<List<Team>> getTeams({required String userId});
 }
 
+final teamRepositoryProvider = Provider((ref) => TeamRepositoryImpl(ref.read));
+
 class TeamRepositoryImpl implements TeamRepository {
   final Reader _read;
 

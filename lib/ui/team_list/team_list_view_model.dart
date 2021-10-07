@@ -1,28 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/model/ability.dart';
-import 'package:pokeroku/model/team_list_state.dart';
-import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
+import 'package:pokeroku/model/team.dart';
+import 'package:pokeroku/repository/team_repository.dart';
 
-class TeamListViewModel extends StateNotifier<TeamListState> {
+class TeamListViewModel extends StateNotifier<AsyncValue<List<Team>>> {
   TeamListViewModel({
-    required PokedexDataSource dataSource,
+    required Reader read,
     required User? user,
-  })  : _dataSource = dataSource,
+  })  : _read = read,
         _user = user,
-        super(TeamListState(asyncText: AsyncValue.loading(), user: user)) {
+        super(AsyncLoading()) {
     init();
   }
 
-  final PokedexDataSource _dataSource;
-  User? _user;
+  final Reader _read;
+  final User? _user;
 
   Future<void> init() async {
+    print('環境を表示します');
     print(bool.fromEnvironment('dart.vm.product'));
     print(const String.fromEnvironment('FLAVOR'));
     final collection =
         await FirebaseFirestore.instance.collection('example').get();
     print(collection.docs.first.get('name'));
+
+    //メイン処理
+    getTeams();
+  }
+
+  Future<void> getTeams() async {
+    try {
+      final userId = _user?.uid;
+      if (userId != null) {
+        final teams =
+            await _read(teamRepositoryProvider).getTeams(userId: userId);
+        print(teams.first.name);
+      }
+    } catch (e) {
+      state = AsyncError(e);
+    }
   }
 }

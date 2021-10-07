@@ -50,7 +50,8 @@ class AuthService extends StateNotifier<User?> {
   Future<void> createUserDoc(User? user) async {
     try {
       if (user != null) {
-        final userDoc = await _read(firebaseFirestoreProvider).getUserDocument(user.uid)
+        final userDoc = await _read(firebaseFirestoreProvider)
+            .getUserDocument(user.uid)
             .get();
         if (!userDoc.exists) {
           userDoc.reference.set({

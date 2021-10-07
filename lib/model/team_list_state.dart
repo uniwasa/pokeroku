@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,6 +10,5 @@ class TeamListState with _$TeamListState {
 
   const factory TeamListState({
     required AsyncValue<String> asyncText,
-    required User? user,
   }) = _TeamListState;
 }

@@ -16,11 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TeamListStateTearOff {
   const _$TeamListStateTearOff();
 
-  _TeamListState call(
-      {required AsyncValue<String> asyncText, required User? user}) {
+  _TeamListState call({required AsyncValue<String> asyncText}) {
     return _TeamListState(
       asyncText: asyncText,
-      user: user,
     );
   }
 }
@@ -31,7 +29,6 @@ const $TeamListState = _$TeamListStateTearOff();
 /// @nodoc
 mixin _$TeamListState {
   AsyncValue<String> get asyncText => throw _privateConstructorUsedError;
-  User? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TeamListStateCopyWith<TeamListState> get copyWith =>
@@ -43,7 +40,7 @@ abstract class $TeamListStateCopyWith<$Res> {
   factory $TeamListStateCopyWith(
           TeamListState value, $Res Function(TeamListState) then) =
       _$TeamListStateCopyWithImpl<$Res>;
-  $Res call({AsyncValue<String> asyncText, User? user});
+  $Res call({AsyncValue<String> asyncText});
 
   $AsyncValueCopyWith<String, $Res> get asyncText;
 }
@@ -60,17 +57,12 @@ class _$TeamListStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? asyncText = freezed,
-    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       asyncText: asyncText == freezed
           ? _value.asyncText
           : asyncText // ignore: cast_nullable_to_non_nullable
               as AsyncValue<String>,
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User?,
     ));
   }
 
@@ -89,7 +81,7 @@ abstract class _$TeamListStateCopyWith<$Res>
           _TeamListState value, $Res Function(_TeamListState) then) =
       __$TeamListStateCopyWithImpl<$Res>;
   @override
-  $Res call({AsyncValue<String> asyncText, User? user});
+  $Res call({AsyncValue<String> asyncText});
 
   @override
   $AsyncValueCopyWith<String, $Res> get asyncText;
@@ -109,17 +101,12 @@ class __$TeamListStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? asyncText = freezed,
-    Object? user = freezed,
   }) {
     return _then(_TeamListState(
       asyncText: asyncText == freezed
           ? _value.asyncText
           : asyncText // ignore: cast_nullable_to_non_nullable
               as AsyncValue<String>,
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User?,
     ));
   }
 }
@@ -127,17 +114,14 @@ class __$TeamListStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
-  const _$_TeamListState({required this.asyncText, required this.user})
-      : super._();
+  const _$_TeamListState({required this.asyncText}) : super._();
 
   @override
   final AsyncValue<String> asyncText;
-  @override
-  final User? user;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TeamListState(asyncText: $asyncText, user: $user)';
+    return 'TeamListState(asyncText: $asyncText)';
   }
 
   @override
@@ -145,8 +129,7 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TeamListState'))
-      ..add(DiagnosticsProperty('asyncText', asyncText))
-      ..add(DiagnosticsProperty('user', user));
+      ..add(DiagnosticsProperty('asyncText', asyncText));
   }
 
   @override
@@ -155,16 +138,12 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
         (other is _TeamListState &&
             (identical(other.asyncText, asyncText) ||
                 const DeepCollectionEquality()
-                    .equals(other.asyncText, asyncText)) &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)));
+                    .equals(other.asyncText, asyncText)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(asyncText) ^
-      const DeepCollectionEquality().hash(user);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(asyncText);
 
   @JsonKey(ignore: true)
   @override
@@ -173,15 +152,12 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
 }
 
 abstract class _TeamListState extends TeamListState {
-  const factory _TeamListState(
-      {required AsyncValue<String> asyncText,
-      required User? user}) = _$_TeamListState;
+  const factory _TeamListState({required AsyncValue<String> asyncText}) =
+      _$_TeamListState;
   const _TeamListState._() : super._();
 
   @override
   AsyncValue<String> get asyncText => throw _privateConstructorUsedError;
-  @override
-  User? get user => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TeamListStateCopyWith<_TeamListState> get copyWith =>
