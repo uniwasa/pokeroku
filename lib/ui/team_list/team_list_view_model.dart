@@ -1,21 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/model/team.dart';
+import 'package:pokeroku/model/team_list_state.dart';
 import 'package:pokeroku/repository/team_repository.dart';
 
-class TeamListViewModel extends StateNotifier<AsyncValue<List<Team>>> {
+class TeamListViewModel extends StateNotifier<TeamListState> {
   TeamListViewModel({
     required Reader read,
     required User? user,
   })  : _read = read,
         _user = user,
-        super(AsyncLoading()) {
+        super(TeamListState(teams: [], isLoading: false, hasNext: true)) {
     init();
   }
 
   final Reader _read;
   final User? _user;
+  final limitNum = 2;
 
   Future<void> init() async {
     print('環境を表示します');
@@ -26,19 +27,32 @@ class TeamListViewModel extends StateNotifier<AsyncValue<List<Team>>> {
     print(collection.docs.first.get('name'));
 
     //メイン処理
-    getTeams();
+    getNextTeams();
   }
 
-  Future<void> getTeams() async {
+  Future<void> getNextTeams() async {
+    if (state.isLoading || !state.hasNext) return;
+
+    state = state.copyWith(isLoading: true, error: null);
+    final teams = state.teams;
     try {
       final userId = _user?.uid;
       if (userId != null) {
-        final teams =
-            await _read(teamRepositoryProvider).getTeams(userId: userId);
-        print(teams.first.name);
+        final nextTeams = await _read(teamRepositoryProvider).getTeams(
+          userId: userId,
+          limitNum: limitNum,
+          lastTeam: teams.isNotEmpty ? teams.last : null,
+        );
+        final hasNext = nextTeams.length >= limitNum;
+        state = state.copyWith(
+          teams: teams + nextTeams,
+          isLoading: false,
+          hasNext: hasNext,
+          error: null,
+        );
       }
     } catch (e) {
-      state = AsyncError(e);
+      state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }
 }
