@@ -56,7 +56,7 @@ class AuthService extends StateNotifier<User?> {
         if (!userDoc.exists) {
           userDoc.reference.set({
             'name': user.displayName,
-            'created_at': FieldValue.serverTimestamp(),
+            'createdAt': FieldValue.serverTimestamp(),
           });
         }
       }
