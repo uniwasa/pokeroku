@@ -12,14 +12,27 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Team _$TeamFromJson(Map<String, dynamic> json) {
+  return _Team.fromJson(json);
+}
+
 /// @nodoc
 class _$TeamTearOff {
   const _$TeamTearOff();
 
-  _Team call({required String name}) {
+  _Team call(
+      {@JsonKey(ignore: true) String? id,
+      required String name,
+      @TimestampConverter() DateTime? createdAt}) {
     return _Team(
+      id: id,
       name: name,
+      createdAt: createdAt,
     );
+  }
+
+  Team fromJson(Map<String, Object> json) {
+    return Team.fromJson(json);
   }
 }
 
@@ -28,8 +41,13 @@ const $Team = _$TeamTearOff();
 
 /// @nodoc
 mixin _$Team {
+  @JsonKey(ignore: true)
+  String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TeamCopyWith<Team> get copyWith => throw _privateConstructorUsedError;
 }
@@ -38,7 +56,10 @@ mixin _$Team {
 abstract class $TeamCopyWith<$Res> {
   factory $TeamCopyWith(Team value, $Res Function(Team) then) =
       _$TeamCopyWithImpl<$Res>;
-  $Res call({String name});
+  $Res call(
+      {@JsonKey(ignore: true) String? id,
+      String name,
+      @TimestampConverter() DateTime? createdAt});
 }
 
 /// @nodoc
@@ -51,13 +72,23 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -67,7 +98,10 @@ abstract class _$TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
   factory _$TeamCopyWith(_Team value, $Res Function(_Team) then) =
       __$TeamCopyWithImpl<$Res>;
   @override
-  $Res call({String name});
+  $Res call(
+      {@JsonKey(ignore: true) String? id,
+      String name,
+      @TimestampConverter() DateTime? createdAt});
 }
 
 /// @nodoc
@@ -81,28 +115,51 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_Team(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
+@JsonSerializable()
+class _$_Team extends _Team with DiagnosticableTreeMixin {
+  _$_Team(
+      {@JsonKey(ignore: true) this.id,
+      required this.name,
+      @TimestampConverter() this.createdAt})
+      : super._();
 
-class _$_Team with DiagnosticableTreeMixin implements _Team {
-  _$_Team({required this.name});
+  factory _$_Team.fromJson(Map<String, dynamic> json) =>
+      _$_$_TeamFromJson(json);
 
   @override
+  @JsonKey(ignore: true)
+  final String? id;
+  @override
   final String name;
+  @override
+  @TimestampConverter()
+  final DateTime? createdAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Team(name: $name)';
+    return 'Team(id: $id, name: $name, createdAt: $createdAt)';
   }
 
   @override
@@ -110,32 +167,59 @@ class _$_Team with DiagnosticableTreeMixin implements _Team {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Team'))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('createdAt', createdAt));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Team &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)));
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt);
 
   @JsonKey(ignore: true)
   @override
   _$TeamCopyWith<_Team> get copyWith =>
       __$TeamCopyWithImpl<_Team>(this, _$identity);
-}
-
-abstract class _Team implements Team {
-  factory _Team({required String name}) = _$_Team;
 
   @override
+  Map<String, dynamic> toJson() {
+    return _$_$_TeamToJson(this);
+  }
+}
+
+abstract class _Team extends Team {
+  factory _Team(
+      {@JsonKey(ignore: true) String? id,
+      required String name,
+      @TimestampConverter() DateTime? createdAt}) = _$_Team;
+  _Team._() : super._();
+
+  factory _Team.fromJson(Map<String, dynamic> json) = _$_Team.fromJson;
+
+  @override
+  @JsonKey(ignore: true)
+  String? get id => throw _privateConstructorUsedError;
+  @override
   String get name => throw _privateConstructorUsedError;
+  @override
+  @TimestampConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TeamCopyWith<_Team> get copyWith => throw _privateConstructorUsedError;

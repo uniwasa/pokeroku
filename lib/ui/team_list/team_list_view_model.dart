@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/model/team_list_state.dart';
 import 'package:pokeroku/repository/team_repository.dart';
 
@@ -52,6 +53,24 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
         );
       }
     } catch (e) {
+      print(e);
+      state = state.copyWith(error: e.toString(), isLoading: false);
+    }
+  }
+
+  Future<void> addTeam() async {
+    try {
+      final userId = _user?.uid;
+      if (userId != null) {
+        final newTeam = Team(name: 'パーティ');
+        final createdTeamId = await _read(teamRepositoryProvider)
+            .createTeam(userId: userId, team: newTeam);
+        final createdTeam = await _read(teamRepositoryProvider)
+            .getTeam(userId: userId, teamId: createdTeamId);
+        state = state.copyWith(teams: state.teams..insert(0, createdTeam));
+      }
+    } catch (e) {
+      print(e);
       state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }

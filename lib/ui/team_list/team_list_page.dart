@@ -48,6 +48,14 @@ class TeamListPage extends StatelessWidget {
                 },
                 icon: Icon(Icons.person)),
           ),
+          Container(
+            width: kToolbarHeight,
+            child: IconButton(
+                onPressed: () async {
+                  await context.read(_provider.notifier).addTeam();
+                },
+                icon: Icon(Icons.add)),
+          ),
         ],
         title: Text('パーティ'),
       ),
@@ -78,7 +86,9 @@ class TeamListPage extends StatelessWidget {
                         ),
                       ),
                       height: 300,
-                      child: Text(teams[index].name),
+                      child: Text(teams[index].name +
+                          teams[index].createdAt.toString() +
+                          teams[index].id.toString()),
                     ));
                   },
                 );
