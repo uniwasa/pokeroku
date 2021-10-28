@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/extension/firebase_firestore_extension.dart';
-import 'package:pokeroku/extension/query_document_snapshot_extension.dart';
 import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/provider/firebase_providers.dart';
 
