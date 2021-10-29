@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/team_list_state.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
+import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 
 class TeamListPage extends StatelessWidget {
@@ -67,8 +68,12 @@ class TeamListPage extends StatelessWidget {
 
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
-            if (!isLoading && hasNext && notification.metrics.extentAfter < 100)
+            if (!isLoading &&
+                hasNext &&
+                notification.metrics.extentAfter < 100) {
+              print('次を取得します');
               context.read(_provider.notifier).getNextTeams();
+            }
 
             return false;
           },
@@ -78,18 +83,23 @@ class TeamListPage extends StatelessWidget {
                 return ListView.builder(
                   itemCount: teams.length,
                   itemBuilder: (BuildContext context, int index) {
+                    final team = teams[index];
                     return ListTile(
-                        title: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.white),
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.teamEdit);
+                      },
+                      title: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Colors.white),
+                          ),
                         ),
+                        height: 100,
+                        child: Text(team.name +
+                            team.createdAt.toString() +
+                            team.id.toString()),
                       ),
-                      height: 300,
-                      child: Text(teams[index].name +
-                          teams[index].createdAt.toString() +
-                          teams[index].id.toString()),
-                    ));
+                    );
                   },
                 );
               } else {

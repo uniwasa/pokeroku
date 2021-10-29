@@ -8,6 +8,7 @@ import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
 import 'package:pokeroku/ui/move_info/move_info_page.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_page.dart';
+import 'package:pokeroku/ui/team_edit/team_edit_page.dart';
 import 'package:pokeroku/ui/team_list/team_list_page.dart';
 
 class Home extends StatelessWidget {
@@ -56,6 +57,9 @@ class Home extends StatelessWidget {
         break;
       case Routes.teamList:
         page = TeamListPage();
+        break;
+      case Routes.teamEdit:
+        page = TeamEditPage();
         break;
       default:
         page = PokedexPage();
