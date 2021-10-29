@@ -2,24 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/model/team_list_state.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 
 class TeamListPage extends StatelessWidget {
-  TeamListPage({Key? key}) : super(key: key) {
-    _provider =
-        StateNotifierProvider.autoDispose<TeamListViewModel, TeamListState>(
-            (ref) {
-      return TeamListViewModel(
-        read: ref.read,
-        user: ref.watch(authServiceProvider),
-      );
-    });
-  }
-  late final AutoDisposeStateNotifierProvider<TeamListViewModel, TeamListState>
-      _provider;
+  TeamListPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +34,7 @@ class TeamListPage extends StatelessWidget {
             child: IconButton(
                 onPressed: () {
                   print(context.read(authServiceProvider));
-                  print(context.read(_provider));
+                  print(context.read(teamListViewModelProvider));
                 },
                 icon: Icon(Icons.person)),
           ),
@@ -53,7 +42,9 @@ class TeamListPage extends StatelessWidget {
             width: kToolbarHeight,
             child: IconButton(
                 onPressed: () async {
-                  await context.read(_provider.notifier).addTeam();
+                  await context
+                      .read(teamListViewModelProvider.notifier)
+                      .addTeam();
                 },
                 icon: Icon(Icons.add)),
           ),
@@ -61,7 +52,7 @@ class TeamListPage extends StatelessWidget {
         title: Text('パーティ'),
       ),
       body: HookBuilder(builder: (context) {
-        final state = useProvider(_provider);
+        final state = useProvider(teamListViewModelProvider);
         final teams = state.teams;
         final isLoading = state.isLoading;
         final hasNext = state.hasNext;
@@ -71,8 +62,7 @@ class TeamListPage extends StatelessWidget {
             if (!isLoading &&
                 hasNext &&
                 notification.metrics.extentAfter < 100) {
-              print('次を取得します');
-              context.read(_provider.notifier).getNextTeams();
+              context.read(teamListViewModelProvider.notifier).getNextTeams();
             }
 
             return false;

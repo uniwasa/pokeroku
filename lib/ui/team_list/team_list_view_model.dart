@@ -3,7 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/model/team_list_state.dart';
+import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/repository/team_repository.dart';
+
+final teamListViewModelProvider =
+    StateNotifierProvider.autoDispose<TeamListViewModel, TeamListState>((ref) {
+  return TeamListViewModel(
+    read: ref.read,
+    user: ref.watch(authServiceProvider),
+  );
+});
 
 class TeamListViewModel extends StateNotifier<TeamListState> {
   TeamListViewModel({
@@ -39,6 +48,7 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
     try {
       final userId = _user?.uid;
       if (userId != null) {
+        print('次を取得します');
         final nextTeams = await _read(teamRepositoryProvider).getTeams(
           userId: userId,
           limitNum: limitNum,
