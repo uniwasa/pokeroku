@@ -9,15 +9,34 @@ class TeamEditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('パーティ編集'),
-      ),
-      body: HookBuilder(builder: (context) {
-        final state = useProvider(teamEditViewModelProvider);
+    return HookBuilder(builder: (context) {
+      final state = useProvider(teamEditViewModelProvider);
 
-        return Text('パーティ編集');
-      }),
-    );
+      final focusNode = useFocusNode();
+      final textEditingController = useTextEditingController(text: 'initial');
+
+      focusNode.addListener(() {
+        if (focusNode.hasFocus == false) {
+          print(textEditingController.text);
+        }
+      });
+
+      return Scaffold(
+        appBar: AppBar(
+          title: ConstrainedBox(
+            constraints: BoxConstraints(minWidth: 120, maxHeight: 32),
+            child: IntrinsicWidth(
+              child: TextFormField(
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+                focusNode: focusNode,
+                controller: textEditingController,
+              ),
+            ),
+          ),
+        ),
+        body: Text('パーティ編集'),
+      );
+    });
   }
 }
