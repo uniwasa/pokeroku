@@ -59,7 +59,7 @@ class Home extends StatelessWidget {
         page = TeamListPage();
         break;
       case Routes.teamEdit:
-        page = TeamEditPage();
+        page = TeamEditPage(id: arguments as String);
         break;
       default:
         page = PokedexPage();

@@ -76,7 +76,8 @@ class TeamListPage extends StatelessWidget {
                     final team = teams[index];
                     return ListTile(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.teamEdit);
+                        Navigator.pushNamed(context, Routes.teamEdit,
+                            arguments: team.id);
                       },
                       title: Container(
                         decoration: BoxDecoration(

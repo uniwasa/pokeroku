@@ -5,12 +5,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 class TeamEditPage extends StatelessWidget {
-  TeamEditPage({Key? key}) : super(key: key);
+  TeamEditPage({Key? key, required String id})
+      : _id = id,
+        super(key: key);
+
+  final String _id;
 
   @override
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
-      final state = useProvider(teamEditViewModelProvider);
+      final state = useProvider(teamEditViewModelProviderFamily(_id));
 
       final focusNode = useFocusNode();
       final textEditingController = useTextEditingController(text: 'initial');
