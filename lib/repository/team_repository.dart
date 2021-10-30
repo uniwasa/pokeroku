@@ -13,7 +13,9 @@ abstract class TeamRepository {
   Future<List<Team>> getTeams(
       {required String userId, required int limitNum, required Team? lastTeam});
 
-  Future<void> createTeam({required String userId, required Team team});
+  Future<String> createTeam({required String userId, required Team team});
+
+  Future<void> updateTeam({required String userId, required Team team});
 }
 
 final teamRepositoryProvider = Provider((ref) => TeamRepositoryImpl(ref.read));
@@ -83,5 +85,11 @@ class TeamRepositoryImpl implements TeamRepository {
     } on FirebaseException catch (e) {
       throw e;
     }
+  }
+
+  @override
+  Future<void> updateTeam({required String userId, required Team team}) async {
+    final userRef = _read(firebaseFirestoreProvider).getUserDocument(userId);
+    userRef.collection('teams').doc(team.id).update(team.toJson());
   }
 }

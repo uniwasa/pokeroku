@@ -84,4 +84,13 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
       state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }
+
+  Future<void> replaceTeam({required Team targetTeam}) async {
+    state = state.copyWith(
+      teams: [
+        for (final team in state.teams)
+          team.id == targetTeam.id ? targetTeam : team
+      ],
+    );
+  }
 }

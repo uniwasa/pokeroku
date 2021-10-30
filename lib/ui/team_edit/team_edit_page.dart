@@ -14,32 +14,53 @@ class TeamEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
-      final state = useProvider(teamEditViewModelProviderFamily(_id));
+      final asyncValue = useProvider(teamEditViewModelProviderFamily(_id));
 
-      final focusNode = useFocusNode();
-      final textEditingController = useTextEditingController(text: 'initial');
+      return asyncValue.when(
+        data: (teamEditState) {
+          final team = teamEditState.team;
+          final focusNode = useFocusNode();
+          final textEditingController =
+              useTextEditingController(text: team.name);
 
-      focusNode.addListener(() {
-        if (focusNode.hasFocus == false) {
-          print(textEditingController.text);
-        }
-      });
-
-      return Scaffold(
-        appBar: AppBar(
-          title: ConstrainedBox(
-            constraints: BoxConstraints(minWidth: 120, maxHeight: 32),
-            child: IntrinsicWidth(
-              child: TextFormField(
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-                focusNode: focusNode,
-                controller: textEditingController,
+          focusNode.addListener(() {
+            if (focusNode.hasFocus == false) {
+              final updatedTeam =
+                  team.copyWith(name: textEditingController.text);
+              context
+                  .read(teamEditViewModelProviderFamily(_id).notifier)
+                  .updateTeam(updatedTeam: updatedTeam);
+            }
+          });
+          return Scaffold(
+            appBar: AppBar(
+              title: ConstrainedBox(
+                constraints: BoxConstraints(minWidth: 120, maxHeight: 32),
+                child: IntrinsicWidth(
+                  child: TextFormField(
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.center,
+                    focusNode: focusNode,
+                    controller: textEditingController,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        body: Text('パーティ編集'),
+            body: Center(child: Text('ども')),
+          );
+        },
+        loading: () {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(child: CircularProgressIndicator()),
+          );
+        },
+        error: (error, _) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(child: Text(error.toString())),
+          );
+        },
       );
     });
   }
