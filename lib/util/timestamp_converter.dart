@@ -13,3 +13,10 @@ class TimestampConverter implements JsonConverter<DateTime?, Object?> {
       ? FieldValue.serverTimestamp()
       : Timestamp.fromDate(dateTime);
 }
+
+class UpdatedTimestampConverter extends TimestampConverter {
+  const UpdatedTimestampConverter();
+
+  @override
+  Object? toJson(DateTime? dateTime) => FieldValue.serverTimestamp();
+}

@@ -23,11 +23,13 @@ class _$TeamTearOff {
   _Team call(
       {@JsonKey(ignore: true) String? id,
       required String name,
-      @TimestampConverter() DateTime? createdAt}) {
+      @TimestampConverter() DateTime? createdAt,
+      @UpdatedTimestampConverter() DateTime? updatedAt}) {
     return _Team(
       id: id,
       name: name,
       createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 
@@ -46,6 +48,8 @@ mixin _$Team {
   String get name => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @UpdatedTimestampConverter()
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +63,8 @@ abstract class $TeamCopyWith<$Res> {
   $Res call(
       {@JsonKey(ignore: true) String? id,
       String name,
-      @TimestampConverter() DateTime? createdAt});
+      @TimestampConverter() DateTime? createdAt,
+      @UpdatedTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -75,6 +80,7 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -89,6 +95,10 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -101,7 +111,8 @@ abstract class _$TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
   $Res call(
       {@JsonKey(ignore: true) String? id,
       String name,
-      @TimestampConverter() DateTime? createdAt});
+      @TimestampConverter() DateTime? createdAt,
+      @UpdatedTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -118,6 +129,7 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_Team(
       id: id == freezed
@@ -132,6 +144,10 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -142,7 +158,8 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
   _$_Team(
       {@JsonKey(ignore: true) this.id,
       required this.name,
-      @TimestampConverter() this.createdAt})
+      @TimestampConverter() this.createdAt,
+      @UpdatedTimestampConverter() this.updatedAt})
       : super._();
 
   factory _$_Team.fromJson(Map<String, dynamic> json) =>
@@ -156,10 +173,13 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
   @override
   @TimestampConverter()
   final DateTime? createdAt;
+  @override
+  @UpdatedTimestampConverter()
+  final DateTime? updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Team(id: $id, name: $name, createdAt: $createdAt)';
+    return 'Team(id: $id, name: $name, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -169,7 +189,8 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'Team'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('createdAt', createdAt));
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -182,7 +203,10 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)));
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
   }
 
   @override
@@ -190,7 +214,8 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(createdAt);
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -207,7 +232,8 @@ abstract class _Team extends Team {
   factory _Team(
       {@JsonKey(ignore: true) String? id,
       required String name,
-      @TimestampConverter() DateTime? createdAt}) = _$_Team;
+      @TimestampConverter() DateTime? createdAt,
+      @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Team;
   _Team._() : super._();
 
   factory _Team.fromJson(Map<String, dynamic> json) = _$_Team.fromJson;
@@ -220,6 +246,9 @@ abstract class _Team extends Team {
   @override
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @override
+  @UpdatedTimestampConverter()
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TeamCopyWith<_Team> get copyWith => throw _privateConstructorUsedError;

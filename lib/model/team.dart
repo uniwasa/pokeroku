@@ -14,6 +14,7 @@ class Team with _$Team {
     @JsonKey(ignore: true) String? id,
     required String name,
     @TimestampConverter() DateTime? createdAt,
+    @UpdatedTimestampConverter() DateTime? updatedAt,
   }) = _Team;
 
   factory Team.fromJson(Map<String, dynamic> json) => _$TeamFromJson(json);
