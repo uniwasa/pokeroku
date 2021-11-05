@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'team.dart';
+part of 'build.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,45 +12,43 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Team _$TeamFromJson(Map<String, dynamic> json) {
-  return _Team.fromJson(json);
+Build _$BuildFromJson(Map<String, dynamic> json) {
+  return _Build.fromJson(json);
 }
 
 /// @nodoc
-class _$TeamTearOff {
-  const _$TeamTearOff();
+class _$BuildTearOff {
+  const _$BuildTearOff();
 
-  _Team call(
+  _Build call(
       {@JsonKey(ignore: true) String? id,
-      required String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      required int pokemonId,
+      int? itemId,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) {
-    return _Team(
+    return _Build(
       id: id,
-      name: name,
-      builds: builds,
+      pokemonId: pokemonId,
+      itemId: itemId,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
   }
 
-  Team fromJson(Map<String, Object> json) {
-    return Team.fromJson(json);
+  Build fromJson(Map<String, Object> json) {
+    return Build.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Team = _$TeamTearOff();
+const $Build = _$BuildTearOff();
 
 /// @nodoc
-mixin _$Team {
+mixin _$Build {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  Map<String, Map<String, dynamic>>? get builds =>
-      throw _privateConstructorUsedError;
+  int get pokemonId => throw _privateConstructorUsedError;
+  int? get itemId => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @UpdatedTimestampConverter()
@@ -58,34 +56,34 @@ mixin _$Team {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TeamCopyWith<Team> get copyWith => throw _privateConstructorUsedError;
+  $BuildCopyWith<Build> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TeamCopyWith<$Res> {
-  factory $TeamCopyWith(Team value, $Res Function(Team) then) =
-      _$TeamCopyWithImpl<$Res>;
+abstract class $BuildCopyWith<$Res> {
+  factory $BuildCopyWith(Build value, $Res Function(Build) then) =
+      _$BuildCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(ignore: true) String? id,
-      String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      int pokemonId,
+      int? itemId,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
-class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
-  _$TeamCopyWithImpl(this._value, this._then);
+class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
+  _$BuildCopyWithImpl(this._value, this._then);
 
-  final Team _value;
+  final Build _value;
   // ignore: unused_field
-  final $Res Function(Team) _then;
+  final $Res Function(Build) _then;
 
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? builds = freezed,
+    Object? pokemonId = freezed,
+    Object? itemId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -94,14 +92,14 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      builds: builds == freezed
-          ? _value.builds
-          : builds // ignore: cast_nullable_to_non_nullable
-              as Map<String, Map<String, dynamic>>?,
+      pokemonId: pokemonId == freezed
+          ? _value.pokemonId
+          : pokemonId // ignore: cast_nullable_to_non_nullable
+              as int,
+      itemId: itemId == freezed
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -115,48 +113,48 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
-  factory _$TeamCopyWith(_Team value, $Res Function(_Team) then) =
-      __$TeamCopyWithImpl<$Res>;
+abstract class _$BuildCopyWith<$Res> implements $BuildCopyWith<$Res> {
+  factory _$BuildCopyWith(_Build value, $Res Function(_Build) then) =
+      __$BuildCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(ignore: true) String? id,
-      String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      int pokemonId,
+      int? itemId,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
-class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
-    implements _$TeamCopyWith<$Res> {
-  __$TeamCopyWithImpl(_Team _value, $Res Function(_Team) _then)
-      : super(_value, (v) => _then(v as _Team));
+class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
+    implements _$BuildCopyWith<$Res> {
+  __$BuildCopyWithImpl(_Build _value, $Res Function(_Build) _then)
+      : super(_value, (v) => _then(v as _Build));
 
   @override
-  _Team get _value => super._value as _Team;
+  _Build get _value => super._value as _Build;
 
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? builds = freezed,
+    Object? pokemonId = freezed,
+    Object? itemId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_Team(
+    return _then(_Build(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      builds: builds == freezed
-          ? _value.builds
-          : builds // ignore: cast_nullable_to_non_nullable
-              as Map<String, Map<String, dynamic>>?,
+      pokemonId: pokemonId == freezed
+          ? _value.pokemonId
+          : pokemonId // ignore: cast_nullable_to_non_nullable
+              as int,
+      itemId: itemId == freezed
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -171,26 +169,25 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Team extends _Team with DiagnosticableTreeMixin {
-  _$_Team(
+class _$_Build extends _Build with DiagnosticableTreeMixin {
+  _$_Build(
       {@JsonKey(ignore: true) this.id,
-      required this.name,
-      @JsonKey(ignore: true) this.builds,
+      required this.pokemonId,
+      this.itemId,
       @TimestampConverter() this.createdAt,
       @UpdatedTimestampConverter() this.updatedAt})
       : super._();
 
-  factory _$_Team.fromJson(Map<String, dynamic> json) =>
-      _$_$_TeamFromJson(json);
+  factory _$_Build.fromJson(Map<String, dynamic> json) =>
+      _$_$_BuildFromJson(json);
 
   @override
   @JsonKey(ignore: true)
   final String? id;
   @override
-  final String name;
+  final int pokemonId;
   @override
-  @JsonKey(ignore: true)
-  final Map<String, Map<String, dynamic>>? builds;
+  final int? itemId;
   @override
   @TimestampConverter()
   final DateTime? createdAt;
@@ -200,17 +197,17 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Team(id: $id, name: $name, builds: $builds, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Build(id: $id, pokemonId: $pokemonId, itemId: $itemId, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Team'))
+      ..add(DiagnosticsProperty('type', 'Build'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('builds', builds))
+      ..add(DiagnosticsProperty('pokemonId', pokemonId))
+      ..add(DiagnosticsProperty('itemId', itemId))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
@@ -218,13 +215,14 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Team &&
+        (other is _Build &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.builds, builds) ||
-                const DeepCollectionEquality().equals(other.builds, builds)) &&
+            (identical(other.pokemonId, pokemonId) ||
+                const DeepCollectionEquality()
+                    .equals(other.pokemonId, pokemonId)) &&
+            (identical(other.itemId, itemId) ||
+                const DeepCollectionEquality().equals(other.itemId, itemId)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -237,42 +235,40 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(builds) ^
+      const DeepCollectionEquality().hash(pokemonId) ^
+      const DeepCollectionEquality().hash(itemId) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt);
 
   @JsonKey(ignore: true)
   @override
-  _$TeamCopyWith<_Team> get copyWith =>
-      __$TeamCopyWithImpl<_Team>(this, _$identity);
+  _$BuildCopyWith<_Build> get copyWith =>
+      __$BuildCopyWithImpl<_Build>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_TeamToJson(this);
+    return _$_$_BuildToJson(this);
   }
 }
 
-abstract class _Team extends Team {
-  factory _Team(
+abstract class _Build extends Build {
+  factory _Build(
       {@JsonKey(ignore: true) String? id,
-      required String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      required int pokemonId,
+      int? itemId,
       @TimestampConverter() DateTime? createdAt,
-      @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Team;
-  _Team._() : super._();
+      @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Build;
+  _Build._() : super._();
 
-  factory _Team.fromJson(Map<String, dynamic> json) = _$_Team.fromJson;
+  factory _Build.fromJson(Map<String, dynamic> json) = _$_Build.fromJson;
 
   @override
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   @override
-  String get name => throw _privateConstructorUsedError;
+  int get pokemonId => throw _privateConstructorUsedError;
   @override
-  @JsonKey(ignore: true)
-  Map<String, Map<String, dynamic>>? get builds =>
-      throw _privateConstructorUsedError;
+  int? get itemId => throw _privateConstructorUsedError;
   @override
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -281,5 +277,5 @@ abstract class _Team extends Team {
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TeamCopyWith<_Team> get copyWith => throw _privateConstructorUsedError;
+  _$BuildCopyWith<_Build> get copyWith => throw _privateConstructorUsedError;
 }

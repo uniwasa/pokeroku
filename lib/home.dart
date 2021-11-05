@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:pokeroku/interface/build_manager.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
@@ -8,6 +9,7 @@ import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
 import 'package:pokeroku/ui/move_info/move_info_page.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_page.dart';
+import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_page.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_page.dart';
 import 'package:pokeroku/ui/team_list/team_list_page.dart';
 
@@ -60,6 +62,10 @@ class Home extends StatelessWidget {
         break;
       case Routes.teamEdit:
         page = TeamEditPage(id: arguments as String);
+        break;
+      case Routes.pokemonSelection:
+        page = PokemonSelectionPage(
+            pokemonListManager: arguments as BuildManager);
         break;
       default:
         page = PokedexPage();

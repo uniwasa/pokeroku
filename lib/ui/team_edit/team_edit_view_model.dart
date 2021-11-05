@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/interface/build_manager.dart';
+import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/model/team_edit_state.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
+import 'package:pokeroku/repository/build_repository.dart';
 import 'package:pokeroku/repository/team_repository.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 
@@ -22,7 +26,8 @@ final teamEditViewModelProviderFamily = StateNotifierProvider.family
   );
 });
 
-class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>> {
+class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
+    implements BuildManager {
   TeamEditViewModel({
     required Reader read,
     required User? user,
@@ -40,7 +45,7 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>> {
 
   @override
   void dispose() {
-    print('bye');
+    print('bye from ' + this.toString());
     super.dispose();
   }
 
@@ -72,6 +77,33 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>> {
         // リスト側の更新
         _read(teamListViewModelProvider.notifier)
             .replaceTeam(targetTeam: updatedTeam);
+      }
+    } catch (e) {
+      print(e);
+      state = AsyncError(e);
+    }
+  }
+
+  @override
+  Future<void> addBuild({required Pokemon pokemon}) async {
+    try {
+      final userId = _user?.uid;
+      if (userId != null) {
+        state.whenData((teamEditState) async {
+          final team = teamEditState.team;
+          final build = Build(pokemonId: pokemon.id);
+          // Firestoreのデータ更新
+          await _read(buildRepositoryProvider)
+              .createBuild(userId: userId, build: build, team: team);
+          // await _read(teamRepositoryProvider)
+          //     .updateTeam(userId: userId, team: updatedTeam);
+
+          // stateの更新(updatedAtは更新されてないが)
+          // state = AsyncData(teamEditState.copyWith(team: updatedTeam));
+        });
+        // リスト側の更新
+        // _read(teamListViewModelProvider.notifier)
+        //     .replaceTeam(targetTeam: updatedTeam);
       }
     } catch (e) {
       print(e);

@@ -6,4 +6,5 @@ class Routes {
   static const String moveInfo = '/moveInfo';
   static const String teamList = '/teamList';
   static const String teamEdit = '/teamEdit';
+  static const String pokemonSelection = '/pokemonSelection';
 }

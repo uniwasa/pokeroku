@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 class TeamEditPage extends StatelessWidget {
@@ -15,6 +15,8 @@ class TeamEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
       final asyncValue = useProvider(teamEditViewModelProviderFamily(_id));
+      final provider =
+          context.read(teamEditViewModelProviderFamily(_id).notifier);
 
       return asyncValue.when(
         data: (teamEditState) {
@@ -45,8 +47,20 @@ class TeamEditPage extends StatelessWidget {
                   ),
                 ),
               ),
+              actions: [
+                Container(
+                  width: kToolbarHeight,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.pokemonSelection,
+                          arguments: provider);
+                    },
+                    icon: Icon(Icons.add),
+                  ),
+                )
+              ],
             ),
-            body: Center(child: Text('ども')),
+            body: Center(child: Text('hello')),
           );
         },
         loading: () {
