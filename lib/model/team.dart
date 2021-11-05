@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/util/timestamp_converter.dart';
-import 'package:pokeroku/util/int_list_converter.dart';
 
 part 'team.freezed.dart';
 part 'team.g.dart';
