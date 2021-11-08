@@ -55,7 +55,13 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
       if (userId != null) {
         final team = await _read(teamRepositoryProvider)
             .getTeam(userId: userId, teamId: _id);
-        state = AsyncData(TeamEditState(team: team));
+        final builds = await _read(buildRepositoryProvider)
+            .getBuilds(userId: userId, team: team);
+        final teamWithBuilds = team.copyWith(builds: builds);
+        state = AsyncData(TeamEditState(team: teamWithBuilds));
+        // 必須ではないがリスト側も更新
+        _read(teamListViewModelProvider.notifier)
+            .replaceTeam(targetTeam: teamWithBuilds);
       }
     } catch (e) {
       print(e);
@@ -93,17 +99,20 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
           final team = teamEditState.team;
           final build = Build(pokemonId: pokemon.id);
           // Firestoreのデータ更新
-          await _read(buildRepositoryProvider)
+          final buildId = await _read(buildRepositoryProvider)
               .createBuild(userId: userId, build: build, team: team);
-          // await _read(teamRepositoryProvider)
-          //     .updateTeam(userId: userId, team: updatedTeam);
-
-          // stateの更新(updatedAtは更新されてないが)
-          // state = AsyncData(teamEditState.copyWith(team: updatedTeam));
+          // 画面上のTeam更新
+          final createdBuild = build.copyWith(id: buildId);
+          final updatedBuilds = team.builds ?? [];
+          updatedBuilds.insert(0, createdBuild);
+          final updatedTeam = team.copyWith(builds: updatedBuilds);
+          state.whenData((teamEditState) {
+            state = AsyncData(teamEditState.copyWith(team: updatedTeam));
+          });
+          // リスト側の更新
+          _read(teamListViewModelProvider.notifier)
+              .replaceTeam(targetTeam: updatedTeam);
         });
-        // リスト側の更新
-        // _read(teamListViewModelProvider.notifier)
-        //     .replaceTeam(targetTeam: updatedTeam);
       }
     } catch (e) {
       print(e);

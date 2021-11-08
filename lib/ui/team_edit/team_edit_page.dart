@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
@@ -18,9 +19,12 @@ class TeamEditPage extends StatelessWidget {
       final provider =
           context.read(teamEditViewModelProviderFamily(_id).notifier);
 
+      final allPokemon = useProvider(allPokemonsProvider).data?.value;
+
       return asyncValue.when(
         data: (teamEditState) {
           final team = teamEditState.team;
+          final builds = team.builds;
           final focusNode = useFocusNode();
           final textEditingController =
               useTextEditingController(text: team.name);
@@ -60,7 +64,32 @@ class TeamEditPage extends StatelessWidget {
                 )
               ],
             ),
-            body: Center(child: Text('hello')),
+            body: builds != null && builds.length != 0
+                ? ListView.builder(
+                    itemCount: builds.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final build = builds[index];
+
+                      if (allPokemon != null) {
+                        final pokemon = allPokemon.firstWhere(
+                            (element) => element.id == build.pokemonId);
+                        final image = Image.asset(
+                          pokemon.imageName,
+                          isAntiAlias: true,
+                          fit: BoxFit.contain,
+                          filterQuality: FilterQuality.none,
+                        );
+
+                        return ListTile(
+                          leading: image,
+                          title: Text(pokemon.nameJp),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  )
+                : Text('ポケモン未選択'),
           );
         },
         loading: () {

@@ -23,7 +23,7 @@ class _$TeamTearOff {
   _Team call(
       {@JsonKey(ignore: true) String? id,
       required String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      @JsonKey(ignore: true) List<Build>? builds,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) {
     return _Team(
@@ -47,10 +47,10 @@ const $Team = _$TeamTearOff();
 mixin _$Team {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get name =>
+      throw _privateConstructorUsedError; // @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
   @JsonKey(ignore: true)
-  Map<String, Map<String, dynamic>>? get builds =>
-      throw _privateConstructorUsedError;
+  List<Build>? get builds => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @UpdatedTimestampConverter()
@@ -68,7 +68,7 @@ abstract class $TeamCopyWith<$Res> {
   $Res call(
       {@JsonKey(ignore: true) String? id,
       String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      @JsonKey(ignore: true) List<Build>? builds,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 }
@@ -101,7 +101,7 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
       builds: builds == freezed
           ? _value.builds
           : builds // ignore: cast_nullable_to_non_nullable
-              as Map<String, Map<String, dynamic>>?,
+              as List<Build>?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -122,7 +122,7 @@ abstract class _$TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
   $Res call(
       {@JsonKey(ignore: true) String? id,
       String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      @JsonKey(ignore: true) List<Build>? builds,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 }
@@ -156,7 +156,7 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
       builds: builds == freezed
           ? _value.builds
           : builds // ignore: cast_nullable_to_non_nullable
-              as Map<String, Map<String, dynamic>>?,
+              as List<Build>?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -188,9 +188,9 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
   final String? id;
   @override
   final String name;
-  @override
+  @override // @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
   @JsonKey(ignore: true)
-  final Map<String, Map<String, dynamic>>? builds;
+  final List<Build>? builds;
   @override
   @TimestampConverter()
   final DateTime? createdAt;
@@ -257,7 +257,7 @@ abstract class _Team extends Team {
   factory _Team(
       {@JsonKey(ignore: true) String? id,
       required String name,
-      @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+      @JsonKey(ignore: true) List<Build>? builds,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Team;
   _Team._() : super._();
@@ -269,10 +269,9 @@ abstract class _Team extends Team {
   String? get id => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
-  @override
+  @override // @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
   @JsonKey(ignore: true)
-  Map<String, Map<String, dynamic>>? get builds =>
-      throw _privateConstructorUsedError;
+  List<Build>? get builds => throw _privateConstructorUsedError;
   @override
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;

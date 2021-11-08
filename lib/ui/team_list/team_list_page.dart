@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
@@ -57,6 +58,8 @@ class TeamListPage extends StatelessWidget {
         final isLoading = state.isLoading;
         final hasNext = state.hasNext;
 
+        final allPokemon = useProvider(allPokemonsProvider).data?.value;
+
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             if (!isLoading &&
@@ -74,21 +77,41 @@ class TeamListPage extends StatelessWidget {
                   itemCount: teams.length,
                   itemBuilder: (BuildContext context, int index) {
                     final team = teams[index];
+                    final builds = team.builds;
+
+                    final List<Widget> buildIcons = allPokemon != null &&
+                            builds != null
+                        ? builds.map(
+                            (build) {
+                              final pokemon = allPokemon.firstWhere(
+                                  (element) => element.id == build.pokemonId);
+                              return Image.asset(
+                                pokemon.imageName,
+                                isAntiAlias: true,
+                                fit: BoxFit.contain,
+                                filterQuality: FilterQuality.none,
+                              );
+                            },
+                          ).toList()
+                        : [];
+
                     return ListTile(
                       onTap: () {
                         Navigator.pushNamed(context, Routes.teamEdit,
                             arguments: team.id);
                       },
-                      title: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: Colors.white),
-                          ),
+                      title: ConstrainedBox(
+                        constraints: BoxConstraints(minHeight: 100),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(team.name),
+                            if (builds != null)
+                              Wrap(
+                                children: buildIcons,
+                              ),
+                          ],
                         ),
-                        height: 100,
-                        child: Text(team.name +
-                            team.createdAt.toString() +
-                            team.id.toString()),
                       ),
                     );
                   },

@@ -15,7 +15,7 @@ class Team with _$Team {
   factory Team({
     @JsonKey(ignore: true) String? id,
     required String name,
-    @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+    @JsonKey(ignore: true) List<Build>? builds,
     @TimestampConverter() DateTime? createdAt,
     @UpdatedTimestampConverter() DateTime? updatedAt,
   }) = _Team;
@@ -24,15 +24,42 @@ class Team with _$Team {
 
   factory Team.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data()!;
+    final buildMap = (data[TeamField.builds] as Map<String, dynamic>?)?.map(
+      (k, e) => MapEntry(k, Map<String, dynamic>.from(e as Map)),
+    );
+    final builds = buildMap?.entries
+        .map(
+          (e) => Build(
+            id: e.key,
+            pokemonId: e.value[TeamField.pokemonId],
+            itemId: e.value[TeamField.itemId],
+            createdAt: (e.value[TeamField.createdAt] as Timestamp?)?.toDate(),
+          ),
+        )
+        .toList();
+    final sortedBuilds = sortBuilds(builds: builds);
     return Team.fromJson(data).copyWith(
       id: doc.id,
-      builds: (data[TeamField.builds] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, Map<String, dynamic>.from(e as Map)),
-      ),
+      builds: sortedBuilds,
     );
   }
+  static sortBuilds({required List<Build>? builds}) {
+    return builds
+      ?..sort((a, b) {
+        final dateA = a.createdAt;
+        final dateB = b.createdAt;
+        if (dateA == null && dateB == null)
+          return 0;
+        else if (dateA == null)
+          return 1;
+        else if (dateB == null)
+          return -1;
+        else
+          return -dateA.compareTo(dateB);
+      });
+  }
 
-  static Map<String, dynamic> makeBuildData(
+  static Map<String, dynamic> makeDenormalizedBuild(
       {required Build build, isDelete = false}) {
     final id = build.id!;
     final buildMap = {
