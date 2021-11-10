@@ -78,6 +78,7 @@ class TeamListPage extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final team = teams[index];
                     final builds = team.builds;
+                    final teamName = team.name;
 
                     final List<Widget> buildIcons = allPokemon != null &&
                             builds != null
@@ -105,7 +106,7 @@ class TeamListPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(team.name),
+                            if (teamName != null) Text(teamName),
                             if (builds != null)
                               Wrap(
                                 children: buildIcons,

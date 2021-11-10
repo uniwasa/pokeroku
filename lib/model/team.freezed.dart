@@ -21,15 +21,23 @@ class _$TeamTearOff {
   const _$TeamTearOff();
 
   _Team call(
-      {@JsonKey(ignore: true) String? id,
-      required String name,
-      @JsonKey(ignore: true) List<Build>? builds,
-      @TimestampConverter() DateTime? createdAt,
-      @UpdatedTimestampConverter() DateTime? updatedAt}) {
+      {@JsonKey(ignore: true)
+          String? id,
+      String? name,
+      @JsonKey(ignore: true)
+          List<Build>? builds,
+      @JsonKey(includeIfNull: false)
+      @DocumentReferenceConverter()
+          DocumentReference<Map<String, dynamic>>? ref,
+      @TimestampConverter()
+          DateTime? createdAt,
+      @UpdatedTimestampConverter()
+          DateTime? updatedAt}) {
     return _Team(
       id: id,
       name: name,
       builds: builds,
+      ref: ref,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
@@ -47,10 +55,13 @@ const $Team = _$TeamTearOff();
 mixin _$Team {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
-  String get name =>
-      throw _privateConstructorUsedError; // @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+  String? get name => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   List<Build>? get builds => throw _privateConstructorUsedError;
+  @JsonKey(includeIfNull: false)
+  @DocumentReferenceConverter()
+  DocumentReference<Map<String, dynamic>>? get ref =>
+      throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @UpdatedTimestampConverter()
@@ -66,11 +77,18 @@ abstract class $TeamCopyWith<$Res> {
   factory $TeamCopyWith(Team value, $Res Function(Team) then) =
       _$TeamCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(ignore: true) String? id,
-      String name,
-      @JsonKey(ignore: true) List<Build>? builds,
-      @TimestampConverter() DateTime? createdAt,
-      @UpdatedTimestampConverter() DateTime? updatedAt});
+      {@JsonKey(ignore: true)
+          String? id,
+      String? name,
+      @JsonKey(ignore: true)
+          List<Build>? builds,
+      @JsonKey(includeIfNull: false)
+      @DocumentReferenceConverter()
+          DocumentReference<Map<String, dynamic>>? ref,
+      @TimestampConverter()
+          DateTime? createdAt,
+      @UpdatedTimestampConverter()
+          DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -86,6 +104,7 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? builds = freezed,
+    Object? ref = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -97,11 +116,15 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       builds: builds == freezed
           ? _value.builds
           : builds // ignore: cast_nullable_to_non_nullable
               as List<Build>?,
+      ref: ref == freezed
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Map<String, dynamic>>?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -120,11 +143,18 @@ abstract class _$TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
       __$TeamCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(ignore: true) String? id,
-      String name,
-      @JsonKey(ignore: true) List<Build>? builds,
-      @TimestampConverter() DateTime? createdAt,
-      @UpdatedTimestampConverter() DateTime? updatedAt});
+      {@JsonKey(ignore: true)
+          String? id,
+      String? name,
+      @JsonKey(ignore: true)
+          List<Build>? builds,
+      @JsonKey(includeIfNull: false)
+      @DocumentReferenceConverter()
+          DocumentReference<Map<String, dynamic>>? ref,
+      @TimestampConverter()
+          DateTime? createdAt,
+      @UpdatedTimestampConverter()
+          DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -141,6 +171,7 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? builds = freezed,
+    Object? ref = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -152,11 +183,15 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       builds: builds == freezed
           ? _value.builds
           : builds // ignore: cast_nullable_to_non_nullable
               as List<Build>?,
+      ref: ref == freezed
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Map<String, dynamic>>?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -174,8 +209,9 @@ class __$TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res>
 class _$_Team extends _Team with DiagnosticableTreeMixin {
   _$_Team(
       {@JsonKey(ignore: true) this.id,
-      required this.name,
+      this.name,
       @JsonKey(ignore: true) this.builds,
+      @JsonKey(includeIfNull: false) @DocumentReferenceConverter() this.ref,
       @TimestampConverter() this.createdAt,
       @UpdatedTimestampConverter() this.updatedAt})
       : super._();
@@ -187,10 +223,14 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
   @JsonKey(ignore: true)
   final String? id;
   @override
-  final String name;
-  @override // @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+  final String? name;
+  @override
   @JsonKey(ignore: true)
   final List<Build>? builds;
+  @override
+  @JsonKey(includeIfNull: false)
+  @DocumentReferenceConverter()
+  final DocumentReference<Map<String, dynamic>>? ref;
   @override
   @TimestampConverter()
   final DateTime? createdAt;
@@ -200,7 +240,7 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Team(id: $id, name: $name, builds: $builds, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Team(id: $id, name: $name, builds: $builds, ref: $ref, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -211,6 +251,7 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('builds', builds))
+      ..add(DiagnosticsProperty('ref', ref))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
@@ -225,6 +266,8 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.builds, builds) ||
                 const DeepCollectionEquality().equals(other.builds, builds)) &&
+            (identical(other.ref, ref) ||
+                const DeepCollectionEquality().equals(other.ref, ref)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -239,6 +282,7 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(builds) ^
+      const DeepCollectionEquality().hash(ref) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt);
 
@@ -255,11 +299,18 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
 
 abstract class _Team extends Team {
   factory _Team(
-      {@JsonKey(ignore: true) String? id,
-      required String name,
-      @JsonKey(ignore: true) List<Build>? builds,
-      @TimestampConverter() DateTime? createdAt,
-      @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Team;
+      {@JsonKey(ignore: true)
+          String? id,
+      String? name,
+      @JsonKey(ignore: true)
+          List<Build>? builds,
+      @JsonKey(includeIfNull: false)
+      @DocumentReferenceConverter()
+          DocumentReference<Map<String, dynamic>>? ref,
+      @TimestampConverter()
+          DateTime? createdAt,
+      @UpdatedTimestampConverter()
+          DateTime? updatedAt}) = _$_Team;
   _Team._() : super._();
 
   factory _Team.fromJson(Map<String, dynamic> json) = _$_Team.fromJson;
@@ -268,10 +319,15 @@ abstract class _Team extends Team {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   @override
-  String get name => throw _privateConstructorUsedError;
-  @override // @JsonKey(ignore: true) Map<String, Map<String, dynamic>>? builds,
+  String? get name => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
   List<Build>? get builds => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(includeIfNull: false)
+  @DocumentReferenceConverter()
+  DocumentReference<Map<String, dynamic>>? get ref =>
+      throw _privateConstructorUsedError;
   @override
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;

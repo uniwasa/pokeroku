@@ -15,6 +15,7 @@ class Build with _$Build {
     @JsonKey(ignore: true) String? id,
     required int pokemonId,
     int? itemId,
+    @JsonKey(ignore: true) Team? team,
     @TimestampConverter() DateTime? createdAt,
     @UpdatedTimestampConverter() DateTime? updatedAt,
   }) = _Build;
@@ -23,13 +24,16 @@ class Build with _$Build {
 
   factory Build.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data()!;
+    final team = Team.fromJson(data[BuildField.team]);
 
-    return Build.fromJson(data).copyWith(id: doc.id);
+    return Build.fromJson(data).copyWith(id: doc.id, team: team);
   }
 
   Map<String, dynamic> toJsonWithTeam(
-      {required Team team, required DocumentReference teamRef}) {
+      {required Team team,
+      required DocumentReference<Map<String, dynamic>> teamRef}) {
     final json = toJson();
+    // 普通にTeamモデル初期化してそれのtoJson使うというてもあるが、いらないフィールドは含めてくないので手書き
     json[BuildField.team] = {
       BuildField.ref: teamRef,
       BuildField.createdAt: team.createdAt,

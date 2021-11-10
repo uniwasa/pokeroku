@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/util/document_reference_converter.dart';
 import 'package:pokeroku/util/timestamp_converter.dart';
 
 part 'team.freezed.dart';
@@ -14,8 +15,11 @@ class Team with _$Team {
 
   factory Team({
     @JsonKey(ignore: true) String? id,
-    required String name,
+    String? name,
     @JsonKey(ignore: true) List<Build>? builds,
+    @JsonKey(includeIfNull: false)
+    @DocumentReferenceConverter()
+        DocumentReference<Map<String, dynamic>>? ref,
     @TimestampConverter() DateTime? createdAt,
     @UpdatedTimestampConverter() DateTime? updatedAt,
   }) = _Team;
