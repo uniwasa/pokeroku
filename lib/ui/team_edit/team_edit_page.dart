@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/model/build_edit_parameter.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
@@ -83,6 +84,11 @@ class TeamEditPage extends StatelessWidget {
                         return ListTile(
                           leading: image,
                           title: Text(pokemon.nameJp),
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.buildEdit,
+                                arguments: BuildEditParameter(
+                                    build: build, buildManager: provider));
+                          },
                         );
                       } else {
                         return Container();
