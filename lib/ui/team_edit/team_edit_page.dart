@@ -19,36 +19,35 @@ class TeamEditPage extends StatelessWidget {
       final asyncValue = useProvider(teamEditViewModelProviderFamily(_id));
       final provider =
           context.read(teamEditViewModelProviderFamily(_id).notifier);
-
       final allPokemon = useProvider(allPokemonsProvider).data?.value;
+      final textEditingController = useTextEditingController();
 
       return asyncValue.when(
         data: (teamEditState) {
           final team = teamEditState.team;
           final builds = team.builds;
-          final focusNode = useFocusNode();
-          final textEditingController =
-              useTextEditingController(text: team.name);
+          textEditingController.text = team.name ?? '';
 
-          focusNode.addListener(() {
-            if (focusNode.hasFocus == false) {
-              final updatedTeam =
-                  team.copyWith(name: textEditingController.text);
-              context
-                  .read(teamEditViewModelProviderFamily(_id).notifier)
-                  .updateTeam(updatedTeam: updatedTeam);
-            }
-          });
           return Scaffold(
             appBar: AppBar(
               title: ConstrainedBox(
                 constraints: BoxConstraints(minWidth: 120, maxHeight: 32),
                 child: IntrinsicWidth(
-                  child: TextFormField(
-                    style: TextStyle(fontSize: 20),
-                    textAlign: TextAlign.center,
-                    focusNode: focusNode,
-                    controller: textEditingController,
+                  child: Focus(
+                    onFocusChange: (hasFocus) {
+                      if (hasFocus == false) {
+                        final updatedTeam =
+                            team.copyWith(name: textEditingController.text);
+                        context
+                            .read(teamEditViewModelProviderFamily(_id).notifier)
+                            .updateTeam(updatedTeam: updatedTeam);
+                      }
+                    },
+                    child: TextFormField(
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                      controller: textEditingController,
+                    ),
                   ),
                 ),
               ),
