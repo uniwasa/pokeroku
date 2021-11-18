@@ -15,6 +15,8 @@ class Build with _$Build {
     @JsonKey(ignore: true) String? id,
     required int pokemonId,
     int? itemId,
+    Map<String, int>? individualValues,
+    Map<String, int>? effortValues,
     @JsonKey(ignore: true) Team? team,
     @TimestampConverter() DateTime? createdAt,
     @UpdatedTimestampConverter() DateTime? updatedAt,

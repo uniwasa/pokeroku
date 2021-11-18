@@ -24,6 +24,8 @@ class _$BuildTearOff {
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
       int? itemId,
+      Map<String, int>? individualValues,
+      Map<String, int>? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) {
@@ -31,6 +33,8 @@ class _$BuildTearOff {
       id: id,
       pokemonId: pokemonId,
       itemId: itemId,
+      individualValues: individualValues,
+      effortValues: effortValues,
       team: team,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -51,6 +55,8 @@ mixin _$Build {
   String? get id => throw _privateConstructorUsedError;
   int get pokemonId => throw _privateConstructorUsedError;
   int? get itemId => throw _privateConstructorUsedError;
+  Map<String, int>? get individualValues => throw _privateConstructorUsedError;
+  Map<String, int>? get effortValues => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   Team? get team => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -71,6 +77,8 @@ abstract class $BuildCopyWith<$Res> {
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
       int? itemId,
+      Map<String, int>? individualValues,
+      Map<String, int>? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
@@ -91,6 +99,8 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
     Object? id = freezed,
     Object? pokemonId = freezed,
     Object? itemId = freezed,
+    Object? individualValues = freezed,
+    Object? effortValues = freezed,
     Object? team = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -108,6 +118,14 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
               as int?,
+      individualValues: individualValues == freezed
+          ? _value.individualValues
+          : individualValues // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>?,
+      effortValues: effortValues == freezed
+          ? _value.effortValues
+          : effortValues // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>?,
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -144,6 +162,8 @@ abstract class _$BuildCopyWith<$Res> implements $BuildCopyWith<$Res> {
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
       int? itemId,
+      Map<String, int>? individualValues,
+      Map<String, int>? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
@@ -166,6 +186,8 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
     Object? id = freezed,
     Object? pokemonId = freezed,
     Object? itemId = freezed,
+    Object? individualValues = freezed,
+    Object? effortValues = freezed,
     Object? team = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -183,6 +205,14 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
               as int?,
+      individualValues: individualValues == freezed
+          ? _value.individualValues
+          : individualValues // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>?,
+      effortValues: effortValues == freezed
+          ? _value.effortValues
+          : effortValues // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>?,
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -206,6 +236,8 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       {@JsonKey(ignore: true) this.id,
       required this.pokemonId,
       this.itemId,
+      this.individualValues,
+      this.effortValues,
       @JsonKey(ignore: true) this.team,
       @TimestampConverter() this.createdAt,
       @UpdatedTimestampConverter() this.updatedAt})
@@ -222,6 +254,10 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   @override
   final int? itemId;
   @override
+  final Map<String, int>? individualValues;
+  @override
+  final Map<String, int>? effortValues;
+  @override
   @JsonKey(ignore: true)
   final Team? team;
   @override
@@ -233,7 +269,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Build(id: $id, pokemonId: $pokemonId, itemId: $itemId, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Build(id: $id, pokemonId: $pokemonId, itemId: $itemId, individualValues: $individualValues, effortValues: $effortValues, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -244,6 +280,8 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('pokemonId', pokemonId))
       ..add(DiagnosticsProperty('itemId', itemId))
+      ..add(DiagnosticsProperty('individualValues', individualValues))
+      ..add(DiagnosticsProperty('effortValues', effortValues))
       ..add(DiagnosticsProperty('team', team))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt));
@@ -260,6 +298,12 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
                     .equals(other.pokemonId, pokemonId)) &&
             (identical(other.itemId, itemId) ||
                 const DeepCollectionEquality().equals(other.itemId, itemId)) &&
+            (identical(other.individualValues, individualValues) ||
+                const DeepCollectionEquality()
+                    .equals(other.individualValues, individualValues)) &&
+            (identical(other.effortValues, effortValues) ||
+                const DeepCollectionEquality()
+                    .equals(other.effortValues, effortValues)) &&
             (identical(other.team, team) ||
                 const DeepCollectionEquality().equals(other.team, team)) &&
             (identical(other.createdAt, createdAt) ||
@@ -276,6 +320,8 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(pokemonId) ^
       const DeepCollectionEquality().hash(itemId) ^
+      const DeepCollectionEquality().hash(individualValues) ^
+      const DeepCollectionEquality().hash(effortValues) ^
       const DeepCollectionEquality().hash(team) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt);
@@ -296,6 +342,8 @@ abstract class _Build extends Build {
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
       int? itemId,
+      Map<String, int>? individualValues,
+      Map<String, int>? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Build;
@@ -310,6 +358,10 @@ abstract class _Build extends Build {
   int get pokemonId => throw _privateConstructorUsedError;
   @override
   int? get itemId => throw _privateConstructorUsedError;
+  @override
+  Map<String, int>? get individualValues => throw _privateConstructorUsedError;
+  @override
+  Map<String, int>? get effortValues => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   Team? get team => throw _privateConstructorUsedError;

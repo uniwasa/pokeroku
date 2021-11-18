@@ -72,7 +72,17 @@ class Home extends StatelessWidget {
       case Routes.buildEdit:
         page =
             BuildEditPage(buildEditParameter: arguments as BuildEditParameter);
-        break;
+        return PageRouteBuilder(
+            pageBuilder: (_, __, ___) => page,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeUpwardsPageTransitionsBuilder().buildTransitions(
+                  MaterialPageRoute(builder: (context) => page),
+                  context,
+                  animation,
+                  secondaryAnimation,
+                  child);
+            });
       default:
         page = PokedexPage();
     }
