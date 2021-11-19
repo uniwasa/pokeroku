@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/interface/build_manager.dart';
+import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_parameter.dart';
 
@@ -12,22 +13,16 @@ final buildEditViewModelProviderFamily = StateNotifierProvider.family
   );
 });
 
-class BuildEditViewModel extends StateNotifier<Build> {
+class BuildEditViewModel extends StateNotifier<Build> with ValidationMixin {
   BuildEditViewModel({required Build build, required BuildManager buildManager})
       : _build = build,
         _buildManager = buildManager,
-        individualValues = build.individualValues,
-        effortValues = build.effortValues,
         super(build) {
     init();
   }
 
   final Build _build;
   final BuildManager _buildManager;
-
-  //stateとは別に努力値と個体値のフィールド持つ
-  Map<String, int>? individualValues;
-  Map<String, int>? effortValues;
 
   @override
   void dispose() {
@@ -39,8 +34,16 @@ class BuildEditViewModel extends StateNotifier<Build> {
     print('initしました');
   }
 
-  Future<void> updateEffortValues(Map<String, int> effortValues) async {
-    // await Future.delayed(Duration(milliseconds: 2000));
+  void updateEffortValues(
+      {required String statName, required int effortValue}) {
+    final effortValues = state.effortValues ?? {};
+    effortValues[statName] = effortValue;
     state = state.copyWith(effortValues: effortValues);
+  }
+
+  Future<bool> saveBuild() async {
+    if (!isValidEffortValues(state.effortValues)) return false;
+    // _buildManager.updateBuild(build: state);
+    return true;
   }
 }

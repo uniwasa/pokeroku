@@ -29,18 +29,31 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
     final provider =
         context.read(buildEditViewModelProviderFamily(param).notifier);
     final formGlobalKey = GlobalKey<FormState>();
-    Map<String, int> effortValues;
 
     return Scaffold(
         appBar: AppBar(
           title: Text('ポケモン編集'),
           automaticallyImplyLeading: false,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.close)),
           actions: [
             Container(
               width: kToolbarHeight,
               child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    if (formGlobalKey.currentState?.validate() == true) {
+                      if (!await provider.saveBuild()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('努力値合計は510以下にしてください'),
+                            duration: const Duration(seconds: 3),
+                          ),
+                        );
+                      }
+                    }
                   },
                   icon: Icon(Icons.save)),
             ),
@@ -51,11 +64,16 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
           child: Column(
             children: [
               HookBuilder(builder: (context) {
-                final build =
-                    useProvider(buildEditViewModelProviderFamily(param));
-                return Text(build.pokemonId.toString());
+                final build = useProvider(
+                    buildEditViewModelProviderFamily(param)
+                        .select((value) => value.pokemonId));
+                return Text(build.toString());
               }),
               Builder(builder: (context) {
+                final effortValues = context
+                        .read(buildEditViewModelProviderFamily(param))
+                        .effortValues ??
+                    {};
                 return Form(
                   key: formGlobalKey,
                   child: Column(
@@ -63,23 +81,18 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
                       const SizedBox(height: 50),
                       for (final statName in StatName.list)
                         makeStatTextFormField(
-                          initialValue: (provider.effortValues?[statName] ?? 0)
-                              .toString(),
+                          initialValue:
+                              (effortValues[statName] ?? 0).toString(),
                           labelText: statName,
+                          onChanged: (value) {
+                            if (isValidEffortValue(value))
+                              provider.updateEffortValues(
+                                  statName: statName,
+                                  effortValue: int.parse(value));
+                          },
                           validator: (value) {
-                            final oldEffortValues = {
-                              ...provider.effortValues ?? {}
-                            };
-                            final newEffortValues = makeValidEffortValues(
-                                value: value ?? 0.toString(),
-                                statName: statName,
-                                effortValues: oldEffortValues);
-                            if (newEffortValues != null) {
-                              provider.effortValues = newEffortValues;
-                              return null;
-                            } else {
-                              return '';
-                            }
+                            if (!isValidEffortValue(value))
+                              return '有効な値を入力してください';
                           },
                           textInputFormatter:
                               StatTextInputFormatter(min: 0, max: 252),
@@ -92,7 +105,7 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
                               formGlobalKey.currentState!.save();
                             }
                           },
-                          child: Text("Submit"))
+                          child: Text('保存'))
                     ],
                   ),
                 );
@@ -105,13 +118,15 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
   Widget makeStatTextFormField({
     required String initialValue,
     required String labelText,
-    required String? Function(String?) validator,
     required TextInputFormatter textInputFormatter,
+    required String? Function(String?) validator,
+    required void Function(String) onChanged,
   }) {
     return TextFormField(
       initialValue: initialValue,
       decoration: InputDecoration(labelText: labelText),
       validator: validator,
+      onChanged: onChanged,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         textInputFormatter,
@@ -122,17 +137,5 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
     );
-  }
-
-  Map<String, int>? makeValidEffortValues(
-      {required String value,
-      required String statName,
-      required Map<String, int> effortValues}) {
-    if (isNumeric(value)) {
-      final num = int.parse(value);
-      effortValues[statName] = num;
-      if (0 <= num && num <= 252 && effortValues.values.toList().sum <= 510)
-        return effortValues;
-    }
   }
 }
