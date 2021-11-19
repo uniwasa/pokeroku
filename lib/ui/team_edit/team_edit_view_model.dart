@@ -106,9 +106,36 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
           final updatedBuilds = team.builds ?? [];
           updatedBuilds.insert(0, createdBuild);
           final updatedTeam = team.copyWith(builds: updatedBuilds);
-          state.whenData((teamEditState) {
-            state = AsyncData(teamEditState.copyWith(team: updatedTeam));
-          });
+          state = AsyncData(teamEditState.copyWith(team: updatedTeam));
+
+          // リスト側の更新
+          _read(teamListViewModelProvider.notifier)
+              .replaceTeam(targetTeam: updatedTeam);
+        });
+      }
+    } catch (e) {
+      print(e);
+      state = AsyncError(e);
+    }
+  }
+
+  @override
+  Future<void> updateBuild({required Build build}) async {
+    try {
+      final userId = _user?.uid;
+      if (userId != null) {
+        state.whenData((teamEditState) async {
+          final team = teamEditState.team;
+          // Firestoreのデータ更新
+          await _read(buildRepositoryProvider)
+              .updateBuild(userId: userId, build: build, team: team);
+          // 画面上のTeam更新
+          final List<Build> updatedBuilds = [
+            for (final existingBuild in team.builds ?? [])
+              existingBuild.id == build.id ? build : existingBuild
+          ];
+          final updatedTeam = team.copyWith(builds: updatedBuilds);
+          state = AsyncData(teamEditState.copyWith(team: updatedTeam));
           // リスト側の更新
           _read(teamListViewModelProvider.notifier)
               .replaceTeam(targetTeam: updatedTeam);

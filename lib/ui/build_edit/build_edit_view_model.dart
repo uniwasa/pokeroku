@@ -43,7 +43,7 @@ class BuildEditViewModel extends StateNotifier<Build> with ValidationMixin {
 
   Future<bool> saveBuild() async {
     if (!isValidEffortValues(state.effortValues)) return false;
-    // _buildManager.updateBuild(build: state);
+    _buildManager.updateBuild(build: state);
     return true;
   }
 }

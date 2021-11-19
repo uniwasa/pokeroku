@@ -9,6 +9,8 @@ import 'package:pokeroku/provider/firebase_providers.dart';
 abstract class BuildRepository {
   Future<String> createBuild(
       {required String userId, required Build build, Team? team});
+  Future<void> updateBuild(
+      {required String userId, required Build build, Team? team});
   Future<List<Build>> getBuilds(
       {required String userId, Team? team, int? limitNum});
 }
@@ -45,6 +47,31 @@ class BuildRepositoryImpl implements BuildRepository {
       } else {
         return '';
       }
+    } on FirebaseException catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> updateBuild({
+    required String userId,
+    required Build build,
+    Team? team,
+  }) async {
+    try {
+      if (team != null) {
+        final batch = _read(firebaseFirestoreProvider).batch();
+
+        final userRef =
+            _read(firebaseFirestoreProvider).getUserDocument(userId);
+        final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
+        final buildRef =
+            teamRef.collection(CollectionName.builds).doc(build.id);
+        batch.update(buildRef, build.toJson());
+        final denormalizedBuild = Team.makeDenormalizedBuild(build: build);
+        batch.update(teamRef, denormalizedBuild);
+
+        await batch.commit();
+      } else {}
     } on FirebaseException catch (e) {
       throw e;
     }

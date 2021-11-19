@@ -66,10 +66,11 @@ class Team with _$Team {
   static Map<String, dynamic> makeDenormalizedBuild(
       {required Build build, isDelete = false}) {
     final id = build.id!;
+    final buildJson = build.toJson();
     final buildMap = {
-      TeamField.pokemonId: build.pokemonId,
-      TeamField.itemId: build.itemId,
-      TeamField.createdAt: FieldValue.serverTimestamp(),
+      TeamField.pokemonId: buildJson[TeamField.pokemonId],
+      TeamField.itemId: buildJson[TeamField.itemId],
+      TeamField.createdAt: buildJson[TeamField.createdAt],
     };
     return {
       TeamField.builds + '.' + id: isDelete ? FieldValue.delete() : buildMap,
