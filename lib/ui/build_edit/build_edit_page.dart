@@ -1,13 +1,12 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/const/stat_name.dart';
 import 'package:pokeroku/interface/build_manager.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_parameter.dart';
+import 'package:pokeroku/model/stat.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
 
@@ -71,18 +70,18 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
               }),
               Builder(builder: (context) {
                 final effortValues = context
-                        .read(buildEditViewModelProviderFamily(param))
-                        .effortValues ??
-                    {};
+                    .read(buildEditViewModelProviderFamily(param))
+                    .effortValues
+                    ?.toJson();
                 return Form(
                   key: formGlobalKey,
                   child: Column(
                     children: [
                       const SizedBox(height: 50),
-                      for (final statName in StatName.list)
+                      for (final statName in Stat.keys())
                         makeStatTextFormField(
                           initialValue:
-                              (effortValues[statName] ?? 0).toString(),
+                              (effortValues?[statName] ?? 0).toString(),
                           labelText: statName,
                           onChanged: (value) {
                             if (isValidEffortValue(value))

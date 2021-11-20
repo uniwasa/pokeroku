@@ -21,11 +21,4 @@ mixin ValidationMixin {
     }
     return false;
   }
-
-  bool isValidEffortValues(Map<String, int>? effortValues) {
-    if (effortValues != null && effortValues.values.toList().sum <= 510)
-      return true;
-    else
-      return false;
-  }
 }

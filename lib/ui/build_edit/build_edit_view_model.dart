@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/interface/build_manager.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_parameter.dart';
+import 'package:pokeroku/model/stat.dart';
 
 final buildEditViewModelProviderFamily = StateNotifierProvider.family
     .autoDispose<BuildEditViewModel, Build, BuildEditParameter>(
@@ -36,14 +38,20 @@ class BuildEditViewModel extends StateNotifier<Build> with ValidationMixin {
 
   void updateEffortValues(
       {required String statName, required int effortValue}) {
-    final effortValues = state.effortValues ?? {};
+    final effortValues = state.effortValues?.toJson() ?? {};
     effortValues[statName] = effortValue;
-    state = state.copyWith(effortValues: effortValues);
+    final stat = Stat.fromJson(effortValues);
+    state = state.copyWith(effortValues: stat);
   }
 
   Future<bool> saveBuild() async {
-    if (!isValidEffortValues(state.effortValues)) return false;
-    _buildManager.updateBuild(build: state);
-    return true;
+    if (state.effortValues == null ||
+        state.effortValues?.isValidEffortValues() == true) {
+      // 努力値が空か有効な努力値の場合
+      _buildManager.updateBuild(build: state);
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -24,8 +24,8 @@ class _$BuildTearOff {
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
       int? itemId,
-      Map<String, int>? individualValues,
-      Map<String, int>? effortValues,
+      Stat? individualValues,
+      Stat? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) {
@@ -55,8 +55,8 @@ mixin _$Build {
   String? get id => throw _privateConstructorUsedError;
   int get pokemonId => throw _privateConstructorUsedError;
   int? get itemId => throw _privateConstructorUsedError;
-  Map<String, int>? get individualValues => throw _privateConstructorUsedError;
-  Map<String, int>? get effortValues => throw _privateConstructorUsedError;
+  Stat? get individualValues => throw _privateConstructorUsedError;
+  Stat? get effortValues => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   Team? get team => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -77,12 +77,14 @@ abstract class $BuildCopyWith<$Res> {
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
       int? itemId,
-      Map<String, int>? individualValues,
-      Map<String, int>? effortValues,
+      Stat? individualValues,
+      Stat? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 
+  $StatCopyWith<$Res>? get individualValues;
+  $StatCopyWith<$Res>? get effortValues;
   $TeamCopyWith<$Res>? get team;
 }
 
@@ -121,11 +123,11 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
       individualValues: individualValues == freezed
           ? _value.individualValues
           : individualValues // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>?,
+              as Stat?,
       effortValues: effortValues == freezed
           ? _value.effortValues
           : effortValues // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>?,
+              as Stat?,
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -139,6 +141,28 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
+  }
+
+  @override
+  $StatCopyWith<$Res>? get individualValues {
+    if (_value.individualValues == null) {
+      return null;
+    }
+
+    return $StatCopyWith<$Res>(_value.individualValues!, (value) {
+      return _then(_value.copyWith(individualValues: value));
+    });
+  }
+
+  @override
+  $StatCopyWith<$Res>? get effortValues {
+    if (_value.effortValues == null) {
+      return null;
+    }
+
+    return $StatCopyWith<$Res>(_value.effortValues!, (value) {
+      return _then(_value.copyWith(effortValues: value));
+    });
   }
 
   @override
@@ -162,12 +186,16 @@ abstract class _$BuildCopyWith<$Res> implements $BuildCopyWith<$Res> {
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
       int? itemId,
-      Map<String, int>? individualValues,
-      Map<String, int>? effortValues,
+      Stat? individualValues,
+      Stat? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 
+  @override
+  $StatCopyWith<$Res>? get individualValues;
+  @override
+  $StatCopyWith<$Res>? get effortValues;
   @override
   $TeamCopyWith<$Res>? get team;
 }
@@ -208,11 +236,11 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
       individualValues: individualValues == freezed
           ? _value.individualValues
           : individualValues // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>?,
+              as Stat?,
       effortValues: effortValues == freezed
           ? _value.effortValues
           : effortValues // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>?,
+              as Stat?,
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -230,7 +258,8 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_Build extends _Build with DiagnosticableTreeMixin {
   _$_Build(
       {@JsonKey(ignore: true) this.id,
@@ -254,9 +283,9 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   @override
   final int? itemId;
   @override
-  final Map<String, int>? individualValues;
+  final Stat? individualValues;
   @override
-  final Map<String, int>? effortValues;
+  final Stat? effortValues;
   @override
   @JsonKey(ignore: true)
   final Team? team;
@@ -342,8 +371,8 @@ abstract class _Build extends Build {
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
       int? itemId,
-      Map<String, int>? individualValues,
-      Map<String, int>? effortValues,
+      Stat? individualValues,
+      Stat? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Build;
@@ -359,9 +388,9 @@ abstract class _Build extends Build {
   @override
   int? get itemId => throw _privateConstructorUsedError;
   @override
-  Map<String, int>? get individualValues => throw _privateConstructorUsedError;
+  Stat? get individualValues => throw _privateConstructorUsedError;
   @override
-  Map<String, int>? get effortValues => throw _privateConstructorUsedError;
+  Stat? get effortValues => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   Team? get team => throw _privateConstructorUsedError;

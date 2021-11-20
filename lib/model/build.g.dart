@@ -10,12 +10,12 @@ _$_Build _$_$_BuildFromJson(Map<String, dynamic> json) {
   return _$_Build(
     pokemonId: json['pokemonId'] as int,
     itemId: json['itemId'] as int?,
-    individualValues: (json['individualValues'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int),
-    ),
-    effortValues: (json['effortValues'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int),
-    ),
+    individualValues: json['individualValues'] == null
+        ? null
+        : Stat.fromJson(json['individualValues'] as Map<String, dynamic>),
+    effortValues: json['effortValues'] == null
+        ? null
+        : Stat.fromJson(json['effortValues'] as Map<String, dynamic>),
     createdAt: const TimestampConverter().fromJson(json['createdAt']),
     updatedAt: const UpdatedTimestampConverter().fromJson(json['updatedAt']),
   );
@@ -24,8 +24,8 @@ _$_Build _$_$_BuildFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_BuildToJson(_$_Build instance) => <String, dynamic>{
       'pokemonId': instance.pokemonId,
       'itemId': instance.itemId,
-      'individualValues': instance.individualValues,
-      'effortValues': instance.effortValues,
+      'individualValues': instance.individualValues?.toJson(),
+      'effortValues': instance.effortValues?.toJson(),
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const UpdatedTimestampConverter().toJson(instance.updatedAt),
     };
