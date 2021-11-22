@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,13 +13,22 @@ final authServiceProvider = StateNotifierProvider<AuthService, User?>(
 
 class AuthService extends StateNotifier<User?> {
   final Reader _read;
+  StreamSubscription<User?>? _authStateSubscription;
   AuthService(this._read) : super(null) {
     init();
+  }
+  @override
+  void dispose() {
+    _authStateSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> init() async {
     try {
-      _read(firebaseAuthProvider).authStateChanges().listen((User? user) async {
+      _authStateSubscription?.cancel();
+      _authStateSubscription = _read(firebaseAuthProvider)
+          .authStateChanges()
+          .listen((User? user) async {
         await createUserDoc(user); // signInAnonymouslyしたらまた呼び出されるから先に記述
         state = user; // userのdocumentが作られてからstate更新
 
