@@ -7,10 +7,11 @@ import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_parameter.dart';
 import 'package:pokeroku/model/stat.dart';
+import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
 
-class BuildEditPage extends StatelessWidget with ValidationMixin {
+class BuildEditPage extends HookWidget with ValidationMixin {
   BuildEditPage({Key? key, required BuildEditParameter buildEditParameter})
       : _build = buildEditParameter.build,
         _buildManager = buildEditParameter.buildManager,
@@ -28,10 +29,18 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
     final provider =
         context.read(buildEditViewModelProviderFamily(param).notifier);
     final formGlobalKey = GlobalKey<FormState>();
+    final allPokemon = useProvider(allPokemonsProvider).data?.value;
+    final pokemonId = useProvider(buildEditViewModelProviderFamily(param)
+        .select((value) => value.pokemonId));
 
+    if (allPokemon == null) return Scaffold();
+
+    final pokemon = allPokemon.firstWhere((element) => element.id == pokemonId);
     return Scaffold(
         appBar: AppBar(
-          title: Text('ポケモン編集'),
+          title: HookBuilder(builder: (context) {
+            return Text(pokemon.fullNameJp);
+          }),
           automaticallyImplyLeading: false,
           leading: IconButton(
               onPressed: () {
@@ -58,60 +67,46 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              HookBuilder(builder: (context) {
-                final build = useProvider(
-                    buildEditViewModelProviderFamily(param)
-                        .select((value) => value.pokemonId));
-                return Text(build.toString());
-              }),
-              Builder(builder: (context) {
-                final effortValues = context
-                    .read(buildEditViewModelProviderFamily(param))
-                    .effortValues
-                    ?.toJson();
-                return Form(
-                  key: formGlobalKey,
-                  child: Column(
+        body: Builder(builder: (context) {
+          final effortValues = context
+              .read(buildEditViewModelProviderFamily(param))
+              .effortValues
+              ?.toJson();
+          return Form(
+            key: formGlobalKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  Row(
                     children: [
-                      const SizedBox(height: 50),
                       for (final statName in Stat.keys())
-                        makeStatTextFormField(
-                          initialValue:
-                              (effortValues?[statName] ?? 0).toString(),
-                          labelText: statName,
-                          onChanged: (value) {
-                            if (isValidEffortValue(value))
-                              provider.updateEffortValues(
-                                  statName: statName,
-                                  effortValue: int.parse(value));
-                          },
-                          validator: (value) {
-                            if (!isValidEffortValue(value))
-                              return '有効な値を入力してください';
-                          },
-                          textInputFormatter:
-                              StatTextInputFormatter(min: 0, max: 252),
+                        Flexible(
+                          child: makeStatTextFormField(
+                            initialValue:
+                                (effortValues?[statName] ?? 0).toString(),
+                            labelText: statName,
+                            onChanged: (value) {
+                              if (isValidEffortValue(value))
+                                provider.updateEffortValues(
+                                    statName: statName,
+                                    effortValue: int.parse(value));
+                            },
+                            validator: (value) {
+                              if (!isValidEffortValue(value))
+                                return '有効な値を入力してください';
+                            },
+                            textInputFormatter:
+                                StatTextInputFormatter(min: 0, max: 252),
+                          ),
                         ),
-                      const SizedBox(height: 50),
-                      ElevatedButton(
-                          onPressed: () {
-                            if (formGlobalKey.currentState!.validate()) {
-                              print('ok');
-                              formGlobalKey.currentState!.save();
-                            }
-                          },
-                          child: Text('保存'))
                     ],
                   ),
-                );
-              }),
-            ],
-          ),
-        ));
+                ],
+              ),
+            ),
+          );
+        }));
   }
 
   Widget makeStatTextFormField({
@@ -121,20 +116,31 @@ class BuildEditPage extends StatelessWidget with ValidationMixin {
     required String? Function(String?) validator,
     required void Function(String) onChanged,
   }) {
-    return TextFormField(
-      initialValue: initialValue,
-      decoration: InputDecoration(labelText: labelText),
-      validator: validator,
-      onChanged: onChanged,
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-        textInputFormatter,
-      ],
-      keyboardType: TextInputType.numberWithOptions(
-        signed: true,
-        decimal: true,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 3.0),
+      child: SizedBox(
+        height: 40.0,
+        child: TextFormField(
+          initialValue: initialValue,
+          decoration: InputDecoration(
+            labelText: labelText,
+            border: OutlineInputBorder(),
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
+          ),
+          validator: validator,
+          onChanged: onChanged,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            textInputFormatter,
+          ],
+          keyboardType: TextInputType.numberWithOptions(
+            signed: true,
+            decimal: true,
+          ),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+        ),
       ),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 }
