@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/const/type_color.dart';
+import 'package:pokeroku/model/item.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_type.dart';
@@ -130,5 +131,12 @@ class PokedexDataSource {
     return rawPokemons.map((rawPokemon) {
       return Pokemon.type(rawPokemon, pokemonTypes);
     }).toList();
+  }
+
+  Future<List<Item>> getItemList() async {
+    final db = await _databaseHelper.database;
+    String query = await rootBundle.loadString('assets/query/item_list.sql');
+    List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
+    return queryResult.map((json) => Item.fromJson(json)).toList();
   }
 }
