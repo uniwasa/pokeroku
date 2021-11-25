@@ -85,7 +85,10 @@ class BuildRepositoryImpl implements BuildRepository {
         final userRef =
             _read(firebaseFirestoreProvider).getUserDocument(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
-        final snap = await teamRef.collection(CollectionName.builds).get();
+        final snap = await teamRef
+            .collection(CollectionName.builds)
+            .orderBy('createdAt', descending: true)
+            .get();
         return snap.docs.map((doc) => Build.fromDocument(doc)).toList();
       } else {
         return [];
