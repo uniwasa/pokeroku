@@ -18,11 +18,11 @@ final teamEditViewModelProvider = StateNotifierProvider.autoDispose<
 
 final teamEditViewModelProviderFamily = StateNotifierProvider.family
     .autoDispose<TeamEditViewModel, AsyncValue<TeamEditState>, String>(
-        (ref, id) {
+        (ref, teamId) {
   return TeamEditViewModel(
     read: ref.read,
     user: ref.watch(authServiceProvider),
-    id: id,
+    teamId: teamId,
   );
 });
 
@@ -31,17 +31,17 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
   TeamEditViewModel({
     required Reader read,
     required User? user,
-    required String id,
+    required String teamId,
   })  : _read = read,
         _user = user,
-        _id = id,
+        _teamId = teamId,
         super(AsyncLoading()) {
     init();
   }
 
   final Reader _read;
   final User? _user;
-  final String _id;
+  final String _teamId;
 
   @override
   void dispose() {
@@ -54,7 +54,7 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
       final userId = _user?.uid;
       if (userId != null) {
         final team = await _read(teamRepositoryProvider)
-            .getTeam(userId: userId, teamId: _id);
+            .getTeam(userId: userId, teamId: _teamId);
         final builds = await _read(buildRepositoryProvider)
             .getBuilds(userId: userId, team: team);
         final teamWithBuilds = team.copyWith(builds: builds);

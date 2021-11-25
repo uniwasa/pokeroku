@@ -6,18 +6,17 @@ import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_view_model.dart'
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 class PokemonSelectionPage extends StatelessWidget {
-  PokemonSelectionPage(
-      {Key? key, required BuildManager pokemonListManager})
-      : _pokemonListManager = pokemonListManager,
+  PokemonSelectionPage({Key? key, required String? teamId})
+      : _teamId = teamId,
         super(key: key);
 
-  final BuildManager _pokemonListManager;
+  final String? _teamId;
 
   @override
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
-      final asyncValue = useProvider(
-          pokemonSelectionViewModelProviderFamily(_pokemonListManager));
+      final asyncValue =
+          useProvider(pokemonSelectionViewModelProviderFamily(_teamId));
 
       return Scaffold(
         appBar: AppBar(
@@ -42,7 +41,16 @@ class PokemonSelectionPage extends StatelessWidget {
                       leading: pokemonImage,
                       title: Text(pokemon.fullNameJp),
                       onTap: () {
-                        _pokemonListManager.addBuild(pokemon: pokemon);
+                        if (_teamId != null) {
+                          // パーティ画面用
+                          context
+                              .read(teamEditViewModelProviderFamily(_teamId!)
+                                  .notifier)
+                              .addBuild(pokemon: pokemon);
+                        } else {
+                          // ポケモン単体画面用
+                          // ポケモン単体画面完成したらその処理を書く
+                        }
                         Navigator.pop(context);
                       },
                     );

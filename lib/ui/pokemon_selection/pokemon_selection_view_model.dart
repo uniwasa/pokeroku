@@ -11,11 +11,11 @@ import 'package:pokeroku/repository/team_repository.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 
 final pokemonSelectionViewModelProviderFamily = StateNotifierProvider.family
-    .autoDispose<PokemonSelectionViewModel, AsyncValue<List<Pokemon>>,
-        BuildManager>((ref, pokemonListManager) {
+    .autoDispose<PokemonSelectionViewModel, AsyncValue<List<Pokemon>>, String?>(
+        (ref, teamId) {
   return PokemonSelectionViewModel(
     pokemonList: ref.watch(allPokemonsProvider),
-    pokemonListManager: pokemonListManager,
+    teamId: teamId,
   );
 });
 
@@ -23,15 +23,15 @@ class PokemonSelectionViewModel
     extends StateNotifier<AsyncValue<List<Pokemon>>> {
   PokemonSelectionViewModel({
     required AsyncValue<List<Pokemon>> pokemonList,
-    required BuildManager pokemonListManager,
+    required String? teamId,
   })  : _pokemonList = pokemonList,
-        _pokemonListManager = pokemonListManager,
+        _teamId = teamId,
         super(pokemonList) {
     init();
   }
 
   final AsyncValue<List<Pokemon>> _pokemonList;
-  final BuildManager _pokemonListManager;
+  final String? _teamId;
 
   @override
   void dispose() {

@@ -7,18 +7,18 @@ import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 class TeamEditPage extends StatelessWidget {
-  TeamEditPage({Key? key, required String id})
-      : _id = id,
+  TeamEditPage({Key? key, required String teamId})
+      : _teamId = teamId,
         super(key: key);
 
-  final String _id;
+  final String _teamId;
 
   @override
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
-      final asyncValue = useProvider(teamEditViewModelProviderFamily(_id));
+      final asyncValue = useProvider(teamEditViewModelProviderFamily(_teamId));
       final provider =
-          context.read(teamEditViewModelProviderFamily(_id).notifier);
+          context.read(teamEditViewModelProviderFamily(_teamId).notifier);
       final allPokemon = useProvider(allPokemonsProvider).data?.value;
       final textEditingController = useTextEditingController();
 
@@ -39,7 +39,8 @@ class TeamEditPage extends StatelessWidget {
                         final updatedTeam =
                             team.copyWith(name: textEditingController.text);
                         context
-                            .read(teamEditViewModelProviderFamily(_id).notifier)
+                            .read(teamEditViewModelProviderFamily(_teamId)
+                                .notifier)
                             .updateTeam(updatedTeam: updatedTeam);
                       }
                     },
@@ -57,7 +58,7 @@ class TeamEditPage extends StatelessWidget {
                   child: IconButton(
                     onPressed: () {
                       Navigator.pushNamed(context, Routes.pokemonSelection,
-                          arguments: provider);
+                          arguments: _teamId);
                     },
                     icon: Icon(Icons.add),
                   ),
