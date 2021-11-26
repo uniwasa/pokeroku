@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/interface/build_manager.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
-import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_parameter.dart';
 import 'package:pokeroku/model/stat.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
@@ -13,27 +11,24 @@ import 'package:pokeroku/util/stat_text_input_formatter.dart';
 
 class BuildEditPage extends HookWidget with ValidationMixin {
   BuildEditPage({Key? key, required BuildEditParameter buildEditParameter})
-      : _build = buildEditParameter.build,
-        _buildManager = buildEditParameter.buildManager,
+      : _buildEditParameter = buildEditParameter,
         super(key: key);
 
-  final Build _build;
-  final BuildManager _buildManager;
+  final BuildEditParameter _buildEditParameter;
 
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final param =
-        BuildEditParameter(build: _build, buildManager: _buildManager);
-    final provider =
-        context.read(buildEditViewModelProviderFamily(param).notifier);
+    final provider = context
+        .read(buildEditViewModelProviderFamily(_buildEditParameter).notifier);
     final formGlobalKey = GlobalKey<FormState>();
     final allPokemon = useProvider(allPokemonsProvider).data?.value;
-    final pokemonId = useProvider(buildEditViewModelProviderFamily(param)
-        .select((value) => value.pokemonId));
+    final pokemonId = useProvider(
+        buildEditViewModelProviderFamily(_buildEditParameter)
+            .select((value) => value.data?.value.pokemonId));
 
-    if (allPokemon == null) return Scaffold();
+    if (allPokemon == null || pokemonId == null) return Scaffold();
 
     final pokemon = allPokemon.firstWhere((element) => element.id == pokemonId);
     return Scaffold(
@@ -69,7 +64,9 @@ class BuildEditPage extends HookWidget with ValidationMixin {
         ),
         body: Builder(builder: (context) {
           final effortValues = context
-              .read(buildEditViewModelProviderFamily(param))
+              .read(buildEditViewModelProviderFamily(_buildEditParameter))
+              .data
+              ?.value
               .effortValues
               ?.toJson();
           return Form(

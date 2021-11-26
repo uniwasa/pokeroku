@@ -10,7 +10,7 @@ class BuildEditParameter with _$BuildEditParameter {
   const BuildEditParameter._();
 
   const factory BuildEditParameter({
-    required Build build,
-    required BuildManager buildManager,
+    required String? teamId,
+    required String buildId,
   }) = _BuildEditParameter;
 }

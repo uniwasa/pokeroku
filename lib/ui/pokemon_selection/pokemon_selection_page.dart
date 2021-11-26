@@ -49,7 +49,7 @@ class PokemonSelectionPage extends StatelessWidget {
                               .addBuild(pokemon: pokemon);
                         } else {
                           // ポケモン単体画面用
-                          // ポケモン単体画面完成したらその処理を書く
+                          // TODO: ポケモン単体画面用
                         }
                         Navigator.pop(context);
                       },

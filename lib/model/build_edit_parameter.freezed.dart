@@ -16,11 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$BuildEditParameterTearOff {
   const _$BuildEditParameterTearOff();
 
-  _BuildEditParameter call(
-      {required Build build, required BuildManager buildManager}) {
+  _BuildEditParameter call({required String? teamId, required String buildId}) {
     return _BuildEditParameter(
-      build: build,
-      buildManager: buildManager,
+      teamId: teamId,
+      buildId: buildId,
     );
   }
 }
@@ -30,8 +29,8 @@ const $BuildEditParameter = _$BuildEditParameterTearOff();
 
 /// @nodoc
 mixin _$BuildEditParameter {
-  Build get build => throw _privateConstructorUsedError;
-  BuildManager get buildManager => throw _privateConstructorUsedError;
+  String? get teamId => throw _privateConstructorUsedError;
+  String get buildId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BuildEditParameterCopyWith<BuildEditParameter> get copyWith =>
@@ -43,9 +42,7 @@ abstract class $BuildEditParameterCopyWith<$Res> {
   factory $BuildEditParameterCopyWith(
           BuildEditParameter value, $Res Function(BuildEditParameter) then) =
       _$BuildEditParameterCopyWithImpl<$Res>;
-  $Res call({Build build, BuildManager buildManager});
-
-  $BuildCopyWith<$Res> get build;
+  $Res call({String? teamId, String buildId});
 }
 
 /// @nodoc
@@ -59,26 +56,19 @@ class _$BuildEditParameterCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? build = freezed,
-    Object? buildManager = freezed,
+    Object? teamId = freezed,
+    Object? buildId = freezed,
   }) {
     return _then(_value.copyWith(
-      build: build == freezed
-          ? _value.build
-          : build // ignore: cast_nullable_to_non_nullable
-              as Build,
-      buildManager: buildManager == freezed
-          ? _value.buildManager
-          : buildManager // ignore: cast_nullable_to_non_nullable
-              as BuildManager,
+      teamId: teamId == freezed
+          ? _value.teamId
+          : teamId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildId: buildId == freezed
+          ? _value.buildId
+          : buildId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
-  }
-
-  @override
-  $BuildCopyWith<$Res> get build {
-    return $BuildCopyWith<$Res>(_value.build, (value) {
-      return _then(_value.copyWith(build: value));
-    });
   }
 }
 
@@ -89,10 +79,7 @@ abstract class _$BuildEditParameterCopyWith<$Res>
           _BuildEditParameter value, $Res Function(_BuildEditParameter) then) =
       __$BuildEditParameterCopyWithImpl<$Res>;
   @override
-  $Res call({Build build, BuildManager buildManager});
-
-  @override
-  $BuildCopyWith<$Res> get build;
+  $Res call({String? teamId, String buildId});
 }
 
 /// @nodoc
@@ -108,18 +95,18 @@ class __$BuildEditParameterCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? build = freezed,
-    Object? buildManager = freezed,
+    Object? teamId = freezed,
+    Object? buildId = freezed,
   }) {
     return _then(_BuildEditParameter(
-      build: build == freezed
-          ? _value.build
-          : build // ignore: cast_nullable_to_non_nullable
-              as Build,
-      buildManager: buildManager == freezed
-          ? _value.buildManager
-          : buildManager // ignore: cast_nullable_to_non_nullable
-              as BuildManager,
+      teamId: teamId == freezed
+          ? _value.teamId
+          : teamId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildId: buildId == freezed
+          ? _value.buildId
+          : buildId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -128,17 +115,17 @@ class __$BuildEditParameterCopyWithImpl<$Res>
 
 class _$_BuildEditParameter extends _BuildEditParameter
     with DiagnosticableTreeMixin {
-  const _$_BuildEditParameter({required this.build, required this.buildManager})
+  const _$_BuildEditParameter({required this.teamId, required this.buildId})
       : super._();
 
   @override
-  final Build build;
+  final String? teamId;
   @override
-  final BuildManager buildManager;
+  final String buildId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BuildEditParameter(build: $build, buildManager: $buildManager)';
+    return 'BuildEditParameter(teamId: $teamId, buildId: $buildId)';
   }
 
   @override
@@ -146,26 +133,25 @@ class _$_BuildEditParameter extends _BuildEditParameter
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'BuildEditParameter'))
-      ..add(DiagnosticsProperty('build', build))
-      ..add(DiagnosticsProperty('buildManager', buildManager));
+      ..add(DiagnosticsProperty('teamId', teamId))
+      ..add(DiagnosticsProperty('buildId', buildId));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _BuildEditParameter &&
-            (identical(other.build, build) ||
-                const DeepCollectionEquality().equals(other.build, build)) &&
-            (identical(other.buildManager, buildManager) ||
-                const DeepCollectionEquality()
-                    .equals(other.buildManager, buildManager)));
+            (identical(other.teamId, teamId) ||
+                const DeepCollectionEquality().equals(other.teamId, teamId)) &&
+            (identical(other.buildId, buildId) ||
+                const DeepCollectionEquality().equals(other.buildId, buildId)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(build) ^
-      const DeepCollectionEquality().hash(buildManager);
+      const DeepCollectionEquality().hash(teamId) ^
+      const DeepCollectionEquality().hash(buildId);
 
   @JsonKey(ignore: true)
   @override
@@ -175,14 +161,14 @@ class _$_BuildEditParameter extends _BuildEditParameter
 
 abstract class _BuildEditParameter extends BuildEditParameter {
   const factory _BuildEditParameter(
-      {required Build build,
-      required BuildManager buildManager}) = _$_BuildEditParameter;
+      {required String? teamId,
+      required String buildId}) = _$_BuildEditParameter;
   const _BuildEditParameter._() : super._();
 
   @override
-  Build get build => throw _privateConstructorUsedError;
+  String? get teamId => throw _privateConstructorUsedError;
   @override
-  BuildManager get buildManager => throw _privateConstructorUsedError;
+  String get buildId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BuildEditParameterCopyWith<_BuildEditParameter> get copyWith =>
