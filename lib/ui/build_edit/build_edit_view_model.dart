@@ -2,19 +2,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build.dart';
-import 'package:pokeroku/model/build_edit_parameter.dart';
+import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/stat.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/repository/build_repository.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 final buildEditViewModelProviderFamily = StateNotifierProvider.family
-    .autoDispose<BuildEditViewModel, AsyncValue<Build>, BuildEditParameter>(
-        (ref, buildEditParameter) {
+    .autoDispose<BuildEditViewModel, AsyncValue<Build>, BuildEditParam>(
+        (ref, buildEditParam) {
   return BuildEditViewModel(
     read: ref.read,
     user: ref.watch(authServiceProvider),
-    buildEditParameter: buildEditParameter,
+    buildEditParam: buildEditParam,
   );
 });
 
@@ -23,17 +23,17 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
   BuildEditViewModel({
     required Reader read,
     required User? user,
-    required BuildEditParameter buildEditParameter,
+    required BuildEditParam buildEditParam,
   })  : _read = read,
         _user = user,
-        _buildEditParameter = buildEditParameter,
+        _buildEditParam = buildEditParam,
         super(AsyncLoading()) {
     init();
   }
 
   final Reader _read;
   final User? _user;
-  final BuildEditParameter _buildEditParameter;
+  final BuildEditParam _buildEditParam;
 
   @override
   void dispose() {
@@ -45,8 +45,8 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
     try {
       final userId = _user?.uid;
       if (userId != null) {
-        final teamId = _buildEditParameter.teamId;
-        final buildId = _buildEditParameter.buildId;
+        final teamId = _buildEditParam.teamId;
+        final buildId = _buildEditParam.buildId;
         if (teamId != null) {
           final build = await _read(buildRepositoryProvider)
               .getBuild(userId: userId, teamId: teamId, buildId: buildId);
@@ -79,7 +79,7 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
       if (build.effortValues == null ||
           build.effortValues?.isValidEffortValues() == true) {
         // 努力値が空か有効な努力値の場合
-        final teamId = _buildEditParameter.teamId;
+        final teamId = _buildEditParam.teamId;
         if (teamId != null) {
           // パーティ画面用
           _read(teamEditViewModelProviderFamily(teamId).notifier)

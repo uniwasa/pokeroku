@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'build_edit_parameter.dart';
+part of 'build_edit_param.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,11 +13,11 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$BuildEditParameterTearOff {
-  const _$BuildEditParameterTearOff();
+class _$BuildEditParamTearOff {
+  const _$BuildEditParamTearOff();
 
-  _BuildEditParameter call({required String? teamId, required String buildId}) {
-    return _BuildEditParameter(
+  _BuildEditParam call({required String? teamId, required String buildId}) {
+    return _BuildEditParam(
       teamId: teamId,
       buildId: buildId,
     );
@@ -25,34 +25,34 @@ class _$BuildEditParameterTearOff {
 }
 
 /// @nodoc
-const $BuildEditParameter = _$BuildEditParameterTearOff();
+const $BuildEditParam = _$BuildEditParamTearOff();
 
 /// @nodoc
-mixin _$BuildEditParameter {
+mixin _$BuildEditParam {
   String? get teamId => throw _privateConstructorUsedError;
   String get buildId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $BuildEditParameterCopyWith<BuildEditParameter> get copyWith =>
+  $BuildEditParamCopyWith<BuildEditParam> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BuildEditParameterCopyWith<$Res> {
-  factory $BuildEditParameterCopyWith(
-          BuildEditParameter value, $Res Function(BuildEditParameter) then) =
-      _$BuildEditParameterCopyWithImpl<$Res>;
+abstract class $BuildEditParamCopyWith<$Res> {
+  factory $BuildEditParamCopyWith(
+          BuildEditParam value, $Res Function(BuildEditParam) then) =
+      _$BuildEditParamCopyWithImpl<$Res>;
   $Res call({String? teamId, String buildId});
 }
 
 /// @nodoc
-class _$BuildEditParameterCopyWithImpl<$Res>
-    implements $BuildEditParameterCopyWith<$Res> {
-  _$BuildEditParameterCopyWithImpl(this._value, this._then);
+class _$BuildEditParamCopyWithImpl<$Res>
+    implements $BuildEditParamCopyWith<$Res> {
+  _$BuildEditParamCopyWithImpl(this._value, this._then);
 
-  final BuildEditParameter _value;
+  final BuildEditParam _value;
   // ignore: unused_field
-  final $Res Function(BuildEditParameter) _then;
+  final $Res Function(BuildEditParam) _then;
 
   @override
   $Res call({
@@ -73,32 +73,32 @@ class _$BuildEditParameterCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$BuildEditParameterCopyWith<$Res>
-    implements $BuildEditParameterCopyWith<$Res> {
-  factory _$BuildEditParameterCopyWith(
-          _BuildEditParameter value, $Res Function(_BuildEditParameter) then) =
-      __$BuildEditParameterCopyWithImpl<$Res>;
+abstract class _$BuildEditParamCopyWith<$Res>
+    implements $BuildEditParamCopyWith<$Res> {
+  factory _$BuildEditParamCopyWith(
+          _BuildEditParam value, $Res Function(_BuildEditParam) then) =
+      __$BuildEditParamCopyWithImpl<$Res>;
   @override
   $Res call({String? teamId, String buildId});
 }
 
 /// @nodoc
-class __$BuildEditParameterCopyWithImpl<$Res>
-    extends _$BuildEditParameterCopyWithImpl<$Res>
-    implements _$BuildEditParameterCopyWith<$Res> {
-  __$BuildEditParameterCopyWithImpl(
-      _BuildEditParameter _value, $Res Function(_BuildEditParameter) _then)
-      : super(_value, (v) => _then(v as _BuildEditParameter));
+class __$BuildEditParamCopyWithImpl<$Res>
+    extends _$BuildEditParamCopyWithImpl<$Res>
+    implements _$BuildEditParamCopyWith<$Res> {
+  __$BuildEditParamCopyWithImpl(
+      _BuildEditParam _value, $Res Function(_BuildEditParam) _then)
+      : super(_value, (v) => _then(v as _BuildEditParam));
 
   @override
-  _BuildEditParameter get _value => super._value as _BuildEditParameter;
+  _BuildEditParam get _value => super._value as _BuildEditParam;
 
   @override
   $Res call({
     Object? teamId = freezed,
     Object? buildId = freezed,
   }) {
-    return _then(_BuildEditParameter(
+    return _then(_BuildEditParam(
       teamId: teamId == freezed
           ? _value.teamId
           : teamId // ignore: cast_nullable_to_non_nullable
@@ -113,9 +113,8 @@ class __$BuildEditParameterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BuildEditParameter extends _BuildEditParameter
-    with DiagnosticableTreeMixin {
-  const _$_BuildEditParameter({required this.teamId, required this.buildId})
+class _$_BuildEditParam extends _BuildEditParam with DiagnosticableTreeMixin {
+  const _$_BuildEditParam({required this.teamId, required this.buildId})
       : super._();
 
   @override
@@ -125,14 +124,14 @@ class _$_BuildEditParameter extends _BuildEditParameter
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BuildEditParameter(teamId: $teamId, buildId: $buildId)';
+    return 'BuildEditParam(teamId: $teamId, buildId: $buildId)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'BuildEditParameter'))
+      ..add(DiagnosticsProperty('type', 'BuildEditParam'))
       ..add(DiagnosticsProperty('teamId', teamId))
       ..add(DiagnosticsProperty('buildId', buildId));
   }
@@ -140,7 +139,7 @@ class _$_BuildEditParameter extends _BuildEditParameter
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _BuildEditParameter &&
+        (other is _BuildEditParam &&
             (identical(other.teamId, teamId) ||
                 const DeepCollectionEquality().equals(other.teamId, teamId)) &&
             (identical(other.buildId, buildId) ||
@@ -155,15 +154,14 @@ class _$_BuildEditParameter extends _BuildEditParameter
 
   @JsonKey(ignore: true)
   @override
-  _$BuildEditParameterCopyWith<_BuildEditParameter> get copyWith =>
-      __$BuildEditParameterCopyWithImpl<_BuildEditParameter>(this, _$identity);
+  _$BuildEditParamCopyWith<_BuildEditParam> get copyWith =>
+      __$BuildEditParamCopyWithImpl<_BuildEditParam>(this, _$identity);
 }
 
-abstract class _BuildEditParameter extends BuildEditParameter {
-  const factory _BuildEditParameter(
-      {required String? teamId,
-      required String buildId}) = _$_BuildEditParameter;
-  const _BuildEditParameter._() : super._();
+abstract class _BuildEditParam extends BuildEditParam {
+  const factory _BuildEditParam(
+      {required String? teamId, required String buildId}) = _$_BuildEditParam;
+  const _BuildEditParam._() : super._();
 
   @override
   String? get teamId => throw _privateConstructorUsedError;
@@ -171,6 +169,6 @@ abstract class _BuildEditParameter extends BuildEditParameter {
   String get buildId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$BuildEditParameterCopyWith<_BuildEditParameter> get copyWith =>
+  _$BuildEditParamCopyWith<_BuildEditParam> get copyWith =>
       throw _privateConstructorUsedError;
 }

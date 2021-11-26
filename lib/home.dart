@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pokeroku/interface/build_manager.dart';
 import 'package:pokeroku/model/ability.dart';
-import 'package:pokeroku/model/build_edit_parameter.dart';
+import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
@@ -70,7 +70,7 @@ class Home extends StatelessWidget {
         break;
       case Routes.buildEdit:
         page =
-            BuildEditPage(buildEditParameter: arguments as BuildEditParameter);
+            BuildEditPage(buildEditParam: arguments as BuildEditParam);
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => page,
             transitionsBuilder:

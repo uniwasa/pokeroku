@@ -3,29 +3,29 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
-import 'package:pokeroku/model/build_edit_parameter.dart';
+import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/stat.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
 
 class BuildEditPage extends HookWidget with ValidationMixin {
-  BuildEditPage({Key? key, required BuildEditParameter buildEditParameter})
-      : _buildEditParameter = buildEditParameter,
+  BuildEditPage({Key? key, required BuildEditParam buildEditParam})
+      : _buildEditParam = buildEditParam,
         super(key: key);
 
-  final BuildEditParameter _buildEditParameter;
+  final BuildEditParam _buildEditParam;
 
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final provider = context
-        .read(buildEditViewModelProviderFamily(_buildEditParameter).notifier);
+        .read(buildEditViewModelProviderFamily(_buildEditParam).notifier);
     final formGlobalKey = GlobalKey<FormState>();
     final allPokemon = useProvider(allPokemonsProvider).data?.value;
     final pokemonId = useProvider(
-        buildEditViewModelProviderFamily(_buildEditParameter)
+        buildEditViewModelProviderFamily(_buildEditParam)
             .select((value) => value.data?.value.pokemonId));
 
     if (allPokemon == null || pokemonId == null) return Scaffold();
@@ -64,7 +64,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
         ),
         body: Builder(builder: (context) {
           final effortValues = context
-              .read(buildEditViewModelProviderFamily(_buildEditParameter))
+              .read(buildEditViewModelProviderFamily(_buildEditParam))
               .data
               ?.value
               .effortValues
