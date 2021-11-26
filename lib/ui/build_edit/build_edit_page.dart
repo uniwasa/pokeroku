@@ -20,8 +20,6 @@ class BuildEditPage extends HookWidget with ValidationMixin {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context
-        .read(buildEditViewModelProviderFamily(_buildEditParam).notifier);
     final formGlobalKey = GlobalKey<FormState>();
     final allPokemon = useProvider(allPokemonsProvider).data?.value;
     final pokemonId = useProvider(
@@ -48,7 +46,11 @@ class BuildEditPage extends HookWidget with ValidationMixin {
               child: IconButton(
                   onPressed: () async {
                     if (formGlobalKey.currentState?.validate() == true) {
-                      if (!await provider.saveBuild()) {
+                      if (!await context
+                          .read(
+                              buildEditViewModelProviderFamily(_buildEditParam)
+                                  .notifier)
+                          .saveBuild()) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('努力値合計は510以下にしてください'),
@@ -85,9 +87,13 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                             labelText: statName,
                             onChanged: (value) {
                               if (isValidEffortValue(value))
-                                provider.updateEffortValues(
-                                    statName: statName,
-                                    effortValue: int.parse(value));
+                                context
+                                    .read(buildEditViewModelProviderFamily(
+                                            _buildEditParam)
+                                        .notifier)
+                                    .updateEffortValues(
+                                        statName: statName,
+                                        effortValue: int.parse(value));
                             },
                             validator: (value) {
                               if (!isValidEffortValue(value))

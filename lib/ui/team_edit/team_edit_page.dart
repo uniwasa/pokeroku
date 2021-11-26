@@ -17,8 +17,6 @@ class TeamEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
       final asyncValue = useProvider(teamEditViewModelProviderFamily(_teamId));
-      final provider =
-          context.read(teamEditViewModelProviderFamily(_teamId).notifier);
       final allPokemon = useProvider(allPokemonsProvider).data?.value;
       final textEditingController = useTextEditingController();
 
