@@ -1,51 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_view_model.dart';
-import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
+import 'package:pokeroku/model/build_edit_param.dart';
+import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
+import 'package:pokeroku/ui/item_selection/item_selection_view_model.dart';
 
-class PokemonSelectionPage extends StatelessWidget {
-  PokemonSelectionPage({Key? key, required String? teamId})
-      : _teamId = teamId,
+class ItemSelectionPage extends StatelessWidget {
+  ItemSelectionPage({Key? key, required BuildEditParam buildEditParam})
+      : _buildEditParam = buildEditParam,
         super(key: key);
 
-  final String? _teamId;
+  final BuildEditParam _buildEditParam;
 
   @override
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
       final asyncValue =
-          useProvider(pokemonSelectionViewModelProviderFamily(_teamId));
+          useProvider(itemSelectionViewModelProviderFamily(_buildEditParam));
 
       return Scaffold(
         appBar: AppBar(
-          title: Text('ポケモン選択'),
+          title: Text('アイテム選択'),
         ),
         body: Builder(
           builder: (BuildContext context) {
             return asyncValue.when(
-              data: (pokemonList) {
+              data: (itemList) {
                 return ListView.builder(
-                  itemCount: pokemonList.length,
+                  itemCount: itemList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final pokemon = pokemonList[index];
-                    final Image pokemonImage = Image.asset(
-                      pokemon.imageName,
-                      isAntiAlias: true,
-                      fit: BoxFit.contain,
-                      filterQuality: FilterQuality.none,
-                    );
+                    final item = itemList[index];
 
                     return ListTile(
-                      leading: pokemonImage,
-                      title: Text(pokemon.fullNameJp),
+                      title: Text(item.nameJp),
                       onTap: () {
-                        if (_teamId != null) {
+                        final teamId = _buildEditParam.teamId;
+                        if (teamId != null) {
                           // パーティ画面用
                           context
-                              .read(teamEditViewModelProviderFamily(_teamId!)
+                              .read(buildEditViewModelProviderFamily(
+                                      _buildEditParam)
                                   .notifier)
-                              .addBuild(pokemon: pokemon);
+                              .updateItem(itemId: item.id);
                         } else {
                           // ポケモン単体画面用
                           // TODO: ポケモン単体画面用

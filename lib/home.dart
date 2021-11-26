@@ -8,6 +8,7 @@ import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_page.dart';
+import 'package:pokeroku/ui/item_selection/item_selection_page.dart';
 import 'package:pokeroku/ui/move_info/move_info_page.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_page.dart';
@@ -69,8 +70,7 @@ class Home extends StatelessWidget {
         page = PokemonSelectionPage(teamId: arguments as String?);
         break;
       case Routes.buildEdit:
-        page =
-            BuildEditPage(buildEditParam: arguments as BuildEditParam);
+        page = BuildEditPage(buildEditParam: arguments as BuildEditParam);
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => page,
             transitionsBuilder:
@@ -82,6 +82,9 @@ class Home extends StatelessWidget {
                   secondaryAnimation,
                   child);
             });
+      case Routes.itemSelection:
+        page = ItemSelectionPage(buildEditParam: arguments as BuildEditParam);
+        break;
       default:
         page = PokedexPage();
     }

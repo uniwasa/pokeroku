@@ -6,6 +6,8 @@ import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/stat.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/item_list_provider.dart';
+import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
 
@@ -46,11 +48,14 @@ class BuildEditPage extends HookWidget with ValidationMixin {
               child: IconButton(
                   onPressed: () async {
                     if (formGlobalKey.currentState?.validate() == true) {
-                      if (!await context
+                      final result = await context
                           .read(
                               buildEditViewModelProviderFamily(_buildEditParam)
                                   .notifier)
-                          .saveBuild()) {
+                          .saveBuild();
+                      if (result) {
+                        Navigator.pop(context);
+                      } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('努力値合計は510以下にしてください'),
@@ -64,52 +69,75 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             ),
           ],
         ),
-        body: Builder(builder: (context) {
-          final effortValues = context
-              .read(buildEditViewModelProviderFamily(_buildEditParam))
-              .data
-              ?.value
-              .effortValues
-              ?.toJson();
-          return Form(
-            key: formGlobalKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 30),
-                  Row(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              HookBuilder(builder: (context) {
+                final itemList = useProvider(itemListProvider).data?.value;
+                final itemId = useProvider(
+                    buildEditViewModelProviderFamily(_buildEditParam)
+                        .select((value) => value.data?.value.itemId));
+
+                return ListTile(
+                  leading: Text('もちもの'),
+                  title: Text(itemList == null || itemId == null
+                      ? '未選択'
+                      : itemList
+                          .firstWhere((element) => element.id == itemId)
+                          .nameJp),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.itemSelection,
+                        arguments: _buildEditParam);
+                  },
+                );
+              }),
+              Builder(builder: (context) {
+                final effortValues = context
+                    .read(buildEditViewModelProviderFamily(_buildEditParam))
+                    .data
+                    ?.value
+                    .effortValues
+                    ?.toJson();
+                return Form(
+                  key: formGlobalKey,
+                  child: Column(
                     children: [
-                      for (final statName in Stat.keys())
-                        Flexible(
-                          child: makeStatTextFormField(
-                            initialValue:
-                                (effortValues?[statName] ?? 0).toString(),
-                            labelText: statName,
-                            onChanged: (value) {
-                              if (isValidEffortValue(value))
-                                context
-                                    .read(buildEditViewModelProviderFamily(
-                                            _buildEditParam)
-                                        .notifier)
-                                    .updateEffortValues(
-                                        statName: statName,
-                                        effortValue: int.parse(value));
-                            },
-                            validator: (value) {
-                              if (!isValidEffortValue(value))
-                                return '有効な値を入力してください';
-                            },
-                            textInputFormatter:
-                                StatTextInputFormatter(min: 0, max: 252),
-                          ),
-                        ),
+                      const SizedBox(height: 30),
+                      Row(
+                        children: [
+                          for (final statName in Stat.keys())
+                            Flexible(
+                              child: makeStatTextFormField(
+                                initialValue:
+                                    (effortValues?[statName] ?? 0).toString(),
+                                labelText: statName,
+                                onChanged: (value) {
+                                  if (isValidEffortValue(value))
+                                    context
+                                        .read(buildEditViewModelProviderFamily(
+                                                _buildEditParam)
+                                            .notifier)
+                                        .updateEffortValues(
+                                            statName: statName,
+                                            effortValue: int.parse(value));
+                                },
+                                validator: (value) {
+                                  if (!isValidEffortValue(value))
+                                    return '有効な値を入力してください';
+                                },
+                                textInputFormatter:
+                                    StatTextInputFormatter(min: 0, max: 252),
+                              ),
+                            ),
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
-            ),
-          );
-        }));
+                );
+              }),
+            ],
+          ),
+        ));
   }
 
   Widget makeStatTextFormField({
