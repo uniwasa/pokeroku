@@ -87,7 +87,10 @@ class TeamEditPage extends StatelessWidget {
                             if (buildId != null) {
                               Navigator.pushNamed(context, Routes.buildEdit,
                                   arguments: BuildEditParam(
-                                      teamId: team.id, buildId: buildId));
+                                    teamId: team.id,
+                                    buildId: buildId,
+                                    pokemonId: pokemon.id,
+                                  ));
                             }
                           },
                         );

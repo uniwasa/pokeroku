@@ -16,10 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$BuildEditParamTearOff {
   const _$BuildEditParamTearOff();
 
-  _BuildEditParam call({required String? teamId, required String buildId}) {
+  _BuildEditParam call(
+      {required String? teamId,
+      required String buildId,
+      required int pokemonId}) {
     return _BuildEditParam(
       teamId: teamId,
       buildId: buildId,
+      pokemonId: pokemonId,
     );
   }
 }
@@ -31,6 +35,7 @@ const $BuildEditParam = _$BuildEditParamTearOff();
 mixin _$BuildEditParam {
   String? get teamId => throw _privateConstructorUsedError;
   String get buildId => throw _privateConstructorUsedError;
+  int get pokemonId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BuildEditParamCopyWith<BuildEditParam> get copyWith =>
@@ -42,7 +47,7 @@ abstract class $BuildEditParamCopyWith<$Res> {
   factory $BuildEditParamCopyWith(
           BuildEditParam value, $Res Function(BuildEditParam) then) =
       _$BuildEditParamCopyWithImpl<$Res>;
-  $Res call({String? teamId, String buildId});
+  $Res call({String? teamId, String buildId, int pokemonId});
 }
 
 /// @nodoc
@@ -58,6 +63,7 @@ class _$BuildEditParamCopyWithImpl<$Res>
   $Res call({
     Object? teamId = freezed,
     Object? buildId = freezed,
+    Object? pokemonId = freezed,
   }) {
     return _then(_value.copyWith(
       teamId: teamId == freezed
@@ -68,6 +74,10 @@ class _$BuildEditParamCopyWithImpl<$Res>
           ? _value.buildId
           : buildId // ignore: cast_nullable_to_non_nullable
               as String,
+      pokemonId: pokemonId == freezed
+          ? _value.pokemonId
+          : pokemonId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -79,7 +89,7 @@ abstract class _$BuildEditParamCopyWith<$Res>
           _BuildEditParam value, $Res Function(_BuildEditParam) then) =
       __$BuildEditParamCopyWithImpl<$Res>;
   @override
-  $Res call({String? teamId, String buildId});
+  $Res call({String? teamId, String buildId, int pokemonId});
 }
 
 /// @nodoc
@@ -97,6 +107,7 @@ class __$BuildEditParamCopyWithImpl<$Res>
   $Res call({
     Object? teamId = freezed,
     Object? buildId = freezed,
+    Object? pokemonId = freezed,
   }) {
     return _then(_BuildEditParam(
       teamId: teamId == freezed
@@ -107,6 +118,10 @@ class __$BuildEditParamCopyWithImpl<$Res>
           ? _value.buildId
           : buildId // ignore: cast_nullable_to_non_nullable
               as String,
+      pokemonId: pokemonId == freezed
+          ? _value.pokemonId
+          : pokemonId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -114,17 +129,20 @@ class __$BuildEditParamCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_BuildEditParam extends _BuildEditParam with DiagnosticableTreeMixin {
-  const _$_BuildEditParam({required this.teamId, required this.buildId})
+  const _$_BuildEditParam(
+      {required this.teamId, required this.buildId, required this.pokemonId})
       : super._();
 
   @override
   final String? teamId;
   @override
   final String buildId;
+  @override
+  final int pokemonId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BuildEditParam(teamId: $teamId, buildId: $buildId)';
+    return 'BuildEditParam(teamId: $teamId, buildId: $buildId, pokemonId: $pokemonId)';
   }
 
   @override
@@ -133,7 +151,8 @@ class _$_BuildEditParam extends _BuildEditParam with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'BuildEditParam'))
       ..add(DiagnosticsProperty('teamId', teamId))
-      ..add(DiagnosticsProperty('buildId', buildId));
+      ..add(DiagnosticsProperty('buildId', buildId))
+      ..add(DiagnosticsProperty('pokemonId', pokemonId));
   }
 
   @override
@@ -143,14 +162,19 @@ class _$_BuildEditParam extends _BuildEditParam with DiagnosticableTreeMixin {
             (identical(other.teamId, teamId) ||
                 const DeepCollectionEquality().equals(other.teamId, teamId)) &&
             (identical(other.buildId, buildId) ||
-                const DeepCollectionEquality().equals(other.buildId, buildId)));
+                const DeepCollectionEquality()
+                    .equals(other.buildId, buildId)) &&
+            (identical(other.pokemonId, pokemonId) ||
+                const DeepCollectionEquality()
+                    .equals(other.pokemonId, pokemonId)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(teamId) ^
-      const DeepCollectionEquality().hash(buildId);
+      const DeepCollectionEquality().hash(buildId) ^
+      const DeepCollectionEquality().hash(pokemonId);
 
   @JsonKey(ignore: true)
   @override
@@ -160,13 +184,17 @@ class _$_BuildEditParam extends _BuildEditParam with DiagnosticableTreeMixin {
 
 abstract class _BuildEditParam extends BuildEditParam {
   const factory _BuildEditParam(
-      {required String? teamId, required String buildId}) = _$_BuildEditParam;
+      {required String? teamId,
+      required String buildId,
+      required int pokemonId}) = _$_BuildEditParam;
   const _BuildEditParam._() : super._();
 
   @override
   String? get teamId => throw _privateConstructorUsedError;
   @override
   String get buildId => throw _privateConstructorUsedError;
+  @override
+  int get pokemonId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BuildEditParamCopyWith<_BuildEditParam> get copyWith =>

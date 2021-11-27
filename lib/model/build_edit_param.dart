@@ -10,5 +10,6 @@ class BuildEditParam with _$BuildEditParam {
   const factory BuildEditParam({
     required String? teamId,
     required String buildId,
+    required int pokemonId,
   }) = _BuildEditParam;
 }
