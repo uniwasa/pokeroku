@@ -13,10 +13,10 @@ _$_Build _$_$_BuildFromJson(Map<String, dynamic> json) {
     itemId: json['itemId'] as int?,
     individualValues: json['individualValues'] == null
         ? null
-        : Stat.fromJson(json['individualValues'] as Map<String, dynamic>),
+        : StatSet.fromJson(json['individualValues'] as Map<String, dynamic>),
     effortValues: json['effortValues'] == null
         ? null
-        : Stat.fromJson(json['effortValues'] as Map<String, dynamic>),
+        : StatSet.fromJson(json['effortValues'] as Map<String, dynamic>),
     createdAt: const TimestampConverter().fromJson(json['createdAt']),
     updatedAt: const UpdatedTimestampConverter().fromJson(json['updatedAt']),
   );

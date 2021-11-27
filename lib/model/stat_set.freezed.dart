@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'stat.dart';
+part of 'stat_set.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,22 +12,22 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Stat _$StatFromJson(Map<String, dynamic> json) {
-  return _Stat.fromJson(json);
+StatSet _$StatSetFromJson(Map<String, dynamic> json) {
+  return _StatSet.fromJson(json);
 }
 
 /// @nodoc
-class _$StatTearOff {
-  const _$StatTearOff();
+class _$StatSetTearOff {
+  const _$StatSetTearOff();
 
-  _Stat call(
+  _StatSet call(
       {int hp = 0,
       int attack = 0,
       int defense = 0,
       int specialAttack = 0,
       int specialDefense = 0,
       int speed = 0}) {
-    return _Stat(
+    return _StatSet(
       hp: hp,
       attack: attack,
       defense: defense,
@@ -37,16 +37,16 @@ class _$StatTearOff {
     );
   }
 
-  Stat fromJson(Map<String, Object> json) {
-    return Stat.fromJson(json);
+  StatSet fromJson(Map<String, Object> json) {
+    return StatSet.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Stat = _$StatTearOff();
+const $StatSet = _$StatSetTearOff();
 
 /// @nodoc
-mixin _$Stat {
+mixin _$StatSet {
   int get hp => throw _privateConstructorUsedError;
   int get attack => throw _privateConstructorUsedError;
   int get defense => throw _privateConstructorUsedError;
@@ -56,13 +56,13 @@ mixin _$Stat {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $StatCopyWith<Stat> get copyWith => throw _privateConstructorUsedError;
+  $StatSetCopyWith<StatSet> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $StatCopyWith<$Res> {
-  factory $StatCopyWith(Stat value, $Res Function(Stat) then) =
-      _$StatCopyWithImpl<$Res>;
+abstract class $StatSetCopyWith<$Res> {
+  factory $StatSetCopyWith(StatSet value, $Res Function(StatSet) then) =
+      _$StatSetCopyWithImpl<$Res>;
   $Res call(
       {int hp,
       int attack,
@@ -73,12 +73,12 @@ abstract class $StatCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StatCopyWithImpl<$Res> implements $StatCopyWith<$Res> {
-  _$StatCopyWithImpl(this._value, this._then);
+class _$StatSetCopyWithImpl<$Res> implements $StatSetCopyWith<$Res> {
+  _$StatSetCopyWithImpl(this._value, this._then);
 
-  final Stat _value;
+  final StatSet _value;
   // ignore: unused_field
-  final $Res Function(Stat) _then;
+  final $Res Function(StatSet) _then;
 
   @override
   $Res call({
@@ -119,9 +119,9 @@ class _$StatCopyWithImpl<$Res> implements $StatCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$StatCopyWith<$Res> implements $StatCopyWith<$Res> {
-  factory _$StatCopyWith(_Stat value, $Res Function(_Stat) then) =
-      __$StatCopyWithImpl<$Res>;
+abstract class _$StatSetCopyWith<$Res> implements $StatSetCopyWith<$Res> {
+  factory _$StatSetCopyWith(_StatSet value, $Res Function(_StatSet) then) =
+      __$StatSetCopyWithImpl<$Res>;
   @override
   $Res call(
       {int hp,
@@ -133,13 +133,13 @@ abstract class _$StatCopyWith<$Res> implements $StatCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$StatCopyWithImpl<$Res> extends _$StatCopyWithImpl<$Res>
-    implements _$StatCopyWith<$Res> {
-  __$StatCopyWithImpl(_Stat _value, $Res Function(_Stat) _then)
-      : super(_value, (v) => _then(v as _Stat));
+class __$StatSetCopyWithImpl<$Res> extends _$StatSetCopyWithImpl<$Res>
+    implements _$StatSetCopyWith<$Res> {
+  __$StatSetCopyWithImpl(_StatSet _value, $Res Function(_StatSet) _then)
+      : super(_value, (v) => _then(v as _StatSet));
 
   @override
-  _Stat get _value => super._value as _Stat;
+  _StatSet get _value => super._value as _StatSet;
 
   @override
   $Res call({
@@ -150,7 +150,7 @@ class __$StatCopyWithImpl<$Res> extends _$StatCopyWithImpl<$Res>
     Object? specialDefense = freezed,
     Object? speed = freezed,
   }) {
-    return _then(_Stat(
+    return _then(_StatSet(
       hp: hp == freezed
           ? _value.hp
           : hp // ignore: cast_nullable_to_non_nullable
@@ -181,8 +181,8 @@ class __$StatCopyWithImpl<$Res> extends _$StatCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Stat extends _Stat with DiagnosticableTreeMixin {
-  _$_Stat(
+class _$_StatSet extends _StatSet with DiagnosticableTreeMixin {
+  _$_StatSet(
       {this.hp = 0,
       this.attack = 0,
       this.defense = 0,
@@ -191,8 +191,8 @@ class _$_Stat extends _Stat with DiagnosticableTreeMixin {
       this.speed = 0})
       : super._();
 
-  factory _$_Stat.fromJson(Map<String, dynamic> json) =>
-      _$_$_StatFromJson(json);
+  factory _$_StatSet.fromJson(Map<String, dynamic> json) =>
+      _$_$_StatSetFromJson(json);
 
   @JsonKey(defaultValue: 0)
   @override
@@ -215,14 +215,14 @@ class _$_Stat extends _Stat with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Stat(hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed)';
+    return 'StatSet(hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Stat'))
+      ..add(DiagnosticsProperty('type', 'StatSet'))
       ..add(DiagnosticsProperty('hp', hp))
       ..add(DiagnosticsProperty('attack', attack))
       ..add(DiagnosticsProperty('defense', defense))
@@ -234,7 +234,7 @@ class _$_Stat extends _Stat with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Stat &&
+        (other is _StatSet &&
             (identical(other.hp, hp) ||
                 const DeepCollectionEquality().equals(other.hp, hp)) &&
             (identical(other.attack, attack) ||
@@ -264,26 +264,26 @@ class _$_Stat extends _Stat with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$StatCopyWith<_Stat> get copyWith =>
-      __$StatCopyWithImpl<_Stat>(this, _$identity);
+  _$StatSetCopyWith<_StatSet> get copyWith =>
+      __$StatSetCopyWithImpl<_StatSet>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_StatToJson(this);
+    return _$_$_StatSetToJson(this);
   }
 }
 
-abstract class _Stat extends Stat {
-  factory _Stat(
+abstract class _StatSet extends StatSet {
+  factory _StatSet(
       {int hp,
       int attack,
       int defense,
       int specialAttack,
       int specialDefense,
-      int speed}) = _$_Stat;
-  _Stat._() : super._();
+      int speed}) = _$_StatSet;
+  _StatSet._() : super._();
 
-  factory _Stat.fromJson(Map<String, dynamic> json) = _$_Stat.fromJson;
+  factory _StatSet.fromJson(Map<String, dynamic> json) = _$_StatSet.fromJson;
 
   @override
   int get hp => throw _privateConstructorUsedError;
@@ -299,5 +299,6 @@ abstract class _Stat extends Stat {
   int get speed => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$StatCopyWith<_Stat> get copyWith => throw _privateConstructorUsedError;
+  _$StatSetCopyWith<_StatSet> get copyWith =>
+      throw _privateConstructorUsedError;
 }

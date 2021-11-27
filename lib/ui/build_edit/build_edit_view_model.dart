@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
-import 'package:pokeroku/model/stat.dart';
+import 'package:pokeroku/model/stat_set.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/repository/build_repository.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
@@ -68,7 +68,7 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
     if (build != null) {
       final effortValues = build.effortValues?.toJson() ?? {};
       effortValues[statName] = effortValue;
-      final stat = Stat.fromJson(effortValues);
+      final stat = StatSet.fromJson(effortValues);
       state = AsyncData(build.copyWith(effortValues: stat));
     }
   }

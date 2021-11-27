@@ -25,8 +25,8 @@ class _$BuildTearOff {
       required int pokemonId,
       int? abilityId,
       int? itemId,
-      Stat? individualValues,
-      Stat? effortValues,
+      StatSet? individualValues,
+      StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) {
@@ -58,8 +58,8 @@ mixin _$Build {
   int get pokemonId => throw _privateConstructorUsedError;
   int? get abilityId => throw _privateConstructorUsedError;
   int? get itemId => throw _privateConstructorUsedError;
-  Stat? get individualValues => throw _privateConstructorUsedError;
-  Stat? get effortValues => throw _privateConstructorUsedError;
+  StatSet? get individualValues => throw _privateConstructorUsedError;
+  StatSet? get effortValues => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   Team? get team => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -81,14 +81,14 @@ abstract class $BuildCopyWith<$Res> {
       int pokemonId,
       int? abilityId,
       int? itemId,
-      Stat? individualValues,
-      Stat? effortValues,
+      StatSet? individualValues,
+      StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 
-  $StatCopyWith<$Res>? get individualValues;
-  $StatCopyWith<$Res>? get effortValues;
+  $StatSetCopyWith<$Res>? get individualValues;
+  $StatSetCopyWith<$Res>? get effortValues;
   $TeamCopyWith<$Res>? get team;
 }
 
@@ -132,11 +132,11 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
       individualValues: individualValues == freezed
           ? _value.individualValues
           : individualValues // ignore: cast_nullable_to_non_nullable
-              as Stat?,
+              as StatSet?,
       effortValues: effortValues == freezed
           ? _value.effortValues
           : effortValues // ignore: cast_nullable_to_non_nullable
-              as Stat?,
+              as StatSet?,
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -153,23 +153,23 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
   }
 
   @override
-  $StatCopyWith<$Res>? get individualValues {
+  $StatSetCopyWith<$Res>? get individualValues {
     if (_value.individualValues == null) {
       return null;
     }
 
-    return $StatCopyWith<$Res>(_value.individualValues!, (value) {
+    return $StatSetCopyWith<$Res>(_value.individualValues!, (value) {
       return _then(_value.copyWith(individualValues: value));
     });
   }
 
   @override
-  $StatCopyWith<$Res>? get effortValues {
+  $StatSetCopyWith<$Res>? get effortValues {
     if (_value.effortValues == null) {
       return null;
     }
 
-    return $StatCopyWith<$Res>(_value.effortValues!, (value) {
+    return $StatSetCopyWith<$Res>(_value.effortValues!, (value) {
       return _then(_value.copyWith(effortValues: value));
     });
   }
@@ -196,16 +196,16 @@ abstract class _$BuildCopyWith<$Res> implements $BuildCopyWith<$Res> {
       int pokemonId,
       int? abilityId,
       int? itemId,
-      Stat? individualValues,
-      Stat? effortValues,
+      StatSet? individualValues,
+      StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 
   @override
-  $StatCopyWith<$Res>? get individualValues;
+  $StatSetCopyWith<$Res>? get individualValues;
   @override
-  $StatCopyWith<$Res>? get effortValues;
+  $StatSetCopyWith<$Res>? get effortValues;
   @override
   $TeamCopyWith<$Res>? get team;
 }
@@ -251,11 +251,11 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
       individualValues: individualValues == freezed
           ? _value.individualValues
           : individualValues // ignore: cast_nullable_to_non_nullable
-              as Stat?,
+              as StatSet?,
       effortValues: effortValues == freezed
           ? _value.effortValues
           : effortValues // ignore: cast_nullable_to_non_nullable
-              as Stat?,
+              as StatSet?,
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -301,9 +301,9 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   @override
   final int? itemId;
   @override
-  final Stat? individualValues;
+  final StatSet? individualValues;
   @override
-  final Stat? effortValues;
+  final StatSet? effortValues;
   @override
   @JsonKey(ignore: true)
   final Team? team;
@@ -395,8 +395,8 @@ abstract class _Build extends Build {
       required int pokemonId,
       int? abilityId,
       int? itemId,
-      Stat? individualValues,
-      Stat? effortValues,
+      StatSet? individualValues,
+      StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_Build;
@@ -414,9 +414,9 @@ abstract class _Build extends Build {
   @override
   int? get itemId => throw _privateConstructorUsedError;
   @override
-  Stat? get individualValues => throw _privateConstructorUsedError;
+  StatSet? get individualValues => throw _privateConstructorUsedError;
   @override
-  Stat? get effortValues => throw _privateConstructorUsedError;
+  StatSet? get effortValues => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   Team? get team => throw _privateConstructorUsedError;

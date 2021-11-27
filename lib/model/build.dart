@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pokeroku/model/stat.dart';
+import 'package:pokeroku/model/stat_set.dart';
 import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/util/timestamp_converter.dart';
 
@@ -18,8 +18,8 @@ class Build with _$Build {
     required int pokemonId,
     int? abilityId,
     int? itemId,
-    Stat? individualValues,
-    Stat? effortValues,
+    StatSet? individualValues,
+    StatSet? effortValues,
     @JsonKey(ignore: true) Team? team,
     @TimestampConverter() DateTime? createdAt,
     @UpdatedTimestampConverter() DateTime? updatedAt,

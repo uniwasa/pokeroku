@@ -1,26 +1,27 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-part 'stat.freezed.dart';
-part 'stat.g.dart';
+part 'stat_set.freezed.dart';
+part 'stat_set.g.dart';
 
 @freezed
-class Stat with _$Stat {
-  const Stat._();
+class StatSet with _$StatSet {
+  const StatSet._();
 
-  factory Stat({
+  factory StatSet({
     @Default(0) int hp,
     @Default(0) int attack,
     @Default(0) int defense,
     @Default(0) int specialAttack,
     @Default(0) int specialDefense,
     @Default(0) int speed,
-  }) = _Stat;
+  }) = _StatSet;
 
-  factory Stat.fromJson(Map<String, dynamic> json) => _$StatFromJson(json);
+  factory StatSet.fromJson(Map<String, dynamic> json) =>
+      _$StatSetFromJson(json);
 
   static List<String> keys() {
-    return Stat().toJson().keys.toList();
+    return StatSet().toJson().keys.toList();
   }
 
   List<int> values() {

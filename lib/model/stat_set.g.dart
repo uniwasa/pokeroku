@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'stat.dart';
+part of 'stat_set.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Stat _$_$_StatFromJson(Map<String, dynamic> json) {
-  return _$_Stat(
+_$_StatSet _$_$_StatSetFromJson(Map<String, dynamic> json) {
+  return _$_StatSet(
     hp: json['hp'] as int? ?? 0,
     attack: json['attack'] as int? ?? 0,
     defense: json['defense'] as int? ?? 0,
@@ -17,7 +17,8 @@ _$_Stat _$_$_StatFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_StatToJson(_$_Stat instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_StatSetToJson(_$_StatSet instance) =>
+    <String, dynamic>{
       'hp': instance.hp,
       'attack': instance.attack,
       'defense': instance.defense,

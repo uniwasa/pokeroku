@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
-import 'package:pokeroku/model/stat.dart';
+import 'package:pokeroku/model/stat_set.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/item_list_provider.dart';
 import 'package:pokeroku/provider/pokemon_ability_list_provider.dart';
@@ -127,7 +127,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                       const SizedBox(height: 30),
                       Row(
                         children: [
-                          for (final statName in Stat.keys())
+                          for (final statName in StatSet.keys())
                             Flexible(
                               child: makeStatTextFormField(
                                 initialValue:
