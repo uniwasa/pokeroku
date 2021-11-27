@@ -7,6 +7,7 @@ import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/stat.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/item_list_provider.dart';
+import 'package:pokeroku/provider/pokemon_ability_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
@@ -72,6 +73,27 @@ class BuildEditPage extends HookWidget with ValidationMixin {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              HookBuilder(builder: (context) {
+                final abilityList = useProvider(
+                        pokemonAbilityListProvider(_buildEditParam.pokemonId))
+                    .data
+                    ?.value;
+                final abilityId = useProvider(
+                    buildEditViewModelProviderFamily(_buildEditParam)
+                        .select((value) => value.data?.value.abilityId));
+                return ListTile(
+                  leading: Text('特性'),
+                  title: Text(abilityList == null || abilityId == null
+                      ? '未選択'
+                      : abilityList
+                          .firstWhere((element) => element.id == abilityId)
+                          .nameJp),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.abilitySelection,
+                        arguments: _buildEditParam);
+                  },
+                );
+              }),
               HookBuilder(builder: (context) {
                 final itemList = useProvider(itemListProvider).data?.value;
                 final itemId = useProvider(

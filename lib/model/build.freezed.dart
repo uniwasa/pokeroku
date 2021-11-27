@@ -23,6 +23,7 @@ class _$BuildTearOff {
   _Build call(
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
+      int? abilityId,
       int? itemId,
       Stat? individualValues,
       Stat? effortValues,
@@ -32,6 +33,7 @@ class _$BuildTearOff {
     return _Build(
       id: id,
       pokemonId: pokemonId,
+      abilityId: abilityId,
       itemId: itemId,
       individualValues: individualValues,
       effortValues: effortValues,
@@ -54,6 +56,7 @@ mixin _$Build {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   int get pokemonId => throw _privateConstructorUsedError;
+  int? get abilityId => throw _privateConstructorUsedError;
   int? get itemId => throw _privateConstructorUsedError;
   Stat? get individualValues => throw _privateConstructorUsedError;
   Stat? get effortValues => throw _privateConstructorUsedError;
@@ -76,6 +79,7 @@ abstract class $BuildCopyWith<$Res> {
   $Res call(
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
+      int? abilityId,
       int? itemId,
       Stat? individualValues,
       Stat? effortValues,
@@ -100,6 +104,7 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? pokemonId = freezed,
+    Object? abilityId = freezed,
     Object? itemId = freezed,
     Object? individualValues = freezed,
     Object? effortValues = freezed,
@@ -116,6 +121,10 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
           ? _value.pokemonId
           : pokemonId // ignore: cast_nullable_to_non_nullable
               as int,
+      abilityId: abilityId == freezed
+          ? _value.abilityId
+          : abilityId // ignore: cast_nullable_to_non_nullable
+              as int?,
       itemId: itemId == freezed
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
@@ -185,6 +194,7 @@ abstract class _$BuildCopyWith<$Res> implements $BuildCopyWith<$Res> {
   $Res call(
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
+      int? abilityId,
       int? itemId,
       Stat? individualValues,
       Stat? effortValues,
@@ -213,6 +223,7 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? pokemonId = freezed,
+    Object? abilityId = freezed,
     Object? itemId = freezed,
     Object? individualValues = freezed,
     Object? effortValues = freezed,
@@ -229,6 +240,10 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
           ? _value.pokemonId
           : pokemonId // ignore: cast_nullable_to_non_nullable
               as int,
+      abilityId: abilityId == freezed
+          ? _value.abilityId
+          : abilityId // ignore: cast_nullable_to_non_nullable
+              as int?,
       itemId: itemId == freezed
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
@@ -264,6 +279,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   _$_Build(
       {@JsonKey(ignore: true) this.id,
       required this.pokemonId,
+      this.abilityId,
       this.itemId,
       this.individualValues,
       this.effortValues,
@@ -280,6 +296,8 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   final String? id;
   @override
   final int pokemonId;
+  @override
+  final int? abilityId;
   @override
   final int? itemId;
   @override
@@ -298,7 +316,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Build(id: $id, pokemonId: $pokemonId, itemId: $itemId, individualValues: $individualValues, effortValues: $effortValues, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Build(id: $id, pokemonId: $pokemonId, abilityId: $abilityId, itemId: $itemId, individualValues: $individualValues, effortValues: $effortValues, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -308,6 +326,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'Build'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('pokemonId', pokemonId))
+      ..add(DiagnosticsProperty('abilityId', abilityId))
       ..add(DiagnosticsProperty('itemId', itemId))
       ..add(DiagnosticsProperty('individualValues', individualValues))
       ..add(DiagnosticsProperty('effortValues', effortValues))
@@ -325,6 +344,9 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
             (identical(other.pokemonId, pokemonId) ||
                 const DeepCollectionEquality()
                     .equals(other.pokemonId, pokemonId)) &&
+            (identical(other.abilityId, abilityId) ||
+                const DeepCollectionEquality()
+                    .equals(other.abilityId, abilityId)) &&
             (identical(other.itemId, itemId) ||
                 const DeepCollectionEquality().equals(other.itemId, itemId)) &&
             (identical(other.individualValues, individualValues) ||
@@ -348,6 +370,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(pokemonId) ^
+      const DeepCollectionEquality().hash(abilityId) ^
       const DeepCollectionEquality().hash(itemId) ^
       const DeepCollectionEquality().hash(individualValues) ^
       const DeepCollectionEquality().hash(effortValues) ^
@@ -370,6 +393,7 @@ abstract class _Build extends Build {
   factory _Build(
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
+      int? abilityId,
       int? itemId,
       Stat? individualValues,
       Stat? effortValues,
@@ -385,6 +409,8 @@ abstract class _Build extends Build {
   String? get id => throw _privateConstructorUsedError;
   @override
   int get pokemonId => throw _privateConstructorUsedError;
+  @override
+  int? get abilityId => throw _privateConstructorUsedError;
   @override
   int? get itemId => throw _privateConstructorUsedError;
   @override

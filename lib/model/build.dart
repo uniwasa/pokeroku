@@ -16,6 +16,7 @@ class Build with _$Build {
   factory Build({
     @JsonKey(ignore: true) String? id,
     required int pokemonId,
+    int? abilityId,
     int? itemId,
     Stat? individualValues,
     Stat? effortValues,

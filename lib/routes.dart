@@ -9,4 +9,5 @@ class Routes {
   static const String pokemonSelection = '/pokemonSelection';
   static const String buildEdit = '/buildEdit';
   static const String itemSelection = '/itemSelection';
+  static const String abilitySelection = '/abilitySelection';
 }

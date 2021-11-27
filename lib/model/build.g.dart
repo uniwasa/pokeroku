@@ -9,6 +9,7 @@ part of 'build.dart';
 _$_Build _$_$_BuildFromJson(Map<String, dynamic> json) {
   return _$_Build(
     pokemonId: json['pokemonId'] as int,
+    abilityId: json['abilityId'] as int?,
     itemId: json['itemId'] as int?,
     individualValues: json['individualValues'] == null
         ? null
@@ -23,6 +24,7 @@ _$_Build _$_$_BuildFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_BuildToJson(_$_Build instance) => <String, dynamic>{
       'pokemonId': instance.pokemonId,
+      'abilityId': instance.abilityId,
       'itemId': instance.itemId,
       'individualValues': instance.individualValues?.toJson(),
       'effortValues': instance.effortValues?.toJson(),

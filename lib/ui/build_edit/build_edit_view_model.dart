@@ -73,6 +73,13 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
     }
   }
 
+  void updateAbility({required int abilityId}) {
+    final build = state.data?.value;
+    if (build != null) {
+      state = AsyncData(build.copyWith(abilityId: abilityId));
+    }
+  }
+
   void updateItem({required int itemId}) {
     final build = state.data?.value;
     if (build != null) {

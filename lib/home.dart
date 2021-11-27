@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:pokeroku/interface/build_manager.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
+import 'package:pokeroku/ui/ability_selection/ability_selection_page.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_page.dart';
 import 'package:pokeroku/ui/item_selection/item_selection_page.dart';
 import 'package:pokeroku/ui/move_info/move_info_page.dart';
@@ -84,6 +84,10 @@ class Home extends StatelessWidget {
             });
       case Routes.itemSelection:
         page = ItemSelectionPage(buildEditParam: arguments as BuildEditParam);
+        break;
+      case Routes.abilitySelection:
+        page =
+            AbilitySelectionPage(buildEditParam: arguments as BuildEditParam);
         break;
       default:
         page = PokedexPage();
