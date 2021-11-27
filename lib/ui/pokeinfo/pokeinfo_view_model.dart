@@ -52,7 +52,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
             final evolutions = await fetchEvolutions(allPokemons, pokemonId);
             final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
-            final abilities = await fetchAbilities(pokemonId);
+            final abilities = await _dataSource.getPokemonAbilities(pokemonId);
 
             final pokemonEx = PokemonEx(
               base: pokemonBase,
@@ -79,12 +79,6 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
         },
       );
     }
-  }
-
-  Future<List<Ability>> fetchAbilities(int pokemonId) async {
-    final abilities = await _dataSource.getPokemonAbilities(pokemonId);
-    final result = abilities.map((e) => Ability.fromJson(e)).toList();
-    return result;
   }
 
   Future<List<List<Pokemon>>> fetchEvolutions(

@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/const/type_color.dart';
+import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/item.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
@@ -81,11 +82,12 @@ class PokedexDataSource {
     return evolutions;
   }
 
-  Future<List<Map<String, dynamic>>> getPokemonAbilities(int pokemonId) async {
+  Future<List<Ability>> getPokemonAbilities(int pokemonId) async {
     final db = await _databaseHelper.database;
     String query =
         await rootBundle.loadString('assets/query/pokemon_abilities.sql');
-    final abilities = await db.rawQuery(query, [pokemonId]);
+    final rawAbilities = await db.rawQuery(query, [pokemonId]);
+    final abilities = rawAbilities.map((e) => Ability.fromJson(e)).toList();
     return abilities;
   }
 
