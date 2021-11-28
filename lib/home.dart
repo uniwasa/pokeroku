@@ -10,6 +10,7 @@ import 'package:pokeroku/ui/ability_selection/ability_selection_page.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_page.dart';
 import 'package:pokeroku/ui/item_selection/item_selection_page.dart';
 import 'package:pokeroku/ui/move_info/move_info_page.dart';
+import 'package:pokeroku/ui/nature_selection/nature_selection_page.dart';
 import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
 import 'package:pokeroku/ui/pokeinfo/pokeinfo_page.dart';
 import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_page.dart';
@@ -88,6 +89,9 @@ class Home extends StatelessWidget {
       case Routes.abilitySelection:
         page =
             AbilitySelectionPage(buildEditParam: arguments as BuildEditParam);
+        break;
+      case Routes.natureSelection:
+        page = NatureSelectionPage(buildEditParam: arguments as BuildEditParam);
         break;
       default:
         page = PokedexPage();

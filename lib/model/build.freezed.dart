@@ -24,6 +24,7 @@ class _$BuildTearOff {
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
       int? abilityId,
+      int? natureId,
       int? itemId,
       StatSet? individualValues,
       StatSet? effortValues,
@@ -34,6 +35,7 @@ class _$BuildTearOff {
       id: id,
       pokemonId: pokemonId,
       abilityId: abilityId,
+      natureId: natureId,
       itemId: itemId,
       individualValues: individualValues,
       effortValues: effortValues,
@@ -57,6 +59,7 @@ mixin _$Build {
   String? get id => throw _privateConstructorUsedError;
   int get pokemonId => throw _privateConstructorUsedError;
   int? get abilityId => throw _privateConstructorUsedError;
+  int? get natureId => throw _privateConstructorUsedError;
   int? get itemId => throw _privateConstructorUsedError;
   StatSet? get individualValues => throw _privateConstructorUsedError;
   StatSet? get effortValues => throw _privateConstructorUsedError;
@@ -80,6 +83,7 @@ abstract class $BuildCopyWith<$Res> {
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
       int? abilityId,
+      int? natureId,
       int? itemId,
       StatSet? individualValues,
       StatSet? effortValues,
@@ -105,6 +109,7 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
     Object? id = freezed,
     Object? pokemonId = freezed,
     Object? abilityId = freezed,
+    Object? natureId = freezed,
     Object? itemId = freezed,
     Object? individualValues = freezed,
     Object? effortValues = freezed,
@@ -124,6 +129,10 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
       abilityId: abilityId == freezed
           ? _value.abilityId
           : abilityId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      natureId: natureId == freezed
+          ? _value.natureId
+          : natureId // ignore: cast_nullable_to_non_nullable
               as int?,
       itemId: itemId == freezed
           ? _value.itemId
@@ -195,6 +204,7 @@ abstract class _$BuildCopyWith<$Res> implements $BuildCopyWith<$Res> {
       {@JsonKey(ignore: true) String? id,
       int pokemonId,
       int? abilityId,
+      int? natureId,
       int? itemId,
       StatSet? individualValues,
       StatSet? effortValues,
@@ -224,6 +234,7 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
     Object? id = freezed,
     Object? pokemonId = freezed,
     Object? abilityId = freezed,
+    Object? natureId = freezed,
     Object? itemId = freezed,
     Object? individualValues = freezed,
     Object? effortValues = freezed,
@@ -243,6 +254,10 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
       abilityId: abilityId == freezed
           ? _value.abilityId
           : abilityId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      natureId: natureId == freezed
+          ? _value.natureId
+          : natureId // ignore: cast_nullable_to_non_nullable
               as int?,
       itemId: itemId == freezed
           ? _value.itemId
@@ -280,6 +295,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       {@JsonKey(ignore: true) this.id,
       required this.pokemonId,
       this.abilityId,
+      this.natureId,
       this.itemId,
       this.individualValues,
       this.effortValues,
@@ -299,6 +315,8 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   @override
   final int? abilityId;
   @override
+  final int? natureId;
+  @override
   final int? itemId;
   @override
   final StatSet? individualValues;
@@ -316,7 +334,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Build(id: $id, pokemonId: $pokemonId, abilityId: $abilityId, itemId: $itemId, individualValues: $individualValues, effortValues: $effortValues, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Build(id: $id, pokemonId: $pokemonId, abilityId: $abilityId, natureId: $natureId, itemId: $itemId, individualValues: $individualValues, effortValues: $effortValues, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -327,6 +345,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('pokemonId', pokemonId))
       ..add(DiagnosticsProperty('abilityId', abilityId))
+      ..add(DiagnosticsProperty('natureId', natureId))
       ..add(DiagnosticsProperty('itemId', itemId))
       ..add(DiagnosticsProperty('individualValues', individualValues))
       ..add(DiagnosticsProperty('effortValues', effortValues))
@@ -347,6 +366,9 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
             (identical(other.abilityId, abilityId) ||
                 const DeepCollectionEquality()
                     .equals(other.abilityId, abilityId)) &&
+            (identical(other.natureId, natureId) ||
+                const DeepCollectionEquality()
+                    .equals(other.natureId, natureId)) &&
             (identical(other.itemId, itemId) ||
                 const DeepCollectionEquality().equals(other.itemId, itemId)) &&
             (identical(other.individualValues, individualValues) ||
@@ -371,6 +393,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(pokemonId) ^
       const DeepCollectionEquality().hash(abilityId) ^
+      const DeepCollectionEquality().hash(natureId) ^
       const DeepCollectionEquality().hash(itemId) ^
       const DeepCollectionEquality().hash(individualValues) ^
       const DeepCollectionEquality().hash(effortValues) ^
@@ -394,6 +417,7 @@ abstract class _Build extends Build {
       {@JsonKey(ignore: true) String? id,
       required int pokemonId,
       int? abilityId,
+      int? natureId,
       int? itemId,
       StatSet? individualValues,
       StatSet? effortValues,
@@ -411,6 +435,8 @@ abstract class _Build extends Build {
   int get pokemonId => throw _privateConstructorUsedError;
   @override
   int? get abilityId => throw _privateConstructorUsedError;
+  @override
+  int? get natureId => throw _privateConstructorUsedError;
   @override
   int? get itemId => throw _privateConstructorUsedError;
   @override

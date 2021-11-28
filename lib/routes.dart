@@ -10,4 +10,5 @@ class Routes {
   static const String buildEdit = '/buildEdit';
   static const String itemSelection = '/itemSelection';
   static const String abilitySelection = '/abilitySelection';
+  static const String natureSelection = '/natureSelection';
 }

@@ -80,6 +80,13 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
     }
   }
 
+  void updateNature({required int natureId}) {
+    final build = state.data?.value;
+    if (build != null) {
+      state = AsyncData(build.copyWith(natureId: natureId));
+    }
+  }
+
   void updateItem({required int itemId}) {
     final build = state.data?.value;
     if (build != null) {

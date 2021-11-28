@@ -17,6 +17,7 @@ class Build with _$Build {
     @JsonKey(ignore: true) String? id,
     required int pokemonId,
     int? abilityId,
+    int? natureId,
     int? itemId,
     StatSet? individualValues,
     StatSet? effortValues,

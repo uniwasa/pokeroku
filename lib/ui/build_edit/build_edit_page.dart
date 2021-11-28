@@ -7,6 +7,7 @@ import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/stat_set.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/item_list_provider.dart';
+import 'package:pokeroku/provider/nature_list_provider.dart';
 import 'package:pokeroku/provider/pokemon_ability_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
@@ -90,6 +91,24 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                           .nameJp),
                   onTap: () {
                     Navigator.pushNamed(context, Routes.abilitySelection,
+                        arguments: _buildEditParam);
+                  },
+                );
+              }),
+              HookBuilder(builder: (context) {
+                final natureList = useProvider(natureListProvider).data?.value;
+                final natureId = useProvider(
+                    buildEditViewModelProviderFamily(_buildEditParam)
+                        .select((value) => value.data?.value.natureId));
+                return ListTile(
+                  leading: Text('性格'),
+                  title: Text(natureList == null || natureId == null
+                      ? '未選択'
+                      : natureList
+                          .firstWhere((element) => element.id == natureId)
+                          .nameJp),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.natureSelection,
                         arguments: _buildEditParam);
                   },
                 );

@@ -4,6 +4,7 @@ import 'package:pokeroku/const/type_color.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/item.dart';
 import 'package:pokeroku/model/move.dart';
+import 'package:pokeroku/model/nature.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_type.dart';
 import 'package:pokeroku/provider/pokedex_database_provider.dart';
@@ -140,5 +141,12 @@ class PokedexDataSource {
     String query = await rootBundle.loadString('assets/query/item_list.sql');
     List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
     return queryResult.map((json) => Item.fromJson(json)).toList();
+  }
+
+  Future<List<Nature>> getNatureList() async {
+    final db = await _databaseHelper.database;
+    String query = await rootBundle.loadString('assets/query/nature_list.sql');
+    List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
+    return queryResult.map((json) => Nature.fromJson(json)).toList();
   }
 }
