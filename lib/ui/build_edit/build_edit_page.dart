@@ -184,12 +184,12 @@ class BuildEditPage extends HookWidget with ValidationMixin {
 
   Widget makeStatListTile(
       {required BuildContext context, required String statName}) {
-    final effortValues = context
+    final initialBuild = context
         .read(buildEditViewModelProviderFamily(_buildEditParam))
         .data
-        ?.value
-        .effortValues
-        ?.toJson();
+        ?.value;
+    final initialIVs = initialBuild?.individualValues?.toJson();
+    final initialEVs = initialBuild?.effortValues?.toJson();
     return ListTile(
       leading: Text(StatSet.abbr[statName] ?? statName),
       title: Row(
@@ -207,7 +207,23 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             ),
           ),
           makeStatTextFormField(
-            initialValue: (effortValues?[statName] ?? 0).toString(),
+            initialValue: (initialIVs?[statName] ?? 31).toString(),
+            labelText: 'IV',
+            onChanged: (value) {
+              if (isValidIndividualValue(value))
+                context
+                    .read(buildEditViewModelProviderFamily(_buildEditParam)
+                        .notifier)
+                    .updateIndividualValues(
+                        statName: statName, individualValue: int.parse(value));
+            },
+            validator: (value) {
+              if (!isValidIndividualValue(value)) return '有効な値を入力してください';
+            },
+            textInputFormatter: StatTextInputFormatter(min: 0, max: 31),
+          ),
+          makeStatTextFormField(
+            initialValue: (initialEVs?[statName] ?? 0).toString(),
             labelText: 'EV',
             onChanged: (value) {
               if (isValidEffortValue(value))

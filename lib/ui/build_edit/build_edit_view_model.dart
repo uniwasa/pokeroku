@@ -62,14 +62,25 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
     }
   }
 
+  void updateIndividualValues(
+      {required String statName, required int individualValue}) {
+    final build = state.data?.value;
+    if (build != null) {
+      final individualValues = build.individualValues?.toJson() ?? {};
+      individualValues[statName] = individualValue;
+      final statSet = StatSet.fromJson(individualValues);
+      state = AsyncData(build.copyWith(individualValues: statSet));
+    }
+  }
+
   void updateEffortValues(
       {required String statName, required int effortValue}) {
     final build = state.data?.value;
     if (build != null) {
       final effortValues = build.effortValues?.toJson() ?? {};
       effortValues[statName] = effortValue;
-      final stat = StatSet.fromJson(effortValues);
-      state = AsyncData(build.copyWith(effortValues: stat));
+      final statSet = StatSet.fromJson(effortValues);
+      state = AsyncData(build.copyWith(effortValues: statSet));
     }
   }
 
