@@ -137,10 +137,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                 child: Column(
                   children: [
                     for (final statName in StatSet.keys)
-                      makeStatListTile(
-                          context: context,
-                          statName: statName,
-                          labelText: 'EV'),
+                      makeStatListTile(context: context, statName: statName),
                   ],
                 ),
               ),
@@ -186,9 +183,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
   }
 
   Widget makeStatListTile(
-      {required BuildContext context,
-      required String statName,
-      required String labelText}) {
+      {required BuildContext context, required String statName}) {
     final effortValues = context
         .read(buildEditViewModelProviderFamily(_buildEditParam))
         .data
@@ -213,7 +208,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
           ),
           makeStatTextFormField(
             initialValue: (effortValues?[statName] ?? 0).toString(),
-            labelText: labelText,
+            labelText: 'EV',
             onChanged: (value) {
               if (isValidEffortValue(value))
                 context
