@@ -50,6 +50,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
               child: IconButton(
                   onPressed: () async {
                     if (formGlobalKey.currentState?.validate() == true) {
+                      formGlobalKey.currentState?.save();
                       final result = await context
                           .read(
                               buildEditViewModelProviderFamily(_buildEditParam)
@@ -152,6 +153,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
     required TextInputFormatter textInputFormatter,
     required String? Function(String?) validator,
     required void Function(String) onChanged,
+    required void Function(String?) onSaved,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 3.0),
@@ -168,6 +170,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
           ),
           validator: validator,
           onChanged: onChanged,
+          onSaved: onSaved,
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
             textInputFormatter,
@@ -217,6 +220,14 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                     .updateIndividualValues(
                         statName: statName, individualValue: int.parse(value));
             },
+            onSaved: (value) {
+              if (value != null)
+                context
+                    .read(buildEditViewModelProviderFamily(_buildEditParam)
+                        .notifier)
+                    .updateIndividualValues(
+                        statName: statName, individualValue: int.parse(value));
+            },
             validator: (value) {
               if (!isValidIndividualValue(value)) return '有効な値を入力してください';
             },
@@ -227,6 +238,14 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             labelText: 'EV',
             onChanged: (value) {
               if (isValidEffortValue(value))
+                context
+                    .read(buildEditViewModelProviderFamily(_buildEditParam)
+                        .notifier)
+                    .updateEffortValues(
+                        statName: statName, effortValue: int.parse(value));
+            },
+            onSaved: (value) {
+              if (value != null)
                 context
                     .read(buildEditViewModelProviderFamily(_buildEditParam)
                         .notifier)
