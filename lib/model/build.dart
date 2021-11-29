@@ -19,6 +19,7 @@ class Build with _$Build {
     int? abilityId,
     int? natureId,
     int? itemId,
+    int? level,
     StatSet? individualValues,
     StatSet? effortValues,
     @JsonKey(ignore: true) Team? team,

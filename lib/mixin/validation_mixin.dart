@@ -6,6 +6,14 @@ mixin ValidationMixin {
     return double.tryParse(value) != null;
   }
 
+  bool isValidLevel(String? value) {
+    if (value != null && isNumeric(value)) {
+      final num = int.parse(value);
+      if (1 <= num && num <= 100) return true;
+    }
+    return false;
+  }
+
   bool isValidIndividualValue(String? value) {
     if (value != null && isNumeric(value)) {
       final num = int.parse(value);

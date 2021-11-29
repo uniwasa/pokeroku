@@ -26,6 +26,7 @@ class _$BuildTearOff {
       int? abilityId,
       int? natureId,
       int? itemId,
+      int? level,
       StatSet? individualValues,
       StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
@@ -37,6 +38,7 @@ class _$BuildTearOff {
       abilityId: abilityId,
       natureId: natureId,
       itemId: itemId,
+      level: level,
       individualValues: individualValues,
       effortValues: effortValues,
       team: team,
@@ -61,6 +63,7 @@ mixin _$Build {
   int? get abilityId => throw _privateConstructorUsedError;
   int? get natureId => throw _privateConstructorUsedError;
   int? get itemId => throw _privateConstructorUsedError;
+  int? get level => throw _privateConstructorUsedError;
   StatSet? get individualValues => throw _privateConstructorUsedError;
   StatSet? get effortValues => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -85,6 +88,7 @@ abstract class $BuildCopyWith<$Res> {
       int? abilityId,
       int? natureId,
       int? itemId,
+      int? level,
       StatSet? individualValues,
       StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
@@ -111,6 +115,7 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
     Object? abilityId = freezed,
     Object? natureId = freezed,
     Object? itemId = freezed,
+    Object? level = freezed,
     Object? individualValues = freezed,
     Object? effortValues = freezed,
     Object? team = freezed,
@@ -137,6 +142,10 @@ class _$BuildCopyWithImpl<$Res> implements $BuildCopyWith<$Res> {
       itemId: itemId == freezed
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
               as int?,
       individualValues: individualValues == freezed
           ? _value.individualValues
@@ -206,6 +215,7 @@ abstract class _$BuildCopyWith<$Res> implements $BuildCopyWith<$Res> {
       int? abilityId,
       int? natureId,
       int? itemId,
+      int? level,
       StatSet? individualValues,
       StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
@@ -236,6 +246,7 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
     Object? abilityId = freezed,
     Object? natureId = freezed,
     Object? itemId = freezed,
+    Object? level = freezed,
     Object? individualValues = freezed,
     Object? effortValues = freezed,
     Object? team = freezed,
@@ -262,6 +273,10 @@ class __$BuildCopyWithImpl<$Res> extends _$BuildCopyWithImpl<$Res>
       itemId: itemId == freezed
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
               as int?,
       individualValues: individualValues == freezed
           ? _value.individualValues
@@ -297,6 +312,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       this.abilityId,
       this.natureId,
       this.itemId,
+      this.level,
       this.individualValues,
       this.effortValues,
       @JsonKey(ignore: true) this.team,
@@ -319,6 +335,8 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   @override
   final int? itemId;
   @override
+  final int? level;
+  @override
   final StatSet? individualValues;
   @override
   final StatSet? effortValues;
@@ -334,7 +352,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Build(id: $id, pokemonId: $pokemonId, abilityId: $abilityId, natureId: $natureId, itemId: $itemId, individualValues: $individualValues, effortValues: $effortValues, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Build(id: $id, pokemonId: $pokemonId, abilityId: $abilityId, natureId: $natureId, itemId: $itemId, level: $level, individualValues: $individualValues, effortValues: $effortValues, team: $team, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -347,6 +365,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('abilityId', abilityId))
       ..add(DiagnosticsProperty('natureId', natureId))
       ..add(DiagnosticsProperty('itemId', itemId))
+      ..add(DiagnosticsProperty('level', level))
       ..add(DiagnosticsProperty('individualValues', individualValues))
       ..add(DiagnosticsProperty('effortValues', effortValues))
       ..add(DiagnosticsProperty('team', team))
@@ -371,6 +390,8 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
                     .equals(other.natureId, natureId)) &&
             (identical(other.itemId, itemId) ||
                 const DeepCollectionEquality().equals(other.itemId, itemId)) &&
+            (identical(other.level, level) ||
+                const DeepCollectionEquality().equals(other.level, level)) &&
             (identical(other.individualValues, individualValues) ||
                 const DeepCollectionEquality()
                     .equals(other.individualValues, individualValues)) &&
@@ -395,6 +416,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(abilityId) ^
       const DeepCollectionEquality().hash(natureId) ^
       const DeepCollectionEquality().hash(itemId) ^
+      const DeepCollectionEquality().hash(level) ^
       const DeepCollectionEquality().hash(individualValues) ^
       const DeepCollectionEquality().hash(effortValues) ^
       const DeepCollectionEquality().hash(team) ^
@@ -419,6 +441,7 @@ abstract class _Build extends Build {
       int? abilityId,
       int? natureId,
       int? itemId,
+      int? level,
       StatSet? individualValues,
       StatSet? effortValues,
       @JsonKey(ignore: true) Team? team,
@@ -439,6 +462,8 @@ abstract class _Build extends Build {
   int? get natureId => throw _privateConstructorUsedError;
   @override
   int? get itemId => throw _privateConstructorUsedError;
+  @override
+  int? get level => throw _privateConstructorUsedError;
   @override
   StatSet? get individualValues => throw _privateConstructorUsedError;
   @override

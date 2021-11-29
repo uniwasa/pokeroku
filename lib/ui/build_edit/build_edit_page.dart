@@ -137,6 +137,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                 key: formGlobalKey,
                 child: Column(
                   children: [
+                    makeLevelListTile(context: context),
                     for (final statName in StatSet.keys)
                       makeStatListTile(context: context, statName: statName),
                   ],
@@ -257,6 +258,44 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             },
             textInputFormatter: StatTextInputFormatter(min: 0, max: 252),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget makeLevelListTile({required BuildContext context}) {
+    final initialLevel = context
+        .read(buildEditViewModelProviderFamily(_buildEditParam))
+        .data
+        ?.value
+        .level;
+    return ListTile(
+      leading: Text('ステータス'),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          makeStatTextFormField(
+            initialValue: (initialLevel ?? 50).toString(),
+            labelText: 'Level',
+            onChanged: (value) {
+              if (isValidLevel(value))
+                context
+                    .read(buildEditViewModelProviderFamily(_buildEditParam)
+                        .notifier)
+                    .updateLevel(level: int.parse(value));
+            },
+            onSaved: (value) {
+              if (value != null)
+                context
+                    .read(buildEditViewModelProviderFamily(_buildEditParam)
+                        .notifier)
+                    .updateLevel(level: int.parse(value));
+            },
+            validator: (value) {
+              if (!isValidLevel(value)) return '有効な値を入力してください';
+            },
+            textInputFormatter: StatTextInputFormatter(min: 1, max: 100),
+          ),
         ],
       ),
     );
