@@ -33,6 +33,36 @@ class StatSet with _$StatSet {
     return abbrMap;
   }
 
+  static int actualValue({
+    required int baseValue,
+    required int level,
+    required int individualValue,
+    required int effortValue,
+    required int natureRate,
+  }) {
+    return ((((baseValue * 2 + individualValue + (effortValue / 4).floor()) *
+                        level /
+                        100)
+                    .floor() +
+                5) *
+            (natureRate / 100))
+        .floor();
+  }
+
+  static int actualHP({
+    required int baseValue,
+    required int level,
+    required int individualValue,
+    required int effortValue,
+  }) {
+    return ((baseValue * 2 + individualValue + (effortValue / 4).floor()) *
+                level /
+                100)
+            .floor() +
+        level +
+        10;
+  }
+
   List<int> values() {
     return List<int>.from(toJson().values.toList());
   }

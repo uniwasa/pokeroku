@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
+import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/stat_set.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/item_list_provider.dart';
@@ -139,7 +140,10 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                   children: [
                     makeLevelListTile(context: context),
                     for (final statName in StatSet.keys)
-                      makeStatListTile(context: context, statName: statName),
+                      makeStatListTile(
+                          context: context,
+                          statName: statName,
+                          pokemon: pokemon),
                   ],
                 ),
               ),
@@ -187,7 +191,9 @@ class BuildEditPage extends HookWidget with ValidationMixin {
   }
 
   Widget makeStatListTile(
-      {required BuildContext context, required String statName}) {
+      {required BuildContext context,
+      required String statName,
+      required Pokemon pokemon}) {
     final initialBuild = context
         .read(buildEditViewModelProviderFamily(_buildEditParam))
         .data
@@ -201,12 +207,36 @@ class BuildEditPage extends HookWidget with ValidationMixin {
           Expanded(
             child: HookBuilder(
               builder: (context) {
-                final effortValues = useProvider(
+                final natureList = useProvider(natureListProvider).data?.value;
+                if (natureList == null) return Container();
+                final build = useProvider(
                   buildEditViewModelProviderFamily(_buildEditParam).select(
-                    (value) => value.data?.value.effortValues?.toJson(),
+                    (value) => value.data?.value,
                   ),
                 );
-                return Text((effortValues?[statName] ?? 0).toString());
+                final natureId = build?.natureId ?? 1; // nullならがんばりや
+                final nature =
+                    natureList.firstWhere((element) => element.id == natureId);
+                final int natureRate = nature.rate.toJson()[statName];
+                final int baseValue = pokemon.stats.toJson()[statName];
+                final int level = build?.level ?? 50;
+                final int individualValue =
+                    build?.individualValues?.toJson()[statName] ?? 31;
+                final int effortValue =
+                    build?.effortValues?.toJson()[statName] ?? 0;
+                final actualValue = statName == 'hp'
+                    ? StatSet.actualHP(
+                        baseValue: baseValue,
+                        level: level,
+                        individualValue: individualValue,
+                        effortValue: effortValue)
+                    : StatSet.actualValue(
+                        baseValue: baseValue,
+                        level: level,
+                        individualValue: individualValue,
+                        effortValue: effortValue,
+                        natureRate: natureRate);
+                return Text((actualValue).toString());
               },
             ),
           ),

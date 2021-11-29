@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pokeroku/model/pokemon_type.dart';
+import 'package:pokeroku/model/stat_set.dart';
 
 import '../util.dart';
 
@@ -96,6 +97,17 @@ class Pokemon with _$Pokemon {
       path = 'shiny/' + (pokespritePath ?? identifier);
     }
     return 'assets/icons/pokemon/' + path + '.png';
+  }
+
+  StatSet get stats {
+    return StatSet(
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+    );
   }
 
   String get fullNameJp {
