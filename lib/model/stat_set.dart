@@ -20,8 +20,17 @@ class StatSet with _$StatSet {
   factory StatSet.fromJson(Map<String, dynamic> json) =>
       _$StatSetFromJson(json);
 
-  static List<String> keys() {
+  static List<String> get keys {
     return StatSet().toJson().keys.toList();
+  }
+
+  static Map<String, String> get abbr {
+    final abbrList = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'];
+    final Map<String, String> abbrMap = {};
+    StatSet.keys
+        .asMap()
+        .forEach((index, element) => abbrMap[element] = abbrList[index]);
+    return abbrMap;
   }
 
   List<int> values() {

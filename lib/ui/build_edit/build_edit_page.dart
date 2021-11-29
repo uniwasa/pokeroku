@@ -120,7 +120,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                         .select((value) => value.data?.value.itemId));
 
                 return ListTile(
-                  leading: Text('もちもの'),
+                  leading: Text('持ち物'),
                   title: Text(itemList == null || itemId == null
                       ? '未選択'
                       : itemList
@@ -132,50 +132,18 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                   },
                 );
               }),
-              Builder(builder: (context) {
-                final effortValues = context
-                    .read(buildEditViewModelProviderFamily(_buildEditParam))
-                    .data
-                    ?.value
-                    .effortValues
-                    ?.toJson();
-                return Form(
-                  key: formGlobalKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      Row(
-                        children: [
-                          for (final statName in StatSet.keys())
-                            Flexible(
-                              child: makeStatTextFormField(
-                                initialValue:
-                                    (effortValues?[statName] ?? 0).toString(),
-                                labelText: statName,
-                                onChanged: (value) {
-                                  if (isValidEffortValue(value))
-                                    context
-                                        .read(buildEditViewModelProviderFamily(
-                                                _buildEditParam)
-                                            .notifier)
-                                        .updateEffortValues(
-                                            statName: statName,
-                                            effortValue: int.parse(value));
-                                },
-                                validator: (value) {
-                                  if (!isValidEffortValue(value))
-                                    return '有効な値を入力してください';
-                                },
-                                textInputFormatter:
-                                    StatTextInputFormatter(min: 0, max: 252),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }),
+              Form(
+                key: formGlobalKey,
+                child: Column(
+                  children: [
+                    for (final statName in StatSet.keys)
+                      makeStatListTile(
+                          context: context,
+                          statName: statName,
+                          labelText: 'EV'),
+                  ],
+                ),
+              ),
             ],
           ),
         ));
@@ -191,7 +159,8 @@ class BuildEditPage extends HookWidget with ValidationMixin {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 3.0),
       child: SizedBox(
-        height: 40.0,
+        height: 32.0,
+        width: 42.0,
         child: TextFormField(
           initialValue: initialValue,
           decoration: InputDecoration(
@@ -212,6 +181,53 @@ class BuildEditPage extends HookWidget with ValidationMixin {
           ),
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
+      ),
+    );
+  }
+
+  Widget makeStatListTile(
+      {required BuildContext context,
+      required String statName,
+      required String labelText}) {
+    final effortValues = context
+        .read(buildEditViewModelProviderFamily(_buildEditParam))
+        .data
+        ?.value
+        .effortValues
+        ?.toJson();
+    return ListTile(
+      leading: Text(StatSet.abbr[statName] ?? statName),
+      title: Row(
+        children: [
+          Expanded(
+            child: HookBuilder(
+              builder: (context) {
+                final effortValues = useProvider(
+                  buildEditViewModelProviderFamily(_buildEditParam).select(
+                    (value) => value.data?.value.effortValues?.toJson(),
+                  ),
+                );
+                return Text((effortValues?[statName] ?? 0).toString());
+              },
+            ),
+          ),
+          makeStatTextFormField(
+            initialValue: (effortValues?[statName] ?? 0).toString(),
+            labelText: labelText,
+            onChanged: (value) {
+              if (isValidEffortValue(value))
+                context
+                    .read(buildEditViewModelProviderFamily(_buildEditParam)
+                        .notifier)
+                    .updateEffortValues(
+                        statName: statName, effortValue: int.parse(value));
+            },
+            validator: (value) {
+              if (!isValidEffortValue(value)) return '有効な値を入力してください';
+            },
+            textInputFormatter: StatTextInputFormatter(min: 0, max: 252),
+          )
+        ],
       ),
     );
   }
