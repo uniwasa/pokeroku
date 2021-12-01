@@ -44,32 +44,6 @@ class Move with _$Move {
     return move.copyWith(type: type);
   }
 
-  factory Move.type(Map<String, dynamic> move, List<PokemonType> pokemonTypes) {
-    final type =
-        pokemonTypes.firstWhere((element) => element.id == move['type_id']);
-    return Move(
-      id: move['id'],
-      identifier: move['identifier'],
-      versionGroupId: move['version_group_id'],
-      pokemonMoveMethodId: move['pokemon_move_method_id'],
-      level: move['level'],
-      order: move['order'],
-      power: move['power'],
-      pp: move['pp'],
-      accuracy: move['accuracy'],
-      priority: move['priority'],
-      targetId: move['target_id'],
-      damageClassId: move['damage_class_id'],
-      effectChance: move['effect_chance'],
-      nameJp: move['name_jp'],
-      flavorTextJp: move['flavor_text_jp'],
-      itemIdentifier: move['item_identifier'],
-      typeId: move['type_id'],
-      type: type,
-      damageClassNameJp: move['damage_class_name_jp'],
-    );
-  }
-
   Color get damageClassColor {
     if (damageClassId == 2)
       return Color(0xFFFF4400);

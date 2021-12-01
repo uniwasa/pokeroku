@@ -10,6 +10,7 @@ import 'package:pokeroku/model/pokeinfo_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/move_list_by_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/pokeinfo/component/pokemon_evolution_chain.dart';
@@ -29,8 +30,9 @@ class PokeinfoPage extends StatelessWidget {
         StateNotifierProvider.autoDispose<PokeinfoViewModel, PokeinfoState>(
             (ref) {
       return PokeinfoViewModel(
-        dataSource: ref.read(pokedexDataSourceProvider),
+        read: ref.read,
         allPokemons: ref.watch(allPokemonsProvider),
+        moveList: ref.watch(moveListByPokemonProvider(pokemon.id)),
         pokemon: pokemon,
       );
     });

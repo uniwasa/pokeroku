@@ -104,21 +104,6 @@ class PokedexDataSource {
     }).toList();
   }
 
-  Future<List<Move>> getPokemonMoves(int pokemonId) async {
-    final db = await _databaseHelper.database;
-    final String movesNoEggQuery =
-        await rootBundle.loadString('assets/query/pokemon_moves_no_egg.sql');
-    final rawMovesNoEgg = await db.rawQuery(movesNoEggQuery, [pokemonId]);
-    final String movesEggQuery =
-        await rootBundle.loadString('assets/query/pokemon_moves_egg.sql');
-    final rawMovesEgg = await db.rawQuery(movesEggQuery, [pokemonId]);
-    final rawMoves = rawMovesNoEgg + rawMovesEgg;
-
-    final pokemonTypes = await getPokemonTypes();
-
-    return rawMoves.map((rawMove) => Move.type(rawMove, pokemonTypes)).toList();
-  }
-
   Future<List<Pokemon>> getMovePokemons(int moveId) async {
     final db = await _databaseHelper.database;
     String pokemonsNoEggQuery =
@@ -155,6 +140,22 @@ class PokedexDataSource {
     String query = await rootBundle.loadString('assets/query/move_list.sql');
     List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
     return queryResult
+        .map((json) => Move.withType(json: json, typeList: typeList))
+        .toList();
+  }
+
+  Future<List<Move>> getMoveListByPokemon(
+      {required int pokemonId, required List<PokemonType> typeList}) async {
+    final db = await _databaseHelper.database;
+    final String movesNoEggQuery =
+        await rootBundle.loadString('assets/query/pokemon_moves_no_egg.sql');
+    final rawMovesNoEgg = await db.rawQuery(movesNoEggQuery, [pokemonId]);
+    final String movesEggQuery =
+        await rootBundle.loadString('assets/query/pokemon_moves_egg.sql');
+    final rawMovesEgg = await db.rawQuery(movesEggQuery, [pokemonId]);
+    final rawMoves = rawMovesNoEgg + rawMovesEgg;
+
+    return rawMoves
         .map((json) => Move.withType(json: json, typeList: typeList))
         .toList();
   }
