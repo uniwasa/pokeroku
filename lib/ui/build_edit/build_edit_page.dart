@@ -6,7 +6,7 @@ import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/stat_set.dart';
-import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/provider/item_list_provider.dart';
 import 'package:pokeroku/provider/nature_list_provider.dart';
 import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
@@ -26,14 +26,15 @@ class BuildEditPage extends HookWidget with ValidationMixin {
   @override
   Widget build(BuildContext context) {
     final formGlobalKey = GlobalKey<FormState>();
-    final allPokemon = useProvider(allPokemonsProvider).data?.value;
+    final pokemonList = useProvider(pokemonListProvider).data?.value;
     final pokemonId = useProvider(
         buildEditViewModelProviderFamily(_buildEditParam)
             .select((value) => value.data?.value.pokemonId));
 
-    if (allPokemon == null || pokemonId == null) return Scaffold();
+    if (pokemonList == null || pokemonId == null) return Scaffold();
 
-    final pokemon = allPokemon.firstWhere((element) => element.id == pokemonId);
+    final pokemon =
+        pokemonList.firstWhere((element) => element.id == pokemonId);
     return Scaffold(
         appBar: AppBar(
           title: HookBuilder(builder: (context) {

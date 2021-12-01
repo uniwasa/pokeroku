@@ -1,12 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/pokemon.dart';
-import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/pokemon_list_provider.dart';
 
 final pokemonSelectionViewModelProviderFamily = StateNotifierProvider.family
     .autoDispose<PokemonSelectionViewModel, AsyncValue<List<Pokemon>>, String?>(
         (ref, teamId) {
   return PokemonSelectionViewModel(
-    pokemonList: ref.watch(allPokemonsProvider),
+    pokemonList: ref.watch(pokemonListProvider),
     teamId: teamId,
   );
 });

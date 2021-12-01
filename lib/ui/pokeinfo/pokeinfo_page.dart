@@ -9,7 +9,7 @@ import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokeinfo_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
-import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/provider/move_list_by_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/routes.dart';
@@ -31,7 +31,7 @@ class PokeinfoPage extends StatelessWidget {
             (ref) {
       return PokeinfoViewModel(
         read: ref.read,
-        allPokemons: ref.watch(allPokemonsProvider),
+        pokemonList: ref.watch(pokemonListProvider),
         moveList: ref.watch(moveListByPokemonProvider(pokemon.id)),
         pokemon: pokemon,
       );
@@ -150,9 +150,9 @@ class PokeinfoPage extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
               // Navigator.popUntil(context, (route) => route.isFirst);
-              final allPokemons = context.read(allPokemonsProvider);
-              allPokemons.whenData((data) =>
-                  context.read(_provider.notifier).setPokemon(data.first));
+              // final pokemonList = context.read(pokemonListProvider);
+              // pokemonList.whenData((data) =>
+              //     context.read(_provider.notifier).setPokemon(data.first));
               // print(DefaultTabController.of(context)?.index);
             },
           ),

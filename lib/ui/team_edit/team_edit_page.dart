@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
-import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
@@ -17,7 +17,7 @@ class TeamEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
       final asyncValue = useProvider(teamEditViewModelProviderFamily(_teamId));
-      final allPokemon = useProvider(allPokemonsProvider).data?.value;
+      final pokemonList = useProvider(pokemonListProvider).data?.value;
       final textEditingController = useTextEditingController();
 
       return asyncValue.when(
@@ -69,8 +69,8 @@ class TeamEditPage extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final build = builds[index];
 
-                      if (allPokemon != null) {
-                        final pokemon = allPokemon.firstWhere(
+                      if (pokemonList != null) {
+                        final pokemon = pokemonList.firstWhere(
                             (element) => element.id == build.pokemonId);
                         final image = Image.asset(
                           pokemon.imageName,

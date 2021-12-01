@@ -11,11 +11,11 @@ import 'package:pokeroku/util.dart';
 class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   PokeinfoViewModel({
     required Reader read,
-    required AsyncValue<List<Pokemon>> allPokemons,
+    required AsyncValue<List<Pokemon>> pokemonList,
     required AsyncValue<List<Move>> moveList,
     required Pokemon pokemon,
   })  : _read = read,
-        _allPokemons = allPokemons,
+        _pokemonList = pokemonList,
         super(PokeinfoState(
           pokemonBase: pokemon,
           asyncPokemonEx: AsyncValue.loading(),
@@ -25,7 +25,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   }
 
   final Reader _read;
-  final AsyncValue<List<Pokemon>> _allPokemons;
+  final AsyncValue<List<Pokemon>> _pokemonList;
 
   @override
   void dispose() {
@@ -48,8 +48,8 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
     if (mounted) {
       final pokemonBase = state.pokemonBase;
       //ポケモン一覧が読み込まれてるときのみ実行
-      _allPokemons.whenData(
-        (allPokemons) async {
+      _pokemonList.whenData(
+        (pokemonList) async {
           try {
             final pokemonId = pokemonBase.id;
             final extraInfo = await _read(pokedexDataSourceProvider)
@@ -57,7 +57,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
             final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
 
             //進化取得
-            final evolutions = await fetchEvolutions(allPokemons, pokemonId);
+            final evolutions = await fetchEvolutions(pokemonList, pokemonId);
             final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
             final abilities = await _read(pokedexDataSourceProvider)
@@ -86,7 +86,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
   }
 
   Future<List<List<Pokemon>>> fetchEvolutions(
-      List<Pokemon> allPokemons, int pokemonId) async {
+      List<Pokemon> pokemonList, int pokemonId) async {
     final evolutions =
         await _read(pokedexDataSourceProvider).getEvolutions(pokemonId);
     final firstStage = evolutions
@@ -100,7 +100,7 @@ class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
 
     final result = stages.map((stage) {
       return stage.map((pokemonMap) {
-        return allPokemons.firstWhere((pokemon) {
+        return pokemonList.firstWhere((pokemon) {
           return pokemon.id == pokemonMap['id'];
         });
       }).toList();

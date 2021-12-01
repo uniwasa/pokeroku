@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/provider/all_pokemons_provider.dart';
+import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
@@ -58,7 +58,7 @@ class TeamListPage extends StatelessWidget {
         final isLoading = state.isLoading;
         final hasNext = state.hasNext;
 
-        final allPokemon = useProvider(allPokemonsProvider).data?.value;
+        final pokemonList = useProvider(pokemonListProvider).data?.value;
 
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
@@ -80,11 +80,11 @@ class TeamListPage extends StatelessWidget {
                     final builds = team.builds;
                     final teamName = team.name;
 
-                    final List<Widget> buildIcons = allPokemon != null &&
+                    final List<Widget> buildIcons = pokemonList != null &&
                             builds != null
                         ? builds.map(
                             (build) {
-                              final pokemon = allPokemon.firstWhere(
+                              final pokemon = pokemonList.firstWhere(
                                   (element) => element.id == build.pokemonId);
                               return Image.asset(
                                 pokemon.imageName,
