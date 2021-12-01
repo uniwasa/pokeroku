@@ -61,7 +61,8 @@ extension TabContentMove on PokeinfoPage {
                         leading: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            buildCircle(color: move.type.color),
+                            if (move.type != null)
+                              buildCircle(color: move.type!.color),
                           ],
                         ),
                         title: Text(move.nameJp),

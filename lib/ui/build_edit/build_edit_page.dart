@@ -147,6 +147,16 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                   ],
                 ),
               ),
+              HookBuilder(builder: (context) {
+                return ListTile(
+                  leading: Text('持ち物'),
+                  title: Text('技選択'),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.moveSelection,
+                        arguments: _buildEditParam);
+                  },
+                );
+              }),
             ],
           ),
         ));

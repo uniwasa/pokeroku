@@ -11,4 +11,5 @@ class Routes {
   static const String itemSelection = '/itemSelection';
   static const String abilitySelection = '/abilitySelection';
   static const String natureSelection = '/natureSelection';
+  static const String moveSelection = '/moveSelection';
 }

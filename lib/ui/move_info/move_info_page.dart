@@ -154,8 +154,11 @@ class MoveInfoPage extends StatelessWidget {
                           label: 'タイプ',
                           widget: Padding(
                             padding: const EdgeInsets.only(top: 4.0),
-                            child: buildBadge(
-                                text: move.type.nameJp, color: move.type.color),
+                            child: move.type == null
+                                ? Container()
+                                : buildBadge(
+                                    text: move.type!.nameJp,
+                                    color: move.type!.color),
                           ),
                         ),
                         buildDataItem(

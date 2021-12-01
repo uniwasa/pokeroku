@@ -149,4 +149,13 @@ class PokedexDataSource {
     List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
     return queryResult.map((json) => Nature.fromJson(json)).toList();
   }
+
+  Future<List<Move>> getMoveList({required List<PokemonType> typeList}) async {
+    final db = await _databaseHelper.database;
+    String query = await rootBundle.loadString('assets/query/move_list.sql');
+    List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
+    return queryResult
+        .map((json) => Move.withType(json: json, typeList: typeList))
+        .toList();
+  }
 }
