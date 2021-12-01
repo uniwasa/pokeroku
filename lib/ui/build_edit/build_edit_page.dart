@@ -9,7 +9,7 @@ import 'package:pokeroku/model/stat_set.dart';
 import 'package:pokeroku/provider/all_pokemons_provider.dart';
 import 'package:pokeroku/provider/item_list_provider.dart';
 import 'package:pokeroku/provider/nature_list_provider.dart';
-import 'package:pokeroku/provider/pokemon_ability_list_provider.dart';
+import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
@@ -78,7 +78,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             children: [
               HookBuilder(builder: (context) {
                 final abilityList = useProvider(
-                        pokemonAbilityListProvider(_buildEditParam.pokemonId))
+                        abilityListByPokemonProvider(_buildEditParam.pokemonId))
                     .data
                     ?.value;
                 final abilityId = useProvider(

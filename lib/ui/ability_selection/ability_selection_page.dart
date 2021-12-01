@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
-import 'package:pokeroku/provider/pokemon_ability_list_provider.dart';
+import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 
 class AbilitySelectionPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class AbilitySelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
       final asyncValue =
-          useProvider(pokemonAbilityListProvider(_buildEditParam.pokemonId));
+          useProvider(abilityListByPokemonProvider(_buildEditParam.pokemonId));
 
       return Scaffold(
         appBar: AppBar(
