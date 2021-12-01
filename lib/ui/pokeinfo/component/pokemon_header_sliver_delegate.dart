@@ -39,7 +39,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
           width: MediaQuery.of(context).size.width,
           height: maxExtent - shrinkOffset.ceil(),
           decoration: BoxDecoration(
-            color: _pokemon.firstType.color,
+            color: _pokemon.firstType?.color ?? Colors.grey,
           ),
         ),
         Positioned(
@@ -52,7 +52,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
               child: Column(
                 children: [
                   buildBadge(
-                    text: _pokemon.firstType.nameJp,
+                    text: _pokemon.firstType?.nameJp ?? '',
                     color: Colors.black.withOpacity(.1),
                   ),
                   if (_pokemon.secondType != null)

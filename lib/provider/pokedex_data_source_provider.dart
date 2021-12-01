@@ -47,25 +47,15 @@ class PokedexDataSource {
     return pokemonTypes;
   }
 
-  Future<List<Pokemon>> getPokemonList() async {
+  Future<List<Pokemon>> getPokemonList(
+      {required List<PokemonType> typeList}) async {
     final db = await _databaseHelper.database;
     String query = await rootBundle.loadString('assets/query/all_pokemons.sql');
     List<Map<String, dynamic>> rawPokemons = await db.rawQuery(query);
-    final pokemonTypes = await getPokemonTypes();
 
-    return rawPokemons.map((rawPokemon) {
-      return Pokemon.type(rawPokemon, pokemonTypes);
+    return rawPokemons.map((json) {
+      return Pokemon.withType(json: json, typeList: typeList);
     }).toList();
-  }
-
-  Future<Pokemon> getPokemon(int pokemonId) async {
-    final db = await _databaseHelper.database;
-    String query = await rootBundle.loadString('assets/query/pokemon.sql');
-    final rawPokemon = (await db.rawQuery(query, [pokemonId])).first;
-    final pokemonTypes = await getPokemonTypes();
-    final pokemon = Pokemon.type(rawPokemon, pokemonTypes);
-
-    return pokemon;
   }
 
   Future<Map<String, dynamic>> getPokemonExtraInfo(int pokemonId) async {
@@ -97,10 +87,12 @@ class PokedexDataSource {
     String query =
         await rootBundle.loadString('assets/query/ability_pokemons.sql');
     final rawPokemons = await db.rawQuery(query, [abilityId]);
+
+    // TODO: 引数で受け取るように変更しろ
     final pokemonTypes = await getPokemonTypes();
 
-    return rawPokemons.map((rawPokemon) {
-      return Pokemon.type(rawPokemon, pokemonTypes);
+    return rawPokemons.map((json) {
+      return Pokemon.withType(json: json, typeList: pokemonTypes);
     }).toList();
   }
 
@@ -114,10 +106,11 @@ class PokedexDataSource {
     final rawPokemonsEgg = await db.rawQuery(pokemonsEggQuery, [moveId]);
     final rawPokemons = rawPokemonsNoEgg + rawPokemonsEgg;
 
+    // TODO: 引数で受け取るように変更しろ
     final pokemonTypes = await getPokemonTypes();
 
-    return rawPokemons.map((rawPokemon) {
-      return Pokemon.type(rawPokemon, pokemonTypes);
+    return rawPokemons.map((json) {
+      return Pokemon.withType(json: json, typeList: pokemonTypes);
     }).toList();
   }
 

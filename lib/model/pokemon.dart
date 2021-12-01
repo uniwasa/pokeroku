@@ -7,72 +7,55 @@ import 'package:pokeroku/model/stat_set.dart';
 import '../util.dart';
 
 part 'pokemon.freezed.dart';
-// part 'pokemon.g.dart';
+part 'pokemon.g.dart';
 
 @freezed
 class Pokemon with _$Pokemon {
   const Pokemon._();
 
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Pokemon({
     required int id,
     @JsonKey(fromJson: makeOneTenth) required double height,
     @JsonKey(fromJson: makeOneTenth) required double weight,
-    @JsonKey(name: 'base_experience') required int baseExperience,
-    @JsonKey(name: 'species_id') required int speciesId,
+    required int baseExperience,
+    required int speciesId,
     required String identifier,
-    @JsonKey(name: 'species_identifier') required String speciesIdentifier,
-    @JsonKey(name: 'name_jp') required String nameJp,
-    @JsonKey(name: 'name_en') required String nameEn,
-    @JsonKey(name: 'first_type') required PokemonType firstType,
-    @JsonKey(name: 'second_type') required PokemonType? secondType,
+    required String speciesIdentifier,
+    required String nameJp,
+    required String nameEn,
     required int hp,
     required int attack,
     required int defense,
-    @JsonKey(name: 'special_attack') required int specialAttack,
-    @JsonKey(name: 'special_defense') required int specialDefense,
+    required int specialAttack,
+    required int specialDefense,
     required int speed,
-    @JsonKey(name: 'is_default', fromJson: intToBool) required bool isDefault,
-    @JsonKey(name: 'pokesprite_path') required String? pokespritePath,
-    @JsonKey(name: 'form_identifier') required String? formIdentifier,
-    @JsonKey(name: 'form_name_jp') required String? formNameJp,
-    @JsonKey(name: 'form_name_en') required String? formNameEn,
-    @JsonKey(name: 'pokemon_move_version_group_id')
-        required int? pokemonMoveVersionGroupId,
-    @JsonKey(name: 'pokemon_move_method_id') required int? pokemonMoveMethodId,
+    @JsonKey(fromJson: intToBool) required bool isDefault,
+    String? pokespritePath,
+    String? formIdentifier,
+    String? formNameJp,
+    String? formNameEn,
+    int? pokemonMoveVersionGroupId,
+    int? pokemonMoveMethodId,
+    int? firstTypeId,
+    int? secondTypeId,
+    @JsonKey(ignore: true) PokemonType? firstType,
+    @JsonKey(ignore: true) PokemonType? secondType,
   }) = _Pokemon;
 
-  factory Pokemon.type(
-      Map<String, dynamic> pokemon, List<PokemonType> pokemonTypes) {
-    final firstType = pokemonTypes
-        .firstWhere((element) => element.id == pokemon['first_type_id']);
-    final secondType = pokemonTypes
-        .firstWhereOrNull((element) => element.id == pokemon['second_type_id']);
-    return Pokemon(
-      id: pokemon['id'],
-      height: makeOneTenth(pokemon['height']),
-      weight: makeOneTenth(pokemon['weight']),
-      baseExperience: pokemon['base_experience'],
-      speciesId: pokemon['species_id'],
-      identifier: pokemon['identifier'],
-      speciesIdentifier: pokemon['species_identifier'],
-      nameJp: pokemon['name_jp'],
-      nameEn: pokemon['name_en'],
-      firstType: firstType,
-      secondType: secondType,
-      hp: pokemon['hp'],
-      attack: pokemon['attack'],
-      defense: pokemon['defense'],
-      specialAttack: pokemon['special_attack'],
-      specialDefense: pokemon['special_defense'],
-      speed: pokemon['speed'],
-      isDefault: intToBool(pokemon['is_default']),
-      formIdentifier: pokemon['form_identifier'],
-      formNameJp: pokemon['form_name_jp'],
-      formNameEn: pokemon['form_name_en'],
-      pokespritePath: pokemon['pokesprite_path'],
-      pokemonMoveVersionGroupId: pokemon['pokemon_move_version_group_id'],
-      pokemonMoveMethodId: pokemon['pokemon_move_method_id'],
-    );
+  factory Pokemon.fromJson(Map<String, dynamic> json) =>
+      _$PokemonFromJson(json);
+
+  factory Pokemon.withType({
+    required Map<String, dynamic> json,
+    required List<PokemonType> typeList,
+  }) {
+    final pokemon = Pokemon.fromJson(json);
+    final firstType = typeList
+        .firstWhereOrNull((element) => element.id == pokemon.firstTypeId);
+    final secondType = typeList
+        .firstWhereOrNull((element) => element.id == pokemon.secondTypeId);
+    return pokemon.copyWith(firstType: firstType, secondType: secondType);
   }
 
   String get imageName {

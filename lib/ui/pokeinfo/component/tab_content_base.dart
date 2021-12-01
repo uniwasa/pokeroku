@@ -139,7 +139,7 @@ extension TabContentBase on PokeinfoPage {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildHeaderLabel(
-                      color: pokemonEx.base.firstType.color, text: '特性'),
+                      color: pokemonEx.base.firstType?.color ?? Colors.grey, text: '特性'),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Column(

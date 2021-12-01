@@ -12,53 +12,41 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Pokemon _$PokemonFromJson(Map<String, dynamic> json) {
+  return _Pokemon.fromJson(json);
+}
+
 /// @nodoc
 class _$PokemonTearOff {
   const _$PokemonTearOff();
 
   _Pokemon call(
       {required int id,
-      @JsonKey(fromJson: makeOneTenth)
-          required double height,
-      @JsonKey(fromJson: makeOneTenth)
-          required double weight,
-      @JsonKey(name: 'base_experience')
-          required int baseExperience,
-      @JsonKey(name: 'species_id')
-          required int speciesId,
+      @JsonKey(fromJson: makeOneTenth) required double height,
+      @JsonKey(fromJson: makeOneTenth) required double weight,
+      required int baseExperience,
+      required int speciesId,
       required String identifier,
-      @JsonKey(name: 'species_identifier')
-          required String speciesIdentifier,
-      @JsonKey(name: 'name_jp')
-          required String nameJp,
-      @JsonKey(name: 'name_en')
-          required String nameEn,
-      @JsonKey(name: 'first_type')
-          required PokemonType firstType,
-      @JsonKey(name: 'second_type')
-          required PokemonType? secondType,
+      required String speciesIdentifier,
+      required String nameJp,
+      required String nameEn,
       required int hp,
       required int attack,
       required int defense,
-      @JsonKey(name: 'special_attack')
-          required int specialAttack,
-      @JsonKey(name: 'special_defense')
-          required int specialDefense,
+      required int specialAttack,
+      required int specialDefense,
       required int speed,
-      @JsonKey(name: 'is_default', fromJson: intToBool)
-          required bool isDefault,
-      @JsonKey(name: 'pokesprite_path')
-          required String? pokespritePath,
-      @JsonKey(name: 'form_identifier')
-          required String? formIdentifier,
-      @JsonKey(name: 'form_name_jp')
-          required String? formNameJp,
-      @JsonKey(name: 'form_name_en')
-          required String? formNameEn,
-      @JsonKey(name: 'pokemon_move_version_group_id')
-          required int? pokemonMoveVersionGroupId,
-      @JsonKey(name: 'pokemon_move_method_id')
-          required int? pokemonMoveMethodId}) {
+      @JsonKey(fromJson: intToBool) required bool isDefault,
+      String? pokespritePath,
+      String? formIdentifier,
+      String? formNameJp,
+      String? formNameEn,
+      int? pokemonMoveVersionGroupId,
+      int? pokemonMoveMethodId,
+      int? firstTypeId,
+      int? secondTypeId,
+      @JsonKey(ignore: true) PokemonType? firstType,
+      @JsonKey(ignore: true) PokemonType? secondType}) {
     return _Pokemon(
       id: id,
       height: height,
@@ -69,8 +57,6 @@ class _$PokemonTearOff {
       speciesIdentifier: speciesIdentifier,
       nameJp: nameJp,
       nameEn: nameEn,
-      firstType: firstType,
-      secondType: secondType,
       hp: hp,
       attack: attack,
       defense: defense,
@@ -84,7 +70,15 @@ class _$PokemonTearOff {
       formNameEn: formNameEn,
       pokemonMoveVersionGroupId: pokemonMoveVersionGroupId,
       pokemonMoveMethodId: pokemonMoveMethodId,
+      firstTypeId: firstTypeId,
+      secondTypeId: secondTypeId,
+      firstType: firstType,
+      secondType: secondType,
     );
+  }
+
+  Pokemon fromJson(Map<String, Object> json) {
+    return Pokemon.fromJson(json);
   }
 }
 
@@ -98,44 +92,34 @@ mixin _$Pokemon {
   double get height => throw _privateConstructorUsedError;
   @JsonKey(fromJson: makeOneTenth)
   double get weight => throw _privateConstructorUsedError;
-  @JsonKey(name: 'base_experience')
   int get baseExperience => throw _privateConstructorUsedError;
-  @JsonKey(name: 'species_id')
   int get speciesId => throw _privateConstructorUsedError;
   String get identifier => throw _privateConstructorUsedError;
-  @JsonKey(name: 'species_identifier')
   String get speciesIdentifier => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name_jp')
   String get nameJp => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name_en')
   String get nameEn => throw _privateConstructorUsedError;
-  @JsonKey(name: 'first_type')
-  PokemonType get firstType => throw _privateConstructorUsedError;
-  @JsonKey(name: 'second_type')
-  PokemonType? get secondType => throw _privateConstructorUsedError;
   int get hp => throw _privateConstructorUsedError;
   int get attack => throw _privateConstructorUsedError;
   int get defense => throw _privateConstructorUsedError;
-  @JsonKey(name: 'special_attack')
   int get specialAttack => throw _privateConstructorUsedError;
-  @JsonKey(name: 'special_defense')
   int get specialDefense => throw _privateConstructorUsedError;
   int get speed => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_default', fromJson: intToBool)
+  @JsonKey(fromJson: intToBool)
   bool get isDefault => throw _privateConstructorUsedError;
-  @JsonKey(name: 'pokesprite_path')
   String? get pokespritePath => throw _privateConstructorUsedError;
-  @JsonKey(name: 'form_identifier')
   String? get formIdentifier => throw _privateConstructorUsedError;
-  @JsonKey(name: 'form_name_jp')
   String? get formNameJp => throw _privateConstructorUsedError;
-  @JsonKey(name: 'form_name_en')
   String? get formNameEn => throw _privateConstructorUsedError;
-  @JsonKey(name: 'pokemon_move_version_group_id')
   int? get pokemonMoveVersionGroupId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'pokemon_move_method_id')
   int? get pokemonMoveMethodId => throw _privateConstructorUsedError;
+  int? get firstTypeId => throw _privateConstructorUsedError;
+  int? get secondTypeId => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  PokemonType? get firstType => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  PokemonType? get secondType => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PokemonCopyWith<Pokemon> get copyWith => throw _privateConstructorUsedError;
 }
@@ -146,49 +130,33 @@ abstract class $PokemonCopyWith<$Res> {
       _$PokemonCopyWithImpl<$Res>;
   $Res call(
       {int id,
-      @JsonKey(fromJson: makeOneTenth)
-          double height,
-      @JsonKey(fromJson: makeOneTenth)
-          double weight,
-      @JsonKey(name: 'base_experience')
-          int baseExperience,
-      @JsonKey(name: 'species_id')
-          int speciesId,
+      @JsonKey(fromJson: makeOneTenth) double height,
+      @JsonKey(fromJson: makeOneTenth) double weight,
+      int baseExperience,
+      int speciesId,
       String identifier,
-      @JsonKey(name: 'species_identifier')
-          String speciesIdentifier,
-      @JsonKey(name: 'name_jp')
-          String nameJp,
-      @JsonKey(name: 'name_en')
-          String nameEn,
-      @JsonKey(name: 'first_type')
-          PokemonType firstType,
-      @JsonKey(name: 'second_type')
-          PokemonType? secondType,
+      String speciesIdentifier,
+      String nameJp,
+      String nameEn,
       int hp,
       int attack,
       int defense,
-      @JsonKey(name: 'special_attack')
-          int specialAttack,
-      @JsonKey(name: 'special_defense')
-          int specialDefense,
+      int specialAttack,
+      int specialDefense,
       int speed,
-      @JsonKey(name: 'is_default', fromJson: intToBool)
-          bool isDefault,
-      @JsonKey(name: 'pokesprite_path')
-          String? pokespritePath,
-      @JsonKey(name: 'form_identifier')
-          String? formIdentifier,
-      @JsonKey(name: 'form_name_jp')
-          String? formNameJp,
-      @JsonKey(name: 'form_name_en')
-          String? formNameEn,
-      @JsonKey(name: 'pokemon_move_version_group_id')
-          int? pokemonMoveVersionGroupId,
-      @JsonKey(name: 'pokemon_move_method_id')
-          int? pokemonMoveMethodId});
+      @JsonKey(fromJson: intToBool) bool isDefault,
+      String? pokespritePath,
+      String? formIdentifier,
+      String? formNameJp,
+      String? formNameEn,
+      int? pokemonMoveVersionGroupId,
+      int? pokemonMoveMethodId,
+      int? firstTypeId,
+      int? secondTypeId,
+      @JsonKey(ignore: true) PokemonType? firstType,
+      @JsonKey(ignore: true) PokemonType? secondType});
 
-  $PokemonTypeCopyWith<$Res> get firstType;
+  $PokemonTypeCopyWith<$Res>? get firstType;
   $PokemonTypeCopyWith<$Res>? get secondType;
 }
 
@@ -211,8 +179,6 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
     Object? speciesIdentifier = freezed,
     Object? nameJp = freezed,
     Object? nameEn = freezed,
-    Object? firstType = freezed,
-    Object? secondType = freezed,
     Object? hp = freezed,
     Object? attack = freezed,
     Object? defense = freezed,
@@ -226,6 +192,10 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
     Object? formNameEn = freezed,
     Object? pokemonMoveVersionGroupId = freezed,
     Object? pokemonMoveMethodId = freezed,
+    Object? firstTypeId = freezed,
+    Object? secondTypeId = freezed,
+    Object? firstType = freezed,
+    Object? secondType = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -264,14 +234,6 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
           ? _value.nameEn
           : nameEn // ignore: cast_nullable_to_non_nullable
               as String,
-      firstType: firstType == freezed
-          ? _value.firstType
-          : firstType // ignore: cast_nullable_to_non_nullable
-              as PokemonType,
-      secondType: secondType == freezed
-          ? _value.secondType
-          : secondType // ignore: cast_nullable_to_non_nullable
-              as PokemonType?,
       hp: hp == freezed
           ? _value.hp
           : hp // ignore: cast_nullable_to_non_nullable
@@ -324,12 +286,32 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
           ? _value.pokemonMoveMethodId
           : pokemonMoveMethodId // ignore: cast_nullable_to_non_nullable
               as int?,
+      firstTypeId: firstTypeId == freezed
+          ? _value.firstTypeId
+          : firstTypeId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      secondTypeId: secondTypeId == freezed
+          ? _value.secondTypeId
+          : secondTypeId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      firstType: firstType == freezed
+          ? _value.firstType
+          : firstType // ignore: cast_nullable_to_non_nullable
+              as PokemonType?,
+      secondType: secondType == freezed
+          ? _value.secondType
+          : secondType // ignore: cast_nullable_to_non_nullable
+              as PokemonType?,
     ));
   }
 
   @override
-  $PokemonTypeCopyWith<$Res> get firstType {
-    return $PokemonTypeCopyWith<$Res>(_value.firstType, (value) {
+  $PokemonTypeCopyWith<$Res>? get firstType {
+    if (_value.firstType == null) {
+      return null;
+    }
+
+    return $PokemonTypeCopyWith<$Res>(_value.firstType!, (value) {
       return _then(_value.copyWith(firstType: value));
     });
   }
@@ -353,50 +335,34 @@ abstract class _$PokemonCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   @override
   $Res call(
       {int id,
-      @JsonKey(fromJson: makeOneTenth)
-          double height,
-      @JsonKey(fromJson: makeOneTenth)
-          double weight,
-      @JsonKey(name: 'base_experience')
-          int baseExperience,
-      @JsonKey(name: 'species_id')
-          int speciesId,
+      @JsonKey(fromJson: makeOneTenth) double height,
+      @JsonKey(fromJson: makeOneTenth) double weight,
+      int baseExperience,
+      int speciesId,
       String identifier,
-      @JsonKey(name: 'species_identifier')
-          String speciesIdentifier,
-      @JsonKey(name: 'name_jp')
-          String nameJp,
-      @JsonKey(name: 'name_en')
-          String nameEn,
-      @JsonKey(name: 'first_type')
-          PokemonType firstType,
-      @JsonKey(name: 'second_type')
-          PokemonType? secondType,
+      String speciesIdentifier,
+      String nameJp,
+      String nameEn,
       int hp,
       int attack,
       int defense,
-      @JsonKey(name: 'special_attack')
-          int specialAttack,
-      @JsonKey(name: 'special_defense')
-          int specialDefense,
+      int specialAttack,
+      int specialDefense,
       int speed,
-      @JsonKey(name: 'is_default', fromJson: intToBool)
-          bool isDefault,
-      @JsonKey(name: 'pokesprite_path')
-          String? pokespritePath,
-      @JsonKey(name: 'form_identifier')
-          String? formIdentifier,
-      @JsonKey(name: 'form_name_jp')
-          String? formNameJp,
-      @JsonKey(name: 'form_name_en')
-          String? formNameEn,
-      @JsonKey(name: 'pokemon_move_version_group_id')
-          int? pokemonMoveVersionGroupId,
-      @JsonKey(name: 'pokemon_move_method_id')
-          int? pokemonMoveMethodId});
+      @JsonKey(fromJson: intToBool) bool isDefault,
+      String? pokespritePath,
+      String? formIdentifier,
+      String? formNameJp,
+      String? formNameEn,
+      int? pokemonMoveVersionGroupId,
+      int? pokemonMoveMethodId,
+      int? firstTypeId,
+      int? secondTypeId,
+      @JsonKey(ignore: true) PokemonType? firstType,
+      @JsonKey(ignore: true) PokemonType? secondType});
 
   @override
-  $PokemonTypeCopyWith<$Res> get firstType;
+  $PokemonTypeCopyWith<$Res>? get firstType;
   @override
   $PokemonTypeCopyWith<$Res>? get secondType;
 }
@@ -421,8 +387,6 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
     Object? speciesIdentifier = freezed,
     Object? nameJp = freezed,
     Object? nameEn = freezed,
-    Object? firstType = freezed,
-    Object? secondType = freezed,
     Object? hp = freezed,
     Object? attack = freezed,
     Object? defense = freezed,
@@ -436,6 +400,10 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
     Object? formNameEn = freezed,
     Object? pokemonMoveVersionGroupId = freezed,
     Object? pokemonMoveMethodId = freezed,
+    Object? firstTypeId = freezed,
+    Object? secondTypeId = freezed,
+    Object? firstType = freezed,
+    Object? secondType = freezed,
   }) {
     return _then(_Pokemon(
       id: id == freezed
@@ -474,14 +442,6 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
           ? _value.nameEn
           : nameEn // ignore: cast_nullable_to_non_nullable
               as String,
-      firstType: firstType == freezed
-          ? _value.firstType
-          : firstType // ignore: cast_nullable_to_non_nullable
-              as PokemonType,
-      secondType: secondType == freezed
-          ? _value.secondType
-          : secondType // ignore: cast_nullable_to_non_nullable
-              as PokemonType?,
       hp: hp == freezed
           ? _value.hp
           : hp // ignore: cast_nullable_to_non_nullable
@@ -534,57 +494,61 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
           ? _value.pokemonMoveMethodId
           : pokemonMoveMethodId // ignore: cast_nullable_to_non_nullable
               as int?,
+      firstTypeId: firstTypeId == freezed
+          ? _value.firstTypeId
+          : firstTypeId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      secondTypeId: secondTypeId == freezed
+          ? _value.secondTypeId
+          : secondTypeId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      firstType: firstType == freezed
+          ? _value.firstType
+          : firstType // ignore: cast_nullable_to_non_nullable
+              as PokemonType?,
+      secondType: secondType == freezed
+          ? _value.secondType
+          : secondType // ignore: cast_nullable_to_non_nullable
+              as PokemonType?,
     ));
   }
 }
 
 /// @nodoc
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   const _$_Pokemon(
       {required this.id,
-      @JsonKey(fromJson: makeOneTenth)
-          required this.height,
-      @JsonKey(fromJson: makeOneTenth)
-          required this.weight,
-      @JsonKey(name: 'base_experience')
-          required this.baseExperience,
-      @JsonKey(name: 'species_id')
-          required this.speciesId,
+      @JsonKey(fromJson: makeOneTenth) required this.height,
+      @JsonKey(fromJson: makeOneTenth) required this.weight,
+      required this.baseExperience,
+      required this.speciesId,
       required this.identifier,
-      @JsonKey(name: 'species_identifier')
-          required this.speciesIdentifier,
-      @JsonKey(name: 'name_jp')
-          required this.nameJp,
-      @JsonKey(name: 'name_en')
-          required this.nameEn,
-      @JsonKey(name: 'first_type')
-          required this.firstType,
-      @JsonKey(name: 'second_type')
-          required this.secondType,
+      required this.speciesIdentifier,
+      required this.nameJp,
+      required this.nameEn,
       required this.hp,
       required this.attack,
       required this.defense,
-      @JsonKey(name: 'special_attack')
-          required this.specialAttack,
-      @JsonKey(name: 'special_defense')
-          required this.specialDefense,
+      required this.specialAttack,
+      required this.specialDefense,
       required this.speed,
-      @JsonKey(name: 'is_default', fromJson: intToBool)
-          required this.isDefault,
-      @JsonKey(name: 'pokesprite_path')
-          required this.pokespritePath,
-      @JsonKey(name: 'form_identifier')
-          required this.formIdentifier,
-      @JsonKey(name: 'form_name_jp')
-          required this.formNameJp,
-      @JsonKey(name: 'form_name_en')
-          required this.formNameEn,
-      @JsonKey(name: 'pokemon_move_version_group_id')
-          required this.pokemonMoveVersionGroupId,
-      @JsonKey(name: 'pokemon_move_method_id')
-          required this.pokemonMoveMethodId})
+      @JsonKey(fromJson: intToBool) required this.isDefault,
+      this.pokespritePath,
+      this.formIdentifier,
+      this.formNameJp,
+      this.formNameEn,
+      this.pokemonMoveVersionGroupId,
+      this.pokemonMoveMethodId,
+      this.firstTypeId,
+      this.secondTypeId,
+      @JsonKey(ignore: true) this.firstType,
+      @JsonKey(ignore: true) this.secondType})
       : super._();
+
+  factory _$_Pokemon.fromJson(Map<String, dynamic> json) =>
+      _$_$_PokemonFromJson(json);
 
   @override
   final int id;
@@ -595,28 +559,17 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   @JsonKey(fromJson: makeOneTenth)
   final double weight;
   @override
-  @JsonKey(name: 'base_experience')
   final int baseExperience;
   @override
-  @JsonKey(name: 'species_id')
   final int speciesId;
   @override
   final String identifier;
   @override
-  @JsonKey(name: 'species_identifier')
   final String speciesIdentifier;
   @override
-  @JsonKey(name: 'name_jp')
   final String nameJp;
   @override
-  @JsonKey(name: 'name_en')
   final String nameEn;
-  @override
-  @JsonKey(name: 'first_type')
-  final PokemonType firstType;
-  @override
-  @JsonKey(name: 'second_type')
-  final PokemonType? secondType;
   @override
   final int hp;
   @override
@@ -624,38 +577,40 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   @override
   final int defense;
   @override
-  @JsonKey(name: 'special_attack')
   final int specialAttack;
   @override
-  @JsonKey(name: 'special_defense')
   final int specialDefense;
   @override
   final int speed;
   @override
-  @JsonKey(name: 'is_default', fromJson: intToBool)
+  @JsonKey(fromJson: intToBool)
   final bool isDefault;
   @override
-  @JsonKey(name: 'pokesprite_path')
   final String? pokespritePath;
   @override
-  @JsonKey(name: 'form_identifier')
   final String? formIdentifier;
   @override
-  @JsonKey(name: 'form_name_jp')
   final String? formNameJp;
   @override
-  @JsonKey(name: 'form_name_en')
   final String? formNameEn;
   @override
-  @JsonKey(name: 'pokemon_move_version_group_id')
   final int? pokemonMoveVersionGroupId;
   @override
-  @JsonKey(name: 'pokemon_move_method_id')
   final int? pokemonMoveMethodId;
+  @override
+  final int? firstTypeId;
+  @override
+  final int? secondTypeId;
+  @override
+  @JsonKey(ignore: true)
+  final PokemonType? firstType;
+  @override
+  @JsonKey(ignore: true)
+  final PokemonType? secondType;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, firstType: $firstType, secondType: $secondType, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formIdentifier: $formIdentifier, formNameJp: $formNameJp, formNameEn: $formNameEn, pokemonMoveVersionGroupId: $pokemonMoveVersionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId)';
+    return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formIdentifier: $formIdentifier, formNameJp: $formNameJp, formNameEn: $formNameEn, pokemonMoveVersionGroupId: $pokemonMoveVersionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId, firstTypeId: $firstTypeId, secondTypeId: $secondTypeId, firstType: $firstType, secondType: $secondType)';
   }
 
   @override
@@ -672,8 +627,6 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('speciesIdentifier', speciesIdentifier))
       ..add(DiagnosticsProperty('nameJp', nameJp))
       ..add(DiagnosticsProperty('nameEn', nameEn))
-      ..add(DiagnosticsProperty('firstType', firstType))
-      ..add(DiagnosticsProperty('secondType', secondType))
       ..add(DiagnosticsProperty('hp', hp))
       ..add(DiagnosticsProperty('attack', attack))
       ..add(DiagnosticsProperty('defense', defense))
@@ -687,7 +640,11 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('formNameEn', formNameEn))
       ..add(DiagnosticsProperty(
           'pokemonMoveVersionGroupId', pokemonMoveVersionGroupId))
-      ..add(DiagnosticsProperty('pokemonMoveMethodId', pokemonMoveMethodId));
+      ..add(DiagnosticsProperty('pokemonMoveMethodId', pokemonMoveMethodId))
+      ..add(DiagnosticsProperty('firstTypeId', firstTypeId))
+      ..add(DiagnosticsProperty('secondTypeId', secondTypeId))
+      ..add(DiagnosticsProperty('firstType', firstType))
+      ..add(DiagnosticsProperty('secondType', secondType));
   }
 
   @override
@@ -716,12 +673,6 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.nameJp, nameJp)) &&
             (identical(other.nameEn, nameEn) ||
                 const DeepCollectionEquality().equals(other.nameEn, nameEn)) &&
-            (identical(other.firstType, firstType) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstType, firstType)) &&
-            (identical(other.secondType, secondType) ||
-                const DeepCollectionEquality()
-                    .equals(other.secondType, secondType)) &&
             (identical(other.hp, hp) ||
                 const DeepCollectionEquality().equals(other.hp, hp)) &&
             (identical(other.attack, attack) ||
@@ -758,7 +709,16 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
                     pokemonMoveVersionGroupId)) &&
             (identical(other.pokemonMoveMethodId, pokemonMoveMethodId) ||
                 const DeepCollectionEquality()
-                    .equals(other.pokemonMoveMethodId, pokemonMoveMethodId)));
+                    .equals(other.pokemonMoveMethodId, pokemonMoveMethodId)) &&
+            (identical(other.firstTypeId, firstTypeId) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstTypeId, firstTypeId)) &&
+            (identical(other.secondTypeId, secondTypeId) ||
+                const DeepCollectionEquality()
+                    .equals(other.secondTypeId, secondTypeId)) &&
+            (identical(other.firstType, firstType) ||
+                const DeepCollectionEquality().equals(other.firstType, firstType)) &&
+            (identical(other.secondType, secondType) || const DeepCollectionEquality().equals(other.secondType, secondType)));
   }
 
   @override
@@ -773,8 +733,6 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(speciesIdentifier) ^
       const DeepCollectionEquality().hash(nameJp) ^
       const DeepCollectionEquality().hash(nameEn) ^
-      const DeepCollectionEquality().hash(firstType) ^
-      const DeepCollectionEquality().hash(secondType) ^
       const DeepCollectionEquality().hash(hp) ^
       const DeepCollectionEquality().hash(attack) ^
       const DeepCollectionEquality().hash(defense) ^
@@ -787,59 +745,54 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(formNameJp) ^
       const DeepCollectionEquality().hash(formNameEn) ^
       const DeepCollectionEquality().hash(pokemonMoveVersionGroupId) ^
-      const DeepCollectionEquality().hash(pokemonMoveMethodId);
+      const DeepCollectionEquality().hash(pokemonMoveMethodId) ^
+      const DeepCollectionEquality().hash(firstTypeId) ^
+      const DeepCollectionEquality().hash(secondTypeId) ^
+      const DeepCollectionEquality().hash(firstType) ^
+      const DeepCollectionEquality().hash(secondType);
 
   @JsonKey(ignore: true)
   @override
   _$PokemonCopyWith<_Pokemon> get copyWith =>
       __$PokemonCopyWithImpl<_Pokemon>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_PokemonToJson(this);
+  }
 }
 
 abstract class _Pokemon extends Pokemon {
   const factory _Pokemon(
       {required int id,
-      @JsonKey(fromJson: makeOneTenth)
-          required double height,
-      @JsonKey(fromJson: makeOneTenth)
-          required double weight,
-      @JsonKey(name: 'base_experience')
-          required int baseExperience,
-      @JsonKey(name: 'species_id')
-          required int speciesId,
+      @JsonKey(fromJson: makeOneTenth) required double height,
+      @JsonKey(fromJson: makeOneTenth) required double weight,
+      required int baseExperience,
+      required int speciesId,
       required String identifier,
-      @JsonKey(name: 'species_identifier')
-          required String speciesIdentifier,
-      @JsonKey(name: 'name_jp')
-          required String nameJp,
-      @JsonKey(name: 'name_en')
-          required String nameEn,
-      @JsonKey(name: 'first_type')
-          required PokemonType firstType,
-      @JsonKey(name: 'second_type')
-          required PokemonType? secondType,
+      required String speciesIdentifier,
+      required String nameJp,
+      required String nameEn,
       required int hp,
       required int attack,
       required int defense,
-      @JsonKey(name: 'special_attack')
-          required int specialAttack,
-      @JsonKey(name: 'special_defense')
-          required int specialDefense,
+      required int specialAttack,
+      required int specialDefense,
       required int speed,
-      @JsonKey(name: 'is_default', fromJson: intToBool)
-          required bool isDefault,
-      @JsonKey(name: 'pokesprite_path')
-          required String? pokespritePath,
-      @JsonKey(name: 'form_identifier')
-          required String? formIdentifier,
-      @JsonKey(name: 'form_name_jp')
-          required String? formNameJp,
-      @JsonKey(name: 'form_name_en')
-          required String? formNameEn,
-      @JsonKey(name: 'pokemon_move_version_group_id')
-          required int? pokemonMoveVersionGroupId,
-      @JsonKey(name: 'pokemon_move_method_id')
-          required int? pokemonMoveMethodId}) = _$_Pokemon;
+      @JsonKey(fromJson: intToBool) required bool isDefault,
+      String? pokespritePath,
+      String? formIdentifier,
+      String? formNameJp,
+      String? formNameEn,
+      int? pokemonMoveVersionGroupId,
+      int? pokemonMoveMethodId,
+      int? firstTypeId,
+      int? secondTypeId,
+      @JsonKey(ignore: true) PokemonType? firstType,
+      @JsonKey(ignore: true) PokemonType? secondType}) = _$_Pokemon;
   const _Pokemon._() : super._();
+
+  factory _Pokemon.fromJson(Map<String, dynamic> json) = _$_Pokemon.fromJson;
 
   @override
   int get id => throw _privateConstructorUsedError;
@@ -850,28 +803,17 @@ abstract class _Pokemon extends Pokemon {
   @JsonKey(fromJson: makeOneTenth)
   double get weight => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'base_experience')
   int get baseExperience => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'species_id')
   int get speciesId => throw _privateConstructorUsedError;
   @override
   String get identifier => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'species_identifier')
   String get speciesIdentifier => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'name_jp')
   String get nameJp => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'name_en')
   String get nameEn => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'first_type')
-  PokemonType get firstType => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'second_type')
-  PokemonType? get secondType => throw _privateConstructorUsedError;
   @override
   int get hp => throw _privateConstructorUsedError;
   @override
@@ -879,34 +821,36 @@ abstract class _Pokemon extends Pokemon {
   @override
   int get defense => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'special_attack')
   int get specialAttack => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'special_defense')
   int get specialDefense => throw _privateConstructorUsedError;
   @override
   int get speed => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'is_default', fromJson: intToBool)
+  @JsonKey(fromJson: intToBool)
   bool get isDefault => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'pokesprite_path')
   String? get pokespritePath => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'form_identifier')
   String? get formIdentifier => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'form_name_jp')
   String? get formNameJp => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'form_name_en')
   String? get formNameEn => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'pokemon_move_version_group_id')
   int? get pokemonMoveVersionGroupId => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'pokemon_move_method_id')
   int? get pokemonMoveMethodId => throw _privateConstructorUsedError;
+  @override
+  int? get firstTypeId => throw _privateConstructorUsedError;
+  @override
+  int? get secondTypeId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  PokemonType? get firstType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  PokemonType? get secondType => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonCopyWith<_Pokemon> get copyWith =>

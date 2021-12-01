@@ -69,7 +69,9 @@ class PokemonEvolutionChain extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildHeaderLabel(color: _pokemonEx.base.firstType.color, text: '進化'),
+          buildHeaderLabel(
+              color: _pokemonEx.base.firstType?.color ?? Colors.grey,
+              text: '進化'),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
