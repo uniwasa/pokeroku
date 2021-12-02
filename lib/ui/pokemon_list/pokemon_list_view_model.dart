@@ -6,18 +6,21 @@ import 'package:pokeroku/util.dart';
 final pokemonListViewModelProvider =
     StateNotifierProvider<PokemonListViewModel, AsyncValue<List<Pokemon>>>(
         (ref) {
-  return PokemonListViewModel(pokemonList: ref.watch(pokemonListProvider));
+  return PokemonListViewModel(
+      read: ref.read, pokemonList: ref.watch(pokemonListProvider));
 });
 
 class PokemonListViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
-  final AsyncValue<List<Pokemon>> _pokemonList;
-
-  PokemonListViewModel({required AsyncValue<List<Pokemon>> pokemonList})
-      : _pokemonList = pokemonList,
+  PokemonListViewModel({
+    required AsyncValue<List<Pokemon>> pokemonList,
+    required Reader read,
+  })  : _read = read,
         super(pokemonList);
 
+  final Reader _read;
+
   void searchForText(String input) {
-    _pokemonList.when(
+    _read(pokemonListProvider).when(
       data: (pokemonList) {
         final filtered = pokemonList.where((pokemon) {
           return hiraToKana(pokemon.nameJp).contains(hiraToKana(input));
