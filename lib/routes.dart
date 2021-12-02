@@ -2,7 +2,7 @@ class Routes {
   static const String home = '/home';
   static const String pokemonList = '/pokemonList';
   static const String pokemonDetail = '/pokemonDetail';
-  static const String abilityInfo = '/abilityInfo';
+  static const String abilityDetail = '/abilityDetail';
   static const String moveInfo = '/moveInfo';
   static const String teamList = '/teamList';
   static const String teamEdit = '/teamEdit';

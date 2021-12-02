@@ -151,7 +151,7 @@ extension TabContentBase on PokemonDetailPage {
                                     onTap: () {
                                       Navigator.pushNamed(
                                         context,
-                                        Routes.abilityInfo,
+                                        Routes.abilityDetail,
                                         arguments: ability,
                                       );
                                     },

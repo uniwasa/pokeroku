@@ -5,7 +5,7 @@ import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
-import 'package:pokeroku/ui/ability_info/ability_info_page.dart';
+import 'package:pokeroku/ui/ability_detail/ability_detail_page.dart';
 import 'package:pokeroku/ui/ability_selection/ability_selection_page.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_page.dart';
 import 'package:pokeroku/ui/item_selection/item_selection_page.dart';
@@ -56,8 +56,8 @@ class Home extends StatelessWidget {
       case Routes.pokemonDetail:
         page = PokemonDetailPage(pokemon: arguments as Pokemon);
         break;
-      case Routes.abilityInfo:
-        page = AbilityInfoPage(ability: arguments as Ability);
+      case Routes.abilityDetail:
+        page = AbilityDetailPage(ability: arguments as Ability);
         break;
       case Routes.moveInfo:
         page = MoveInfoPage(move: arguments as Move);

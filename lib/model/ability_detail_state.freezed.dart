@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'ability_info_state.dart';
+part of 'ability_detail_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,13 +13,13 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$AbilityInfoStateTearOff {
-  const _$AbilityInfoStateTearOff();
+class _$AbilityDetailStateTearOff {
+  const _$AbilityDetailStateTearOff();
 
-  _AbilityInfoState call(
+  _AbilityDetailState call(
       {required Ability ability,
       required AsyncValue<List<Pokemon>> asyncPokemonList}) {
-    return _AbilityInfoState(
+    return _AbilityDetailState(
       ability: ability,
       asyncPokemonList: asyncPokemonList,
     );
@@ -27,24 +27,24 @@ class _$AbilityInfoStateTearOff {
 }
 
 /// @nodoc
-const $AbilityInfoState = _$AbilityInfoStateTearOff();
+const $AbilityDetailState = _$AbilityDetailStateTearOff();
 
 /// @nodoc
-mixin _$AbilityInfoState {
+mixin _$AbilityDetailState {
   Ability get ability => throw _privateConstructorUsedError;
   AsyncValue<List<Pokemon>> get asyncPokemonList =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $AbilityInfoStateCopyWith<AbilityInfoState> get copyWith =>
+  $AbilityDetailStateCopyWith<AbilityDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AbilityInfoStateCopyWith<$Res> {
-  factory $AbilityInfoStateCopyWith(
-          AbilityInfoState value, $Res Function(AbilityInfoState) then) =
-      _$AbilityInfoStateCopyWithImpl<$Res>;
+abstract class $AbilityDetailStateCopyWith<$Res> {
+  factory $AbilityDetailStateCopyWith(
+          AbilityDetailState value, $Res Function(AbilityDetailState) then) =
+      _$AbilityDetailStateCopyWithImpl<$Res>;
   $Res call({Ability ability, AsyncValue<List<Pokemon>> asyncPokemonList});
 
   $AbilityCopyWith<$Res> get ability;
@@ -52,13 +52,13 @@ abstract class $AbilityInfoStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AbilityInfoStateCopyWithImpl<$Res>
-    implements $AbilityInfoStateCopyWith<$Res> {
-  _$AbilityInfoStateCopyWithImpl(this._value, this._then);
+class _$AbilityDetailStateCopyWithImpl<$Res>
+    implements $AbilityDetailStateCopyWith<$Res> {
+  _$AbilityDetailStateCopyWithImpl(this._value, this._then);
 
-  final AbilityInfoState _value;
+  final AbilityDetailState _value;
   // ignore: unused_field
-  final $Res Function(AbilityInfoState) _then;
+  final $Res Function(AbilityDetailState) _then;
 
   @override
   $Res call({
@@ -94,11 +94,11 @@ class _$AbilityInfoStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$AbilityInfoStateCopyWith<$Res>
-    implements $AbilityInfoStateCopyWith<$Res> {
-  factory _$AbilityInfoStateCopyWith(
-          _AbilityInfoState value, $Res Function(_AbilityInfoState) then) =
-      __$AbilityInfoStateCopyWithImpl<$Res>;
+abstract class _$AbilityDetailStateCopyWith<$Res>
+    implements $AbilityDetailStateCopyWith<$Res> {
+  factory _$AbilityDetailStateCopyWith(
+          _AbilityDetailState value, $Res Function(_AbilityDetailState) then) =
+      __$AbilityDetailStateCopyWithImpl<$Res>;
   @override
   $Res call({Ability ability, AsyncValue<List<Pokemon>> asyncPokemonList});
 
@@ -109,22 +109,22 @@ abstract class _$AbilityInfoStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$AbilityInfoStateCopyWithImpl<$Res>
-    extends _$AbilityInfoStateCopyWithImpl<$Res>
-    implements _$AbilityInfoStateCopyWith<$Res> {
-  __$AbilityInfoStateCopyWithImpl(
-      _AbilityInfoState _value, $Res Function(_AbilityInfoState) _then)
-      : super(_value, (v) => _then(v as _AbilityInfoState));
+class __$AbilityDetailStateCopyWithImpl<$Res>
+    extends _$AbilityDetailStateCopyWithImpl<$Res>
+    implements _$AbilityDetailStateCopyWith<$Res> {
+  __$AbilityDetailStateCopyWithImpl(
+      _AbilityDetailState _value, $Res Function(_AbilityDetailState) _then)
+      : super(_value, (v) => _then(v as _AbilityDetailState));
 
   @override
-  _AbilityInfoState get _value => super._value as _AbilityInfoState;
+  _AbilityDetailState get _value => super._value as _AbilityDetailState;
 
   @override
   $Res call({
     Object? ability = freezed,
     Object? asyncPokemonList = freezed,
   }) {
-    return _then(_AbilityInfoState(
+    return _then(_AbilityDetailState(
       ability: ability == freezed
           ? _value.ability
           : ability // ignore: cast_nullable_to_non_nullable
@@ -139,9 +139,9 @@ class __$AbilityInfoStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AbilityInfoState extends _AbilityInfoState
+class _$_AbilityDetailState extends _AbilityDetailState
     with DiagnosticableTreeMixin {
-  const _$_AbilityInfoState(
+  const _$_AbilityDetailState(
       {required this.ability, required this.asyncPokemonList})
       : super._();
 
@@ -152,14 +152,14 @@ class _$_AbilityInfoState extends _AbilityInfoState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AbilityInfoState(ability: $ability, asyncPokemonList: $asyncPokemonList)';
+    return 'AbilityDetailState(ability: $ability, asyncPokemonList: $asyncPokemonList)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'AbilityInfoState'))
+      ..add(DiagnosticsProperty('type', 'AbilityDetailState'))
       ..add(DiagnosticsProperty('ability', ability))
       ..add(DiagnosticsProperty('asyncPokemonList', asyncPokemonList));
   }
@@ -167,7 +167,7 @@ class _$_AbilityInfoState extends _AbilityInfoState
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _AbilityInfoState &&
+        (other is _AbilityDetailState &&
             (identical(other.ability, ability) ||
                 const DeepCollectionEquality()
                     .equals(other.ability, ability)) &&
@@ -184,16 +184,16 @@ class _$_AbilityInfoState extends _AbilityInfoState
 
   @JsonKey(ignore: true)
   @override
-  _$AbilityInfoStateCopyWith<_AbilityInfoState> get copyWith =>
-      __$AbilityInfoStateCopyWithImpl<_AbilityInfoState>(this, _$identity);
+  _$AbilityDetailStateCopyWith<_AbilityDetailState> get copyWith =>
+      __$AbilityDetailStateCopyWithImpl<_AbilityDetailState>(this, _$identity);
 }
 
-abstract class _AbilityInfoState extends AbilityInfoState {
-  const factory _AbilityInfoState(
+abstract class _AbilityDetailState extends AbilityDetailState {
+  const factory _AbilityDetailState(
           {required Ability ability,
           required AsyncValue<List<Pokemon>> asyncPokemonList}) =
-      _$_AbilityInfoState;
-  const _AbilityInfoState._() : super._();
+      _$_AbilityDetailState;
+  const _AbilityDetailState._() : super._();
 
   @override
   Ability get ability => throw _privateConstructorUsedError;
@@ -202,6 +202,6 @@ abstract class _AbilityInfoState extends AbilityInfoState {
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AbilityInfoStateCopyWith<_AbilityInfoState> get copyWith =>
+  _$AbilityDetailStateCopyWith<_AbilityDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
