@@ -20,7 +20,7 @@ class PokedexDataSource {
       : _databaseHelper = databaseHelper;
   DatabaseHelper _databaseHelper;
 
-  Future<List<PokemonType>> getPokemonTypes() async {
+  Future<List<PokemonType>> getPokemonTypeList() async {
     final db = await _databaseHelper.database;
     String typeQuery = await rootBundle.loadString('assets/query/types.sql');
     List<Map<String, dynamic>> rawTypes = await db.rawQuery(typeQuery);
@@ -109,7 +109,7 @@ class PokedexDataSource {
     }).toList();
   }
 
-  Future<List<Ability>> getPokemonAbilities(int pokemonId) async {
+  Future<List<Ability>> getAbilityListByPokemon(int pokemonId) async {
     final db = await _databaseHelper.database;
     String query =
         await rootBundle.loadString('assets/query/pokemon_abilities.sql');
