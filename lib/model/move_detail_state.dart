@@ -4,13 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 
-part 'move_info_state.freezed.dart';
+part 'move_detail_state.freezed.dart';
 
 @freezed
-class MoveInfoState with _$MoveInfoState {
-  const MoveInfoState._();
+class MoveDetailState with _$MoveDetailState {
+  const MoveDetailState._();
 
-  const factory MoveInfoState(
+  const factory MoveDetailState(
       {required Move move,
-      required AsyncValue<List<Pokemon>> asyncPokemonList}) = _MoveInfoState;
+      required AsyncValue<List<Pokemon>> asyncPokemonList}) = _MoveDetailState;
 }

@@ -3,25 +3,24 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/move.dart';
-import 'package:pokeroku/model/move_info_state.dart';
-import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
+import 'package:pokeroku/model/move_detail_state.dart';
 import 'package:pokeroku/provider/pokemon_list_by_move_provider.dart';
 import 'package:pokeroku/routes.dart';
-import 'package:pokeroku/ui/move_info/move_info_view_model.dart';
+import 'package:pokeroku/ui/move_detail/move_detail_view_model.dart';
 import 'package:pokeroku/util.dart';
 
-class MoveInfoPage extends StatelessWidget {
-  MoveInfoPage({Key? key, required Move move}) : super(key: key) {
+class MoveDetailPage extends StatelessWidget {
+  MoveDetailPage({Key? key, required Move move}) : super(key: key) {
     _provider =
-        StateNotifierProvider.autoDispose<MoveInfoViewModel, MoveInfoState>(
+        StateNotifierProvider.autoDispose<MoveDetailViewModel, MoveDetailState>(
             (ref) {
-      return MoveInfoViewModel(
+      return MoveDetailViewModel(
         move: move,
         asyncPokemonList: ref.watch(pokemonListByMoveProvider(move.id)),
       );
     });
   }
-  late final AutoDisposeStateNotifierProvider<MoveInfoViewModel, MoveInfoState>
+  late final AutoDisposeStateNotifierProvider<MoveDetailViewModel, MoveDetailState>
       _provider;
   @override
   Widget build(BuildContext context) {

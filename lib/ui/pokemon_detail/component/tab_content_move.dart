@@ -53,7 +53,7 @@ extension TabContentMove on PokemonDetailPage {
                       onTap: () {
                         Navigator.pushNamed(
                           context,
-                          Routes.moveInfo,
+                          Routes.moveDetail,
                           arguments: move,
                         );
                       },
