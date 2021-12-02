@@ -1,22 +1,22 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/move.dart';
-import 'package:pokeroku/model/pokeinfo_state.dart';
+import 'package:pokeroku/model/pokemon_detail_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/move_list_by_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/util.dart';
 
-class PokeinfoViewModel extends StateNotifier<PokeinfoState> {
-  PokeinfoViewModel({
+class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
+  PokemonDetailViewModel({
     required Reader read,
     required AsyncValue<List<Pokemon>> pokemonList,
     required AsyncValue<List<Move>> moveList,
     required Pokemon pokemon,
   })  : _read = read,
         _pokemonList = pokemonList,
-        super(PokeinfoState(
+        super(PokemonDetailState(
           pokemonBase: pokemon,
           asyncPokemonEx: AsyncValue.loading(),
           asyncMoves: moveList,

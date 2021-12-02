@@ -96,7 +96,7 @@ class AbilityInfoPage extends StatelessWidget {
                         child: pokemonHeroImage,
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.pokeinfo,
+                        Navigator.pushNamed(context, Routes.pokemonDetail,
                             arguments: pokemon);
                       },
                     );

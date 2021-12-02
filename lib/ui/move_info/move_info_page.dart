@@ -115,7 +115,7 @@ class MoveInfoPage extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.white54, fontSize: 10)),
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.pokeinfo,
+                            Navigator.pushNamed(context, Routes.pokemonDetail,
                                 arguments: pokemon);
                           },
                         );

@@ -35,7 +35,7 @@ class PokemonEvolutionChain extends StatelessWidget {
                       onTap: () {
                         final currentPokemon = _pokemonEx.base;
                         if (currentPokemon != stagePokemon)
-                          Navigator.pushNamed(context, Routes.pokeinfo,
+                          Navigator.pushNamed(context, Routes.pokemonDetail,
                               arguments: stagePokemon);
                       },
                       child: Padding(

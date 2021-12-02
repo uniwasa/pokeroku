@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'pokeinfo_state.dart';
+part of 'pokemon_detail_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,14 +13,14 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$PokeinfoStateTearOff {
-  const _$PokeinfoStateTearOff();
+class _$PokemonDetailStateTearOff {
+  const _$PokemonDetailStateTearOff();
 
-  _PokeinfoState call(
+  _PokemonDetailState call(
       {required Pokemon pokemonBase,
       required AsyncValue<PokemonEx> asyncPokemonEx,
       required AsyncValue<List<Move>> asyncMoves}) {
-    return _PokeinfoState(
+    return _PokemonDetailState(
       pokemonBase: pokemonBase,
       asyncPokemonEx: asyncPokemonEx,
       asyncMoves: asyncMoves,
@@ -29,25 +29,25 @@ class _$PokeinfoStateTearOff {
 }
 
 /// @nodoc
-const $PokeinfoState = _$PokeinfoStateTearOff();
+const $PokemonDetailState = _$PokemonDetailStateTearOff();
 
 /// @nodoc
-mixin _$PokeinfoState {
+mixin _$PokemonDetailState {
   Pokemon get pokemonBase => throw _privateConstructorUsedError;
   AsyncValue<PokemonEx> get asyncPokemonEx =>
       throw _privateConstructorUsedError;
   AsyncValue<List<Move>> get asyncMoves => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $PokeinfoStateCopyWith<PokeinfoState> get copyWith =>
+  $PokemonDetailStateCopyWith<PokemonDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PokeinfoStateCopyWith<$Res> {
-  factory $PokeinfoStateCopyWith(
-          PokeinfoState value, $Res Function(PokeinfoState) then) =
-      _$PokeinfoStateCopyWithImpl<$Res>;
+abstract class $PokemonDetailStateCopyWith<$Res> {
+  factory $PokemonDetailStateCopyWith(
+          PokemonDetailState value, $Res Function(PokemonDetailState) then) =
+      _$PokemonDetailStateCopyWithImpl<$Res>;
   $Res call(
       {Pokemon pokemonBase,
       AsyncValue<PokemonEx> asyncPokemonEx,
@@ -59,13 +59,13 @@ abstract class $PokeinfoStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PokeinfoStateCopyWithImpl<$Res>
-    implements $PokeinfoStateCopyWith<$Res> {
-  _$PokeinfoStateCopyWithImpl(this._value, this._then);
+class _$PokemonDetailStateCopyWithImpl<$Res>
+    implements $PokemonDetailStateCopyWith<$Res> {
+  _$PokemonDetailStateCopyWithImpl(this._value, this._then);
 
-  final PokeinfoState _value;
+  final PokemonDetailState _value;
   // ignore: unused_field
-  final $Res Function(PokeinfoState) _then;
+  final $Res Function(PokemonDetailState) _then;
 
   @override
   $Res call({
@@ -112,11 +112,11 @@ class _$PokeinfoStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$PokeinfoStateCopyWith<$Res>
-    implements $PokeinfoStateCopyWith<$Res> {
-  factory _$PokeinfoStateCopyWith(
-          _PokeinfoState value, $Res Function(_PokeinfoState) then) =
-      __$PokeinfoStateCopyWithImpl<$Res>;
+abstract class _$PokemonDetailStateCopyWith<$Res>
+    implements $PokemonDetailStateCopyWith<$Res> {
+  factory _$PokemonDetailStateCopyWith(
+          _PokemonDetailState value, $Res Function(_PokemonDetailState) then) =
+      __$PokemonDetailStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {Pokemon pokemonBase,
@@ -132,15 +132,15 @@ abstract class _$PokeinfoStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$PokeinfoStateCopyWithImpl<$Res>
-    extends _$PokeinfoStateCopyWithImpl<$Res>
-    implements _$PokeinfoStateCopyWith<$Res> {
-  __$PokeinfoStateCopyWithImpl(
-      _PokeinfoState _value, $Res Function(_PokeinfoState) _then)
-      : super(_value, (v) => _then(v as _PokeinfoState));
+class __$PokemonDetailStateCopyWithImpl<$Res>
+    extends _$PokemonDetailStateCopyWithImpl<$Res>
+    implements _$PokemonDetailStateCopyWith<$Res> {
+  __$PokemonDetailStateCopyWithImpl(
+      _PokemonDetailState _value, $Res Function(_PokemonDetailState) _then)
+      : super(_value, (v) => _then(v as _PokemonDetailState));
 
   @override
-  _PokeinfoState get _value => super._value as _PokeinfoState;
+  _PokemonDetailState get _value => super._value as _PokemonDetailState;
 
   @override
   $Res call({
@@ -148,7 +148,7 @@ class __$PokeinfoStateCopyWithImpl<$Res>
     Object? asyncPokemonEx = freezed,
     Object? asyncMoves = freezed,
   }) {
-    return _then(_PokeinfoState(
+    return _then(_PokemonDetailState(
       pokemonBase: pokemonBase == freezed
           ? _value.pokemonBase
           : pokemonBase // ignore: cast_nullable_to_non_nullable
@@ -167,8 +167,9 @@ class __$PokeinfoStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PokeinfoState extends _PokeinfoState with DiagnosticableTreeMixin {
-  const _$_PokeinfoState(
+class _$_PokemonDetailState extends _PokemonDetailState
+    with DiagnosticableTreeMixin {
+  const _$_PokemonDetailState(
       {required this.pokemonBase,
       required this.asyncPokemonEx,
       required this.asyncMoves})
@@ -183,14 +184,14 @@ class _$_PokeinfoState extends _PokeinfoState with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PokeinfoState(pokemonBase: $pokemonBase, asyncPokemonEx: $asyncPokemonEx, asyncMoves: $asyncMoves)';
+    return 'PokemonDetailState(pokemonBase: $pokemonBase, asyncPokemonEx: $asyncPokemonEx, asyncMoves: $asyncMoves)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'PokeinfoState'))
+      ..add(DiagnosticsProperty('type', 'PokemonDetailState'))
       ..add(DiagnosticsProperty('pokemonBase', pokemonBase))
       ..add(DiagnosticsProperty('asyncPokemonEx', asyncPokemonEx))
       ..add(DiagnosticsProperty('asyncMoves', asyncMoves));
@@ -199,7 +200,7 @@ class _$_PokeinfoState extends _PokeinfoState with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _PokeinfoState &&
+        (other is _PokemonDetailState &&
             (identical(other.pokemonBase, pokemonBase) ||
                 const DeepCollectionEquality()
                     .equals(other.pokemonBase, pokemonBase)) &&
@@ -220,16 +221,16 @@ class _$_PokeinfoState extends _PokeinfoState with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$PokeinfoStateCopyWith<_PokeinfoState> get copyWith =>
-      __$PokeinfoStateCopyWithImpl<_PokeinfoState>(this, _$identity);
+  _$PokemonDetailStateCopyWith<_PokemonDetailState> get copyWith =>
+      __$PokemonDetailStateCopyWithImpl<_PokemonDetailState>(this, _$identity);
 }
 
-abstract class _PokeinfoState extends PokeinfoState {
-  const factory _PokeinfoState(
+abstract class _PokemonDetailState extends PokemonDetailState {
+  const factory _PokemonDetailState(
       {required Pokemon pokemonBase,
       required AsyncValue<PokemonEx> asyncPokemonEx,
-      required AsyncValue<List<Move>> asyncMoves}) = _$_PokeinfoState;
-  const _PokeinfoState._() : super._();
+      required AsyncValue<List<Move>> asyncMoves}) = _$_PokemonDetailState;
+  const _PokemonDetailState._() : super._();
 
   @override
   Pokemon get pokemonBase => throw _privateConstructorUsedError;
@@ -240,6 +241,6 @@ abstract class _PokeinfoState extends PokeinfoState {
   AsyncValue<List<Move>> get asyncMoves => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$PokeinfoStateCopyWith<_PokeinfoState> get copyWith =>
+  _$PokemonDetailStateCopyWith<_PokemonDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }

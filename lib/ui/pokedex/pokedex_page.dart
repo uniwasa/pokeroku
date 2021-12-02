@@ -74,7 +74,7 @@ class PokedexPage extends StatelessWidget {
                         color: Theme.of(context).cardColor,
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, Routes.pokeinfo,
+                            Navigator.pushNamed(context, Routes.pokemonDetail,
                                 arguments: pokemon);
                           },
                           child: Row(

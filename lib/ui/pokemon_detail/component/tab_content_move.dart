@@ -1,6 +1,6 @@
-part of '../pokeinfo_page.dart';
+part of '../pokemon_detail_page.dart';
 
-extension TabContentMove on PokeinfoPage {
+extension TabContentMove on PokemonDetailPage {
   List<Widget> buildTabContentMove(
       {required BuildContext context,
       required AsyncValue<List<Move>> asyncMoves}) {

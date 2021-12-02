@@ -5,15 +5,15 @@ import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 
-part 'pokeinfo_state.freezed.dart';
+part 'pokemon_detail_state.freezed.dart';
 
 @freezed
-class PokeinfoState with _$PokeinfoState {
-  const PokeinfoState._();
+class PokemonDetailState with _$PokemonDetailState {
+  const PokemonDetailState._();
 
-  const factory PokeinfoState({
+  const factory PokemonDetailState({
     required Pokemon pokemonBase,
     required AsyncValue<PokemonEx> asyncPokemonEx,
     required AsyncValue<List<Move>> asyncMoves,
-  }) = _PokeinfoState;
+  }) = _PokemonDetailState;
 }

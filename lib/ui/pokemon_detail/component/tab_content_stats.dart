@@ -1,6 +1,6 @@
-part of '../pokeinfo_page.dart';
+part of '../pokemon_detail_page.dart';
 
-extension TabContentStats on PokeinfoPage {
+extension TabContentStats on PokemonDetailPage {
   List<Widget> buildTabContentStats(
       {required BuildContext context, required PokemonEx pokemonEx}) {
     return [
