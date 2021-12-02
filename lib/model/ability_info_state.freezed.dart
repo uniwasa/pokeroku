@@ -18,10 +18,10 @@ class _$AbilityInfoStateTearOff {
 
   _AbilityInfoState call(
       {required Ability ability,
-      required AsyncValue<List<Pokemon>> asyncPokemons}) {
+      required AsyncValue<List<Pokemon>> asyncPokemonList}) {
     return _AbilityInfoState(
       ability: ability,
-      asyncPokemons: asyncPokemons,
+      asyncPokemonList: asyncPokemonList,
     );
   }
 }
@@ -32,7 +32,7 @@ const $AbilityInfoState = _$AbilityInfoStateTearOff();
 /// @nodoc
 mixin _$AbilityInfoState {
   Ability get ability => throw _privateConstructorUsedError;
-  AsyncValue<List<Pokemon>> get asyncPokemons =>
+  AsyncValue<List<Pokemon>> get asyncPokemonList =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -45,10 +45,10 @@ abstract class $AbilityInfoStateCopyWith<$Res> {
   factory $AbilityInfoStateCopyWith(
           AbilityInfoState value, $Res Function(AbilityInfoState) then) =
       _$AbilityInfoStateCopyWithImpl<$Res>;
-  $Res call({Ability ability, AsyncValue<List<Pokemon>> asyncPokemons});
+  $Res call({Ability ability, AsyncValue<List<Pokemon>> asyncPokemonList});
 
   $AbilityCopyWith<$Res> get ability;
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemons;
+  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc
@@ -63,16 +63,16 @@ class _$AbilityInfoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ability = freezed,
-    Object? asyncPokemons = freezed,
+    Object? asyncPokemonList = freezed,
   }) {
     return _then(_value.copyWith(
       ability: ability == freezed
           ? _value.ability
           : ability // ignore: cast_nullable_to_non_nullable
               as Ability,
-      asyncPokemons: asyncPokemons == freezed
-          ? _value.asyncPokemons
-          : asyncPokemons // ignore: cast_nullable_to_non_nullable
+      asyncPokemonList: asyncPokemonList == freezed
+          ? _value.asyncPokemonList
+          : asyncPokemonList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Pokemon>>,
     ));
   }
@@ -85,10 +85,10 @@ class _$AbilityInfoStateCopyWithImpl<$Res>
   }
 
   @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemons {
-    return $AsyncValueCopyWith<List<Pokemon>, $Res>(_value.asyncPokemons,
+  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList {
+    return $AsyncValueCopyWith<List<Pokemon>, $Res>(_value.asyncPokemonList,
         (value) {
-      return _then(_value.copyWith(asyncPokemons: value));
+      return _then(_value.copyWith(asyncPokemonList: value));
     });
   }
 }
@@ -100,12 +100,12 @@ abstract class _$AbilityInfoStateCopyWith<$Res>
           _AbilityInfoState value, $Res Function(_AbilityInfoState) then) =
       __$AbilityInfoStateCopyWithImpl<$Res>;
   @override
-  $Res call({Ability ability, AsyncValue<List<Pokemon>> asyncPokemons});
+  $Res call({Ability ability, AsyncValue<List<Pokemon>> asyncPokemonList});
 
   @override
   $AbilityCopyWith<$Res> get ability;
   @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemons;
+  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc
@@ -122,16 +122,16 @@ class __$AbilityInfoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ability = freezed,
-    Object? asyncPokemons = freezed,
+    Object? asyncPokemonList = freezed,
   }) {
     return _then(_AbilityInfoState(
       ability: ability == freezed
           ? _value.ability
           : ability // ignore: cast_nullable_to_non_nullable
               as Ability,
-      asyncPokemons: asyncPokemons == freezed
-          ? _value.asyncPokemons
-          : asyncPokemons // ignore: cast_nullable_to_non_nullable
+      asyncPokemonList: asyncPokemonList == freezed
+          ? _value.asyncPokemonList
+          : asyncPokemonList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Pokemon>>,
     ));
   }
@@ -142,17 +142,17 @@ class __$AbilityInfoStateCopyWithImpl<$Res>
 class _$_AbilityInfoState extends _AbilityInfoState
     with DiagnosticableTreeMixin {
   const _$_AbilityInfoState(
-      {required this.ability, required this.asyncPokemons})
+      {required this.ability, required this.asyncPokemonList})
       : super._();
 
   @override
   final Ability ability;
   @override
-  final AsyncValue<List<Pokemon>> asyncPokemons;
+  final AsyncValue<List<Pokemon>> asyncPokemonList;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AbilityInfoState(ability: $ability, asyncPokemons: $asyncPokemons)';
+    return 'AbilityInfoState(ability: $ability, asyncPokemonList: $asyncPokemonList)';
   }
 
   @override
@@ -161,7 +161,7 @@ class _$_AbilityInfoState extends _AbilityInfoState
     properties
       ..add(DiagnosticsProperty('type', 'AbilityInfoState'))
       ..add(DiagnosticsProperty('ability', ability))
-      ..add(DiagnosticsProperty('asyncPokemons', asyncPokemons));
+      ..add(DiagnosticsProperty('asyncPokemonList', asyncPokemonList));
   }
 
   @override
@@ -171,16 +171,16 @@ class _$_AbilityInfoState extends _AbilityInfoState
             (identical(other.ability, ability) ||
                 const DeepCollectionEquality()
                     .equals(other.ability, ability)) &&
-            (identical(other.asyncPokemons, asyncPokemons) ||
+            (identical(other.asyncPokemonList, asyncPokemonList) ||
                 const DeepCollectionEquality()
-                    .equals(other.asyncPokemons, asyncPokemons)));
+                    .equals(other.asyncPokemonList, asyncPokemonList)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(ability) ^
-      const DeepCollectionEquality().hash(asyncPokemons);
+      const DeepCollectionEquality().hash(asyncPokemonList);
 
   @JsonKey(ignore: true)
   @override
@@ -190,14 +190,15 @@ class _$_AbilityInfoState extends _AbilityInfoState
 
 abstract class _AbilityInfoState extends AbilityInfoState {
   const factory _AbilityInfoState(
-      {required Ability ability,
-      required AsyncValue<List<Pokemon>> asyncPokemons}) = _$_AbilityInfoState;
+          {required Ability ability,
+          required AsyncValue<List<Pokemon>> asyncPokemonList}) =
+      _$_AbilityInfoState;
   const _AbilityInfoState._() : super._();
 
   @override
   Ability get ability => throw _privateConstructorUsedError;
   @override
-  AsyncValue<List<Pokemon>> get asyncPokemons =>
+  AsyncValue<List<Pokemon>> get asyncPokemonList =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

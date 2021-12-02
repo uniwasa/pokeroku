@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/ability_info_state.dart';
-import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
+import 'package:pokeroku/provider/pokemon_list_by_ability_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_info/ability_info_view_model.dart';
 
@@ -12,8 +12,8 @@ class AbilityInfoPage extends StatelessWidget {
     _provider = StateNotifierProvider.autoDispose<AbilityInfoViewModel,
         AbilityInfoState>((ref) {
       return AbilityInfoViewModel(
-        dataSource: ref.read(pokedexDataSourceProvider),
         ability: ability,
+        asyncPokemonList: ref.watch(pokemonListByAbilityProvider(ability.id)),
       );
     });
   }
@@ -24,8 +24,8 @@ class AbilityInfoPage extends StatelessWidget {
     return Scaffold(
       body: HookBuilder(builder: (context) {
         final ability = useProvider(_provider.select((value) => value.ability));
-        final asyncPokemons =
-            useProvider(_provider.select((value) => value.asyncPokemons));
+        final asyncPokemonList =
+            useProvider(_provider.select((value) => value.asyncPokemonList));
         return CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
@@ -55,7 +55,7 @@ class AbilityInfoPage extends StatelessWidget {
                 ),
               ),
             ),
-            asyncPokemons.when(
+            asyncPokemonList.when(
               data: (pokemons) => SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {

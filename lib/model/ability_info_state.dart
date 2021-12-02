@@ -12,5 +12,5 @@ class AbilityInfoState with _$AbilityInfoState {
 
   const factory AbilityInfoState(
       {required Ability ability,
-      required AsyncValue<List<Pokemon>> asyncPokemons}) = _AbilityInfoState;
+      required AsyncValue<List<Pokemon>> asyncPokemonList}) = _AbilityInfoState;
 }

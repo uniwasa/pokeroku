@@ -82,17 +82,15 @@ class PokedexDataSource {
     return abilities;
   }
 
-  Future<List<Pokemon>> getAbilityPokemons(int abilityId) async {
+  Future<List<Pokemon>> getPokemonListByAbility(
+      {required int abilityId, required List<PokemonType> typeList}) async {
     final db = await _databaseHelper.database;
     String query =
         await rootBundle.loadString('assets/query/ability_pokemons.sql');
     final rawPokemons = await db.rawQuery(query, [abilityId]);
 
-    // TODO: 引数で受け取るように変更しろ
-    final pokemonTypes = await getPokemonTypes();
-
     return rawPokemons.map((json) {
-      return Pokemon.withType(json: json, typeList: pokemonTypes);
+      return Pokemon.withType(json: json, typeList: typeList);
     }).toList();
   }
 
