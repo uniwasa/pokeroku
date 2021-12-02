@@ -2,7 +2,9 @@ part of '../pokemon_detail_page.dart';
 
 extension TabContentBase on PokemonDetailPage {
   List<Widget> buildTabContentBase(
-      {required BuildContext context, required PokemonEx pokemonEx}) {
+      {required BuildContext context,
+      required PokemonEx pokemonEx,
+      required PokemonDetailState pokemonDetailState}) {
     return [
       SliverToBoxAdapter(
         child: Column(
@@ -18,15 +20,23 @@ extension TabContentBase on PokemonDetailPage {
                   padding: const EdgeInsets.only(
                       left: 12, top: 4, right: 12, bottom: 12),
                   child: Center(
-                    child: Text(
-                      pokemonEx.flavorTextJp.replaceAll(RegExp(r'\n'), ''),
-                      style: TextStyle(
-                        height: 2,
-                        letterSpacing: 1,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Builder(builder: (context) {
+                      final flavorTextList = pokemonDetailState
+                          .asyncPokemonFlavorTextList.data?.value;
+                      final flavorText = flavorTextList!.lastWhereOrNull(
+                          (element) => element.flavorTextJp != '');
+                      return Text(
+                        flavorText?.flavorTextJp
+                                .replaceAll(RegExp(r'\n'), '') ??
+                            '',
+                        style: TextStyle(
+                          height: 2,
+                          letterSpacing: 1,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }),
                   ),
                 ),
               ),

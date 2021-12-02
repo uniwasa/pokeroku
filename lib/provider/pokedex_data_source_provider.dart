@@ -6,6 +6,7 @@ import 'package:pokeroku/model/item.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/nature.dart';
 import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/model/pokemon_flavor_text.dart';
 import 'package:pokeroku/model/pokemon_type.dart';
 import 'package:pokeroku/provider/pokedex_database_provider.dart';
 
@@ -58,12 +59,14 @@ class PokedexDataSource {
     }).toList();
   }
 
-  Future<Map<String, dynamic>> getPokemonExtraInfo(int pokemonId) async {
+  Future<List<PokemonFlavorText>> getPokemonFlavorTextList(
+      int pokemonId) async {
     final db = await _databaseHelper.database;
-    String query = await rootBundle.loadString('assets/query/pokemon_ex.sql');
-    final result = (await db.rawQuery(query, [pokemonId])).first;
+    String query = await rootBundle
+        .loadString('assets/query/pokemon_flavor_text_list.sql');
+    final result = await db.rawQuery(query, [pokemonId]);
 
-    return result;
+    return result.map((json) => PokemonFlavorText.fromJson(json)).toList();
   }
 
   Future<List<Map<String, dynamic>>> getEvolutions(int pokemonId) async {

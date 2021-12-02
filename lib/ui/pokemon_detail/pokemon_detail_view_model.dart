@@ -4,6 +4,7 @@ import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon_detail_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
+import 'package:pokeroku/model/pokemon_flavor_text.dart';
 import 'package:pokeroku/provider/move_list_by_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
 import 'package:pokeroku/util.dart';
@@ -11,15 +12,17 @@ import 'package:pokeroku/util.dart';
 class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
   PokemonDetailViewModel({
     required Reader read,
-    required AsyncValue<List<Pokemon>> pokemonList,
-    required AsyncValue<List<Move>> moveList,
+    required AsyncValue<List<Pokemon>> asyncPokemonList,
+    required AsyncValue<List<Move>> asyncMoveList,
+    required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorText,
     required Pokemon pokemon,
   })  : _read = read,
-        _pokemonList = pokemonList,
+        _pokemonList = asyncPokemonList,
         super(PokemonDetailState(
-          pokemonBase: pokemon,
+          pokemon: pokemon,
           asyncPokemonEx: AsyncValue.loading(),
-          asyncMoves: moveList,
+          asyncMoveList: asyncMoveList,
+          asyncPokemonFlavorTextList: asyncPokemonFlavorText,
         )) {
     init();
   }
@@ -35,15 +38,12 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
 
   Future<void> init() async {
     if (mounted) {
-      final pokemonBase = state.pokemonBase;
+      final pokemon = state.pokemon;
       //ポケモン一覧が読み込まれてるときのみ実行
       _pokemonList.whenData(
         (pokemonList) async {
           try {
-            final pokemonId = pokemonBase.id;
-            final extraInfo = await _read(pokedexDataSourceProvider)
-                .getPokemonExtraInfo(pokemonId);
-            final String flavorTextJp = extraInfo['flavor_text_jp'] as String;
+            final pokemonId = pokemon.id;
 
             //進化取得
             final evolutions = await fetchEvolutions(pokemonList, pokemonId);
@@ -52,8 +52,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
                 .getPokemonAbilities(pokemonId);
 
             final pokemonEx = PokemonEx(
-              base: pokemonBase,
-              flavorTextJp: flavorTextJp,
+              base: pokemon,
               evolutions: evolutions,
               abilities: abilities,
             );
@@ -64,7 +63,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
             if (mounted)
               state = state.copyWith(
                 asyncPokemonEx: AsyncValue.error(error),
-                asyncMoves: AsyncValue.error(error),
+                asyncMoveList: AsyncValue.error(error),
               );
           }
         },
@@ -109,14 +108,14 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
 
   void searchForMoves(String input) {
     if (mounted) {
-      final pokemon = state.pokemonBase;
+      final pokemon = state.pokemon;
       final moveList = _read(moveListByPokemonProvider(pokemon.id)).data?.value;
       if (moveList != null) {
         final filtered = moveList.where((move) {
           return hiraToKana(move.nameJp).contains(hiraToKana(input));
         }).toList();
         if (mounted)
-          state = state.copyWith(asyncMoves: AsyncValue.data(filtered));
+          state = state.copyWith(asyncMoveList: AsyncValue.data(filtered));
       }
     }
   }

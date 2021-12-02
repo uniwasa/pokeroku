@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
+import 'package:pokeroku/model/pokemon_flavor_text.dart';
 
 part 'pokemon_detail_state.freezed.dart';
 
@@ -12,8 +13,9 @@ class PokemonDetailState with _$PokemonDetailState {
   const PokemonDetailState._();
 
   const factory PokemonDetailState({
-    required Pokemon pokemonBase,
+    required Pokemon pokemon,
     required AsyncValue<PokemonEx> asyncPokemonEx,
-    required AsyncValue<List<Move>> asyncMoves,
+    required AsyncValue<List<Move>> asyncMoveList,
+    required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
   }) = _PokemonDetailState;
 }
