@@ -153,70 +153,75 @@ extension TabContentBase on PokemonDetailPage {
                       text: '特性'),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Column(
-                      children: pokemonEx.abilities
-                          .map((ability) => Container(
-                                width: double.infinity,
-                                child: Material(
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        Routes.abilityDetail,
-                                        arguments: ability,
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 10,
-                                          top: 10,
-                                          right: 10,
-                                          bottom: 5),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                ability.nameJp,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              if (ability.isHidden)
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 8),
-                                                  child: Text(
-                                                    '夢特性',
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.grey),
+                    child: Builder(builder: (context) {
+                      final abilityList =
+                          pokemonDetailState.asyncAbilityList.data?.value;
+                      if (abilityList == null) return Container();
+                      return Column(
+                        children: abilityList
+                            .map((ability) => Container(
+                                  width: double.infinity,
+                                  child: Material(
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          Routes.abilityDetail,
+                                          arguments: ability,
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 10,
+                                            top: 10,
+                                            right: 10,
+                                            bottom: 5),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  ability.nameJp,
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                )
-                                            ],
-                                          ),
-                                          Text(
-                                            ability.flavorTextJp.replaceAll(
-                                                    RegExp(r'\n'), '') +
-                                                '\n', // 末尾に改行いれて擬似的にminLines実現
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white70,
+                                                ),
+                                                if (ability.isHidden)
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 8),
+                                                    child: Text(
+                                                      '夢特性',
+                                                      style: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                    ),
+                                                  )
+                                              ],
                                             ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        ],
+                                            Text(
+                                              ability.flavorTextJp.replaceAll(
+                                                      RegExp(r'\n'), '') +
+                                                  '\n', // 末尾に改行いれて擬似的にminLines実現
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white70,
+                                              ),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ))
-                          .toList(),
-                    ),
+                                ))
+                            .toList(),
+                      );
+                    }),
                   ),
                 ],
               ),

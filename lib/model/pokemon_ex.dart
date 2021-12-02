@@ -13,6 +13,5 @@ class PokemonEx with _$PokemonEx {
   const factory PokemonEx({
     required Pokemon base,
     required List<List<Pokemon>> evolutions,
-    required List<Ability> abilities,
   }) = _PokemonEx;
 }

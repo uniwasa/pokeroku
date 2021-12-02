@@ -12,10 +12,11 @@ import 'package:pokeroku/util.dart';
 class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
   PokemonDetailViewModel({
     required Reader read,
+    required Pokemon pokemon,
     required AsyncValue<List<Pokemon>> asyncPokemonList,
     required AsyncValue<List<Move>> asyncMoveList,
     required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
-    required Pokemon pokemon,
+    required AsyncValue<List<Ability>> asyncAbilityList,
   })  : _read = read,
         _pokemonList = asyncPokemonList,
         super(PokemonDetailState(
@@ -23,6 +24,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
           asyncPokemonEx: AsyncValue.loading(),
           asyncMoveList: asyncMoveList,
           asyncPokemonFlavorTextList: asyncPokemonFlavorTextList,
+          asyncAbilityList: asyncAbilityList,
         )) {
     init();
   }
@@ -48,13 +50,9 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
             //進化取得
             final evolutions = await fetchEvolutions(pokemonList, pokemonId);
 
-            final abilities = await _read(pokedexDataSourceProvider)
-                .getPokemonAbilities(pokemonId);
-
             final pokemonEx = PokemonEx(
               base: pokemon,
               evolutions: evolutions,
-              abilities: abilities,
             );
             if (mounted)
               state =

@@ -10,6 +10,7 @@ import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon_detail_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
+import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/provider/pokemon_flavor_text_list_provider.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/provider/move_list_by_pokemon_provider.dart';
@@ -31,11 +32,12 @@ class PokemonDetailPage extends StatelessWidget {
         PokemonDetailState>((ref) {
       return PokemonDetailViewModel(
         read: ref.read,
+        pokemon: pokemon,
         asyncPokemonList: ref.watch(pokemonListProvider),
         asyncMoveList: ref.watch(moveListByPokemonProvider(pokemon.id)),
         asyncPokemonFlavorTextList:
             ref.watch(pokemonFlavorTextProvider(pokemon.id)),
-        pokemon: pokemon,
+        asyncAbilityList: ref.watch(abilityListByPokemonProvider(pokemon.id)),
       );
     });
   }

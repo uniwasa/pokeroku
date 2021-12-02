@@ -17,13 +17,10 @@ class _$PokemonExTearOff {
   const _$PokemonExTearOff();
 
   _PokemonEx call(
-      {required Pokemon base,
-      required List<List<Pokemon>> evolutions,
-      required List<Ability> abilities}) {
+      {required Pokemon base, required List<List<Pokemon>> evolutions}) {
     return _PokemonEx(
       base: base,
       evolutions: evolutions,
-      abilities: abilities,
     );
   }
 }
@@ -35,7 +32,6 @@ const $PokemonEx = _$PokemonExTearOff();
 mixin _$PokemonEx {
   Pokemon get base => throw _privateConstructorUsedError;
   List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
-  List<Ability> get abilities => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokemonExCopyWith<PokemonEx> get copyWith =>
@@ -46,8 +42,7 @@ mixin _$PokemonEx {
 abstract class $PokemonExCopyWith<$Res> {
   factory $PokemonExCopyWith(PokemonEx value, $Res Function(PokemonEx) then) =
       _$PokemonExCopyWithImpl<$Res>;
-  $Res call(
-      {Pokemon base, List<List<Pokemon>> evolutions, List<Ability> abilities});
+  $Res call({Pokemon base, List<List<Pokemon>> evolutions});
 
   $PokemonCopyWith<$Res> get base;
 }
@@ -64,7 +59,6 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
   $Res call({
     Object? base = freezed,
     Object? evolutions = freezed,
-    Object? abilities = freezed,
   }) {
     return _then(_value.copyWith(
       base: base == freezed
@@ -75,10 +69,6 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
           ? _value.evolutions
           : evolutions // ignore: cast_nullable_to_non_nullable
               as List<List<Pokemon>>,
-      abilities: abilities == freezed
-          ? _value.abilities
-          : abilities // ignore: cast_nullable_to_non_nullable
-              as List<Ability>,
     ));
   }
 
@@ -96,8 +86,7 @@ abstract class _$PokemonExCopyWith<$Res> implements $PokemonExCopyWith<$Res> {
           _PokemonEx value, $Res Function(_PokemonEx) then) =
       __$PokemonExCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {Pokemon base, List<List<Pokemon>> evolutions, List<Ability> abilities});
+  $Res call({Pokemon base, List<List<Pokemon>> evolutions});
 
   @override
   $PokemonCopyWith<$Res> get base;
@@ -116,7 +105,6 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
   $Res call({
     Object? base = freezed,
     Object? evolutions = freezed,
-    Object? abilities = freezed,
   }) {
     return _then(_PokemonEx(
       base: base == freezed
@@ -127,10 +115,6 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
           ? _value.evolutions
           : evolutions // ignore: cast_nullable_to_non_nullable
               as List<List<Pokemon>>,
-      abilities: abilities == freezed
-          ? _value.abilities
-          : abilities // ignore: cast_nullable_to_non_nullable
-              as List<Ability>,
     ));
   }
 }
@@ -138,20 +122,17 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
-  const _$_PokemonEx(
-      {required this.base, required this.evolutions, required this.abilities})
+  const _$_PokemonEx({required this.base, required this.evolutions})
       : super._();
 
   @override
   final Pokemon base;
   @override
   final List<List<Pokemon>> evolutions;
-  @override
-  final List<Ability> abilities;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PokemonEx(base: $base, evolutions: $evolutions, abilities: $abilities)';
+    return 'PokemonEx(base: $base, evolutions: $evolutions)';
   }
 
   @override
@@ -160,8 +141,7 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'PokemonEx'))
       ..add(DiagnosticsProperty('base', base))
-      ..add(DiagnosticsProperty('evolutions', evolutions))
-      ..add(DiagnosticsProperty('abilities', abilities));
+      ..add(DiagnosticsProperty('evolutions', evolutions));
   }
 
   @override
@@ -172,18 +152,14 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.base, base)) &&
             (identical(other.evolutions, evolutions) ||
                 const DeepCollectionEquality()
-                    .equals(other.evolutions, evolutions)) &&
-            (identical(other.abilities, abilities) ||
-                const DeepCollectionEquality()
-                    .equals(other.abilities, abilities)));
+                    .equals(other.evolutions, evolutions)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(base) ^
-      const DeepCollectionEquality().hash(evolutions) ^
-      const DeepCollectionEquality().hash(abilities);
+      const DeepCollectionEquality().hash(evolutions);
 
   @JsonKey(ignore: true)
   @override
@@ -194,16 +170,13 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
 abstract class _PokemonEx extends PokemonEx {
   const factory _PokemonEx(
       {required Pokemon base,
-      required List<List<Pokemon>> evolutions,
-      required List<Ability> abilities}) = _$_PokemonEx;
+      required List<List<Pokemon>> evolutions}) = _$_PokemonEx;
   const _PokemonEx._() : super._();
 
   @override
   Pokemon get base => throw _privateConstructorUsedError;
   @override
   List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
-  @override
-  List<Ability> get abilities => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonExCopyWith<_PokemonEx> get copyWith =>
