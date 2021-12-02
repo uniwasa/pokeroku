@@ -84,7 +84,7 @@ Widget buildHeaderLabel({required Color color, required String text}) {
   );
 }
 
-List<double>? makeGenderRatio(int value) {
+List<double>? makeGenderRate(int value) {
   if (value >= 0 && value <= 8) {
     final double femaleRate = value / 8 * 100;
     final double maleRate = 100 - femaleRate;

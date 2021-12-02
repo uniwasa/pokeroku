@@ -21,7 +21,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
           asyncPokemonEx: AsyncValue.loading(),
           asyncMoves: moveList,
         )) {
-    fetchExtraInfo();
+    init();
   }
 
   final Reader _read;
@@ -33,18 +33,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
     super.dispose();
   }
 
-  Future<void> setPokemon(Pokemon pokemon) async {
-    if (mounted) {
-      state = state.copyWith(
-        pokemonBase: pokemon,
-        asyncPokemonEx: AsyncValue.loading(),
-        asyncMoves: AsyncValue.loading(),
-      );
-      fetchExtraInfo();
-    }
-  }
-
-  Future<void> fetchExtraInfo() async {
+  Future<void> init() async {
     if (mounted) {
       final pokemonBase = state.pokemonBase;
       //ポケモン一覧が読み込まれてるときのみ実行
@@ -58,7 +47,6 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
 
             //進化取得
             final evolutions = await fetchEvolutions(pokemonList, pokemonId);
-            final genderRate = makeGenderRatio(extraInfo['gender_rate']);
 
             final abilities = await _read(pokedexDataSourceProvider)
                 .getPokemonAbilities(pokemonId);
@@ -67,7 +55,6 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
               base: pokemonBase,
               flavorTextJp: flavorTextJp,
               evolutions: evolutions,
-              genderRatio: genderRate,
               abilities: abilities,
             );
             if (mounted)

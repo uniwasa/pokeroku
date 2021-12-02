@@ -28,6 +28,7 @@ from (
 				,pokemon_species.id as species_id
 				,pokemon.identifier
 				,pokemon_species.identifier as species_identifier
+				,pokemon_species.gender_rate
 				,pokemon.is_default
 				,max(case when pokemon_species_names.local_language_id = 1 then pokemon_species_names.name end) as name_jp
 				,max(case when pokemon_species_names.local_language_id = 9 then pokemon_species_names.name end) as name_en

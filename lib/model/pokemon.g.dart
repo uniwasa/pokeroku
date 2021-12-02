@@ -32,6 +32,7 @@ _$_Pokemon _$_$_PokemonFromJson(Map<String, dynamic> json) {
     pokemonMoveMethodId: json['pokemon_move_method_id'] as int?,
     firstTypeId: json['first_type_id'] as int?,
     secondTypeId: json['second_type_id'] as int?,
+    genderRate: makeGenderRate(json['gender_rate'] as int),
   );
 }
 
@@ -61,4 +62,5 @@ Map<String, dynamic> _$_$_PokemonToJson(_$_Pokemon instance) =>
       'pokemon_move_method_id': instance.pokemonMoveMethodId,
       'first_type_id': instance.firstTypeId,
       'second_type_id': instance.secondTypeId,
+      'gender_rate': instance.genderRate,
     };

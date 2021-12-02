@@ -46,7 +46,8 @@ class _$PokemonTearOff {
       int? firstTypeId,
       int? secondTypeId,
       @JsonKey(ignore: true) PokemonType? firstType,
-      @JsonKey(ignore: true) PokemonType? secondType}) {
+      @JsonKey(ignore: true) PokemonType? secondType,
+      @JsonKey(fromJson: makeGenderRate) List<double>? genderRate}) {
     return _Pokemon(
       id: id,
       height: height,
@@ -74,6 +75,7 @@ class _$PokemonTearOff {
       secondTypeId: secondTypeId,
       firstType: firstType,
       secondType: secondType,
+      genderRate: genderRate,
     );
   }
 
@@ -118,6 +120,8 @@ mixin _$Pokemon {
   PokemonType? get firstType => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   PokemonType? get secondType => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: makeGenderRate)
+  List<double>? get genderRate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -154,7 +158,8 @@ abstract class $PokemonCopyWith<$Res> {
       int? firstTypeId,
       int? secondTypeId,
       @JsonKey(ignore: true) PokemonType? firstType,
-      @JsonKey(ignore: true) PokemonType? secondType});
+      @JsonKey(ignore: true) PokemonType? secondType,
+      @JsonKey(fromJson: makeGenderRate) List<double>? genderRate});
 
   $PokemonTypeCopyWith<$Res>? get firstType;
   $PokemonTypeCopyWith<$Res>? get secondType;
@@ -196,6 +201,7 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
     Object? secondTypeId = freezed,
     Object? firstType = freezed,
     Object? secondType = freezed,
+    Object? genderRate = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -302,6 +308,10 @@ class _$PokemonCopyWithImpl<$Res> implements $PokemonCopyWith<$Res> {
           ? _value.secondType
           : secondType // ignore: cast_nullable_to_non_nullable
               as PokemonType?,
+      genderRate: genderRate == freezed
+          ? _value.genderRate
+          : genderRate // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
     ));
   }
 
@@ -359,7 +369,8 @@ abstract class _$PokemonCopyWith<$Res> implements $PokemonCopyWith<$Res> {
       int? firstTypeId,
       int? secondTypeId,
       @JsonKey(ignore: true) PokemonType? firstType,
-      @JsonKey(ignore: true) PokemonType? secondType});
+      @JsonKey(ignore: true) PokemonType? secondType,
+      @JsonKey(fromJson: makeGenderRate) List<double>? genderRate});
 
   @override
   $PokemonTypeCopyWith<$Res>? get firstType;
@@ -404,6 +415,7 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
     Object? secondTypeId = freezed,
     Object? firstType = freezed,
     Object? secondType = freezed,
+    Object? genderRate = freezed,
   }) {
     return _then(_Pokemon(
       id: id == freezed
@@ -510,6 +522,10 @@ class __$PokemonCopyWithImpl<$Res> extends _$PokemonCopyWithImpl<$Res>
           ? _value.secondType
           : secondType // ignore: cast_nullable_to_non_nullable
               as PokemonType?,
+      genderRate: genderRate == freezed
+          ? _value.genderRate
+          : genderRate // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
     ));
   }
 }
@@ -544,7 +560,8 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       this.firstTypeId,
       this.secondTypeId,
       @JsonKey(ignore: true) this.firstType,
-      @JsonKey(ignore: true) this.secondType})
+      @JsonKey(ignore: true) this.secondType,
+      @JsonKey(fromJson: makeGenderRate) this.genderRate})
       : super._();
 
   factory _$_Pokemon.fromJson(Map<String, dynamic> json) =>
@@ -607,10 +624,13 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   @override
   @JsonKey(ignore: true)
   final PokemonType? secondType;
+  @override
+  @JsonKey(fromJson: makeGenderRate)
+  final List<double>? genderRate;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formIdentifier: $formIdentifier, formNameJp: $formNameJp, formNameEn: $formNameEn, pokemonMoveVersionGroupId: $pokemonMoveVersionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId, firstTypeId: $firstTypeId, secondTypeId: $secondTypeId, firstType: $firstType, secondType: $secondType)';
+    return 'Pokemon(id: $id, height: $height, weight: $weight, baseExperience: $baseExperience, speciesId: $speciesId, identifier: $identifier, speciesIdentifier: $speciesIdentifier, nameJp: $nameJp, nameEn: $nameEn, hp: $hp, attack: $attack, defense: $defense, specialAttack: $specialAttack, specialDefense: $specialDefense, speed: $speed, isDefault: $isDefault, pokespritePath: $pokespritePath, formIdentifier: $formIdentifier, formNameJp: $formNameJp, formNameEn: $formNameEn, pokemonMoveVersionGroupId: $pokemonMoveVersionGroupId, pokemonMoveMethodId: $pokemonMoveMethodId, firstTypeId: $firstTypeId, secondTypeId: $secondTypeId, firstType: $firstType, secondType: $secondType, genderRate: $genderRate)';
   }
 
   @override
@@ -644,7 +664,8 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('firstTypeId', firstTypeId))
       ..add(DiagnosticsProperty('secondTypeId', secondTypeId))
       ..add(DiagnosticsProperty('firstType', firstType))
-      ..add(DiagnosticsProperty('secondType', secondType));
+      ..add(DiagnosticsProperty('secondType', secondType))
+      ..add(DiagnosticsProperty('genderRate', genderRate));
   }
 
   @override
@@ -718,7 +739,8 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
                     .equals(other.secondTypeId, secondTypeId)) &&
             (identical(other.firstType, firstType) ||
                 const DeepCollectionEquality().equals(other.firstType, firstType)) &&
-            (identical(other.secondType, secondType) || const DeepCollectionEquality().equals(other.secondType, secondType)));
+            (identical(other.secondType, secondType) || const DeepCollectionEquality().equals(other.secondType, secondType)) &&
+            (identical(other.genderRate, genderRate) || const DeepCollectionEquality().equals(other.genderRate, genderRate)));
   }
 
   @override
@@ -749,7 +771,8 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(firstTypeId) ^
       const DeepCollectionEquality().hash(secondTypeId) ^
       const DeepCollectionEquality().hash(firstType) ^
-      const DeepCollectionEquality().hash(secondType);
+      const DeepCollectionEquality().hash(secondType) ^
+      const DeepCollectionEquality().hash(genderRate);
 
   @JsonKey(ignore: true)
   @override
@@ -764,32 +787,34 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
 
 abstract class _Pokemon extends Pokemon {
   const factory _Pokemon(
-      {required int id,
-      @JsonKey(fromJson: makeOneTenth) required double height,
-      @JsonKey(fromJson: makeOneTenth) required double weight,
-      required int baseExperience,
-      required int speciesId,
-      required String identifier,
-      required String speciesIdentifier,
-      required String nameJp,
-      required String nameEn,
-      required int hp,
-      required int attack,
-      required int defense,
-      required int specialAttack,
-      required int specialDefense,
-      required int speed,
-      @JsonKey(fromJson: intToBool) required bool isDefault,
-      String? pokespritePath,
-      String? formIdentifier,
-      String? formNameJp,
-      String? formNameEn,
-      int? pokemonMoveVersionGroupId,
-      int? pokemonMoveMethodId,
-      int? firstTypeId,
-      int? secondTypeId,
-      @JsonKey(ignore: true) PokemonType? firstType,
-      @JsonKey(ignore: true) PokemonType? secondType}) = _$_Pokemon;
+          {required int id,
+          @JsonKey(fromJson: makeOneTenth) required double height,
+          @JsonKey(fromJson: makeOneTenth) required double weight,
+          required int baseExperience,
+          required int speciesId,
+          required String identifier,
+          required String speciesIdentifier,
+          required String nameJp,
+          required String nameEn,
+          required int hp,
+          required int attack,
+          required int defense,
+          required int specialAttack,
+          required int specialDefense,
+          required int speed,
+          @JsonKey(fromJson: intToBool) required bool isDefault,
+          String? pokespritePath,
+          String? formIdentifier,
+          String? formNameJp,
+          String? formNameEn,
+          int? pokemonMoveVersionGroupId,
+          int? pokemonMoveMethodId,
+          int? firstTypeId,
+          int? secondTypeId,
+          @JsonKey(ignore: true) PokemonType? firstType,
+          @JsonKey(ignore: true) PokemonType? secondType,
+          @JsonKey(fromJson: makeGenderRate) List<double>? genderRate}) =
+      _$_Pokemon;
   const _Pokemon._() : super._();
 
   factory _Pokemon.fromJson(Map<String, dynamic> json) = _$_Pokemon.fromJson;
@@ -851,6 +876,9 @@ abstract class _Pokemon extends Pokemon {
   @override
   @JsonKey(ignore: true)
   PokemonType? get secondType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(fromJson: makeGenderRate)
+  List<double>? get genderRate => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonCopyWith<_Pokemon> get copyWith =>

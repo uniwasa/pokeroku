@@ -41,6 +41,7 @@ class Pokemon with _$Pokemon {
     int? secondTypeId,
     @JsonKey(ignore: true) PokemonType? firstType,
     @JsonKey(ignore: true) PokemonType? secondType,
+    @JsonKey(fromJson: makeGenderRate) List<double>? genderRate,
   }) = _Pokemon;
 
   factory Pokemon.fromJson(Map<String, dynamic> json) =>
