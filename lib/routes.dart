@@ -1,6 +1,6 @@
 class Routes {
   static const String home = '/home';
-  static const String pokedex = '/pokedex';
+  static const String pokemonList = '/pokemonList';
   static const String pokemonDetail = '/pokemonDetail';
   static const String abilityInfo = '/abilityInfo';
   static const String moveInfo = '/moveInfo';

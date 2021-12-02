@@ -12,7 +12,7 @@ import 'package:pokeroku/ui/item_selection/item_selection_page.dart';
 import 'package:pokeroku/ui/move_info/move_info_page.dart';
 import 'package:pokeroku/ui/move_selection/move_selection_page.dart';
 import 'package:pokeroku/ui/nature_selection/nature_selection_page.dart';
-import 'package:pokeroku/ui/pokedex/pokedex_page.dart';
+import 'package:pokeroku/ui/pokemon_list/pokemon_list_page.dart';
 import 'package:pokeroku/ui/pokemon_detail/pokemon_detail_page.dart';
 import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_page.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_page.dart';
@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
     return PersistentTabView(
       context,
       backgroundColor: Theme.of(context).primaryColor,
-      screens: [PokedexPage(), TeamListPage()],
+      screens: [PokemonListPage(), TeamListPage()],
       items: [
         PersistentBottomNavBarItem(
           icon: Icon(Icons.format_list_numbered),
@@ -98,7 +98,7 @@ class Home extends StatelessWidget {
         page = MoveSelectionPage(buildEditParam: arguments as BuildEditParam);
         break;
       default:
-        page = PokedexPage();
+        page = PokemonListPage();
     }
     return MaterialPageRoute(builder: (context) => page);
   }

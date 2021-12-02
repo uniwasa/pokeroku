@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/ui/pokedex/pokedex_view_model.dart';
+import 'package:pokeroku/ui/pokemon_list/pokemon_list_view_model.dart';
 
 import '../../routes.dart';
 import '../../util.dart';
 
-class PokedexPage extends StatelessWidget {
+class PokemonListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +22,9 @@ class PokedexPage extends StatelessWidget {
           height: kToolbarHeight - 16,
           child: TextField(
             onChanged: (text) {
-              final pokedexViewModel =
-                  context.read(pokedexViewModelProvider.notifier);
-              pokedexViewModel.searchForText(text);
+              final provider =
+                  context.read(pokemonListViewModelProvider.notifier);
+              provider.searchForText(text);
             },
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.search, color: Colors.white54),
@@ -43,10 +43,7 @@ class PokedexPage extends StatelessWidget {
         ),
       ),
       body: HookBuilder(builder: (context) {
-        // return Container();
-        // final pokemons = useProvider(
-        //     pokedexViewModelProvider.select((value) => value.pokemons));
-        final pokemonState = useProvider(pokedexViewModelProvider);
+        final pokemonState = useProvider(pokemonListViewModelProvider);
         return pokemonState.when(
           data: (pokemons) {
             //ポケモン読み込まれてたら
@@ -184,9 +181,7 @@ class PokedexPage extends StatelessWidget {
         );
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // context.read(pokedexViewModelProvider).fetchInitialPokemons();
-        },
+        onPressed: () async {},
       ),
     );
   }

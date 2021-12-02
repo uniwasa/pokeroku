@@ -3,15 +3,16 @@ import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/util.dart';
 
-final pokedexViewModelProvider =
-    StateNotifierProvider<PokedexViewModel, AsyncValue<List<Pokemon>>>((ref) {
-  return PokedexViewModel(pokemonList: ref.watch(pokemonListProvider));
+final pokemonListViewModelProvider =
+    StateNotifierProvider<PokemonListViewModel, AsyncValue<List<Pokemon>>>(
+        (ref) {
+  return PokemonListViewModel(pokemonList: ref.watch(pokemonListProvider));
 });
 
-class PokedexViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
+class PokemonListViewModel extends StateNotifier<AsyncValue<List<Pokemon>>> {
   final AsyncValue<List<Pokemon>> _pokemonList;
 
-  PokedexViewModel({required AsyncValue<List<Pokemon>> pokemonList})
+  PokemonListViewModel({required AsyncValue<List<Pokemon>> pokemonList})
       : _pokemonList = pokemonList,
         super(pokemonList);
 

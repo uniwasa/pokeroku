@@ -91,8 +91,8 @@ extension TabContentMove on PokemonDetailPage {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                 child: TextField(
                   onChanged: (text) {
-                    final pokedexViewModel = context.read(_provider.notifier);
-                    pokedexViewModel.searchForMoves(text);
+                    final provider = context.read(_provider.notifier);
+                    provider.searchForMoves(text);
                   },
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.white54),
