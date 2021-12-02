@@ -94,7 +94,8 @@ class PokedexDataSource {
     }).toList();
   }
 
-  Future<List<Pokemon>> getMovePokemons(int moveId) async {
+  Future<List<Pokemon>> getPokemonListByMove(
+      {required int moveId, required List<PokemonType> typeList}) async {
     final db = await _databaseHelper.database;
     String pokemonsNoEggQuery =
         await rootBundle.loadString('assets/query/move_pokemons_no_egg.sql');
@@ -104,11 +105,8 @@ class PokedexDataSource {
     final rawPokemonsEgg = await db.rawQuery(pokemonsEggQuery, [moveId]);
     final rawPokemons = rawPokemonsNoEgg + rawPokemonsEgg;
 
-    // TODO: 引数で受け取るように変更しろ
-    final pokemonTypes = await getPokemonTypes();
-
     return rawPokemons.map((json) {
-      return Pokemon.withType(json: json, typeList: pokemonTypes);
+      return Pokemon.withType(json: json, typeList: typeList);
     }).toList();
   }
 

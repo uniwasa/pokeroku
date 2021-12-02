@@ -17,10 +17,11 @@ class _$MoveInfoStateTearOff {
   const _$MoveInfoStateTearOff();
 
   _MoveInfoState call(
-      {required Move move, required AsyncValue<List<Pokemon>> asyncPokemons}) {
+      {required Move move,
+      required AsyncValue<List<Pokemon>> asyncPokemonList}) {
     return _MoveInfoState(
       move: move,
-      asyncPokemons: asyncPokemons,
+      asyncPokemonList: asyncPokemonList,
     );
   }
 }
@@ -31,7 +32,7 @@ const $MoveInfoState = _$MoveInfoStateTearOff();
 /// @nodoc
 mixin _$MoveInfoState {
   Move get move => throw _privateConstructorUsedError;
-  AsyncValue<List<Pokemon>> get asyncPokemons =>
+  AsyncValue<List<Pokemon>> get asyncPokemonList =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -44,10 +45,10 @@ abstract class $MoveInfoStateCopyWith<$Res> {
   factory $MoveInfoStateCopyWith(
           MoveInfoState value, $Res Function(MoveInfoState) then) =
       _$MoveInfoStateCopyWithImpl<$Res>;
-  $Res call({Move move, AsyncValue<List<Pokemon>> asyncPokemons});
+  $Res call({Move move, AsyncValue<List<Pokemon>> asyncPokemonList});
 
   $MoveCopyWith<$Res> get move;
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemons;
+  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc
@@ -62,16 +63,16 @@ class _$MoveInfoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? move = freezed,
-    Object? asyncPokemons = freezed,
+    Object? asyncPokemonList = freezed,
   }) {
     return _then(_value.copyWith(
       move: move == freezed
           ? _value.move
           : move // ignore: cast_nullable_to_non_nullable
               as Move,
-      asyncPokemons: asyncPokemons == freezed
-          ? _value.asyncPokemons
-          : asyncPokemons // ignore: cast_nullable_to_non_nullable
+      asyncPokemonList: asyncPokemonList == freezed
+          ? _value.asyncPokemonList
+          : asyncPokemonList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Pokemon>>,
     ));
   }
@@ -84,10 +85,10 @@ class _$MoveInfoStateCopyWithImpl<$Res>
   }
 
   @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemons {
-    return $AsyncValueCopyWith<List<Pokemon>, $Res>(_value.asyncPokemons,
+  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList {
+    return $AsyncValueCopyWith<List<Pokemon>, $Res>(_value.asyncPokemonList,
         (value) {
-      return _then(_value.copyWith(asyncPokemons: value));
+      return _then(_value.copyWith(asyncPokemonList: value));
     });
   }
 }
@@ -99,12 +100,12 @@ abstract class _$MoveInfoStateCopyWith<$Res>
           _MoveInfoState value, $Res Function(_MoveInfoState) then) =
       __$MoveInfoStateCopyWithImpl<$Res>;
   @override
-  $Res call({Move move, AsyncValue<List<Pokemon>> asyncPokemons});
+  $Res call({Move move, AsyncValue<List<Pokemon>> asyncPokemonList});
 
   @override
   $MoveCopyWith<$Res> get move;
   @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemons;
+  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc
@@ -121,16 +122,16 @@ class __$MoveInfoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? move = freezed,
-    Object? asyncPokemons = freezed,
+    Object? asyncPokemonList = freezed,
   }) {
     return _then(_MoveInfoState(
       move: move == freezed
           ? _value.move
           : move // ignore: cast_nullable_to_non_nullable
               as Move,
-      asyncPokemons: asyncPokemons == freezed
-          ? _value.asyncPokemons
-          : asyncPokemons // ignore: cast_nullable_to_non_nullable
+      asyncPokemonList: asyncPokemonList == freezed
+          ? _value.asyncPokemonList
+          : asyncPokemonList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Pokemon>>,
     ));
   }
@@ -139,17 +140,17 @@ class __$MoveInfoStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_MoveInfoState extends _MoveInfoState with DiagnosticableTreeMixin {
-  const _$_MoveInfoState({required this.move, required this.asyncPokemons})
+  const _$_MoveInfoState({required this.move, required this.asyncPokemonList})
       : super._();
 
   @override
   final Move move;
   @override
-  final AsyncValue<List<Pokemon>> asyncPokemons;
+  final AsyncValue<List<Pokemon>> asyncPokemonList;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MoveInfoState(move: $move, asyncPokemons: $asyncPokemons)';
+    return 'MoveInfoState(move: $move, asyncPokemonList: $asyncPokemonList)';
   }
 
   @override
@@ -158,7 +159,7 @@ class _$_MoveInfoState extends _MoveInfoState with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'MoveInfoState'))
       ..add(DiagnosticsProperty('move', move))
-      ..add(DiagnosticsProperty('asyncPokemons', asyncPokemons));
+      ..add(DiagnosticsProperty('asyncPokemonList', asyncPokemonList));
   }
 
   @override
@@ -167,16 +168,16 @@ class _$_MoveInfoState extends _MoveInfoState with DiagnosticableTreeMixin {
         (other is _MoveInfoState &&
             (identical(other.move, move) ||
                 const DeepCollectionEquality().equals(other.move, move)) &&
-            (identical(other.asyncPokemons, asyncPokemons) ||
+            (identical(other.asyncPokemonList, asyncPokemonList) ||
                 const DeepCollectionEquality()
-                    .equals(other.asyncPokemons, asyncPokemons)));
+                    .equals(other.asyncPokemonList, asyncPokemonList)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(move) ^
-      const DeepCollectionEquality().hash(asyncPokemons);
+      const DeepCollectionEquality().hash(asyncPokemonList);
 
   @JsonKey(ignore: true)
   @override
@@ -187,13 +188,13 @@ class _$_MoveInfoState extends _MoveInfoState with DiagnosticableTreeMixin {
 abstract class _MoveInfoState extends MoveInfoState {
   const factory _MoveInfoState(
       {required Move move,
-      required AsyncValue<List<Pokemon>> asyncPokemons}) = _$_MoveInfoState;
+      required AsyncValue<List<Pokemon>> asyncPokemonList}) = _$_MoveInfoState;
   const _MoveInfoState._() : super._();
 
   @override
   Move get move => throw _privateConstructorUsedError;
   @override
-  AsyncValue<List<Pokemon>> get asyncPokemons =>
+  AsyncValue<List<Pokemon>> get asyncPokemonList =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

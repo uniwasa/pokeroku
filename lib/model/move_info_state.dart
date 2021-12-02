@@ -12,5 +12,5 @@ class MoveInfoState with _$MoveInfoState {
 
   const factory MoveInfoState(
       {required Move move,
-      required AsyncValue<List<Pokemon>> asyncPokemons}) = _MoveInfoState;
+      required AsyncValue<List<Pokemon>> asyncPokemonList}) = _MoveInfoState;
 }

@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/move_info_state.dart';
 import 'package:pokeroku/provider/pokedex_data_source_provider.dart';
+import 'package:pokeroku/provider/pokemon_list_by_move_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/move_info/move_info_view_model.dart';
 import 'package:pokeroku/util.dart';
@@ -15,8 +16,8 @@ class MoveInfoPage extends StatelessWidget {
         StateNotifierProvider.autoDispose<MoveInfoViewModel, MoveInfoState>(
             (ref) {
       return MoveInfoViewModel(
-        dataSource: ref.read(pokedexDataSourceProvider),
         move: move,
+        asyncPokemonList: ref.watch(pokemonListByMoveProvider(move.id)),
       );
     });
   }
@@ -27,11 +28,11 @@ class MoveInfoPage extends StatelessWidget {
     return Scaffold(
       body: HookBuilder(builder: (context) {
         final move = useProvider(_provider.select((value) => value.move));
-        final asyncPokemons =
-            useProvider(_provider.select((value) => value.asyncPokemons));
+        final asyncPokemonList =
+            useProvider(_provider.select((value) => value.asyncPokemonList));
 
         //ポケモンのリスト部分
-        final pokemonGroupSlivers = asyncPokemons.when(
+        final pokemonGroupSlivers = asyncPokemonList.when(
           data: (pokemons) {
             final pokemonsLevel = pokemons
                 .where((pokemon) => pokemon.pokemonMoveMethodId == 1)
