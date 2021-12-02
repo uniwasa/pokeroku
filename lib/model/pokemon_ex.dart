@@ -2,8 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pokeroku/model/pokemon.dart';
 
-import 'ability.dart';
-
 part 'pokemon_ex.freezed.dart';
 
 @freezed
@@ -12,6 +10,5 @@ class PokemonEx with _$PokemonEx {
 
   const factory PokemonEx({
     required Pokemon base,
-    required List<List<Pokemon>> evolutions,
   }) = _PokemonEx;
 }

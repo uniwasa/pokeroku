@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:pokeroku/model/pokemon_detail_state.dart';
 import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/util.dart';
 
 class PokemonEvolutionChain extends StatelessWidget {
-  PokemonEvolutionChain({required PokemonEx pokemonEx})
-      : _pokemonEx = pokemonEx;
+  PokemonEvolutionChain(
+      {required PokemonEx pokemonEx,
+      required PokemonDetailState pokemonDetailState})
+      : _pokemonEx = pokemonEx,
+        _pokemonDetailState = pokemonDetailState;
 
   final PokemonEx _pokemonEx;
+  final PokemonDetailState _pokemonDetailState;
 
   @override
   Widget build(BuildContext context) {
+    final evolutionLine = _pokemonDetailState.asyncEvolutionLine.data?.value;
+    if (evolutionLine == null) return Container();
     List<Widget> evolutionsWidget = [];
-    for (final stage in _pokemonEx.evolutions) {
+    for (final stage in evolutionLine) {
       final stageWidget = Expanded(
         flex: stage.length < 5 ? 3 : 10,
         child: Center(

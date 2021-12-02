@@ -19,5 +19,6 @@ class PokemonDetailState with _$PokemonDetailState {
     required AsyncValue<List<Move>> asyncMoveList,
     required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
     required AsyncValue<List<Ability>> asyncAbilityList,
+    required AsyncValue<List<List<Pokemon>>> asyncEvolutionLine,
   }) = _PokemonDetailState;
 }

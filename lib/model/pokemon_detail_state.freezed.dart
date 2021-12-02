@@ -21,13 +21,15 @@ class _$PokemonDetailStateTearOff {
       required AsyncValue<PokemonEx> asyncPokemonEx,
       required AsyncValue<List<Move>> asyncMoveList,
       required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
-      required AsyncValue<List<Ability>> asyncAbilityList}) {
+      required AsyncValue<List<Ability>> asyncAbilityList,
+      required AsyncValue<List<List<Pokemon>>> asyncEvolutionLine}) {
     return _PokemonDetailState(
       pokemon: pokemon,
       asyncPokemonEx: asyncPokemonEx,
       asyncMoveList: asyncMoveList,
       asyncPokemonFlavorTextList: asyncPokemonFlavorTextList,
       asyncAbilityList: asyncAbilityList,
+      asyncEvolutionLine: asyncEvolutionLine,
     );
   }
 }
@@ -46,6 +48,8 @@ mixin _$PokemonDetailState {
       throw _privateConstructorUsedError;
   AsyncValue<List<Ability>> get asyncAbilityList =>
       throw _privateConstructorUsedError;
+  AsyncValue<List<List<Pokemon>>> get asyncEvolutionLine =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokemonDetailStateCopyWith<PokemonDetailState> get copyWith =>
@@ -62,7 +66,8 @@ abstract class $PokemonDetailStateCopyWith<$Res> {
       AsyncValue<PokemonEx> asyncPokemonEx,
       AsyncValue<List<Move>> asyncMoveList,
       AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
-      AsyncValue<List<Ability>> asyncAbilityList});
+      AsyncValue<List<Ability>> asyncAbilityList,
+      AsyncValue<List<List<Pokemon>>> asyncEvolutionLine});
 
   $PokemonCopyWith<$Res> get pokemon;
   $AsyncValueCopyWith<PokemonEx, $Res> get asyncPokemonEx;
@@ -70,6 +75,7 @@ abstract class $PokemonDetailStateCopyWith<$Res> {
   $AsyncValueCopyWith<List<PokemonFlavorText>, $Res>
       get asyncPokemonFlavorTextList;
   $AsyncValueCopyWith<List<Ability>, $Res> get asyncAbilityList;
+  $AsyncValueCopyWith<List<List<Pokemon>>, $Res> get asyncEvolutionLine;
 }
 
 /// @nodoc
@@ -88,6 +94,7 @@ class _$PokemonDetailStateCopyWithImpl<$Res>
     Object? asyncMoveList = freezed,
     Object? asyncPokemonFlavorTextList = freezed,
     Object? asyncAbilityList = freezed,
+    Object? asyncEvolutionLine = freezed,
   }) {
     return _then(_value.copyWith(
       pokemon: pokemon == freezed
@@ -110,6 +117,10 @@ class _$PokemonDetailStateCopyWithImpl<$Res>
           ? _value.asyncAbilityList
           : asyncAbilityList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Ability>>,
+      asyncEvolutionLine: asyncEvolutionLine == freezed
+          ? _value.asyncEvolutionLine
+          : asyncEvolutionLine // ignore: cast_nullable_to_non_nullable
+              as AsyncValue<List<List<Pokemon>>>,
     ));
   }
 
@@ -150,6 +161,14 @@ class _$PokemonDetailStateCopyWithImpl<$Res>
       return _then(_value.copyWith(asyncAbilityList: value));
     });
   }
+
+  @override
+  $AsyncValueCopyWith<List<List<Pokemon>>, $Res> get asyncEvolutionLine {
+    return $AsyncValueCopyWith<List<List<Pokemon>>, $Res>(
+        _value.asyncEvolutionLine, (value) {
+      return _then(_value.copyWith(asyncEvolutionLine: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -164,7 +183,8 @@ abstract class _$PokemonDetailStateCopyWith<$Res>
       AsyncValue<PokemonEx> asyncPokemonEx,
       AsyncValue<List<Move>> asyncMoveList,
       AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
-      AsyncValue<List<Ability>> asyncAbilityList});
+      AsyncValue<List<Ability>> asyncAbilityList,
+      AsyncValue<List<List<Pokemon>>> asyncEvolutionLine});
 
   @override
   $PokemonCopyWith<$Res> get pokemon;
@@ -177,6 +197,8 @@ abstract class _$PokemonDetailStateCopyWith<$Res>
       get asyncPokemonFlavorTextList;
   @override
   $AsyncValueCopyWith<List<Ability>, $Res> get asyncAbilityList;
+  @override
+  $AsyncValueCopyWith<List<List<Pokemon>>, $Res> get asyncEvolutionLine;
 }
 
 /// @nodoc
@@ -197,6 +219,7 @@ class __$PokemonDetailStateCopyWithImpl<$Res>
     Object? asyncMoveList = freezed,
     Object? asyncPokemonFlavorTextList = freezed,
     Object? asyncAbilityList = freezed,
+    Object? asyncEvolutionLine = freezed,
   }) {
     return _then(_PokemonDetailState(
       pokemon: pokemon == freezed
@@ -219,6 +242,10 @@ class __$PokemonDetailStateCopyWithImpl<$Res>
           ? _value.asyncAbilityList
           : asyncAbilityList // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Ability>>,
+      asyncEvolutionLine: asyncEvolutionLine == freezed
+          ? _value.asyncEvolutionLine
+          : asyncEvolutionLine // ignore: cast_nullable_to_non_nullable
+              as AsyncValue<List<List<Pokemon>>>,
     ));
   }
 }
@@ -232,7 +259,8 @@ class _$_PokemonDetailState extends _PokemonDetailState
       required this.asyncPokemonEx,
       required this.asyncMoveList,
       required this.asyncPokemonFlavorTextList,
-      required this.asyncAbilityList})
+      required this.asyncAbilityList,
+      required this.asyncEvolutionLine})
       : super._();
 
   @override
@@ -245,10 +273,12 @@ class _$_PokemonDetailState extends _PokemonDetailState
   final AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList;
   @override
   final AsyncValue<List<Ability>> asyncAbilityList;
+  @override
+  final AsyncValue<List<List<Pokemon>>> asyncEvolutionLine;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PokemonDetailState(pokemon: $pokemon, asyncPokemonEx: $asyncPokemonEx, asyncMoveList: $asyncMoveList, asyncPokemonFlavorTextList: $asyncPokemonFlavorTextList, asyncAbilityList: $asyncAbilityList)';
+    return 'PokemonDetailState(pokemon: $pokemon, asyncPokemonEx: $asyncPokemonEx, asyncMoveList: $asyncMoveList, asyncPokemonFlavorTextList: $asyncPokemonFlavorTextList, asyncAbilityList: $asyncAbilityList, asyncEvolutionLine: $asyncEvolutionLine)';
   }
 
   @override
@@ -261,7 +291,8 @@ class _$_PokemonDetailState extends _PokemonDetailState
       ..add(DiagnosticsProperty('asyncMoveList', asyncMoveList))
       ..add(DiagnosticsProperty(
           'asyncPokemonFlavorTextList', asyncPokemonFlavorTextList))
-      ..add(DiagnosticsProperty('asyncAbilityList', asyncAbilityList));
+      ..add(DiagnosticsProperty('asyncAbilityList', asyncAbilityList))
+      ..add(DiagnosticsProperty('asyncEvolutionLine', asyncEvolutionLine));
   }
 
   @override
@@ -284,7 +315,10 @@ class _$_PokemonDetailState extends _PokemonDetailState
                     asyncPokemonFlavorTextList)) &&
             (identical(other.asyncAbilityList, asyncAbilityList) ||
                 const DeepCollectionEquality()
-                    .equals(other.asyncAbilityList, asyncAbilityList)));
+                    .equals(other.asyncAbilityList, asyncAbilityList)) &&
+            (identical(other.asyncEvolutionLine, asyncEvolutionLine) ||
+                const DeepCollectionEquality()
+                    .equals(other.asyncEvolutionLine, asyncEvolutionLine)));
   }
 
   @override
@@ -294,7 +328,8 @@ class _$_PokemonDetailState extends _PokemonDetailState
       const DeepCollectionEquality().hash(asyncPokemonEx) ^
       const DeepCollectionEquality().hash(asyncMoveList) ^
       const DeepCollectionEquality().hash(asyncPokemonFlavorTextList) ^
-      const DeepCollectionEquality().hash(asyncAbilityList);
+      const DeepCollectionEquality().hash(asyncAbilityList) ^
+      const DeepCollectionEquality().hash(asyncEvolutionLine);
 
   @JsonKey(ignore: true)
   @override
@@ -308,8 +343,9 @@ abstract class _PokemonDetailState extends PokemonDetailState {
       required AsyncValue<PokemonEx> asyncPokemonEx,
       required AsyncValue<List<Move>> asyncMoveList,
       required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
-      required AsyncValue<List<Ability>>
-          asyncAbilityList}) = _$_PokemonDetailState;
+      required AsyncValue<List<Ability>> asyncAbilityList,
+      required AsyncValue<List<List<Pokemon>>>
+          asyncEvolutionLine}) = _$_PokemonDetailState;
   const _PokemonDetailState._() : super._();
 
   @override
@@ -325,6 +361,9 @@ abstract class _PokemonDetailState extends PokemonDetailState {
       throw _privateConstructorUsedError;
   @override
   AsyncValue<List<Ability>> get asyncAbilityList =>
+      throw _privateConstructorUsedError;
+  @override
+  AsyncValue<List<List<Pokemon>>> get asyncEvolutionLine =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

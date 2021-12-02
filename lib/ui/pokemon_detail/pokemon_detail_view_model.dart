@@ -17,6 +17,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
     required AsyncValue<List<Move>> asyncMoveList,
     required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
     required AsyncValue<List<Ability>> asyncAbilityList,
+    required AsyncValue<List<List<Pokemon>>> asyncEvolutionLine,
   })  : _read = read,
         _pokemonList = asyncPokemonList,
         super(PokemonDetailState(
@@ -25,6 +26,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
           asyncMoveList: asyncMoveList,
           asyncPokemonFlavorTextList: asyncPokemonFlavorTextList,
           asyncAbilityList: asyncAbilityList,
+          asyncEvolutionLine: asyncEvolutionLine,
         )) {
     init();
   }
@@ -47,12 +49,8 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
           try {
             final pokemonId = pokemon.id;
 
-            //進化取得
-            final evolutions = await fetchEvolutions(pokemonList, pokemonId);
-
             final pokemonEx = PokemonEx(
               base: pokemon,
-              evolutions: evolutions,
             );
             if (mounted)
               state =
@@ -67,41 +65,6 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
         },
       );
     }
-  }
-
-  Future<List<List<Pokemon>>> fetchEvolutions(
-      List<Pokemon> pokemonList, int pokemonId) async {
-    final evolutions =
-        await _read(pokedexDataSourceProvider).getEvolutions(pokemonId);
-    final firstStage = evolutions
-        .where((element) => element['evolves_from_species_id'] == null)
-        .toList();
-    final secondStage = getNextStage(evolutions, firstStage);
-    final thirdStage = getNextStage(evolutions, secondStage);
-    //空でないステージのみ代入
-    final stages = [firstStage, secondStage, thirdStage]
-        .where((stage) => stage.isNotEmpty);
-
-    final result = stages.map((stage) {
-      return stage.map((pokemonMap) {
-        return pokemonList.firstWhere((pokemon) {
-          return pokemon.id == pokemonMap['id'];
-        });
-      }).toList();
-    }).toList();
-    return (result);
-  }
-
-  List<Map<String, dynamic>> getNextStage(
-    List<Map<String, dynamic>> evolutions,
-    List<Map<String, dynamic>> preStage,
-  ) {
-    return evolutions.where((element) {
-      return preStage
-          .map((e) => e['species_id'])
-          .toList()
-          .contains(element['evolves_from_species_id']);
-    }).toList();
   }
 
   void searchForMoves(String input) {

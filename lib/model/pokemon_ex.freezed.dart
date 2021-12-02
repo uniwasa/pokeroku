@@ -16,11 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$PokemonExTearOff {
   const _$PokemonExTearOff();
 
-  _PokemonEx call(
-      {required Pokemon base, required List<List<Pokemon>> evolutions}) {
+  _PokemonEx call({required Pokemon base}) {
     return _PokemonEx(
       base: base,
-      evolutions: evolutions,
     );
   }
 }
@@ -31,7 +29,6 @@ const $PokemonEx = _$PokemonExTearOff();
 /// @nodoc
 mixin _$PokemonEx {
   Pokemon get base => throw _privateConstructorUsedError;
-  List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokemonExCopyWith<PokemonEx> get copyWith =>
@@ -42,7 +39,7 @@ mixin _$PokemonEx {
 abstract class $PokemonExCopyWith<$Res> {
   factory $PokemonExCopyWith(PokemonEx value, $Res Function(PokemonEx) then) =
       _$PokemonExCopyWithImpl<$Res>;
-  $Res call({Pokemon base, List<List<Pokemon>> evolutions});
+  $Res call({Pokemon base});
 
   $PokemonCopyWith<$Res> get base;
 }
@@ -58,17 +55,12 @@ class _$PokemonExCopyWithImpl<$Res> implements $PokemonExCopyWith<$Res> {
   @override
   $Res call({
     Object? base = freezed,
-    Object? evolutions = freezed,
   }) {
     return _then(_value.copyWith(
       base: base == freezed
           ? _value.base
           : base // ignore: cast_nullable_to_non_nullable
               as Pokemon,
-      evolutions: evolutions == freezed
-          ? _value.evolutions
-          : evolutions // ignore: cast_nullable_to_non_nullable
-              as List<List<Pokemon>>,
     ));
   }
 
@@ -86,7 +78,7 @@ abstract class _$PokemonExCopyWith<$Res> implements $PokemonExCopyWith<$Res> {
           _PokemonEx value, $Res Function(_PokemonEx) then) =
       __$PokemonExCopyWithImpl<$Res>;
   @override
-  $Res call({Pokemon base, List<List<Pokemon>> evolutions});
+  $Res call({Pokemon base});
 
   @override
   $PokemonCopyWith<$Res> get base;
@@ -104,17 +96,12 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
   @override
   $Res call({
     Object? base = freezed,
-    Object? evolutions = freezed,
   }) {
     return _then(_PokemonEx(
       base: base == freezed
           ? _value.base
           : base // ignore: cast_nullable_to_non_nullable
               as Pokemon,
-      evolutions: evolutions == freezed
-          ? _value.evolutions
-          : evolutions // ignore: cast_nullable_to_non_nullable
-              as List<List<Pokemon>>,
     ));
   }
 }
@@ -122,17 +109,14 @@ class __$PokemonExCopyWithImpl<$Res> extends _$PokemonExCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
-  const _$_PokemonEx({required this.base, required this.evolutions})
-      : super._();
+  const _$_PokemonEx({required this.base}) : super._();
 
   @override
   final Pokemon base;
-  @override
-  final List<List<Pokemon>> evolutions;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PokemonEx(base: $base, evolutions: $evolutions)';
+    return 'PokemonEx(base: $base)';
   }
 
   @override
@@ -140,8 +124,7 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PokemonEx'))
-      ..add(DiagnosticsProperty('base', base))
-      ..add(DiagnosticsProperty('evolutions', evolutions));
+      ..add(DiagnosticsProperty('base', base));
   }
 
   @override
@@ -149,17 +132,12 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other is _PokemonEx &&
             (identical(other.base, base) ||
-                const DeepCollectionEquality().equals(other.base, base)) &&
-            (identical(other.evolutions, evolutions) ||
-                const DeepCollectionEquality()
-                    .equals(other.evolutions, evolutions)));
+                const DeepCollectionEquality().equals(other.base, base)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(base) ^
-      const DeepCollectionEquality().hash(evolutions);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(base);
 
   @JsonKey(ignore: true)
   @override
@@ -168,15 +146,11 @@ class _$_PokemonEx extends _PokemonEx with DiagnosticableTreeMixin {
 }
 
 abstract class _PokemonEx extends PokemonEx {
-  const factory _PokemonEx(
-      {required Pokemon base,
-      required List<List<Pokemon>> evolutions}) = _$_PokemonEx;
+  const factory _PokemonEx({required Pokemon base}) = _$_PokemonEx;
   const _PokemonEx._() : super._();
 
   @override
   Pokemon get base => throw _privateConstructorUsedError;
-  @override
-  List<List<Pokemon>> get evolutions => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonExCopyWith<_PokemonEx> get copyWith =>

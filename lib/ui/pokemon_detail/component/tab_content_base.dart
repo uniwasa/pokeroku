@@ -226,7 +226,8 @@ extension TabContentBase on PokemonDetailPage {
                 ],
               ),
             ),
-            PokemonEvolutionChain(pokemonEx: pokemonEx),
+            PokemonEvolutionChain(
+                pokemonEx: pokemonEx, pokemonDetailState: pokemonDetailState),
           ],
         ),
       )

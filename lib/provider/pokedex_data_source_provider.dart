@@ -69,11 +69,44 @@ class PokedexDataSource {
     return result.map((json) => PokemonFlavorText.fromJson(json)).toList();
   }
 
-  Future<List<Map<String, dynamic>>> getEvolutions(int pokemonId) async {
+  Future<List<List<Pokemon>>> getEvolutionLine({
+    required int pokemonId,
+    required List<Pokemon> pokemonList,
+  }) async {
     final db = await _databaseHelper.database;
     String query = await rootBundle.loadString('assets/query/evolutions.sql');
-    final evolutions = await db.rawQuery(query, [pokemonId]);
-    return evolutions;
+    final result = await db.rawQuery(query, [pokemonId]);
+
+    final firstStage = result
+        .where((element) => element['evolves_from_species_id'] == null)
+        .toList();
+    final secondStage = _getNextStage(result, firstStage);
+    final thirdStage = _getNextStage(result, secondStage);
+    //空でないステージのみ代入
+    final stages = [firstStage, secondStage, thirdStage]
+        .where((stage) => stage.isNotEmpty);
+
+    final evolutionLine = stages.map((stage) {
+      return stage.map((pokemonMap) {
+        return pokemonList.firstWhere((pokemon) {
+          return pokemon.id == pokemonMap['id'];
+        });
+      }).toList();
+    }).toList();
+
+    return evolutionLine;
+  }
+
+  List<Map<String, dynamic>> _getNextStage(
+    List<Map<String, dynamic>> evolutions,
+    List<Map<String, dynamic>> preStage,
+  ) {
+    return evolutions.where((element) {
+      return preStage
+          .map((e) => e['species_id'])
+          .toList()
+          .contains(element['evolves_from_species_id']);
+    }).toList();
   }
 
   Future<List<Ability>> getPokemonAbilities(int pokemonId) async {
