@@ -23,7 +23,7 @@ extension TabContentBase on PokemonDetailPage {
                     child: Builder(builder: (context) {
                       final flavorTextList = pokemonDetailState
                           .asyncPokemonFlavorTextList.data?.value;
-                      final flavorText = flavorTextList!.lastWhereOrNull(
+                      final flavorText = flavorTextList?.lastWhereOrNull(
                           (element) => element.flavorTextJp != '');
                       return Text(
                         flavorText?.flavorTextJp
