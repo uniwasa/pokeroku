@@ -33,7 +33,7 @@ class PokemonDetailPage extends StatelessWidget {
         read: ref.read,
         asyncPokemonList: ref.watch(pokemonListProvider),
         asyncMoveList: ref.watch(moveListByPokemonProvider(pokemon.id)),
-        asyncPokemonFlavorText:
+        asyncPokemonFlavorTextList:
             ref.watch(pokemonFlavorTextProvider(pokemon.id)),
         pokemon: pokemon,
       );

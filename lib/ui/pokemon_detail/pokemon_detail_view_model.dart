@@ -14,7 +14,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
     required Reader read,
     required AsyncValue<List<Pokemon>> asyncPokemonList,
     required AsyncValue<List<Move>> asyncMoveList,
-    required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorText,
+    required AsyncValue<List<PokemonFlavorText>> asyncPokemonFlavorTextList,
     required Pokemon pokemon,
   })  : _read = read,
         _pokemonList = asyncPokemonList,
@@ -22,7 +22,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
           pokemon: pokemon,
           asyncPokemonEx: AsyncValue.loading(),
           asyncMoveList: asyncMoveList,
-          asyncPokemonFlavorTextList: asyncPokemonFlavorText,
+          asyncPokemonFlavorTextList: asyncPokemonFlavorTextList,
         )) {
     init();
   }
