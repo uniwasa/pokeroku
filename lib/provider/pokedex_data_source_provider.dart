@@ -22,7 +22,8 @@ class PokedexDataSource {
 
   Future<List<PokemonType>> getPokemonTypeList() async {
     final db = await _databaseHelper.database;
-    String typeQuery = await rootBundle.loadString('assets/query/types.sql');
+    String typeQuery =
+        await rootBundle.loadString('assets/query/type_list.sql');
     List<Map<String, dynamic>> rawTypes = await db.rawQuery(typeQuery);
     String typeEfficacyQuery =
         await rootBundle.loadString('assets/query/type_efficacy.sql');
@@ -51,7 +52,7 @@ class PokedexDataSource {
   Future<List<Pokemon>> getPokemonList(
       {required List<PokemonType> typeList}) async {
     final db = await _databaseHelper.database;
-    String query = await rootBundle.loadString('assets/query/all_pokemons.sql');
+    String query = await rootBundle.loadString('assets/query/pokemon_list.sql');
     List<Map<String, dynamic>> rawPokemons = await db.rawQuery(query);
 
     return rawPokemons.map((json) {
@@ -74,7 +75,8 @@ class PokedexDataSource {
     required List<Pokemon> pokemonList,
   }) async {
     final db = await _databaseHelper.database;
-    String query = await rootBundle.loadString('assets/query/evolutions.sql');
+    String query =
+        await rootBundle.loadString('assets/query/evolution_line.sql');
     final result = await db.rawQuery(query, [pokemonId]);
 
     final firstStage = result
@@ -112,7 +114,7 @@ class PokedexDataSource {
   Future<List<Ability>> getAbilityListByPokemon(int pokemonId) async {
     final db = await _databaseHelper.database;
     String query =
-        await rootBundle.loadString('assets/query/pokemon_abilities.sql');
+        await rootBundle.loadString('assets/query/ability_list_by_pokemon.sql');
     final rawAbilities = await db.rawQuery(query, [pokemonId]);
     final abilities = rawAbilities.map((e) => Ability.fromJson(e)).toList();
     return abilities;
@@ -122,7 +124,7 @@ class PokedexDataSource {
       {required int abilityId, required List<PokemonType> typeList}) async {
     final db = await _databaseHelper.database;
     String query =
-        await rootBundle.loadString('assets/query/ability_pokemons.sql');
+        await rootBundle.loadString('assets/query/pokemon_list_by_ability.sql');
     final rawPokemons = await db.rawQuery(query, [abilityId]);
 
     return rawPokemons.map((json) {
@@ -133,11 +135,11 @@ class PokedexDataSource {
   Future<List<Pokemon>> getPokemonListByMove(
       {required int moveId, required List<PokemonType> typeList}) async {
     final db = await _databaseHelper.database;
-    String pokemonsNoEggQuery =
-        await rootBundle.loadString('assets/query/move_pokemons_no_egg.sql');
+    String pokemonsNoEggQuery = await rootBundle
+        .loadString('assets/query/pokemon_list_by_move(not_egg).sql');
     final rawPokemonsNoEgg = await db.rawQuery(pokemonsNoEggQuery, [moveId]);
-    String pokemonsEggQuery =
-        await rootBundle.loadString('assets/query/move_pokemons_egg.sql');
+    String pokemonsEggQuery = await rootBundle
+        .loadString('assets/query/pokemon_list_by_move(egg).sql');
     final rawPokemonsEgg = await db.rawQuery(pokemonsEggQuery, [moveId]);
     final rawPokemons = rawPokemonsNoEgg + rawPokemonsEgg;
 
@@ -172,11 +174,11 @@ class PokedexDataSource {
   Future<List<Move>> getMoveListByPokemon(
       {required int pokemonId, required List<PokemonType> typeList}) async {
     final db = await _databaseHelper.database;
-    final String movesNoEggQuery =
-        await rootBundle.loadString('assets/query/pokemon_moves_no_egg.sql');
+    final String movesNoEggQuery = await rootBundle
+        .loadString('assets/query/move_list_by_pokemon(not_egg).sql');
     final rawMovesNoEgg = await db.rawQuery(movesNoEggQuery, [pokemonId]);
-    final String movesEggQuery =
-        await rootBundle.loadString('assets/query/pokemon_moves_egg.sql');
+    final String movesEggQuery = await rootBundle
+        .loadString('assets/query/move_list_by_pokemon(egg).sql');
     final rawMovesEgg = await db.rawQuery(movesEggQuery, [pokemonId]);
     final rawMoves = rawMovesNoEgg + rawMovesEgg;
 
