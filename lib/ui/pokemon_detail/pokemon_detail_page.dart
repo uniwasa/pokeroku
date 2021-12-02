@@ -9,11 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/pokemon_detail_state.dart';
 import 'package:pokeroku/model/pokemon.dart';
-import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/provider/evolution_line_provider.dart';
 import 'package:pokeroku/provider/pokemon_flavor_text_list_provider.dart';
-import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/provider/move_list_by_pokemon_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/pokemon_detail/component/pokemon_evolution_chain.dart';
@@ -34,7 +32,6 @@ class PokemonDetailPage extends StatelessWidget {
       return PokemonDetailViewModel(
         read: ref.read,
         pokemon: pokemon,
-        asyncPokemonList: ref.watch(pokemonListProvider),
         asyncMoveList: ref.watch(moveListByPokemonProvider(pokemon.id)),
         asyncPokemonFlavorTextList:
             ref.watch(pokemonFlavorTextProvider(pokemon.id)),
@@ -114,57 +111,37 @@ class PokemonDetailPage extends StatelessWidget {
                 return Key('tab_${DefaultTabController.of(context)!.index}');
               },
               body: HookBuilder(builder: (context) {
-                final asyncPokemonEx = useProvider(
-                    _provider.select((value) => value.asyncPokemonEx));
                 final pokemonDetailState = useProvider(_provider);
-                return asyncPokemonEx.when(
-                  data: (pokemonEx) {
-                    return TabBarView(
-                      children: [
-                        TabViewItem(
-                          tabKey: Key('tab_0'),
-                          slivers: buildTabContentBase(
-                              context: context,
-                              pokemonEx: pokemonEx,
-                              pokemonDetailState: pokemonDetailState),
-                        ),
-                        TabViewItem(
-                          tabKey: Key('tab_1'),
-                          slivers: buildTabContentStats(
-                              context: context, pokemonEx: pokemonEx),
-                        ),
-                        HookBuilder(
-                          builder: (context) {
-                            final asyncMoveList = useProvider(_provider
-                                .select((value) => value.asyncMoveList));
-                            return TabViewItem(
-                              tabKey: Key('tab_2'),
-                              slivers: buildTabContentMove(
-                                  context: context, asyncMoves: asyncMoveList),
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                  loading: () => Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  error: (error, _) => Center(
-                    child: Text(error.toString()),
-                  ),
+                return TabBarView(
+                  children: [
+                    TabViewItem(
+                      tabKey: Key('tab_0'),
+                      slivers: buildTabContentBase(
+                          context: context,
+                          pokemonDetailState: pokemonDetailState),
+                    ),
+                    TabViewItem(
+                      tabKey: Key('tab_1'),
+                      slivers: buildTabContentStats(
+                        context: context,
+                        pokemonDetailState: pokemonDetailState,
+                      ),
+                    ),
+                    HookBuilder(
+                      builder: (context) {
+                        final asyncMoveList = useProvider(
+                            _provider.select((value) => value.asyncMoveList));
+                        return TabViewItem(
+                          tabKey: Key('tab_2'),
+                          slivers: buildTabContentMove(
+                              context: context, asyncMoveList: asyncMoveList),
+                        );
+                      },
+                    ),
+                  ],
                 );
               }),
             ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              // Navigator.popUntil(context, (route) => route.isFirst);
-              // final pokemonList = context.read(pokemonListProvider);
-              // pokemonList.whenData((data) =>
-              //     context.read(_provider.notifier).setPokemon(data.first));
-              // print(DefaultTabController.of(context)?.index);
-            },
           ),
         );
       }),

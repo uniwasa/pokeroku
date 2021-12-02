@@ -3,7 +3,6 @@ part of '../pokemon_detail_page.dart';
 extension TabContentBase on PokemonDetailPage {
   List<Widget> buildTabContentBase(
       {required BuildContext context,
-      required PokemonEx pokemonEx,
       required PokemonDetailState pokemonDetailState}) {
     return [
       SliverToBoxAdapter(
@@ -53,7 +52,7 @@ extension TabContentBase on PokemonDetailPage {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          pokemonEx.base.height.toString(),
+                          pokemonDetailState.pokemon.height.toString(),
                           style: TextStyle(
                             fontSize: 18,
                           ),
@@ -74,7 +73,7 @@ extension TabContentBase on PokemonDetailPage {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          pokemonEx.base.weight.toString(),
+                          pokemonDetailState.pokemon.weight.toString(),
                           style: TextStyle(
                             fontSize: 18,
                           ),
@@ -93,7 +92,7 @@ extension TabContentBase on PokemonDetailPage {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
-              child: pokemonEx.base.genderRate != null
+              child: pokemonDetailState.pokemon.genderRate != null
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -105,7 +104,8 @@ extension TabContentBase on PokemonDetailPage {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              pokemonEx.base.genderRate!.first.toString(),
+                              pokemonDetailState.pokemon.genderRate!.first
+                                  .toString(),
                               style: TextStyle(
                                 fontSize: 18,
                               ),
@@ -126,7 +126,8 @@ extension TabContentBase on PokemonDetailPage {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              pokemonEx.base.genderRate!.last.toString(),
+                              pokemonDetailState.pokemon.genderRate!.last
+                                  .toString(),
                               style: TextStyle(
                                 fontSize: 18,
                               ),
@@ -149,7 +150,8 @@ extension TabContentBase on PokemonDetailPage {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildHeaderLabel(
-                      color: pokemonEx.base.firstType?.color ?? Colors.grey,
+                      color: pokemonDetailState.pokemon.firstType?.color ??
+                          Colors.grey,
                       text: '特性'),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -226,8 +228,7 @@ extension TabContentBase on PokemonDetailPage {
                 ],
               ),
             ),
-            PokemonEvolutionChain(
-                pokemonEx: pokemonEx, pokemonDetailState: pokemonDetailState),
+            PokemonEvolutionChain(pokemonDetailState: pokemonDetailState),
           ],
         ),
       )

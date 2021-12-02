@@ -3,8 +3,8 @@ part of '../pokemon_detail_page.dart';
 extension TabContentMove on PokemonDetailPage {
   List<Widget> buildTabContentMove(
       {required BuildContext context,
-      required AsyncValue<List<Move>> asyncMoves}) {
-    return asyncMoves.when(
+      required AsyncValue<List<Move>> asyncMoveList}) {
+    return asyncMoveList.when(
       data: (allMoves) {
         final movesLevel =
             allMoves.where((move) => move.pokemonMoveMethodId == 1).toList();

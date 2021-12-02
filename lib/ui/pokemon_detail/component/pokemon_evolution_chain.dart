@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon_detail_state.dart';
-import 'package:pokeroku/model/pokemon_ex.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/util.dart';
 
 class PokemonEvolutionChain extends StatelessWidget {
-  PokemonEvolutionChain(
-      {required PokemonEx pokemonEx,
-      required PokemonDetailState pokemonDetailState})
-      : _pokemonEx = pokemonEx,
-        _pokemonDetailState = pokemonDetailState;
+  PokemonEvolutionChain({required PokemonDetailState pokemonDetailState})
+      : _pokemonDetailState = pokemonDetailState;
 
-  final PokemonEx _pokemonEx;
   final PokemonDetailState _pokemonDetailState;
 
   @override
@@ -40,7 +35,7 @@ class PokemonEvolutionChain extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        final currentPokemon = _pokemonEx.base;
+                        final currentPokemon = _pokemonDetailState.pokemon;
                         if (currentPokemon != stagePokemon)
                           Navigator.pushNamed(context, Routes.pokemonDetail,
                               arguments: stagePokemon);
@@ -77,7 +72,8 @@ class PokemonEvolutionChain extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildHeaderLabel(
-              color: _pokemonEx.base.firstType?.color ?? Colors.grey,
+              color:
+                  _pokemonDetailState.pokemon.firstType?.color ?? Colors.grey,
               text: '進化'),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
