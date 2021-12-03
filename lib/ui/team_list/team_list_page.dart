@@ -16,29 +16,10 @@ class TeamListPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              context.read(authServiceProvider.notifier).signOut();
+              Navigator.pushNamed(context, Routes.userEdit);
             },
-            icon: Icon(Icons.logout)),
+            icon: Icon(Icons.person)),
         actions: [
-          Container(
-            width: kToolbarHeight,
-            child: IconButton(
-                onPressed: () {
-                  context
-                      .read(authServiceProvider.notifier)
-                      .signInAnonymously();
-                },
-                icon: Icon(Icons.login)),
-          ),
-          Container(
-            width: kToolbarHeight,
-            child: IconButton(
-                onPressed: () {
-                  print(context.read(authServiceProvider));
-                  print(context.read(teamListViewModelProvider));
-                },
-                icon: Icon(Icons.person)),
-          ),
           Container(
             width: kToolbarHeight,
             child: IconButton(
