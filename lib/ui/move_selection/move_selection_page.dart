@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
+import 'package:pokeroku/model/move_selection_param.dart';
 import 'package:pokeroku/provider/move_list_provider.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 
 class MoveSelectionPage extends StatelessWidget {
-  MoveSelectionPage({Key? key, required BuildEditParam buildEditParam})
-      : _buildEditParam = buildEditParam,
+  MoveSelectionPage({Key? key, required MoveSelectionParam moveSelectionParam})
+      : _moveIndex = moveSelectionParam.moveIndex,
+        _buildEditParam = moveSelectionParam.buildEditParam,
         super(key: key);
 
+  final int _moveIndex;
   final BuildEditParam _buildEditParam;
 
   @override
@@ -37,7 +40,12 @@ class MoveSelectionPage extends StatelessWidget {
                         final teamId = _buildEditParam.teamId;
                         if (teamId != null) {
                           // パーティ画面用
-                          // TODO: パーティ画面用
+                          context
+                              .read(buildEditViewModelProviderFamily(
+                                      _buildEditParam)
+                                  .notifier)
+                              .updateMoves(
+                                  moveIndex: _moveIndex, moveId: move.id);
                         } else {
                           // ポケモン単体画面用
                           // TODO: ポケモン単体画面用

@@ -22,6 +22,7 @@ class Build with _$Build {
     int? level,
     StatSet? individualValues,
     StatSet? effortValues,
+    @JsonKey(fromJson: _fromMoves) List<int?>? moves,
     @JsonKey(ignore: true) Team? team,
     @TimestampConverter() DateTime? createdAt,
     @UpdatedTimestampConverter() DateTime? updatedAt,
@@ -54,3 +55,8 @@ class BuildField {
   static const ref = 'ref';
   static const createdAt = 'createdAt';
 }
+
+List<int?>? _fromMoves(Object? json) => json == null
+    ? null
+    : List.unmodifiable(
+        (json as List<dynamic>).map((e) => e as int?).toList()..length = 4);

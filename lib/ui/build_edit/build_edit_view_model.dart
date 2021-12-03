@@ -112,6 +112,15 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
     }
   }
 
+  void updateMoves({required int moveIndex, required int moveId}) {
+    final build = state.data?.value;
+    if (build != null) {
+      final moves = [...build.moves ?? <int?>[]]..length = 4;
+      moves[moveIndex] = moveId;
+      state = AsyncData(build.copyWith(moves: moves));
+    }
+  }
+
   Future<bool> saveBuild() async {
     final build = state.data?.value;
     if (build != null) {

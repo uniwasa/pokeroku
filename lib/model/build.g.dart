@@ -19,6 +19,7 @@ _$_Build _$_$_BuildFromJson(Map<String, dynamic> json) {
     effortValues: json['effortValues'] == null
         ? null
         : StatSet.fromJson(json['effortValues'] as Map<String, dynamic>),
+    moves: _fromMoves(json['moves']),
     createdAt: const TimestampConverter().fromJson(json['createdAt']),
     updatedAt: const UpdatedTimestampConverter().fromJson(json['updatedAt']),
   );
@@ -32,6 +33,7 @@ Map<String, dynamic> _$_$_BuildToJson(_$_Build instance) => <String, dynamic>{
       'level': instance.level,
       'individualValues': instance.individualValues?.toJson(),
       'effortValues': instance.effortValues?.toJson(),
+      'moves': instance.moves,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const UpdatedTimestampConverter().toJson(instance.updatedAt),
     };

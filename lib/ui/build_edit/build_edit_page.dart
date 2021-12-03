@@ -4,8 +4,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
+import 'package:pokeroku/model/move_selection_param.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/stat_set.dart';
+import 'package:pokeroku/provider/move_list_provider.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/provider/item_list_provider.dart';
 import 'package:pokeroku/provider/nature_list_provider.dart';
@@ -13,6 +15,7 @@ import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
+import 'package:dartx/dartx.dart';
 
 class BuildEditPage extends HookWidget with ValidationMixin {
   BuildEditPage({Key? key, required BuildEditParam buildEditParam})
@@ -148,16 +151,25 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                   ],
                 ),
               ),
-              HookBuilder(builder: (context) {
-                return ListTile(
-                  leading: Text('持ち物'),
-                  title: Text('技選択'),
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.moveSelection,
-                        arguments: _buildEditParam);
-                  },
-                );
-              }),
+              for (var i = 0; i < 4; i++)
+                HookBuilder(builder: (context) {
+                  final moveList = useProvider(moveListProvider).data?.value;
+                  final moveId = useProvider(
+                      buildEditViewModelProviderFamily(_buildEditParam).select(
+                          (value) =>
+                              value.data?.value.moves?.elementAtOrNull(i)));
+                  final move = moveList
+                      ?.firstOrNullWhere((element) => element.id == moveId);
+                  return ListTile(
+                    leading: Text('技' + (i + 1).toString()),
+                    title: Text(move != null ? move.nameJp : '未選択'),
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.moveSelection,
+                          arguments: MoveSelectionParam(
+                              moveIndex: i, buildEditParam: _buildEditParam));
+                    },
+                  );
+                }),
             ],
           ),
         ));

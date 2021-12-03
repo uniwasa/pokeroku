@@ -3,6 +3,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/move.dart';
+import 'package:pokeroku/model/move_selection_param.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_detail/ability_detail_page.dart';
@@ -95,7 +96,8 @@ class Home extends StatelessWidget {
         page = NatureSelectionPage(buildEditParam: arguments as BuildEditParam);
         break;
       case Routes.moveSelection:
-        page = MoveSelectionPage(buildEditParam: arguments as BuildEditParam);
+        page = MoveSelectionPage(
+            moveSelectionParam: arguments as MoveSelectionParam);
         break;
       default:
         page = PokemonListPage();
