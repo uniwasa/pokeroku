@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TeamEditStateTearOff {
   const _$TeamEditStateTearOff();
 
-  _TeamEditState call({required Team team}) {
+  _TeamEditState call({required Team team, required bool isAddable}) {
     return _TeamEditState(
       team: team,
+      isAddable: isAddable,
     );
   }
 }
@@ -29,6 +30,7 @@ const $TeamEditState = _$TeamEditStateTearOff();
 /// @nodoc
 mixin _$TeamEditState {
   Team get team => throw _privateConstructorUsedError;
+  bool get isAddable => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TeamEditStateCopyWith<TeamEditState> get copyWith =>
@@ -40,7 +42,7 @@ abstract class $TeamEditStateCopyWith<$Res> {
   factory $TeamEditStateCopyWith(
           TeamEditState value, $Res Function(TeamEditState) then) =
       _$TeamEditStateCopyWithImpl<$Res>;
-  $Res call({Team team});
+  $Res call({Team team, bool isAddable});
 
   $TeamCopyWith<$Res> get team;
 }
@@ -57,12 +59,17 @@ class _$TeamEditStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? team = freezed,
+    Object? isAddable = freezed,
   }) {
     return _then(_value.copyWith(
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as Team,
+      isAddable: isAddable == freezed
+          ? _value.isAddable
+          : isAddable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -81,7 +88,7 @@ abstract class _$TeamEditStateCopyWith<$Res>
           _TeamEditState value, $Res Function(_TeamEditState) then) =
       __$TeamEditStateCopyWithImpl<$Res>;
   @override
-  $Res call({Team team});
+  $Res call({Team team, bool isAddable});
 
   @override
   $TeamCopyWith<$Res> get team;
@@ -101,12 +108,17 @@ class __$TeamEditStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? team = freezed,
+    Object? isAddable = freezed,
   }) {
     return _then(_TeamEditState(
       team: team == freezed
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as Team,
+      isAddable: isAddable == freezed
+          ? _value.isAddable
+          : isAddable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -114,14 +126,17 @@ class __$TeamEditStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TeamEditState extends _TeamEditState with DiagnosticableTreeMixin {
-  const _$_TeamEditState({required this.team}) : super._();
+  const _$_TeamEditState({required this.team, required this.isAddable})
+      : super._();
 
   @override
   final Team team;
+  @override
+  final bool isAddable;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TeamEditState(team: $team)';
+    return 'TeamEditState(team: $team, isAddable: $isAddable)';
   }
 
   @override
@@ -129,7 +144,8 @@ class _$_TeamEditState extends _TeamEditState with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TeamEditState'))
-      ..add(DiagnosticsProperty('team', team));
+      ..add(DiagnosticsProperty('team', team))
+      ..add(DiagnosticsProperty('isAddable', isAddable));
   }
 
   @override
@@ -137,12 +153,17 @@ class _$_TeamEditState extends _TeamEditState with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other is _TeamEditState &&
             (identical(other.team, team) ||
-                const DeepCollectionEquality().equals(other.team, team)));
+                const DeepCollectionEquality().equals(other.team, team)) &&
+            (identical(other.isAddable, isAddable) ||
+                const DeepCollectionEquality()
+                    .equals(other.isAddable, isAddable)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(team);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(team) ^
+      const DeepCollectionEquality().hash(isAddable);
 
   @JsonKey(ignore: true)
   @override
@@ -151,11 +172,14 @@ class _$_TeamEditState extends _TeamEditState with DiagnosticableTreeMixin {
 }
 
 abstract class _TeamEditState extends TeamEditState {
-  const factory _TeamEditState({required Team team}) = _$_TeamEditState;
+  const factory _TeamEditState({required Team team, required bool isAddable}) =
+      _$_TeamEditState;
   const _TeamEditState._() : super._();
 
   @override
   Team get team => throw _privateConstructorUsedError;
+  @override
+  bool get isAddable => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TeamEditStateCopyWith<_TeamEditState> get copyWith =>

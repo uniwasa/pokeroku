@@ -58,7 +58,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
         final builds = await _read(buildRepositoryProvider)
             .getBuilds(userId: userId, team: team);
         final teamWithBuilds = team.copyWith(builds: builds);
-        state = AsyncData(TeamEditState(team: teamWithBuilds));
+        state = AsyncData(
+            TeamEditState(team: teamWithBuilds, isAddable: _isAddable(builds)));
         // 必須ではないがリスト側も更新
         _read(teamListViewModelProvider.notifier)
             .replaceTeam(targetTeam: teamWithBuilds);
@@ -96,6 +97,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
       final userId = _user?.uid;
       if (userId != null) {
         state.whenData((teamEditState) async {
+          state =
+              AsyncData(teamEditState.copyWith(isAddable: false)); // 追加不可にする
           final team = teamEditState.team;
           final build = Build(pokemonId: pokemon.id);
           // Firestoreのデータ更新
@@ -106,7 +109,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
           final updatedBuilds = team.builds ?? [];
           updatedBuilds.insert(0, createdBuild);
           final updatedTeam = team.copyWith(builds: updatedBuilds);
-          state = AsyncData(teamEditState.copyWith(team: updatedTeam));
+          state = AsyncData(teamEditState.copyWith(
+              team: updatedTeam, isAddable: _isAddable(updatedBuilds)));
 
           // リスト側の更新
           _read(teamListViewModelProvider.notifier)
@@ -154,4 +158,6 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
           .replaceTeam(targetTeam: updatedTeam);
     });
   }
+
+  bool _isAddable(List<Build> builds) => builds.length < 6;
 }

@@ -10,5 +10,6 @@ class TeamEditState with _$TeamEditState {
 
   const factory TeamEditState({
     required Team team,
+    required bool isAddable,
   }) = _TeamEditState;
 }

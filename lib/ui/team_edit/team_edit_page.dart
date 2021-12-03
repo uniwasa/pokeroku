@@ -54,10 +54,13 @@ class TeamEditPage extends StatelessWidget {
                 Container(
                   width: kToolbarHeight,
                   child: IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.pokemonSelection,
-                          arguments: _teamId);
-                    },
+                    onPressed: teamEditState.isAddable == true
+                        ? () {
+                            Navigator.pushNamed(
+                                context, Routes.pokemonSelection,
+                                arguments: _teamId);
+                          }
+                        : null,
                     icon: Icon(Icons.add),
                   ),
                 )
