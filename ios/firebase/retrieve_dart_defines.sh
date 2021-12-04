@@ -21,5 +21,6 @@ do
         value=${item#*=}
         # FLAVORに対応したXCConfigファイルをincludeさせる
         echo "#include \"$value.xcconfig\"" >> $OUTPUT_FILE
+        echo "#include \"$value-private.xcconfig\"" >> $OUTPUT_FILE
     fi
 done

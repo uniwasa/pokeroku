@@ -50,5 +50,6 @@ dgph
 
 # Firebase
 **/ios/Flutter/DartDefines.xcconfig
+**/ios/Flutter/*-private.xcconfig
 **/GoogleService-Info.plist
 **/google-services.json
