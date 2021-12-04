@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/app_user.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
+import 'package:pokeroku/repository/user_repository.dart';
 
 final userEditViewModelProvider =
     StateNotifierProvider<UserEditViewModel, AsyncValue<AppUser>>((ref) {
@@ -23,6 +24,10 @@ class UserEditViewModel extends StateNotifier<AsyncValue<AppUser>> {
   final User? _user;
 
   Future<void> init() async {
-    if (_user != null) {}
+    if (_user != null) {
+      final appUser =
+          await _read(userRepositoryProvider).getUser(userId: _user!.uid);
+      state = AsyncData(appUser);
+    }
   }
 }

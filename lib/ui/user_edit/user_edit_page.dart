@@ -15,7 +15,7 @@ class UserEditPage extends HookWidget {
       ),
       body: asyncValue.when(
         data: (appUser) {
-          return Text(appUser.name);
+          return Text(appUser.id ?? 'ID未設定');
         },
         loading: () => Center(
           child: CircularProgressIndicator(),

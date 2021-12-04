@@ -21,10 +21,12 @@ class _$AppUserTearOff {
   const _$AppUserTearOff();
 
   _AppUser call(
-      {required String name,
+      {String? id,
+      String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) {
     return _AppUser(
+      id: id,
       name: name,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -41,7 +43,8 @@ const $AppUser = _$AppUserTearOff();
 
 /// @nodoc
 mixin _$AppUser {
-  String get name => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @UpdatedTimestampConverter()
@@ -57,7 +60,8 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res>;
   $Res call(
-      {String name,
+      {String? id,
+      String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 }
@@ -72,15 +76,20 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -99,7 +108,8 @@ abstract class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$AppUserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
+      {String? id,
+      String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
 }
@@ -115,15 +125,20 @@ class __$AppUserCopyWithImpl<$Res> extends _$AppUserCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_AppUser(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -140,7 +155,8 @@ class __$AppUserCopyWithImpl<$Res> extends _$AppUserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
   const _$_AppUser(
-      {required this.name,
+      {this.id,
+      this.name,
       @TimestampConverter() this.createdAt,
       @UpdatedTimestampConverter() this.updatedAt})
       : super._();
@@ -149,7 +165,9 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
       _$_$_AppUserFromJson(json);
 
   @override
-  final String name;
+  final String? id;
+  @override
+  final String? name;
   @override
   @TimestampConverter()
   final DateTime? createdAt;
@@ -159,7 +177,7 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(name: $name, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'AppUser(id: $id, name: $name, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -167,6 +185,7 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'AppUser'))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt));
@@ -176,6 +195,8 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AppUser &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.createdAt, createdAt) ||
@@ -189,6 +210,7 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt);
@@ -206,7 +228,8 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
 
 abstract class _AppUser extends AppUser {
   const factory _AppUser(
-      {required String name,
+      {String? id,
+      String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_AppUser;
   const _AppUser._() : super._();
@@ -214,7 +237,9 @@ abstract class _AppUser extends AppUser {
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  @override
+  String? get name => throw _privateConstructorUsedError;
   @override
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;

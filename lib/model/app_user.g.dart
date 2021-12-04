@@ -8,7 +8,8 @@ part of 'app_user.dart';
 
 _$_AppUser _$_$_AppUserFromJson(Map<String, dynamic> json) {
   return _$_AppUser(
-    name: json['name'] as String,
+    id: json['id'] as String?,
+    name: json['name'] as String?,
     createdAt: const TimestampConverter().fromJson(json['createdAt']),
     updatedAt: const UpdatedTimestampConverter().fromJson(json['updatedAt']),
   );
@@ -16,6 +17,7 @@ _$_AppUser _$_$_AppUserFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_AppUserToJson(_$_AppUser instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const UpdatedTimestampConverter().toJson(instance.updatedAt),
