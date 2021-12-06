@@ -1,45 +1,77 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/extension/firebase_firestore_extension.dart';
+import 'package:pokeroku/model/app_user.dart';
+import 'package:pokeroku/provider/auth_state_provider.dart';
 import 'package:pokeroku/provider/firebase_providers.dart';
+import 'package:pokeroku/repository/user_repository.dart';
 
-final authServiceProvider = StateNotifierProvider<AuthService, User?>(
+// TODO: Riverpod1.0.0ではこの書き方できるらしいから、authServiceProviderじゃなくてこっちをref.watchするように変更
+// final userIdProvider = Provider<String?>(
+//   (ref) {
+//     final userId =
+//         ref.watch(authServiceProvider.select((value) => value.data?.value.id));
+//     return userId;
+//   },
+// );
+
+final authServiceProvider =
+    StateNotifierProvider<AuthService, AsyncValue<AppUser>>(
   (ref) {
-    return AuthService(ref.read);
+    return AuthService(
+        read: ref.read, asyncAuthUser: ref.watch(authStateProvider));
   },
 );
 
-class AuthService extends StateNotifier<User?> {
-  final Reader _read;
-  AuthCredential? _credential;
-
-  StreamSubscription<User?>? _authStateSubscription;
-  AuthService(this._read) : super(null) {
+class AuthService extends StateNotifier<AsyncValue<AppUser>> {
+  AuthService({
+    required Reader read,
+    required AsyncValue<User?> asyncAuthUser,
+  })  : _read = read,
+        _asyncAuthUser = asyncAuthUser,
+        super(AsyncLoading()) {
     init();
   }
+
+  final Reader _read;
+  final AsyncValue<User?> _asyncAuthUser;
+  AuthCredential? _credential;
+
   @override
   void dispose() {
-    _authStateSubscription?.cancel();
+    print('bye from ' + this.toString());
     super.dispose();
   }
 
   Future<void> init() async {
-    try {
-      _authStateSubscription?.cancel();
-      _authStateSubscription = _read(firebaseAuthProvider)
-          .authStateChanges()
-          .listen((User? user) async {
-        await createUserDoc(user); // signInAnonymouslyしたらまた呼び出されるから先に記述
-        state = user; // userのdocumentが作られてからstate更新
-
-        await signInAnonymously(); // もし未ログインのときのみ実行される
-      });
-    } on Exception catch (error) {
-      print(error.toString());
-    }
+    _asyncAuthUser.whenData((authUser) async {
+      // 読み込み済み
+      try {
+        if (authUser == null) {
+          // 未認証の場合
+          await _read(firebaseAuthProvider).signInAnonymously();
+        } else {
+          // 認証済みの場合
+          final user =
+              await _read(userRepositoryProvider).getUser(userId: authUser.uid);
+          if (user != null) {
+            // 認証済みで、userドキュメント作成済みの場合
+            state = AsyncData(user);
+          } else {
+            // 認証済みだが、userドキュメント未作成の場合
+            final newUser =
+                AppUser(id: authUser.uid, name: authUser.displayName);
+            await _read(userRepositoryProvider).createUser(user: newUser);
+            final createdUser = await _read(userRepositoryProvider)
+                .getUser(userId: authUser.uid);
+            if (createdUser != null) state = AsyncData(createdUser);
+          }
+        }
+      } on Exception catch (error) {
+        print(error.toString());
+      }
+    });
   }
 
   Future<void> signOut() async {
@@ -50,19 +82,11 @@ class AuthService extends StateNotifier<User?> {
     }
   }
 
-  Future<void> signInAnonymously() async {
-    try {
-      if (state == null) {
-        await _read(firebaseAuthProvider).signInAnonymously();
-      }
-    } on Exception catch (error) {
-      print(error.toString());
-    }
-  }
-
   Future<void> linkOrSignInWithGoogle() async {
     try {
-      if (state != null) {
+      final authUser = _asyncAuthUser.data?.value;
+      if (authUser != null) {
+        // 読み込み済みかつ、なにかしら認証済みなら
         final GoogleSignIn googleSignIn = GoogleSignIn();
         final googleAccount = await googleSignIn.signIn();
         if (googleAccount != null) {
@@ -71,11 +95,7 @@ class AuthService extends StateNotifier<User?> {
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           );
-          await _read(firebaseAuthProvider)
-              .currentUser
-              ?.linkWithCredential(_credential!);
-
-          print(FirebaseAuth.instance.currentUser);
+          await authUser.linkWithCredential(_credential!);
         }
       }
     } on FirebaseAuthException catch (error) {
@@ -95,24 +115,6 @@ class AuthService extends StateNotifier<User?> {
       }
     } on Exception catch (error) {
       print(error);
-    }
-  }
-
-  Future<void> createUserDoc(User? user) async {
-    try {
-      if (user != null) {
-        final userDoc = await _read(firebaseFirestoreProvider)
-            .getUserDocument(user.uid)
-            .get();
-        if (!userDoc.exists) {
-          userDoc.reference.set({
-            'name': user.displayName,
-            'createdAt': FieldValue.serverTimestamp(),
-          });
-        }
-      }
-    } on Exception catch (error) {
-      print(error.toString());
     }
   }
 }

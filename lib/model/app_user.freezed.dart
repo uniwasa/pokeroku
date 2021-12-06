@@ -21,7 +21,7 @@ class _$AppUserTearOff {
   const _$AppUserTearOff();
 
   _AppUser call(
-      {String? id,
+      {@JsonKey(ignore: true) String? id,
       String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) {
@@ -43,6 +43,7 @@ const $AppUser = _$AppUserTearOff();
 
 /// @nodoc
 mixin _$AppUser {
+  @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -60,7 +61,7 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {@JsonKey(ignore: true) String? id,
       String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
@@ -108,7 +109,7 @@ abstract class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$AppUserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {@JsonKey(ignore: true) String? id,
       String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt});
@@ -155,7 +156,7 @@ class __$AppUserCopyWithImpl<$Res> extends _$AppUserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
   const _$_AppUser(
-      {this.id,
+      {@JsonKey(ignore: true) this.id,
       this.name,
       @TimestampConverter() this.createdAt,
       @UpdatedTimestampConverter() this.updatedAt})
@@ -165,6 +166,7 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
       _$_$_AppUserFromJson(json);
 
   @override
+  @JsonKey(ignore: true)
   final String? id;
   @override
   final String? name;
@@ -228,7 +230,7 @@ class _$_AppUser extends _AppUser with DiagnosticableTreeMixin {
 
 abstract class _AppUser extends AppUser {
   const factory _AppUser(
-      {String? id,
+      {@JsonKey(ignore: true) String? id,
       String? name,
       @TimestampConverter() DateTime? createdAt,
       @UpdatedTimestampConverter() DateTime? updatedAt}) = _$_AppUser;
@@ -237,6 +239,7 @@ abstract class _AppUser extends AppUser {
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
   @override
+  @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   @override
   String? get name => throw _privateConstructorUsedError;

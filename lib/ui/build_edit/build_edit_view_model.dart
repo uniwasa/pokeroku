@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
+import 'package:pokeroku/model/app_user.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/stat_set.dart';
@@ -13,7 +13,7 @@ final buildEditViewModelProviderFamily = StateNotifierProvider.family
         (ref, buildEditParam) {
   return BuildEditViewModel(
     read: ref.read,
-    user: ref.watch(authServiceProvider),
+    asyncUser: ref.watch(authServiceProvider),
     buildEditParam: buildEditParam,
   );
 });
@@ -22,17 +22,17 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
     with ValidationMixin {
   BuildEditViewModel({
     required Reader read,
-    required User? user,
+    required AsyncValue<AppUser> asyncUser,
     required BuildEditParam buildEditParam,
   })  : _read = read,
-        _user = user,
+        _asyncUser = asyncUser,
         _buildEditParam = buildEditParam,
         super(AsyncLoading()) {
     init();
   }
 
   final Reader _read;
-  final User? _user;
+  final AsyncValue<AppUser> _asyncUser;
   final BuildEditParam _buildEditParam;
 
   @override
@@ -43,19 +43,21 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
 
   Future<void> init() async {
     try {
-      final userId = _user?.uid;
-      if (userId != null) {
-        final teamId = _buildEditParam.teamId;
-        final buildId = _buildEditParam.buildId;
-        if (teamId != null) {
-          final build = await _read(buildRepositoryProvider)
-              .getBuild(userId: userId, teamId: teamId, buildId: buildId);
-          state = AsyncData(build);
-          // 必須ではないがパーティ側も更新
-          _read(teamEditViewModelProviderFamily(teamId).notifier)
-              .replaceBuild(build: build);
+      _asyncUser.whenData((user) async {
+        final userId = user.id;
+        if (userId != null) {
+          final teamId = _buildEditParam.teamId;
+          final buildId = _buildEditParam.buildId;
+          if (teamId != null) {
+            final build = await _read(buildRepositoryProvider)
+                .getBuild(userId: userId, teamId: teamId, buildId: buildId);
+            state = AsyncData(build);
+            // 必須ではないがパーティ側も更新
+            _read(teamEditViewModelProviderFamily(teamId).notifier)
+                .replaceBuild(build: build);
+          }
         }
-      }
+      });
     } catch (e) {
       print(e);
       throw (e);
