@@ -43,21 +43,19 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
 
   Future<void> init() async {
     try {
-      _asyncUser.whenData((user) async {
-        final userId = user.id;
-        if (userId != null) {
-          final teamId = _buildEditParam.teamId;
-          final buildId = _buildEditParam.buildId;
-          if (teamId != null) {
-            final build = await _read(buildRepositoryProvider)
-                .getBuild(userId: userId, teamId: teamId, buildId: buildId);
-            state = AsyncData(build);
-            // 必須ではないがパーティ側も更新
-            _read(teamEditViewModelProviderFamily(teamId).notifier)
-                .replaceBuild(build: build);
-          }
+      final userId = _asyncUser.data?.value.id;
+      if (userId != null) {
+        final teamId = _buildEditParam.teamId;
+        final buildId = _buildEditParam.buildId;
+        if (teamId != null) {
+          final build = await _read(buildRepositoryProvider)
+              .getBuild(userId: userId, teamId: teamId, buildId: buildId);
+          state = AsyncData(build);
+          // 必須ではないがパーティ側も更新
+          _read(teamEditViewModelProviderFamily(teamId).notifier)
+              .replaceBuild(build: build);
         }
-      });
+      }
     } catch (e) {
       print(e);
       throw (e);

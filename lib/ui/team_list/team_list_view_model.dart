@@ -45,24 +45,22 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
     final teams = state.teams;
 
     try {
-      _asyncUser.whenData((user) async {
-        final userId = user.id;
-        if (userId != null) {
-          print('次を取得します');
-          final nextTeams = await _read(teamRepositoryProvider).getTeams(
-            userId: userId,
-            limitNum: limitNum,
-            lastTeam: teams.isNotEmpty ? teams.last : null,
-          );
-          final hasNext = nextTeams.length >= limitNum;
-          state = state.copyWith(
-            teams: teams + nextTeams,
-            isLoading: false,
-            hasNext: hasNext,
-            error: null,
-          );
-        }
-      });
+      final userId = _asyncUser.data?.value.id;
+      if (userId != null) {
+        print('次を取得します');
+        final nextTeams = await _read(teamRepositoryProvider).getTeams(
+          userId: userId,
+          limitNum: limitNum,
+          lastTeam: teams.isNotEmpty ? teams.last : null,
+        );
+        final hasNext = nextTeams.length >= limitNum;
+        state = state.copyWith(
+          teams: teams + nextTeams,
+          isLoading: false,
+          hasNext: hasNext,
+          error: null,
+        );
+      }
     } catch (e) {
       print(e);
       state = state.copyWith(error: e.toString(), isLoading: false);
@@ -71,17 +69,15 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
 
   Future<void> addTeam() async {
     try {
-      _asyncUser.whenData((user) async {
-        final userId = user.id;
-        if (userId != null) {
-          final newTeam = Team(name: 'パーティ');
-          final createdTeamId = await _read(teamRepositoryProvider)
-              .createTeam(userId: userId, team: newTeam);
-          final createdTeam = await _read(teamRepositoryProvider)
-              .getTeam(userId: userId, teamId: createdTeamId);
-          state = state.copyWith(teams: state.teams..insert(0, createdTeam));
-        }
-      });
+      final userId = _asyncUser.data?.value.id;
+      if (userId != null) {
+        final newTeam = Team(name: 'パーティ');
+        final createdTeamId = await _read(teamRepositoryProvider)
+            .createTeam(userId: userId, team: newTeam);
+        final createdTeam = await _read(teamRepositoryProvider)
+            .getTeam(userId: userId, teamId: createdTeamId);
+        state = state.copyWith(teams: state.teams..insert(0, createdTeam));
+      }
     } catch (e) {
       print(e);
       state = state.copyWith(error: e.toString(), isLoading: false);
