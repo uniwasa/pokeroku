@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/app_user.dart';
-import 'package:pokeroku/provider/auth_state_provider.dart';
+import 'package:pokeroku/provider/auth_user_provider.dart';
 import 'package:pokeroku/provider/firebase_providers.dart';
 import 'package:pokeroku/repository/user_repository.dart';
 
@@ -20,7 +20,7 @@ final authServiceProvider =
     StateNotifierProvider<AuthService, AsyncValue<AppUser>>(
   (ref) {
     return AuthService(
-        read: ref.read, asyncAuthUser: ref.watch(authStateProvider));
+        read: ref.read, asyncAuthUser: ref.watch(authUserProvider));
   },
 );
 
