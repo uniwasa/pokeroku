@@ -25,6 +25,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).primaryColor,
       screens: [PokemonListPage(), TeamListPage()],
       items: [
