@@ -38,7 +38,7 @@ class BuildRepositoryImpl implements BuildRepository {
         final batch = _read(firebaseFirestoreProvider).batch();
 
         final userRef =
-            _read(firebaseFirestoreProvider).getUserDocument(userId);
+            _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
         final buildRef = teamRef.collection(CollectionName.builds).doc();
         batch.set(buildRef, build.toJsonWithTeam(team: team, teamRef: teamRef));
@@ -67,7 +67,7 @@ class BuildRepositoryImpl implements BuildRepository {
         final batch = _read(firebaseFirestoreProvider).batch();
 
         final userRef =
-            _read(firebaseFirestoreProvider).getUserDocument(userId);
+            _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
         final buildRef =
             teamRef.collection(CollectionName.builds).doc(build.id);
@@ -88,7 +88,7 @@ class BuildRepositoryImpl implements BuildRepository {
     try {
       if (team != null) {
         final userRef =
-            _read(firebaseFirestoreProvider).getUserDocument(userId);
+            _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
         final snap = await teamRef
             .collection(CollectionName.builds)
@@ -111,7 +111,7 @@ class BuildRepositoryImpl implements BuildRepository {
     try {
       if (teamId != null) {
         final userRef =
-            _read(firebaseFirestoreProvider).getUserDocument(userId);
+            _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(teamId);
         final docSnap =
             await teamRef.collection(CollectionName.builds).doc(buildId).get();

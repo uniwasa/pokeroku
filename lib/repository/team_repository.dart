@@ -29,7 +29,7 @@ class TeamRepositoryImpl implements TeamRepository {
   Future<List<Team>> getAllTeams({required String userId}) async {
     try {
       // UserIdに紐づく、アイテムを取得
-      final userRef = _read(firebaseFirestoreProvider).getUserDocument(userId);
+      final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
       final snap = await userRef.collection(CollectionName.teams).get();
       return snap.docs.map((doc) => Team.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
@@ -43,7 +43,7 @@ class TeamRepositoryImpl implements TeamRepository {
       required int limitNum,
       required Team? lastTeam}) async {
     try {
-      final userRef = _read(firebaseFirestoreProvider).getUserDocument(userId);
+      final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
       final teamsRef = userRef
           .collection(CollectionName.teams)
           .orderBy('createdAt', descending: true)
@@ -67,7 +67,7 @@ class TeamRepositoryImpl implements TeamRepository {
   Future<String> createTeam(
       {required String userId, required Team team}) async {
     try {
-      final userRef = _read(firebaseFirestoreProvider).getUserDocument(userId);
+      final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
       final teamRef =
           await userRef.collection(CollectionName.teams).add(team.toJson());
       return teamRef.id;
@@ -79,7 +79,7 @@ class TeamRepositoryImpl implements TeamRepository {
   @override
   Future<Team> getTeam({required String userId, required String teamId}) async {
     try {
-      final userRef = _read(firebaseFirestoreProvider).getUserDocument(userId);
+      final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
       final teamDoc =
           await userRef.collection(CollectionName.teams).doc(teamId).get();
       final team = Team.fromDocument(teamDoc);
@@ -91,7 +91,7 @@ class TeamRepositoryImpl implements TeamRepository {
 
   @override
   Future<void> updateTeam({required String userId, required Team team}) async {
-    final userRef = _read(firebaseFirestoreProvider).getUserDocument(userId);
+    final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
     userRef.collection(CollectionName.teams).doc(team.id).update(team.toJson());
   }
 }

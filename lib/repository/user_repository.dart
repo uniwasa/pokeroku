@@ -19,7 +19,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<AppUser?> getUser({required String userId}) async {
     try {
-      final userRef = _read(firebaseFirestoreProvider).getUserDocument(userId);
+      final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
       final userDoc = await userRef.get();
       final userJson = userDoc.data();
       if (userDoc.exists && userJson != null)
@@ -34,7 +34,7 @@ class UserRepositoryImpl implements UserRepository {
       final userId = user.id;
       if (userId != null)
         await _read(firebaseFirestoreProvider)
-            .getUserDocument(userId)
+            .getUserDocRef(userId)
             .set(user.toJson());
     } on FirebaseException catch (e) {
       throw e;
