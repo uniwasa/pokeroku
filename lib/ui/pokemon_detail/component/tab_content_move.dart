@@ -84,30 +84,27 @@ extension TabContentMove on PokemonDetailPage {
 
         // コンテンツ本体
         return [
-          useMemoized(
-            () => SliverToBoxAdapter(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                child: TextField(
-                  onChanged: (text) {
-                    final provider = context.read(_provider.notifier);
-                    provider.searchForMoves(text);
-                  },
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: Colors.white54),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+              child: TextField(
+                onChanged: (text) {
+                  final provider = context.read(_provider.notifier);
+                  provider.searchForMoves(text);
+                },
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search, color: Colors.white54),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
                     ),
-                    fillColor: Theme.of(context).canvasColor,
-                    filled: true,
                   ),
+                  fillColor: Theme.of(context).canvasColor,
+                  filled: true,
                 ),
               ),
             ),
