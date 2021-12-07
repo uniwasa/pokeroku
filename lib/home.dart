@@ -53,6 +53,7 @@ class Home extends StatelessWidget {
   }
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+    bool isFullscreen = false;
     final arguments = settings.arguments;
     Widget page;
     switch (settings.name) {
@@ -76,17 +77,8 @@ class Home extends StatelessWidget {
         break;
       case Routes.buildEdit:
         page = BuildEditPage(buildEditParam: arguments as BuildEditParam);
-        return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => page,
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return FadeUpwardsPageTransitionsBuilder().buildTransitions(
-                  MaterialPageRoute(builder: (context) => page),
-                  context,
-                  animation,
-                  secondaryAnimation,
-                  child);
-            });
+        isFullscreen = true;
+        break;
       case Routes.itemSelection:
         page = ItemSelectionPage(buildEditParam: arguments as BuildEditParam);
         break;
@@ -107,6 +99,7 @@ class Home extends StatelessWidget {
       default:
         page = PokemonListPage();
     }
-    return MaterialPageRoute(builder: (context) => page);
+    return MaterialPageRoute(
+        builder: (context) => page, fullscreenDialog: isFullscreen);
   }
 }
