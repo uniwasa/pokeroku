@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
@@ -20,36 +22,42 @@ import 'package:pokeroku/ui/team_edit/team_edit_page.dart';
 import 'package:pokeroku/ui/team_list/team_list_page.dart';
 import 'package:pokeroku/ui/user_edit/user_edit_page.dart';
 
+final hideNavigationBarProvider = StateProvider<bool>((ref) => false);
+
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).primaryColor,
-      screens: [PokemonListPage(), TeamListPage()],
-      items: [
-        PersistentBottomNavBarItem(
-          icon: Icon(Icons.format_list_numbered),
-          title: ('ポケモン'),
-          activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Theme.of(context).hintColor,
-          routeAndNavigatorSettings: RouteAndNavigatorSettings(
-            onGenerateRoute: onGenerateRoute,
+    return HookBuilder(builder: (context) {
+      final hideNavigationBar = useProvider(hideNavigationBarProvider).state;
+      return PersistentTabView(
+        context,
+        hideNavigationBar: hideNavigationBar,
+        resizeToAvoidBottomInset: true,
+        backgroundColor: Theme.of(context).primaryColor,
+        screens: [PokemonListPage(), TeamListPage()],
+        items: [
+          PersistentBottomNavBarItem(
+            icon: Icon(Icons.format_list_numbered),
+            title: ('ポケモン'),
+            activeColorPrimary: Colors.white,
+            inactiveColorPrimary: Theme.of(context).hintColor,
+            routeAndNavigatorSettings: RouteAndNavigatorSettings(
+              onGenerateRoute: onGenerateRoute,
+            ),
           ),
-        ),
-        PersistentBottomNavBarItem(
-          icon: Icon(Icons.save),
-          title: ('パーティ'),
-          activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Theme.of(context).hintColor,
-          routeAndNavigatorSettings: RouteAndNavigatorSettings(
-            onGenerateRoute: onGenerateRoute,
+          PersistentBottomNavBarItem(
+            icon: Icon(Icons.save),
+            title: ('パーティ'),
+            activeColorPrimary: Colors.white,
+            inactiveColorPrimary: Theme.of(context).hintColor,
+            routeAndNavigatorSettings: RouteAndNavigatorSettings(
+              onGenerateRoute: onGenerateRoute,
+            ),
           ),
-        ),
-      ],
-      navBarStyle: NavBarStyle.style1,
-    );
+        ],
+        navBarStyle: NavBarStyle.style1,
+      );
+    });
   }
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
