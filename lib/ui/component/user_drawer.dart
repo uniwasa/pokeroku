@@ -25,7 +25,7 @@ class UserDrawer extends HookWidget {
                     EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.only(left: 10.0),
                     child: Row(
                       children: [
                         Icon(
@@ -39,7 +39,7 @@ class UserDrawer extends HookWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                authUser.isAnonymous == true
+                                authUser.isAnonymous
                                     ? '未認証ユーザー'
                                     : appUser.name ?? 'ユーザー名未設定',
                                 style: TextStyle(
@@ -48,7 +48,7 @@ class UserDrawer extends HookWidget {
                                 ),
                               ),
                               Text(
-                                authUser.isAnonymous == true
+                                authUser.isAnonymous
                                     ? '下記のアカウントで連携できます (連携済みのアカウントを選択するとログインできます)'
                                     : '連携済み',
                                 style: TextStyle(
@@ -60,6 +60,43 @@ class UserDrawer extends HookWidget {
                             ],
                           ),
                         ),
+                        if (!authUser.isAnonymous)
+                          Spacer()
+                        else
+                          SizedBox(width: 10),
+                        if (!authUser.isAnonymous)
+                          IconButton(
+                            icon: Icon(Icons.logout),
+                            iconSize: 20,
+                            color: Colors.grey,
+                            onPressed: () async {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('ログアウト'),
+                                    content: Text('ログアウトしますか？'),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                      TextButton(
+                                        child: Text("OK"),
+                                        onPressed: () async {
+                                          await context
+                                              .read(
+                                                  authServiceProvider.notifier)
+                                              .signOut();
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          )
                       ],
                     ),
                   ),
@@ -69,7 +106,7 @@ class UserDrawer extends HookWidget {
                 height: 150,
               ),
               SizedBox(height: 20),
-              if (authUser.isAnonymous == true)
+              if (authUser.isAnonymous)
                 HookBuilder(builder: (context) {
                   final absorbing = useProvider(_absorbingProvider).state;
                   return AbsorbPointer(
