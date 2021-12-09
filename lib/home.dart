@@ -20,7 +20,6 @@ import 'package:pokeroku/ui/pokemon_detail/pokemon_detail_page.dart';
 import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_page.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_page.dart';
 import 'package:pokeroku/ui/team_list/team_list_page.dart';
-import 'package:pokeroku/ui/user_edit/user_edit_page.dart';
 
 final hideNavigationBarProvider = StateProvider<bool>((ref) => false);
 
@@ -100,9 +99,6 @@ class Home extends StatelessWidget {
       case Routes.moveSelection:
         page = MoveSelectionPage(
             moveSelectionParam: arguments as MoveSelectionParam);
-        break;
-      case Routes.userEdit:
-        page = UserEditPage();
         break;
       default:
         page = PokemonListPage();

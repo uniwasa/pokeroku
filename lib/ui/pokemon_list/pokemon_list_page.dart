@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/home.dart';
 import 'package:pokeroku/ui/pokemon_list/pokemon_list_view_model.dart';
+import 'package:pokeroku/ui/component/user_drawer.dart';
 
 import '../../routes.dart';
 import '../../util.dart';
@@ -11,13 +12,7 @@ class PokemonListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [DrawerHeader(child: Text('drawer'))],
-          ),
-        ),
-      ),
+      drawer: UserDrawer(),
       onDrawerChanged: (isOpen) {
         context.read(hideNavigationBarProvider).state = isOpen;
       },

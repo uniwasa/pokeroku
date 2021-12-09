@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/home.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
-import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
+import 'package:pokeroku/ui/component/user_drawer.dart';
 
 class TeamListPage extends StatelessWidget {
   TeamListPage({Key? key}) : super(key: key);
@@ -13,12 +14,19 @@ class TeamListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: UserDrawer(),
+      onDrawerChanged: (isOpen) {
+        context.read(hideNavigationBarProvider).state = isOpen;
+      },
       appBar: AppBar(
-        leading: IconButton(
+        leading: Builder(builder: (context) {
+          return IconButton(
+            icon: Icon(Icons.person),
             onPressed: () {
-              Navigator.pushNamed(context, Routes.userEdit);
+              Scaffold.of(context).openDrawer();
             },
-            icon: Icon(Icons.person)),
+          );
+        }),
         actions: [
           Container(
             width: kToolbarHeight,

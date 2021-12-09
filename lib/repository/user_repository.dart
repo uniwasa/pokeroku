@@ -7,6 +7,8 @@ import 'package:pokeroku/provider/firebase_providers.dart';
 
 abstract class UserRepository {
   Future<AppUser?> getUser({required String userId});
+  Future<void> createUser({required AppUser user});
+  Future<void> updateUser({required AppUser user});
 }
 
 final userRepositoryProvider = Provider((ref) => UserRepositoryImpl(ref.read));
@@ -36,6 +38,19 @@ class UserRepositoryImpl implements UserRepository {
         await _read(firebaseFirestoreProvider)
             .getUserDocRef(userId)
             .set(user.toJson());
+    } on FirebaseException catch (e) {
+      throw e;
+    }
+  }
+
+  @override
+  Future<void> updateUser({required AppUser user}) async {
+    try {
+      final userId = user.id;
+      if (userId != null)
+        await _read(firebaseFirestoreProvider)
+            .getUserDocRef(userId)
+            .update(user.toJson());
     } on FirebaseException catch (e) {
       throw e;
     }

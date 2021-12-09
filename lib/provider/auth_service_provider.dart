@@ -57,7 +57,7 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
               await _read(userRepositoryProvider).getUser(userId: authUser.uid);
           if (user != null) {
             // 認証済みで、userドキュメント作成済みの場合
-            state = AsyncData(user);
+            state = AsyncData(user.copyWith(authUser: authUser));
           } else {
             // 認証済みだが、userドキュメント未作成の場合
             final newUser =
@@ -65,11 +65,12 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
             await _read(userRepositoryProvider).createUser(user: newUser);
             final createdUser = await _read(userRepositoryProvider)
                 .getUser(userId: authUser.uid);
-            if (createdUser != null) state = AsyncData(createdUser);
+            if (createdUser != null)
+              state = AsyncData(createdUser.copyWith(authUser: authUser));
           }
         }
       } on Exception catch (error) {
-        print(error.toString());
+        throw (error);
       }
     });
   }
@@ -78,14 +79,15 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
     try {
       await _read(firebaseAuthProvider).signOut();
     } on Exception catch (error) {
-      print(error.toString());
+      throw (error);
     }
   }
 
   Future<void> linkOrSignInWithGoogle() async {
     try {
       final authUser = _asyncAuthUser.data?.value;
-      if (authUser != null) {
+      final appUser = state.data?.value;
+      if (authUser != null && appUser != null) {
         // 読み込み済みかつ、なにかしら認証済みなら
         final GoogleSignIn googleSignIn = GoogleSignIn();
         final googleAccount = await googleSignIn.signIn();
@@ -96,25 +98,35 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
             idToken: googleAuth.idToken,
           );
           await authUser.linkWithCredential(_credential!);
+
+          // linkWithCredentialしてもauthStateChanges走らないみたいだから自分でstate更新
+          // linkWithCredential後のデータが欲しいのでcurrentUserから最新取得
+          // authStateChangesの代わりにuserChanges使うのもありかも
+          AppUser newUser = appUser.copyWith(
+              authUser: _read(firebaseAuthProvider).currentUser);
+          if (newUser.name == null) {
+            // ユーザー名未設定ならアカウントのユーザー名で設定
+            newUser = newUser.copyWith(name: googleAccount.displayName);
+            await _read(userRepositoryProvider).updateUser(user: newUser);
+          }
+          state = AsyncData(newUser);
         }
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'credential-already-in-use') {
         if (_credential != null) {
           try {
-            print('ログインします');
             await _read(firebaseAuthProvider)
                 .signInWithCredential(_credential!);
-            print('ログインしました');
           } on Exception catch (error) {
-            print(error);
+            throw (error);
           }
         }
       } else if (error.code == 'provider-already-linked') {
         print('ログイン済み');
       }
     } on Exception catch (error) {
-      print(error);
+      throw (error);
     }
   }
 }
