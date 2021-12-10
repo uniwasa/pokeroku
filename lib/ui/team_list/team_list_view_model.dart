@@ -84,6 +84,12 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
     }
   }
 
+  Future<void> removeTeam({required Team team}) async {
+    state = state.copyWith(
+      teams: state.teams.where((element) => element.id != team.id).toList(),
+    );
+  }
+
   Future<void> replaceTeam({required Team targetTeam}) async {
     state = state.copyWith(
       teams: [

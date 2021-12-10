@@ -85,22 +85,37 @@ class TeamListPage extends StatelessWidget {
                           ).toList()
                         : [];
 
-                    return ListTile(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.teamEdit,
-                            arguments: team.id);
+                    return Dismissible(
+                      key: UniqueKey(),
+                      background: Container(color: Colors.red),
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (direction) async {
+                        final confirmResult = await _showDeleteConfirmDialog(
+                            context: context, title: team.name);
+                        return confirmResult;
                       },
-                      title: ConstrainedBox(
-                        constraints: BoxConstraints(minHeight: 100),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (teamName != null) Text(teamName),
-                            if (builds != null)
-                              Wrap(
-                                children: buildIcons,
-                              ),
-                          ],
+                      onDismissed: (final direction) async {
+                        await context
+                            .read(teamListViewModelProvider.notifier)
+                            .removeTeam(team: team);
+                      },
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.teamEdit,
+                              arguments: team.id);
+                        },
+                        title: ConstrainedBox(
+                          constraints: BoxConstraints(minHeight: 100),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (teamName != null) Text(teamName),
+                              if (builds != null)
+                                Wrap(
+                                  children: buildIcons,
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -116,5 +131,31 @@ class TeamListPage extends StatelessWidget {
         );
       }),
     );
+  }
+
+  Future<bool?> _showDeleteConfirmDialog({
+    required BuildContext context,
+    required String? title,
+  }) async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('削除'),
+          content: Text((title ?? 'パーティ') + 'を削除しますか？'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+    return result;
   }
 }
