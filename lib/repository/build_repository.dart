@@ -17,6 +17,8 @@ abstract class BuildRepository {
       {required String userId,
       required String? teamId,
       required String buildId});
+  Future<void> deleteBuild(
+      {required String userId, required Build build, Team? team});
 }
 
 final buildRepositoryProvider =
@@ -37,8 +39,7 @@ class BuildRepositoryImpl implements BuildRepository {
       if (team != null) {
         final batch = _read(firebaseFirestoreProvider).batch();
 
-        final userRef =
-            _read(firebaseFirestoreProvider).getUserDocRef(userId);
+        final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
         final buildRef = teamRef.collection(CollectionName.builds).doc();
         batch.set(buildRef, build.toJsonWithTeam(team: team, teamRef: teamRef));
@@ -66,8 +67,7 @@ class BuildRepositoryImpl implements BuildRepository {
       if (team != null) {
         final batch = _read(firebaseFirestoreProvider).batch();
 
-        final userRef =
-            _read(firebaseFirestoreProvider).getUserDocRef(userId);
+        final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
         final buildRef =
             teamRef.collection(CollectionName.builds).doc(build.id);
@@ -87,8 +87,7 @@ class BuildRepositoryImpl implements BuildRepository {
       {required String userId, Team? team, int? limitNum}) async {
     try {
       if (team != null) {
-        final userRef =
-            _read(firebaseFirestoreProvider).getUserDocRef(userId);
+        final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
         final snap = await teamRef
             .collection(CollectionName.builds)
@@ -110,8 +109,7 @@ class BuildRepositoryImpl implements BuildRepository {
       required String buildId}) async {
     try {
       if (teamId != null) {
-        final userRef =
-            _read(firebaseFirestoreProvider).getUserDocRef(userId);
+        final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(teamId);
         final docSnap =
             await teamRef.collection(CollectionName.builds).doc(buildId).get();
@@ -120,6 +118,29 @@ class BuildRepositoryImpl implements BuildRepository {
         // TODO: ポケモン単体画面用
         return Build(pokemonId: 0);
       }
+    } on FirebaseException catch (e) {
+      throw e;
+    }
+  }
+
+  @override
+  Future<void> deleteBuild(
+      {required String userId, required Build build, Team? team}) async {
+    try {
+      if (team != null) {
+        final batch = _read(firebaseFirestoreProvider).batch();
+
+        final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
+        final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
+        final buildRef =
+            teamRef.collection(CollectionName.builds).doc(build.id);
+        batch.delete(buildRef);
+        final denormalizedBuild =
+            Team.makeDenormalizedBuild(build: build, isDelete: true);
+        batch.update(teamRef, denormalizedBuild);
+
+        await batch.commit();
+      } else {}
     } on FirebaseException catch (e) {
       throw e;
     }
