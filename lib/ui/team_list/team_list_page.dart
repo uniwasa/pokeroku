@@ -6,6 +6,7 @@ import 'package:pokeroku/home.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/empty_scroll_view.dart';
+import 'package:pokeroku/ui/component/delete_dialog.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 import 'package:pokeroku/ui/component/user_drawer.dart';
 
@@ -108,7 +109,7 @@ class TeamListPage extends StatelessWidget {
                         ),
                         direction: DismissDirection.endToStart,
                         confirmDismiss: (final direction) async {
-                          final confirmResult = await _showDeleteConfirmDialog(
+                          final confirmResult = await showDeleteDialog(
                               context: context, title: team.name);
                           return confirmResult;
                         },
@@ -146,31 +147,5 @@ class TeamListPage extends StatelessWidget {
         );
       }),
     );
-  }
-
-  Future<bool?> _showDeleteConfirmDialog({
-    required BuildContext context,
-    required String? title,
-  }) async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('削除'),
-          content: Text((title ?? 'パーティ') + 'を削除しますか？'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-    return result;
   }
 }

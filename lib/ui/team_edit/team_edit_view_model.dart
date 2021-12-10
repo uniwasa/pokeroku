@@ -145,6 +145,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
     }
   }
 
+  Future<void> removeBuild({required Build build}) async {}
+
   void replaceBuild({required Build build}) {
     final teamEditState = state.data?.value;
     if (teamEditState != null) {

@@ -5,6 +5,7 @@ import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/empty_scroll_view.dart';
+import 'package:pokeroku/ui/component/delete_dialog.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 class TeamEditPage extends StatelessWidget {
@@ -92,20 +93,47 @@ class TeamEditPage extends StatelessWidget {
                             filterQuality: FilterQuality.none,
                           );
 
-                          return ListTile(
-                            leading: image,
-                            title: Text(pokemon.nameJp),
-                            onTap: () {
-                              final buildId = build.id;
-                              if (buildId != null) {
-                                Navigator.pushNamed(context, Routes.buildEdit,
-                                    arguments: BuildEditParam(
-                                      teamId: team.id,
-                                      buildId: buildId,
-                                      pokemonId: pokemon.id,
-                                    ));
-                              }
+                          return Dismissible(
+                            key: UniqueKey(),
+                            background: Container(
+                              padding: EdgeInsets.only(
+                                right: 20,
+                              ),
+                              alignment: AlignmentDirectional.centerEnd,
+                              color: Colors.red,
+                              child: Icon(
+                                Icons.delete,
+                                size: 32,
+                                color: Colors.white,
+                              ),
+                            ),
+                            direction: DismissDirection.endToStart,
+                            confirmDismiss: (final direction) async {
+                              final confirmResult = await showDeleteDialog(
+                                  context: context, title: pokemon.nameJp);
+                              return confirmResult;
                             },
+                            onDismissed: (final direction) async {
+                              await context
+                                  .read(teamEditViewModelProviderFamily(_teamId)
+                                      .notifier)
+                                  .removeBuild(build: build);
+                            },
+                            child: ListTile(
+                              leading: image,
+                              title: Text(pokemon.nameJp),
+                              onTap: () {
+                                final buildId = build.id;
+                                if (buildId != null) {
+                                  Navigator.pushNamed(context, Routes.buildEdit,
+                                      arguments: BuildEditParam(
+                                        teamId: team.id,
+                                        buildId: buildId,
+                                        pokemonId: pokemon.id,
+                                      ));
+                                }
+                              },
+                            ),
                           );
                         } else {
                           return Container();
