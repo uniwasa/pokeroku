@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/home.dart';
@@ -59,85 +59,97 @@ class TeamListPage extends StatelessWidget {
 
             return false;
           },
-          child: Builder(
-            builder: (context) {
-              if (teams.isNotEmpty) {
-                return ListView.builder(
-                  itemCount: teams.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final team = teams[index];
-                    final builds = team.builds;
-                    final teamName = team.name;
-
-                    final List<Widget> buildIcons = pokemonList != null &&
-                            builds != null
-                        ? builds.map(
-                            (build) {
-                              final pokemon = pokemonList.firstWhere(
-                                  (element) => element.id == build.pokemonId);
-                              return Image.asset(
-                                pokemon.imageName,
-                                isAntiAlias: true,
-                                fit: BoxFit.contain,
-                                filterQuality: FilterQuality.none,
-                              );
-                            },
-                          ).toList()
-                        : [];
-
-                    return Dismissible(
-                      key: UniqueKey(),
-                      background: Container(
-                        padding: EdgeInsets.only(
-                          right: 20,
-                        ),
-                        alignment: AlignmentDirectional.centerEnd,
-                        color: Colors.red,
-                        child: Icon(
-                          Icons.delete,
-                          size: 32,
-                          color: Colors.white,
-                        ),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              context.refresh(teamListViewModelProvider.notifier);
+            },
+            child: Builder(
+              builder: (context) {
+                if (teams.isEmpty) {
+                  return LayoutBuilder(
+                    builder: (context, constraints) => SingleChildScrollView(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraints.maxHeight),
+                        child: Center(child: Text('登録がありません')),
                       ),
-                      direction: DismissDirection.endToStart,
-                      confirmDismiss: (final direction) async {
-                        final confirmResult = await _showDeleteConfirmDialog(
-                            context: context, title: team.name);
-                        return confirmResult;
-                      },
-                      onDismissed: (final direction) async {
-                        await context
-                            .read(teamListViewModelProvider.notifier)
-                            .removeTeam(team: team);
-                      },
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, Routes.teamEdit,
-                              arguments: team.id);
-                        },
-                        title: ConstrainedBox(
-                          constraints: BoxConstraints(minHeight: 100),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (teamName != null) Text(teamName),
-                              if (builds != null)
-                                Wrap(
-                                  children: buildIcons,
-                                ),
-                            ],
+                    ),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: teams.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final team = teams[index];
+                      final builds = team.builds;
+                      final teamName = team.name;
+
+                      final List<Widget> buildIcons = pokemonList != null &&
+                              builds != null
+                          ? builds.map(
+                              (build) {
+                                final pokemon = pokemonList.firstWhere(
+                                    (element) => element.id == build.pokemonId);
+                                return Image.asset(
+                                  pokemon.imageName,
+                                  isAntiAlias: true,
+                                  fit: BoxFit.contain,
+                                  filterQuality: FilterQuality.none,
+                                );
+                              },
+                            ).toList()
+                          : [];
+
+                      return Dismissible(
+                        key: UniqueKey(),
+                        background: Container(
+                          padding: EdgeInsets.only(
+                            right: 20,
+                          ),
+                          alignment: AlignmentDirectional.centerEnd,
+                          color: Colors.red,
+                          child: Icon(
+                            Icons.delete,
+                            size: 32,
+                            color: Colors.white,
                           ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              } else {
-                final text =
-                    FirebaseAuth.instance.currentUser == null ? 'なし' : 'あり';
-                return Text(text);
-              }
-            },
+                        direction: DismissDirection.endToStart,
+                        confirmDismiss: (final direction) async {
+                          final confirmResult = await _showDeleteConfirmDialog(
+                              context: context, title: team.name);
+                          return confirmResult;
+                        },
+                        onDismissed: (final direction) async {
+                          await context
+                              .read(teamListViewModelProvider.notifier)
+                              .removeTeam(team: team);
+                        },
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.teamEdit,
+                                arguments: team.id);
+                          },
+                          title: ConstrainedBox(
+                            constraints: BoxConstraints(minHeight: 100),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (teamName != null) Text(teamName),
+                                if (builds != null)
+                                  Wrap(
+                                    children: buildIcons,
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
           ),
         );
       }),
