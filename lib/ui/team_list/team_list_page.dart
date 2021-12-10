@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/home.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/component/empty_scroll_view.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 import 'package:pokeroku/ui/component/user_drawer.dart';
 
@@ -66,16 +67,7 @@ class TeamListPage extends StatelessWidget {
             child: Builder(
               builder: (context) {
                 if (teams.isEmpty) {
-                  return LayoutBuilder(
-                    builder: (context, constraints) => SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints(minHeight: constraints.maxHeight),
-                        child: Center(child: Text('登録がありません')),
-                      ),
-                    ),
-                  );
+                  return EmptyScrollView();
                 } else {
                   return ListView.builder(
                     itemCount: teams.length,

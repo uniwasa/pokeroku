@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/component/empty_scroll_view.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 class TeamEditPage extends StatelessWidget {
@@ -66,43 +67,55 @@ class TeamEditPage extends StatelessWidget {
                 )
               ],
             ),
-            body: builds != null && builds.length != 0
-                ? ListView.builder(
-                    itemCount: builds.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final build = builds[index];
+            body: RefreshIndicator(
+              onRefresh: () async {
+                context
+                    .refresh(teamEditViewModelProviderFamily(_teamId).notifier);
+              },
+              child: Builder(
+                builder: (context) {
+                  if (builds == null || builds.length == 0) {
+                    return EmptyScrollView();
+                  } else {
+                    return ListView.builder(
+                      itemCount: builds.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final build = builds[index];
 
-                      if (pokemonList != null) {
-                        final pokemon = pokemonList.firstWhere(
-                            (element) => element.id == build.pokemonId);
-                        final image = Image.asset(
-                          pokemon.imageName,
-                          isAntiAlias: true,
-                          fit: BoxFit.contain,
-                          filterQuality: FilterQuality.none,
-                        );
+                        if (pokemonList != null) {
+                          final pokemon = pokemonList.firstWhere(
+                              (element) => element.id == build.pokemonId);
+                          final image = Image.asset(
+                            pokemon.imageName,
+                            isAntiAlias: true,
+                            fit: BoxFit.contain,
+                            filterQuality: FilterQuality.none,
+                          );
 
-                        return ListTile(
-                          leading: image,
-                          title: Text(pokemon.nameJp),
-                          onTap: () {
-                            final buildId = build.id;
-                            if (buildId != null) {
-                              Navigator.pushNamed(context, Routes.buildEdit,
-                                  arguments: BuildEditParam(
-                                    teamId: team.id,
-                                    buildId: buildId,
-                                    pokemonId: pokemon.id,
-                                  ));
-                            }
-                          },
-                        );
-                      } else {
-                        return Container();
-                      }
-                    },
-                  )
-                : Text('ポケモン未選択'),
+                          return ListTile(
+                            leading: image,
+                            title: Text(pokemon.nameJp),
+                            onTap: () {
+                              final buildId = build.id;
+                              if (buildId != null) {
+                                Navigator.pushNamed(context, Routes.buildEdit,
+                                    arguments: BuildEditParam(
+                                      teamId: team.id,
+                                      buildId: buildId,
+                                      pokemonId: pokemon.id,
+                                    ));
+                              }
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
           );
         },
         loading: () {
