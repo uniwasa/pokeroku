@@ -85,9 +85,19 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
   }
 
   Future<void> removeTeam({required Team team}) async {
-    state = state.copyWith(
-      teams: state.teams.where((element) => element.id != team.id).toList(),
-    );
+    try {
+      final userId = _asyncUser.data?.value.id;
+      if (userId != null) {
+        await _read(teamRepositoryProvider)
+            .deleteTeam(userId: userId, team: team);
+        state = state.copyWith(
+          teams: state.teams.where((element) => element.id != team.id).toList(),
+        );
+      }
+    } catch (e) {
+      print(e);
+      state = state.copyWith(error: e.toString(), isLoading: false);
+    }
   }
 
   Future<void> replaceTeam({required Team targetTeam}) async {

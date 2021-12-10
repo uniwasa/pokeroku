@@ -7,15 +7,12 @@ import 'package:pokeroku/provider/firebase_providers.dart';
 
 abstract class TeamRepository {
   Future<Team> getTeam({required String userId, required String teamId});
-
   Future<List<Team>> getAllTeams({required String userId});
-
   Future<List<Team>> getTeams(
       {required String userId, required int limitNum, required Team? lastTeam});
-
   Future<String> createTeam({required String userId, required Team team});
-
   Future<void> updateTeam({required String userId, required Team team});
+  Future<void> deleteTeam({required String userId, required Team team});
 }
 
 final teamRepositoryProvider = Provider((ref) => TeamRepositoryImpl(ref.read));
@@ -93,5 +90,21 @@ class TeamRepositoryImpl implements TeamRepository {
   Future<void> updateTeam({required String userId, required Team team}) async {
     final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
     userRef.collection(CollectionName.teams).doc(team.id).update(team.toJson());
+  }
+
+  @override
+  Future<void> deleteTeam({required String userId, required Team team}) async {
+    final batch = _read(firebaseFirestoreProvider).batch();
+
+    final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
+    final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
+    final buildCollRef = teamRef.collection(CollectionName.builds);
+    final buildDocs = (await buildCollRef.get()).docs;
+    for (final buildDoc in buildDocs) {
+      batch.delete(buildDoc.reference);
+    }
+    batch.delete(teamRef);
+
+    await batch.commit();
   }
 }

@@ -87,9 +87,20 @@ class TeamListPage extends StatelessWidget {
 
                     return Dismissible(
                       key: UniqueKey(),
-                      background: Container(color: Colors.red),
+                      background: Container(
+                        padding: EdgeInsets.only(
+                          right: 20,
+                        ),
+                        alignment: AlignmentDirectional.centerEnd,
+                        color: Colors.red,
+                        child: Icon(
+                          Icons.delete,
+                          size: 32,
+                          color: Colors.white,
+                        ),
+                      ),
                       direction: DismissDirection.endToStart,
-                      confirmDismiss: (direction) async {
+                      confirmDismiss: (final direction) async {
                         final confirmResult = await _showDeleteConfirmDialog(
                             context: context, title: team.name);
                         return confirmResult;
