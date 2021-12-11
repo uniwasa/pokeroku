@@ -76,7 +76,9 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
             .createTeam(userId: userId, team: newTeam);
         final createdTeam = await _read(teamRepositoryProvider)
             .getTeam(userId: userId, teamId: createdTeamId);
-        state = state.copyWith(teams: state.teams..insert(0, createdTeam));
+        // TODO: ちゃんとエラー処理する
+        if (createdTeam != null)
+          state = state.copyWith(teams: state.teams..insert(0, createdTeam));
       }
     } catch (e) {
       print(e);

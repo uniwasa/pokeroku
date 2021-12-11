@@ -54,14 +54,20 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
       if (userId != null) {
         final team = await _read(teamRepositoryProvider)
             .getTeam(userId: userId, teamId: _teamId);
-        final builds = await _read(buildRepositoryProvider)
-            .getBuilds(userId: userId, team: team);
-        final teamWithBuilds = team.copyWith(builds: builds);
-        state = AsyncData(
-            TeamEditState(team: teamWithBuilds, isAddable: _isAddable(builds)));
-        // 必須ではないがリスト側も更新
-        _read(teamListViewModelProvider.notifier)
-            .replaceTeam(targetTeam: teamWithBuilds);
+        if (team == null) {
+          // teamが取得できなかった場合
+          // TODO: エラー処理ちゃんとする
+          state = AsyncError(Exception('該当のパーティがみつかりませんでした'));
+        } else {
+          final builds = await _read(buildRepositoryProvider)
+              .getBuilds(userId: userId, team: team);
+          final teamWithBuilds = team.copyWith(builds: builds);
+          state = AsyncData(TeamEditState(
+              team: teamWithBuilds, isAddable: _isAddable(builds)));
+          // 必須ではないがリスト側も更新
+          _read(teamListViewModelProvider.notifier)
+              .replaceTeam(targetTeam: teamWithBuilds);
+        }
       }
     } catch (e) {
       print(e);

@@ -6,7 +6,7 @@ import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/provider/firebase_providers.dart';
 
 abstract class TeamRepository {
-  Future<Team> getTeam({required String userId, required String teamId});
+  Future<Team?> getTeam({required String userId, required String teamId});
   Future<List<Team>> getAllTeams({required String userId});
   Future<List<Team>> getTeams(
       {required String userId, required int limitNum, required Team? lastTeam});
@@ -28,7 +28,9 @@ class TeamRepositoryImpl implements TeamRepository {
       // UserIdに紐づく、アイテムを取得
       final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
       final snap = await userRef.collection(CollectionName.teams).get();
-      return snap.docs.map((doc) => Team.fromDocument(doc)).toList();
+      return snap.docs
+          .map((doc) => Team.fromJsonWithId(json: doc.data(), id: doc.id))
+          .toList();
     } on FirebaseException catch (e) {
       throw e;
     }
@@ -54,7 +56,9 @@ class TeamRepositoryImpl implements TeamRepository {
             .startAfter([Timestamp.fromDate(lastTeam.createdAt!)]).get();
       }
 
-      return snap.docs.map((doc) => Team.fromDocument(doc)).toList();
+      return snap.docs
+          .map((doc) => Team.fromJsonWithId(json: doc.data(), id: doc.id))
+          .toList();
     } on FirebaseException catch (e) {
       throw e;
     }
@@ -74,13 +78,15 @@ class TeamRepositoryImpl implements TeamRepository {
   }
 
   @override
-  Future<Team> getTeam({required String userId, required String teamId}) async {
+  Future<Team?> getTeam(
+      {required String userId, required String teamId}) async {
     try {
       final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
       final teamDoc =
           await userRef.collection(CollectionName.teams).doc(teamId).get();
-      final team = Team.fromDocument(teamDoc);
-      return team;
+      final teamDocData = teamDoc.data();
+      if (teamDoc.exists && teamDocData != null)
+        return Team.fromJsonWithId(json: teamDocData, id: teamDoc.id);
     } on FirebaseException catch (e) {
       throw e;
     }

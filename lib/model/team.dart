@@ -26,9 +26,9 @@ class Team with _$Team {
 
   factory Team.fromJson(Map<String, dynamic> json) => _$TeamFromJson(json);
 
-  factory Team.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final data = doc.data()!;
-    final buildMap = (data[TeamField.builds] as Map<String, dynamic>?)?.map(
+  factory Team.fromJsonWithId(
+      {required Map<String, dynamic> json, required String id}) {
+    final buildMap = (json[TeamField.builds] as Map<String, dynamic>?)?.map(
       (k, e) => MapEntry(k, Map<String, dynamic>.from(e as Map)),
     );
     final builds = buildMap?.entries
@@ -42,8 +42,8 @@ class Team with _$Team {
         )
         .toList();
     final sortedBuilds = sortBuilds(builds: builds);
-    return Team.fromJson(data).copyWith(
-      id: doc.id,
+    return Team.fromJson(json).copyWith(
+      id: id,
       builds: sortedBuilds,
     );
   }
