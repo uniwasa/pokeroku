@@ -30,11 +30,11 @@ class Build with _$Build {
 
   factory Build.fromJson(Map<String, dynamic> json) => _$BuildFromJson(json);
 
-  factory Build.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final data = doc.data()!;
-    final team = Team.fromJson(data[BuildField.team]);
+  factory Build.fromJsonWithId(
+      {required Map<String, dynamic> json, required String id}) {
+    final team = Team.fromJson(json[BuildField.team]);
 
-    return Build.fromJson(data).copyWith(id: doc.id, team: team);
+    return Build.fromJson(json).copyWith(id: id, team: team);
   }
 
   Map<String, dynamic> toJsonWithTeam(

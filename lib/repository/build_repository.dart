@@ -13,7 +13,7 @@ abstract class BuildRepository {
       {required String userId, required Build build, Team? team});
   Future<List<Build>> getBuilds(
       {required String userId, Team? team, int? limitNum});
-  Future<Build> getBuild(
+  Future<Build?> getBuild(
       {required String userId,
       required String? teamId,
       required String buildId});
@@ -93,7 +93,9 @@ class BuildRepositoryImpl implements BuildRepository {
             .collection(CollectionName.builds)
             .orderBy('createdAt', descending: true)
             .get();
-        return snap.docs.map((doc) => Build.fromDocument(doc)).toList();
+        return snap.docs
+            .map((doc) => Build.fromJsonWithId(json: doc.data(), id: doc.id))
+            .toList();
       } else {
         return [];
       }
@@ -103,7 +105,7 @@ class BuildRepositoryImpl implements BuildRepository {
   }
 
   @override
-  Future<Build> getBuild(
+  Future<Build?> getBuild(
       {required String userId,
       required String? teamId,
       required String buildId}) async {
@@ -111,12 +113,13 @@ class BuildRepositoryImpl implements BuildRepository {
       if (teamId != null) {
         final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
         final teamRef = userRef.collection(CollectionName.teams).doc(teamId);
-        final docSnap =
+        final buildDoc =
             await teamRef.collection(CollectionName.builds).doc(buildId).get();
-        return Build.fromDocument(docSnap);
+        final buildDocData = buildDoc.data();
+        if (buildDoc.exists && buildDocData != null)
+          return Build.fromJsonWithId(json: buildDocData, id: buildDoc.id);
       } else {
         // TODO: ポケモン単体画面用
-        return Build(pokemonId: 0);
       }
     } on FirebaseException catch (e) {
       throw e;

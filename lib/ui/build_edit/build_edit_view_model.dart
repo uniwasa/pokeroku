@@ -50,10 +50,16 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
         if (teamId != null) {
           final build = await _read(buildRepositoryProvider)
               .getBuild(userId: userId, teamId: teamId, buildId: buildId);
-          state = AsyncData(build);
-          // 必須ではないがパーティ側も更新
-          _read(teamEditViewModelProviderFamily(teamId).notifier)
-              .replaceBuild(build: build);
+          if (build == null) {
+            // buildが取得できなかった場合
+            // TODO: エラー処理ちゃんとする
+            state = AsyncError(Exception('該当のデータがみつかりませんでした'));
+          } else {
+            state = AsyncData(build);
+            // 必須ではないがパーティ側も更新
+            _read(teamEditViewModelProviderFamily(teamId).notifier)
+                .replaceBuild(build: build);
+          }
         }
       }
     } catch (e) {
