@@ -32,7 +32,8 @@ class Build with _$Build {
 
   factory Build.fromJsonWithId(
       {required Map<String, dynamic> json, required String id}) {
-    final team = Team.fromJson(json[BuildField.team]);
+    final teamJson = json[BuildField.team];
+    final team = teamJson != null ? Team.fromJson(teamJson) : null;
 
     return Build.fromJson(json).copyWith(id: id, team: team);
   }

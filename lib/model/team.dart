@@ -33,12 +33,7 @@ class Team with _$Team {
     );
     final builds = buildMap?.entries
         .map(
-          (e) => Build(
-            id: e.key,
-            pokemonId: e.value[TeamField.pokemonId],
-            itemId: e.value[TeamField.itemId],
-            createdAt: (e.value[TeamField.createdAt] as Timestamp?)?.toDate(),
-          ),
+          (e) => Build.fromJsonWithId(json: e.value, id: e.key),
         )
         .toList();
     final sortedBuilds = sortBuilds(builds: builds);
