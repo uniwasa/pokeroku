@@ -24,11 +24,10 @@ class BuildEditPage extends HookWidget with ValidationMixin {
 
   final BuildEditParam _buildEditParam;
 
-  final formGlobalKey = GlobalKey<FormState>();
+  final _formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final formGlobalKey = GlobalKey<FormState>();
     final pokemonList = useProvider(pokemonListProvider).data?.value;
     final pokemonId = useProvider(
         buildEditViewModelProviderFamily(_buildEditParam)
@@ -54,8 +53,8 @@ class BuildEditPage extends HookWidget with ValidationMixin {
               width: kToolbarHeight,
               child: IconButton(
                   onPressed: () async {
-                    if (formGlobalKey.currentState?.validate() == true) {
-                      formGlobalKey.currentState?.save();
+                    if (_formGlobalKey.currentState?.validate() == true) {
+                      _formGlobalKey.currentState?.save();
                       final result = await context
                           .read(
                               buildEditViewModelProviderFamily(_buildEditParam)
@@ -139,7 +138,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                 );
               }),
               Form(
-                key: formGlobalKey,
+                key: _formGlobalKey,
                 child: Column(
                   children: [
                     makeLevelListTile(context: context),
