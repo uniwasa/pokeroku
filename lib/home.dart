@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
         items: [
           PersistentBottomNavBarItem(
             icon: Icon(Icons.bar_chart),
-            title: ('ポケモン'),
+            title: ('ずかん'),
             textStyle: TextStyle(fontSize: 10),
             activeColorPrimary: Colors.white,
             inactiveColorPrimary: Theme.of(context).hintColor,
