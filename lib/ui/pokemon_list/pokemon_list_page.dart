@@ -56,14 +56,13 @@ class PokemonListPage extends StatelessWidget {
         ),
       ),
       body: HookBuilder(builder: (context) {
-        final pokemonState = useProvider(pokemonListViewModelProvider);
-        return pokemonState.when(
-          data: (pokemons) {
-            //ポケモン読み込まれてたら
-            return GridView.builder(
-              padding: EdgeInsets.all(5),
+        final asyncPokemonList = useProvider(pokemonListViewModelProvider);
+        return asyncPokemonList.when(
+          data: (pokemonList) {
+            return ListView.builder(
+              itemCount: pokemonList.length,
               itemBuilder: (BuildContext context, int index) {
-                final pokemon = pokemons[index];
+                final pokemon = pokemonList[index];
                 // final isPrevGenIcon = pokemon.gen8!.forms!['\$']!.isPrevGenIcon!;
                 final Image pokemonImage = Image.asset(
                   pokemon.imageName,
@@ -76,113 +75,50 @@ class PokemonListPage extends StatelessWidget {
                   child: pokemonImage,
                 );
 
-                return Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Material(
-                        color: Theme.of(context).cardColor,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, Routes.pokemonDetail,
-                                arguments: pokemon);
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                // color: pokemon.color,
-                                child: Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: AspectRatio(
-                                    aspectRatio: 1.25,
-                                    child: pokemonHeroImage,
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        pokemon.nameJp,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
-                                      if (pokemon.formNameJp != null)
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 8),
-                                          child: Text(
-                                            pokemon.formNameJp!,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white70,
-                                            ),
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                  // Text(
-                                  //   pokemon.fullNameEn,
-                                  //   style: TextStyle(
-                                  //     color: Colors.white70,
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                              Spacer(),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: 8,
-                                  right: 8,
-                                  bottom: 8,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      '#' +
-                                          pokemon.speciesId
-                                              .toString()
-                                              .padLeft(3, "0"),
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Row(
-                                      children: [
-                                        if (pokemon.firstType != null)
-                                          buildCircle(
-                                              color: pokemon.firstType!.color),
-                                        if (pokemon.secondType != null)
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 5),
-                                            child: buildCircle(
-                                              color: pokemon.secondType!.color,
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                return ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.pokemonDetail,
+                        arguments: pokemon);
+                  },
+                  leading: Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: pokemonHeroImage,
+                  ),
+                  title: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        pokemon.nameJp,
+                      ),
+                      if (pokemon.formNameJp != null)
+                        Padding(
+                          padding: EdgeInsets.only(left: 8),
+                          child: Text(
+                            pokemon.formNameJp!,
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white70,
+                            ),
                           ),
                         ),
-                      ),
-                    ));
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (pokemon.firstType != null)
+                        buildCircle(color: pokemon.firstType!.color),
+                      if (pokemon.secondType != null)
+                        Padding(
+                          padding: EdgeInsets.only(left: 5),
+                          child: buildCircle(
+                            color: pokemon.secondType!.color,
+                          ),
+                        ),
+                    ],
+                  ),
+                );
               },
-              itemCount: pokemons.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 5,
-              ),
             );
           },
           loading: () => Center(
@@ -193,9 +129,6 @@ class PokemonListPage extends StatelessWidget {
           ),
         );
       }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-      ),
     );
   }
 }
