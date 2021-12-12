@@ -36,8 +36,9 @@ class Home extends StatelessWidget {
         screens: [PokemonListPage(), TeamListPage()],
         items: [
           PersistentBottomNavBarItem(
-            icon: Icon(Icons.format_list_numbered),
+            icon: Icon(Icons.bar_chart),
             title: ('ポケモン'),
+            textStyle: TextStyle(fontSize: 10),
             activeColorPrimary: Colors.white,
             inactiveColorPrimary: Theme.of(context).hintColor,
             routeAndNavigatorSettings: RouteAndNavigatorSettings(
@@ -45,8 +46,9 @@ class Home extends StatelessWidget {
             ),
           ),
           PersistentBottomNavBarItem(
-            icon: Icon(Icons.save),
+            icon: Icon(Icons.build),
             title: ('パーティ'),
+            textStyle: TextStyle(fontSize: 10),
             activeColorPrimary: Colors.white,
             inactiveColorPrimary: Theme.of(context).hintColor,
             routeAndNavigatorSettings: RouteAndNavigatorSettings(
@@ -54,7 +56,7 @@ class Home extends StatelessWidget {
             ),
           ),
         ],
-        navBarStyle: NavBarStyle.style1,
+        navBarStyle: NavBarStyle.style6,
       );
     });
   }
