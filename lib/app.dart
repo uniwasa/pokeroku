@@ -10,11 +10,23 @@ class App extends HookWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'pokeroku',
-      theme: ThemeData.dark(),
+      theme: _customDarkTheme(),
       initialRoute: Routes.home,
       routes: <String, WidgetBuilder>{
         Routes.home: (BuildContext context) => Home(),
       },
     );
+  }
+
+  ThemeData _customDarkTheme() {
+    final darkTheme = ThemeData.dark();
+    final customTheme = darkTheme.copyWith(
+      appBarTheme: darkTheme.appBarTheme
+          .copyWith(backgroundColor: darkTheme.primaryColor),
+      scaffoldBackgroundColor: Color.fromRGBO(40, 40, 40, 1),
+      cardColor: Color.fromRGBO(52, 52, 52, 1),
+      dialogBackgroundColor: Color.fromRGBO(52, 52, 52, 1),
+    );
+    return customTheme;
   }
 }

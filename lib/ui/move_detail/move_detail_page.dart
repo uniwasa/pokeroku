@@ -20,8 +20,8 @@ class MoveDetailPage extends StatelessWidget {
       );
     });
   }
-  late final AutoDisposeStateNotifierProvider<MoveDetailViewModel, MoveDetailState>
-      _provider;
+  late final AutoDisposeStateNotifierProvider<MoveDetailViewModel,
+      MoveDetailState> _provider;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

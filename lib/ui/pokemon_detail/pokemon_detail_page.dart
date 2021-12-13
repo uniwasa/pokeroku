@@ -63,7 +63,6 @@ class PokemonDetailPage extends StatelessWidget {
       child: Builder(builder: (context) {
         return Scaffold(
           body: Container(
-            color: Theme.of(context).cardColor,
             child: NestedScrollView(
               pinnedHeaderSliverHeightBuilder: () {
                 return _appBarHeight(context) + _bottomAppBarHeight;

@@ -78,7 +78,7 @@ class PokemonEvolutionChain extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
-              color: Theme.of(context).canvasColor,
+              color: Theme.of(context).cardColor,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(

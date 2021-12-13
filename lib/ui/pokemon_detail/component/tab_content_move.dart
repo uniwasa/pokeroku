@@ -103,7 +103,7 @@ extension TabContentMove on PokemonDetailPage {
                       style: BorderStyle.none,
                     ),
                   ),
-                  fillColor: Theme.of(context).canvasColor,
+                  fillColor: Theme.of(context).cardColor,
                   filled: true,
                 ),
               ),

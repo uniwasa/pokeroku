@@ -12,7 +12,7 @@ extension TabContentBase on PokemonDetailPage {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Padding(
@@ -162,8 +162,10 @@ extension TabContentBase on PokemonDetailPage {
                       return Column(
                         children: abilityList
                             .map((ability) => Container(
+                                  color: Theme.of(context).cardColor,
                                   width: double.infinity,
                                   child: Material(
+                                    color: Colors.transparent,
                                     child: InkWell(
                                       onTap: () {
                                         Navigator.pushNamed(

@@ -90,7 +90,7 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
             height: _bottomAppBarHeight + 1 + (12 * opacity),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
