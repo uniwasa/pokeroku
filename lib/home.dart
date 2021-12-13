@@ -30,6 +30,7 @@ class Home extends StatelessWidget {
       final hideNavigationBar = useProvider(hideNavigationBarProvider).state;
       return PersistentTabView(
         context,
+        navBarHeight: 44,
         hideNavigationBar: hideNavigationBar,
         resizeToAvoidBottomInset: true,
         backgroundColor: Theme.of(context).primaryColor,
@@ -38,7 +39,8 @@ class Home extends StatelessWidget {
           PersistentBottomNavBarItem(
             icon: Icon(Icons.bar_chart),
             title: ('ずかん'),
-            textStyle: TextStyle(fontSize: 10),
+            iconSize: 20,
+            textStyle: TextStyle(fontSize: 8),
             activeColorPrimary: Colors.white,
             inactiveColorPrimary: Theme.of(context).hintColor,
             routeAndNavigatorSettings: RouteAndNavigatorSettings(
@@ -48,7 +50,8 @@ class Home extends StatelessWidget {
           PersistentBottomNavBarItem(
             icon: Icon(Icons.build),
             title: ('パーティ'),
-            textStyle: TextStyle(fontSize: 10),
+            iconSize: 20,
+            textStyle: TextStyle(fontSize: 8),
             activeColorPrimary: Colors.white,
             inactiveColorPrimary: Theme.of(context).hintColor,
             routeAndNavigatorSettings: RouteAndNavigatorSettings(
