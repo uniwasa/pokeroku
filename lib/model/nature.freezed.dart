@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'nature.dart';
 
@@ -35,7 +36,7 @@ class _$NatureTearOff {
     );
   }
 
-  Nature fromJson(Map<String, Object> json) {
+  Nature fromJson(Map<String, Object?> json) {
     return Nature.fromJson(json);
   }
 }
@@ -177,7 +178,7 @@ class _$_Nature extends _Nature with DiagnosticableTreeMixin {
       : super._();
 
   factory _$_Nature.fromJson(Map<String, dynamic> json) =>
-      _$_$_NatureFromJson(json);
+      _$$_NatureFromJson(json);
 
   @override
   final int id;
@@ -212,32 +213,26 @@ class _$_Nature extends _Nature with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Nature &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.identifier, identifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.identifier, identifier)) &&
-            (identical(other.nameJp, nameJp) ||
-                const DeepCollectionEquality().equals(other.nameJp, nameJp)) &&
-            (identical(
-                    other.decreasedStatIdentifier, decreasedStatIdentifier) ||
-                const DeepCollectionEquality().equals(
-                    other.decreasedStatIdentifier, decreasedStatIdentifier)) &&
-            (identical(
-                    other.increasedStatIdentifier, increasedStatIdentifier) ||
-                const DeepCollectionEquality().equals(
-                    other.increasedStatIdentifier, increasedStatIdentifier)));
+        (other.runtimeType == runtimeType &&
+            other is _Nature &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.identifier, identifier) &&
+            const DeepCollectionEquality().equals(other.nameJp, nameJp) &&
+            const DeepCollectionEquality().equals(
+                other.decreasedStatIdentifier, decreasedStatIdentifier) &&
+            const DeepCollectionEquality().equals(
+                other.increasedStatIdentifier, increasedStatIdentifier));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(identifier) ^
-      const DeepCollectionEquality().hash(nameJp) ^
-      const DeepCollectionEquality().hash(decreasedStatIdentifier) ^
-      const DeepCollectionEquality().hash(increasedStatIdentifier);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(identifier),
+      const DeepCollectionEquality().hash(nameJp),
+      const DeepCollectionEquality().hash(decreasedStatIdentifier),
+      const DeepCollectionEquality().hash(increasedStatIdentifier));
 
   @JsonKey(ignore: true)
   @override
@@ -246,7 +241,7 @@ class _$_Nature extends _Nature with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_NatureToJson(this);
+    return _$$_NatureToJson(this);
   }
 }
 
@@ -262,15 +257,15 @@ abstract class _Nature extends Nature {
   factory _Nature.fromJson(Map<String, dynamic> json) = _$_Nature.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
-  String get identifier => throw _privateConstructorUsedError;
+  String get identifier;
   @override
-  String get nameJp => throw _privateConstructorUsedError;
+  String get nameJp;
   @override
-  String get decreasedStatIdentifier => throw _privateConstructorUsedError;
+  String get decreasedStatIdentifier;
   @override
-  String get increasedStatIdentifier => throw _privateConstructorUsedError;
+  String get increasedStatIdentifier;
   @override
   @JsonKey(ignore: true)
   _$NatureCopyWith<_Nature> get copyWith => throw _privateConstructorUsedError;

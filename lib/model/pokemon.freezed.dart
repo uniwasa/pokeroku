@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pokemon.dart';
 
@@ -79,7 +80,7 @@ class _$PokemonTearOff {
     );
   }
 
-  Pokemon fromJson(Map<String, Object> json) {
+  Pokemon fromJson(Map<String, Object?> json) {
     return Pokemon.fromJson(json);
   }
 }
@@ -565,7 +566,7 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
       : super._();
 
   factory _$_Pokemon.fromJson(Map<String, dynamic> json) =>
-      _$_$_PokemonFromJson(json);
+      _$$_PokemonFromJson(json);
 
   @override
   final int id;
@@ -671,108 +672,83 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Pokemon &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.height, height) ||
-                const DeepCollectionEquality().equals(other.height, height)) &&
-            (identical(other.weight, weight) ||
-                const DeepCollectionEquality().equals(other.weight, weight)) &&
-            (identical(other.baseExperience, baseExperience) ||
-                const DeepCollectionEquality()
-                    .equals(other.baseExperience, baseExperience)) &&
-            (identical(other.speciesId, speciesId) ||
-                const DeepCollectionEquality()
-                    .equals(other.speciesId, speciesId)) &&
-            (identical(other.identifier, identifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.identifier, identifier)) &&
-            (identical(other.speciesIdentifier, speciesIdentifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.speciesIdentifier, speciesIdentifier)) &&
-            (identical(other.nameJp, nameJp) ||
-                const DeepCollectionEquality().equals(other.nameJp, nameJp)) &&
-            (identical(other.nameEn, nameEn) ||
-                const DeepCollectionEquality().equals(other.nameEn, nameEn)) &&
-            (identical(other.hp, hp) ||
-                const DeepCollectionEquality().equals(other.hp, hp)) &&
-            (identical(other.attack, attack) ||
-                const DeepCollectionEquality().equals(other.attack, attack)) &&
-            (identical(other.defense, defense) ||
-                const DeepCollectionEquality()
-                    .equals(other.defense, defense)) &&
-            (identical(other.specialAttack, specialAttack) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialAttack, specialAttack)) &&
-            (identical(other.specialDefense, specialDefense) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialDefense, specialDefense)) &&
-            (identical(other.speed, speed) ||
-                const DeepCollectionEquality().equals(other.speed, speed)) &&
-            (identical(other.isDefault, isDefault) ||
-                const DeepCollectionEquality()
-                    .equals(other.isDefault, isDefault)) &&
-            (identical(other.pokespritePath, pokespritePath) ||
-                const DeepCollectionEquality()
-                    .equals(other.pokespritePath, pokespritePath)) &&
-            (identical(other.formIdentifier, formIdentifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.formIdentifier, formIdentifier)) &&
-            (identical(other.formNameJp, formNameJp) ||
-                const DeepCollectionEquality()
-                    .equals(other.formNameJp, formNameJp)) &&
-            (identical(other.formNameEn, formNameEn) ||
-                const DeepCollectionEquality()
-                    .equals(other.formNameEn, formNameEn)) &&
-            (identical(other.pokemonMoveVersionGroupId, pokemonMoveVersionGroupId) ||
-                const DeepCollectionEquality().equals(
-                    other.pokemonMoveVersionGroupId,
-                    pokemonMoveVersionGroupId)) &&
-            (identical(other.pokemonMoveMethodId, pokemonMoveMethodId) ||
-                const DeepCollectionEquality()
-                    .equals(other.pokemonMoveMethodId, pokemonMoveMethodId)) &&
-            (identical(other.firstTypeId, firstTypeId) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstTypeId, firstTypeId)) &&
-            (identical(other.secondTypeId, secondTypeId) ||
-                const DeepCollectionEquality()
-                    .equals(other.secondTypeId, secondTypeId)) &&
-            (identical(other.firstType, firstType) ||
-                const DeepCollectionEquality().equals(other.firstType, firstType)) &&
-            (identical(other.secondType, secondType) || const DeepCollectionEquality().equals(other.secondType, secondType)) &&
-            (identical(other.genderRate, genderRate) || const DeepCollectionEquality().equals(other.genderRate, genderRate)));
+        (other.runtimeType == runtimeType &&
+            other is _Pokemon &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.height, height) &&
+            const DeepCollectionEquality().equals(other.weight, weight) &&
+            const DeepCollectionEquality()
+                .equals(other.baseExperience, baseExperience) &&
+            const DeepCollectionEquality().equals(other.speciesId, speciesId) &&
+            const DeepCollectionEquality()
+                .equals(other.identifier, identifier) &&
+            const DeepCollectionEquality()
+                .equals(other.speciesIdentifier, speciesIdentifier) &&
+            const DeepCollectionEquality().equals(other.nameJp, nameJp) &&
+            const DeepCollectionEquality().equals(other.nameEn, nameEn) &&
+            const DeepCollectionEquality().equals(other.hp, hp) &&
+            const DeepCollectionEquality().equals(other.attack, attack) &&
+            const DeepCollectionEquality().equals(other.defense, defense) &&
+            const DeepCollectionEquality()
+                .equals(other.specialAttack, specialAttack) &&
+            const DeepCollectionEquality()
+                .equals(other.specialDefense, specialDefense) &&
+            const DeepCollectionEquality().equals(other.speed, speed) &&
+            const DeepCollectionEquality().equals(other.isDefault, isDefault) &&
+            const DeepCollectionEquality()
+                .equals(other.pokespritePath, pokespritePath) &&
+            const DeepCollectionEquality()
+                .equals(other.formIdentifier, formIdentifier) &&
+            const DeepCollectionEquality()
+                .equals(other.formNameJp, formNameJp) &&
+            const DeepCollectionEquality()
+                .equals(other.formNameEn, formNameEn) &&
+            const DeepCollectionEquality().equals(
+                other.pokemonMoveVersionGroupId, pokemonMoveVersionGroupId) &&
+            const DeepCollectionEquality()
+                .equals(other.pokemonMoveMethodId, pokemonMoveMethodId) &&
+            const DeepCollectionEquality()
+                .equals(other.firstTypeId, firstTypeId) &&
+            const DeepCollectionEquality()
+                .equals(other.secondTypeId, secondTypeId) &&
+            const DeepCollectionEquality().equals(other.firstType, firstType) &&
+            const DeepCollectionEquality()
+                .equals(other.secondType, secondType) &&
+            const DeepCollectionEquality()
+                .equals(other.genderRate, genderRate));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(height) ^
-      const DeepCollectionEquality().hash(weight) ^
-      const DeepCollectionEquality().hash(baseExperience) ^
-      const DeepCollectionEquality().hash(speciesId) ^
-      const DeepCollectionEquality().hash(identifier) ^
-      const DeepCollectionEquality().hash(speciesIdentifier) ^
-      const DeepCollectionEquality().hash(nameJp) ^
-      const DeepCollectionEquality().hash(nameEn) ^
-      const DeepCollectionEquality().hash(hp) ^
-      const DeepCollectionEquality().hash(attack) ^
-      const DeepCollectionEquality().hash(defense) ^
-      const DeepCollectionEquality().hash(specialAttack) ^
-      const DeepCollectionEquality().hash(specialDefense) ^
-      const DeepCollectionEquality().hash(speed) ^
-      const DeepCollectionEquality().hash(isDefault) ^
-      const DeepCollectionEquality().hash(pokespritePath) ^
-      const DeepCollectionEquality().hash(formIdentifier) ^
-      const DeepCollectionEquality().hash(formNameJp) ^
-      const DeepCollectionEquality().hash(formNameEn) ^
-      const DeepCollectionEquality().hash(pokemonMoveVersionGroupId) ^
-      const DeepCollectionEquality().hash(pokemonMoveMethodId) ^
-      const DeepCollectionEquality().hash(firstTypeId) ^
-      const DeepCollectionEquality().hash(secondTypeId) ^
-      const DeepCollectionEquality().hash(firstType) ^
-      const DeepCollectionEquality().hash(secondType) ^
-      const DeepCollectionEquality().hash(genderRate);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(id),
+        const DeepCollectionEquality().hash(height),
+        const DeepCollectionEquality().hash(weight),
+        const DeepCollectionEquality().hash(baseExperience),
+        const DeepCollectionEquality().hash(speciesId),
+        const DeepCollectionEquality().hash(identifier),
+        const DeepCollectionEquality().hash(speciesIdentifier),
+        const DeepCollectionEquality().hash(nameJp),
+        const DeepCollectionEquality().hash(nameEn),
+        const DeepCollectionEquality().hash(hp),
+        const DeepCollectionEquality().hash(attack),
+        const DeepCollectionEquality().hash(defense),
+        const DeepCollectionEquality().hash(specialAttack),
+        const DeepCollectionEquality().hash(specialDefense),
+        const DeepCollectionEquality().hash(speed),
+        const DeepCollectionEquality().hash(isDefault),
+        const DeepCollectionEquality().hash(pokespritePath),
+        const DeepCollectionEquality().hash(formIdentifier),
+        const DeepCollectionEquality().hash(formNameJp),
+        const DeepCollectionEquality().hash(formNameEn),
+        const DeepCollectionEquality().hash(pokemonMoveVersionGroupId),
+        const DeepCollectionEquality().hash(pokemonMoveMethodId),
+        const DeepCollectionEquality().hash(firstTypeId),
+        const DeepCollectionEquality().hash(secondTypeId),
+        const DeepCollectionEquality().hash(firstType),
+        const DeepCollectionEquality().hash(secondType),
+        const DeepCollectionEquality().hash(genderRate)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -781,7 +757,7 @@ class _$_Pokemon extends _Pokemon with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PokemonToJson(this);
+    return _$$_PokemonToJson(this);
   }
 }
 
@@ -820,65 +796,65 @@ abstract class _Pokemon extends Pokemon {
   factory _Pokemon.fromJson(Map<String, dynamic> json) = _$_Pokemon.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
   @JsonKey(fromJson: makeOneTenth)
-  double get height => throw _privateConstructorUsedError;
+  double get height;
   @override
   @JsonKey(fromJson: makeOneTenth)
-  double get weight => throw _privateConstructorUsedError;
+  double get weight;
   @override
-  int get baseExperience => throw _privateConstructorUsedError;
+  int get baseExperience;
   @override
-  int get speciesId => throw _privateConstructorUsedError;
+  int get speciesId;
   @override
-  String get identifier => throw _privateConstructorUsedError;
+  String get identifier;
   @override
-  String get speciesIdentifier => throw _privateConstructorUsedError;
+  String get speciesIdentifier;
   @override
-  String get nameJp => throw _privateConstructorUsedError;
+  String get nameJp;
   @override
-  String get nameEn => throw _privateConstructorUsedError;
+  String get nameEn;
   @override
-  int get hp => throw _privateConstructorUsedError;
+  int get hp;
   @override
-  int get attack => throw _privateConstructorUsedError;
+  int get attack;
   @override
-  int get defense => throw _privateConstructorUsedError;
+  int get defense;
   @override
-  int get specialAttack => throw _privateConstructorUsedError;
+  int get specialAttack;
   @override
-  int get specialDefense => throw _privateConstructorUsedError;
+  int get specialDefense;
   @override
-  int get speed => throw _privateConstructorUsedError;
+  int get speed;
   @override
   @JsonKey(fromJson: intToBool)
-  bool get isDefault => throw _privateConstructorUsedError;
+  bool get isDefault;
   @override
-  String? get pokespritePath => throw _privateConstructorUsedError;
+  String? get pokespritePath;
   @override
-  String? get formIdentifier => throw _privateConstructorUsedError;
+  String? get formIdentifier;
   @override
-  String? get formNameJp => throw _privateConstructorUsedError;
+  String? get formNameJp;
   @override
-  String? get formNameEn => throw _privateConstructorUsedError;
+  String? get formNameEn;
   @override
-  int? get pokemonMoveVersionGroupId => throw _privateConstructorUsedError;
+  int? get pokemonMoveVersionGroupId;
   @override
-  int? get pokemonMoveMethodId => throw _privateConstructorUsedError;
+  int? get pokemonMoveMethodId;
   @override
-  int? get firstTypeId => throw _privateConstructorUsedError;
+  int? get firstTypeId;
   @override
-  int? get secondTypeId => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  PokemonType? get firstType => throw _privateConstructorUsedError;
+  int? get secondTypeId;
   @override
   @JsonKey(ignore: true)
-  PokemonType? get secondType => throw _privateConstructorUsedError;
+  PokemonType? get firstType;
+  @override
+  @JsonKey(ignore: true)
+  PokemonType? get secondType;
   @override
   @JsonKey(fromJson: makeGenderRate)
-  List<double>? get genderRate => throw _privateConstructorUsedError;
+  List<double>? get genderRate;
   @override
   @JsonKey(ignore: true)
   _$PokemonCopyWith<_Pokemon> get copyWith =>

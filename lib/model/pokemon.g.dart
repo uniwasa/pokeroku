@@ -6,37 +6,35 @@ part of 'pokemon.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Pokemon _$_$_PokemonFromJson(Map<String, dynamic> json) {
-  return _$_Pokemon(
-    id: json['id'] as int,
-    height: makeOneTenth(json['height'] as int),
-    weight: makeOneTenth(json['weight'] as int),
-    baseExperience: json['base_experience'] as int,
-    speciesId: json['species_id'] as int,
-    identifier: json['identifier'] as String,
-    speciesIdentifier: json['species_identifier'] as String,
-    nameJp: json['name_jp'] as String,
-    nameEn: json['name_en'] as String,
-    hp: json['hp'] as int,
-    attack: json['attack'] as int,
-    defense: json['defense'] as int,
-    specialAttack: json['special_attack'] as int,
-    specialDefense: json['special_defense'] as int,
-    speed: json['speed'] as int,
-    isDefault: intToBool(json['is_default'] as int),
-    pokespritePath: json['pokesprite_path'] as String?,
-    formIdentifier: json['form_identifier'] as String?,
-    formNameJp: json['form_name_jp'] as String?,
-    formNameEn: json['form_name_en'] as String?,
-    pokemonMoveVersionGroupId: json['pokemon_move_version_group_id'] as int?,
-    pokemonMoveMethodId: json['pokemon_move_method_id'] as int?,
-    firstTypeId: json['first_type_id'] as int?,
-    secondTypeId: json['second_type_id'] as int?,
-    genderRate: makeGenderRate(json['gender_rate'] as int),
-  );
-}
+_$_Pokemon _$$_PokemonFromJson(Map<String, dynamic> json) => _$_Pokemon(
+      id: json['id'] as int,
+      height: makeOneTenth(json['height'] as int),
+      weight: makeOneTenth(json['weight'] as int),
+      baseExperience: json['base_experience'] as int,
+      speciesId: json['species_id'] as int,
+      identifier: json['identifier'] as String,
+      speciesIdentifier: json['species_identifier'] as String,
+      nameJp: json['name_jp'] as String,
+      nameEn: json['name_en'] as String,
+      hp: json['hp'] as int,
+      attack: json['attack'] as int,
+      defense: json['defense'] as int,
+      specialAttack: json['special_attack'] as int,
+      specialDefense: json['special_defense'] as int,
+      speed: json['speed'] as int,
+      isDefault: intToBool(json['is_default'] as int),
+      pokespritePath: json['pokesprite_path'] as String?,
+      formIdentifier: json['form_identifier'] as String?,
+      formNameJp: json['form_name_jp'] as String?,
+      formNameEn: json['form_name_en'] as String?,
+      pokemonMoveVersionGroupId: json['pokemon_move_version_group_id'] as int?,
+      pokemonMoveMethodId: json['pokemon_move_method_id'] as int?,
+      firstTypeId: json['first_type_id'] as int?,
+      secondTypeId: json['second_type_id'] as int?,
+      genderRate: makeGenderRate(json['gender_rate'] as int),
+    );
 
-Map<String, dynamic> _$_$_PokemonToJson(_$_Pokemon instance) =>
+Map<String, dynamic> _$$_PokemonToJson(_$_Pokemon instance) =>
     <String, dynamic>{
       'id': instance.id,
       'height': instance.height,

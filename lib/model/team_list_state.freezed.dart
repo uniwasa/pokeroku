@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'team_list_state.dart';
 
@@ -177,26 +178,21 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _TeamListState &&
-            (identical(other.teams, teams) ||
-                const DeepCollectionEquality().equals(other.teams, teams)) &&
-            (identical(other.isLoading, isLoading) ||
-                const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)) &&
-            (identical(other.hasNext, hasNext) ||
-                const DeepCollectionEquality()
-                    .equals(other.hasNext, hasNext)) &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other.runtimeType == runtimeType &&
+            other is _TeamListState &&
+            const DeepCollectionEquality().equals(other.teams, teams) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(teams) ^
-      const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(hasNext) ^
-      const DeepCollectionEquality().hash(error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(teams),
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(hasNext),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -213,13 +209,13 @@ abstract class _TeamListState extends TeamListState {
   const _TeamListState._() : super._();
 
   @override
-  List<Team> get teams => throw _privateConstructorUsedError;
+  List<Team> get teams;
   @override
-  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isLoading;
   @override
-  bool get hasNext => throw _privateConstructorUsedError;
+  bool get hasNext;
   @override
-  String? get error => throw _privateConstructorUsedError;
+  String? get error;
   @override
   @JsonKey(ignore: true)
   _$TeamListStateCopyWith<_TeamListState> get copyWith =>

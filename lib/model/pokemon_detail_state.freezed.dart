@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pokemon_detail_state.dart';
 
@@ -222,34 +223,27 @@ class _$_PokemonDetailState extends _PokemonDetailState
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _PokemonDetailState &&
-            (identical(other.pokemon, pokemon) ||
-                const DeepCollectionEquality()
-                    .equals(other.pokemon, pokemon)) &&
-            (identical(other.asyncMoveList, asyncMoveList) ||
-                const DeepCollectionEquality()
-                    .equals(other.asyncMoveList, asyncMoveList)) &&
-            (identical(other.asyncPokemonFlavorTextList,
-                    asyncPokemonFlavorTextList) ||
-                const DeepCollectionEquality().equals(
-                    other.asyncPokemonFlavorTextList,
-                    asyncPokemonFlavorTextList)) &&
-            (identical(other.asyncAbilityList, asyncAbilityList) ||
-                const DeepCollectionEquality()
-                    .equals(other.asyncAbilityList, asyncAbilityList)) &&
-            (identical(other.asyncEvolutionLine, asyncEvolutionLine) ||
-                const DeepCollectionEquality()
-                    .equals(other.asyncEvolutionLine, asyncEvolutionLine)));
+        (other.runtimeType == runtimeType &&
+            other is _PokemonDetailState &&
+            const DeepCollectionEquality().equals(other.pokemon, pokemon) &&
+            const DeepCollectionEquality()
+                .equals(other.asyncMoveList, asyncMoveList) &&
+            const DeepCollectionEquality().equals(
+                other.asyncPokemonFlavorTextList, asyncPokemonFlavorTextList) &&
+            const DeepCollectionEquality()
+                .equals(other.asyncAbilityList, asyncAbilityList) &&
+            const DeepCollectionEquality()
+                .equals(other.asyncEvolutionLine, asyncEvolutionLine));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(pokemon) ^
-      const DeepCollectionEquality().hash(asyncMoveList) ^
-      const DeepCollectionEquality().hash(asyncPokemonFlavorTextList) ^
-      const DeepCollectionEquality().hash(asyncAbilityList) ^
-      const DeepCollectionEquality().hash(asyncEvolutionLine);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(pokemon),
+      const DeepCollectionEquality().hash(asyncMoveList),
+      const DeepCollectionEquality().hash(asyncPokemonFlavorTextList),
+      const DeepCollectionEquality().hash(asyncAbilityList),
+      const DeepCollectionEquality().hash(asyncEvolutionLine));
 
   @JsonKey(ignore: true)
   @override
@@ -268,19 +262,15 @@ abstract class _PokemonDetailState extends PokemonDetailState {
   const _PokemonDetailState._() : super._();
 
   @override
-  Pokemon get pokemon => throw _privateConstructorUsedError;
+  Pokemon get pokemon;
   @override
-  AsyncValue<List<Move>> get asyncMoveList =>
-      throw _privateConstructorUsedError;
+  AsyncValue<List<Move>> get asyncMoveList;
   @override
-  AsyncValue<List<PokemonFlavorText>> get asyncPokemonFlavorTextList =>
-      throw _privateConstructorUsedError;
+  AsyncValue<List<PokemonFlavorText>> get asyncPokemonFlavorTextList;
   @override
-  AsyncValue<List<Ability>> get asyncAbilityList =>
-      throw _privateConstructorUsedError;
+  AsyncValue<List<Ability>> get asyncAbilityList;
   @override
-  AsyncValue<List<List<Pokemon>>> get asyncEvolutionLine =>
-      throw _privateConstructorUsedError;
+  AsyncValue<List<List<Pokemon>>> get asyncEvolutionLine;
   @override
   @JsonKey(ignore: true)
   _$PokemonDetailStateCopyWith<_PokemonDetailState> get copyWith =>

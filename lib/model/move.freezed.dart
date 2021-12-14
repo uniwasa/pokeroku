@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'move.dart';
 
@@ -63,7 +64,7 @@ class _$MoveTearOff {
     );
   }
 
-  Move fromJson(Map<String, Object> json) {
+  Move fromJson(Map<String, Object?> json) {
     return Move.fromJson(json);
   }
 }
@@ -417,8 +418,7 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
       @JsonKey(ignore: true) this.type})
       : super._();
 
-  factory _$_Move.fromJson(Map<String, dynamic> json) =>
-      _$_$_MoveFromJson(json);
+  factory _$_Move.fromJson(Map<String, dynamic> json) => _$$_MoveFromJson(json);
 
   @override
   final int id;
@@ -494,80 +494,60 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Move &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.identifier, identifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.identifier, identifier)) &&
-            (identical(other.versionGroupId, versionGroupId) ||
-                const DeepCollectionEquality()
-                    .equals(other.versionGroupId, versionGroupId)) &&
-            (identical(other.pokemonMoveMethodId, pokemonMoveMethodId) ||
-                const DeepCollectionEquality()
-                    .equals(other.pokemonMoveMethodId, pokemonMoveMethodId)) &&
-            (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)) &&
-            (identical(other.order, order) ||
-                const DeepCollectionEquality().equals(other.order, order)) &&
-            (identical(other.power, power) ||
-                const DeepCollectionEquality().equals(other.power, power)) &&
-            (identical(other.pp, pp) ||
-                const DeepCollectionEquality().equals(other.pp, pp)) &&
-            (identical(other.accuracy, accuracy) ||
-                const DeepCollectionEquality()
-                    .equals(other.accuracy, accuracy)) &&
-            (identical(other.priority, priority) ||
-                const DeepCollectionEquality()
-                    .equals(other.priority, priority)) &&
-            (identical(other.targetId, targetId) ||
-                const DeepCollectionEquality()
-                    .equals(other.targetId, targetId)) &&
-            (identical(other.damageClassId, damageClassId) ||
-                const DeepCollectionEquality()
-                    .equals(other.damageClassId, damageClassId)) &&
-            (identical(other.effectChance, effectChance) ||
-                const DeepCollectionEquality()
-                    .equals(other.effectChance, effectChance)) &&
-            (identical(other.nameJp, nameJp) ||
-                const DeepCollectionEquality().equals(other.nameJp, nameJp)) &&
-            (identical(other.flavorTextJp, flavorTextJp) ||
-                const DeepCollectionEquality()
-                    .equals(other.flavorTextJp, flavorTextJp)) &&
-            (identical(other.itemIdentifier, itemIdentifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.itemIdentifier, itemIdentifier)) &&
-            (identical(other.damageClassNameJp, damageClassNameJp) ||
-                const DeepCollectionEquality()
-                    .equals(other.damageClassNameJp, damageClassNameJp)) &&
-            (identical(other.typeId, typeId) ||
-                const DeepCollectionEquality().equals(other.typeId, typeId)) &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)));
+        (other.runtimeType == runtimeType &&
+            other is _Move &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.identifier, identifier) &&
+            const DeepCollectionEquality()
+                .equals(other.versionGroupId, versionGroupId) &&
+            const DeepCollectionEquality()
+                .equals(other.pokemonMoveMethodId, pokemonMoveMethodId) &&
+            const DeepCollectionEquality().equals(other.level, level) &&
+            const DeepCollectionEquality().equals(other.order, order) &&
+            const DeepCollectionEquality().equals(other.power, power) &&
+            const DeepCollectionEquality().equals(other.pp, pp) &&
+            const DeepCollectionEquality().equals(other.accuracy, accuracy) &&
+            const DeepCollectionEquality().equals(other.priority, priority) &&
+            const DeepCollectionEquality().equals(other.targetId, targetId) &&
+            const DeepCollectionEquality()
+                .equals(other.damageClassId, damageClassId) &&
+            const DeepCollectionEquality()
+                .equals(other.effectChance, effectChance) &&
+            const DeepCollectionEquality().equals(other.nameJp, nameJp) &&
+            const DeepCollectionEquality()
+                .equals(other.flavorTextJp, flavorTextJp) &&
+            const DeepCollectionEquality()
+                .equals(other.itemIdentifier, itemIdentifier) &&
+            const DeepCollectionEquality()
+                .equals(other.damageClassNameJp, damageClassNameJp) &&
+            const DeepCollectionEquality().equals(other.typeId, typeId) &&
+            const DeepCollectionEquality().equals(other.type, type));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(identifier) ^
-      const DeepCollectionEquality().hash(versionGroupId) ^
-      const DeepCollectionEquality().hash(pokemonMoveMethodId) ^
-      const DeepCollectionEquality().hash(level) ^
-      const DeepCollectionEquality().hash(order) ^
-      const DeepCollectionEquality().hash(power) ^
-      const DeepCollectionEquality().hash(pp) ^
-      const DeepCollectionEquality().hash(accuracy) ^
-      const DeepCollectionEquality().hash(priority) ^
-      const DeepCollectionEquality().hash(targetId) ^
-      const DeepCollectionEquality().hash(damageClassId) ^
-      const DeepCollectionEquality().hash(effectChance) ^
-      const DeepCollectionEquality().hash(nameJp) ^
-      const DeepCollectionEquality().hash(flavorTextJp) ^
-      const DeepCollectionEquality().hash(itemIdentifier) ^
-      const DeepCollectionEquality().hash(damageClassNameJp) ^
-      const DeepCollectionEquality().hash(typeId) ^
-      const DeepCollectionEquality().hash(type);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(id),
+        const DeepCollectionEquality().hash(identifier),
+        const DeepCollectionEquality().hash(versionGroupId),
+        const DeepCollectionEquality().hash(pokemonMoveMethodId),
+        const DeepCollectionEquality().hash(level),
+        const DeepCollectionEquality().hash(order),
+        const DeepCollectionEquality().hash(power),
+        const DeepCollectionEquality().hash(pp),
+        const DeepCollectionEquality().hash(accuracy),
+        const DeepCollectionEquality().hash(priority),
+        const DeepCollectionEquality().hash(targetId),
+        const DeepCollectionEquality().hash(damageClassId),
+        const DeepCollectionEquality().hash(effectChance),
+        const DeepCollectionEquality().hash(nameJp),
+        const DeepCollectionEquality().hash(flavorTextJp),
+        const DeepCollectionEquality().hash(itemIdentifier),
+        const DeepCollectionEquality().hash(damageClassNameJp),
+        const DeepCollectionEquality().hash(typeId),
+        const DeepCollectionEquality().hash(type)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -576,7 +556,7 @@ class _$_Move extends _Move with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_MoveToJson(this);
+    return _$$_MoveToJson(this);
   }
 }
 
@@ -606,44 +586,44 @@ abstract class _Move extends Move {
   factory _Move.fromJson(Map<String, dynamic> json) = _$_Move.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
-  String get identifier => throw _privateConstructorUsedError;
+  String get identifier;
   @override
-  int? get versionGroupId => throw _privateConstructorUsedError;
+  int? get versionGroupId;
   @override
-  int? get pokemonMoveMethodId => throw _privateConstructorUsedError;
+  int? get pokemonMoveMethodId;
   @override
-  int? get level => throw _privateConstructorUsedError;
+  int? get level;
   @override
-  int? get order => throw _privateConstructorUsedError;
+  int? get order;
   @override
-  int? get power => throw _privateConstructorUsedError;
+  int? get power;
   @override
-  int get pp => throw _privateConstructorUsedError;
+  int get pp;
   @override
-  int? get accuracy => throw _privateConstructorUsedError;
+  int? get accuracy;
   @override
-  int get priority => throw _privateConstructorUsedError;
+  int get priority;
   @override
-  int get targetId => throw _privateConstructorUsedError;
+  int get targetId;
   @override
-  int get damageClassId => throw _privateConstructorUsedError;
+  int get damageClassId;
   @override
-  int? get effectChance => throw _privateConstructorUsedError;
+  int? get effectChance;
   @override
-  String get nameJp => throw _privateConstructorUsedError;
+  String get nameJp;
   @override
-  String get flavorTextJp => throw _privateConstructorUsedError;
+  String get flavorTextJp;
   @override
-  String? get itemIdentifier => throw _privateConstructorUsedError;
+  String? get itemIdentifier;
   @override
-  String get damageClassNameJp => throw _privateConstructorUsedError;
+  String get damageClassNameJp;
   @override
-  int get typeId => throw _privateConstructorUsedError;
+  int get typeId;
   @override
   @JsonKey(ignore: true)
-  PokemonType? get type => throw _privateConstructorUsedError;
+  PokemonType? get type;
   @override
   @JsonKey(ignore: true)
   _$MoveCopyWith<_Move> get copyWith => throw _privateConstructorUsedError;

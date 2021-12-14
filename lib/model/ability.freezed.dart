@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'ability.dart';
 
@@ -37,7 +38,7 @@ class _$AbilityTearOff {
     );
   }
 
-  Ability fromJson(Map<String, Object> json) {
+  Ability fromJson(Map<String, Object?> json) {
     return Ability.fromJson(json);
   }
 }
@@ -195,7 +196,7 @@ class _$_Ability extends _Ability with DiagnosticableTreeMixin {
       : super._();
 
   factory _$_Ability.fromJson(Map<String, dynamic> json) =>
-      _$_$_AbilityFromJson(json);
+      _$$_AbilityFromJson(json);
 
   @override
   final int id;
@@ -234,33 +235,27 @@ class _$_Ability extends _Ability with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Ability &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.identifier, identifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.identifier, identifier)) &&
-            (identical(other.slot, slot) ||
-                const DeepCollectionEquality().equals(other.slot, slot)) &&
-            (identical(other.isHidden, isHidden) ||
-                const DeepCollectionEquality()
-                    .equals(other.isHidden, isHidden)) &&
-            (identical(other.nameJp, nameJp) ||
-                const DeepCollectionEquality().equals(other.nameJp, nameJp)) &&
-            (identical(other.flavorTextJp, flavorTextJp) ||
-                const DeepCollectionEquality()
-                    .equals(other.flavorTextJp, flavorTextJp)));
+        (other.runtimeType == runtimeType &&
+            other is _Ability &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.identifier, identifier) &&
+            const DeepCollectionEquality().equals(other.slot, slot) &&
+            const DeepCollectionEquality().equals(other.isHidden, isHidden) &&
+            const DeepCollectionEquality().equals(other.nameJp, nameJp) &&
+            const DeepCollectionEquality()
+                .equals(other.flavorTextJp, flavorTextJp));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(identifier) ^
-      const DeepCollectionEquality().hash(slot) ^
-      const DeepCollectionEquality().hash(isHidden) ^
-      const DeepCollectionEquality().hash(nameJp) ^
-      const DeepCollectionEquality().hash(flavorTextJp);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(identifier),
+      const DeepCollectionEquality().hash(slot),
+      const DeepCollectionEquality().hash(isHidden),
+      const DeepCollectionEquality().hash(nameJp),
+      const DeepCollectionEquality().hash(flavorTextJp));
 
   @JsonKey(ignore: true)
   @override
@@ -269,7 +264,7 @@ class _$_Ability extends _Ability with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AbilityToJson(this);
+    return _$$_AbilityToJson(this);
   }
 }
 
@@ -289,20 +284,20 @@ abstract class _Ability extends Ability {
   factory _Ability.fromJson(Map<String, dynamic> json) = _$_Ability.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
-  String get identifier => throw _privateConstructorUsedError;
+  String get identifier;
   @override
-  int get slot => throw _privateConstructorUsedError;
+  int get slot;
   @override
   @JsonKey(name: 'is_hidden', fromJson: intToBool)
-  bool get isHidden => throw _privateConstructorUsedError;
+  bool get isHidden;
   @override
   @JsonKey(name: 'name_jp')
-  String get nameJp => throw _privateConstructorUsedError;
+  String get nameJp;
   @override
   @JsonKey(name: 'flavor_text_jp')
-  String get flavorTextJp => throw _privateConstructorUsedError;
+  String get flavorTextJp;
   @override
   @JsonKey(ignore: true)
   _$AbilityCopyWith<_Ability> get copyWith =>

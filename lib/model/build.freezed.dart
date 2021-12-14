@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'build.dart';
 
@@ -49,7 +50,7 @@ class _$BuildTearOff {
     );
   }
 
-  Build fromJson(Map<String, Object> json) {
+  Build fromJson(Map<String, Object?> json) {
     return Build.fromJson(json);
   }
 }
@@ -338,7 +339,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
       : super._();
 
   factory _$_Build.fromJson(Map<String, dynamic> json) =>
-      _$_$_BuildFromJson(json);
+      _$$_BuildFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -397,55 +398,39 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Build &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.pokemonId, pokemonId) ||
-                const DeepCollectionEquality()
-                    .equals(other.pokemonId, pokemonId)) &&
-            (identical(other.abilityId, abilityId) ||
-                const DeepCollectionEquality()
-                    .equals(other.abilityId, abilityId)) &&
-            (identical(other.natureId, natureId) ||
-                const DeepCollectionEquality()
-                    .equals(other.natureId, natureId)) &&
-            (identical(other.itemId, itemId) ||
-                const DeepCollectionEquality().equals(other.itemId, itemId)) &&
-            (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)) &&
-            (identical(other.individualValues, individualValues) ||
-                const DeepCollectionEquality()
-                    .equals(other.individualValues, individualValues)) &&
-            (identical(other.effortValues, effortValues) ||
-                const DeepCollectionEquality()
-                    .equals(other.effortValues, effortValues)) &&
-            (identical(other.moves, moves) ||
-                const DeepCollectionEquality().equals(other.moves, moves)) &&
-            (identical(other.team, team) ||
-                const DeepCollectionEquality().equals(other.team, team)) &&
-            (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)) &&
-            (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+        (other.runtimeType == runtimeType &&
+            other is _Build &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.pokemonId, pokemonId) &&
+            const DeepCollectionEquality().equals(other.abilityId, abilityId) &&
+            const DeepCollectionEquality().equals(other.natureId, natureId) &&
+            const DeepCollectionEquality().equals(other.itemId, itemId) &&
+            const DeepCollectionEquality().equals(other.level, level) &&
+            const DeepCollectionEquality()
+                .equals(other.individualValues, individualValues) &&
+            const DeepCollectionEquality()
+                .equals(other.effortValues, effortValues) &&
+            const DeepCollectionEquality().equals(other.moves, moves) &&
+            const DeepCollectionEquality().equals(other.team, team) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(pokemonId) ^
-      const DeepCollectionEquality().hash(abilityId) ^
-      const DeepCollectionEquality().hash(natureId) ^
-      const DeepCollectionEquality().hash(itemId) ^
-      const DeepCollectionEquality().hash(level) ^
-      const DeepCollectionEquality().hash(individualValues) ^
-      const DeepCollectionEquality().hash(effortValues) ^
-      const DeepCollectionEquality().hash(moves) ^
-      const DeepCollectionEquality().hash(team) ^
-      const DeepCollectionEquality().hash(createdAt) ^
-      const DeepCollectionEquality().hash(updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(pokemonId),
+      const DeepCollectionEquality().hash(abilityId),
+      const DeepCollectionEquality().hash(natureId),
+      const DeepCollectionEquality().hash(itemId),
+      const DeepCollectionEquality().hash(level),
+      const DeepCollectionEquality().hash(individualValues),
+      const DeepCollectionEquality().hash(effortValues),
+      const DeepCollectionEquality().hash(moves),
+      const DeepCollectionEquality().hash(team),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -454,7 +439,7 @@ class _$_Build extends _Build with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_BuildToJson(this);
+    return _$$_BuildToJson(this);
   }
 }
 
@@ -478,33 +463,33 @@ abstract class _Build extends Build {
 
   @override
   @JsonKey(ignore: true)
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  int get pokemonId => throw _privateConstructorUsedError;
+  int get pokemonId;
   @override
-  int? get abilityId => throw _privateConstructorUsedError;
+  int? get abilityId;
   @override
-  int? get natureId => throw _privateConstructorUsedError;
+  int? get natureId;
   @override
-  int? get itemId => throw _privateConstructorUsedError;
+  int? get itemId;
   @override
-  int? get level => throw _privateConstructorUsedError;
+  int? get level;
   @override
-  StatSet? get individualValues => throw _privateConstructorUsedError;
+  StatSet? get individualValues;
   @override
-  StatSet? get effortValues => throw _privateConstructorUsedError;
+  StatSet? get effortValues;
   @override
   @JsonKey(fromJson: _fromMoves)
-  List<int?>? get moves => throw _privateConstructorUsedError;
+  List<int?>? get moves;
   @override
   @JsonKey(ignore: true)
-  Team? get team => throw _privateConstructorUsedError;
+  Team? get team;
   @override
   @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt;
   @override
   @UpdatedTimestampConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$BuildCopyWith<_Build> get copyWith => throw _privateConstructorUsedError;

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'item.dart';
 
@@ -33,7 +34,7 @@ class _$ItemTearOff {
     );
   }
 
-  Item fromJson(Map<String, Object> json) {
+  Item fromJson(Map<String, Object?> json) {
     return Item.fromJson(json);
   }
 }
@@ -152,8 +153,7 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
       required this.flavorTextJp})
       : super._();
 
-  factory _$_Item.fromJson(Map<String, dynamic> json) =>
-      _$_$_ItemFromJson(json);
+  factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
   @override
   final int id;
@@ -183,26 +183,23 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Item &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.identifier, identifier) ||
-                const DeepCollectionEquality()
-                    .equals(other.identifier, identifier)) &&
-            (identical(other.nameJp, nameJp) ||
-                const DeepCollectionEquality().equals(other.nameJp, nameJp)) &&
-            (identical(other.flavorTextJp, flavorTextJp) ||
-                const DeepCollectionEquality()
-                    .equals(other.flavorTextJp, flavorTextJp)));
+        (other.runtimeType == runtimeType &&
+            other is _Item &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.identifier, identifier) &&
+            const DeepCollectionEquality().equals(other.nameJp, nameJp) &&
+            const DeepCollectionEquality()
+                .equals(other.flavorTextJp, flavorTextJp));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(identifier) ^
-      const DeepCollectionEquality().hash(nameJp) ^
-      const DeepCollectionEquality().hash(flavorTextJp);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(identifier),
+      const DeepCollectionEquality().hash(nameJp),
+      const DeepCollectionEquality().hash(flavorTextJp));
 
   @JsonKey(ignore: true)
   @override
@@ -211,7 +208,7 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ItemToJson(this);
+    return _$$_ItemToJson(this);
   }
 }
 
@@ -226,13 +223,13 @@ abstract class _Item extends Item {
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
-  String get identifier => throw _privateConstructorUsedError;
+  String get identifier;
   @override
-  String get nameJp => throw _privateConstructorUsedError;
+  String get nameJp;
   @override
-  String get flavorTextJp => throw _privateConstructorUsedError;
+  String get flavorTextJp;
   @override
   @JsonKey(ignore: true)
   _$ItemCopyWith<_Item> get copyWith => throw _privateConstructorUsedError;

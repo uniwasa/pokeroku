@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pokemon_flavor_text.dart';
 
@@ -31,7 +32,7 @@ class _$PokemonFlavorTextTearOff {
     );
   }
 
-  PokemonFlavorText fromJson(Map<String, Object> json) {
+  PokemonFlavorText fromJson(Map<String, Object?> json) {
     return PokemonFlavorText.fromJson(json);
   }
 }
@@ -147,7 +148,7 @@ class _$_PokemonFlavorText extends _PokemonFlavorText
       : super._();
 
   factory _$_PokemonFlavorText.fromJson(Map<String, dynamic> json) =>
-      _$_$_PokemonFlavorTextFromJson(json);
+      _$$_PokemonFlavorTextFromJson(json);
 
   @override
   final int versionId;
@@ -174,24 +175,21 @@ class _$_PokemonFlavorText extends _PokemonFlavorText
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _PokemonFlavorText &&
-            (identical(other.versionId, versionId) ||
-                const DeepCollectionEquality()
-                    .equals(other.versionId, versionId)) &&
-            (identical(other.flavorTextJp, flavorTextJp) ||
-                const DeepCollectionEquality()
-                    .equals(other.flavorTextJp, flavorTextJp)) &&
-            (identical(other.flavorTextEn, flavorTextEn) ||
-                const DeepCollectionEquality()
-                    .equals(other.flavorTextEn, flavorTextEn)));
+        (other.runtimeType == runtimeType &&
+            other is _PokemonFlavorText &&
+            const DeepCollectionEquality().equals(other.versionId, versionId) &&
+            const DeepCollectionEquality()
+                .equals(other.flavorTextJp, flavorTextJp) &&
+            const DeepCollectionEquality()
+                .equals(other.flavorTextEn, flavorTextEn));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(versionId) ^
-      const DeepCollectionEquality().hash(flavorTextJp) ^
-      const DeepCollectionEquality().hash(flavorTextEn);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(versionId),
+      const DeepCollectionEquality().hash(flavorTextJp),
+      const DeepCollectionEquality().hash(flavorTextEn));
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +198,7 @@ class _$_PokemonFlavorText extends _PokemonFlavorText
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PokemonFlavorTextToJson(this);
+    return _$$_PokemonFlavorTextToJson(this);
   }
 }
 
@@ -215,11 +213,11 @@ abstract class _PokemonFlavorText extends PokemonFlavorText {
       _$_PokemonFlavorText.fromJson;
 
   @override
-  int get versionId => throw _privateConstructorUsedError;
+  int get versionId;
   @override
-  String get flavorTextJp => throw _privateConstructorUsedError;
+  String get flavorTextJp;
   @override
-  String get flavorTextEn => throw _privateConstructorUsedError;
+  String get flavorTextEn;
   @override
   @JsonKey(ignore: true)
   _$PokemonFlavorTextCopyWith<_PokemonFlavorText> get copyWith =>

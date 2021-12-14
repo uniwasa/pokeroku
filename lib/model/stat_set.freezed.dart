@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'stat_set.dart';
 
@@ -37,7 +38,7 @@ class _$StatSetTearOff {
     );
   }
 
-  StatSet fromJson(Map<String, Object> json) {
+  StatSet fromJson(Map<String, Object?> json) {
     return StatSet.fromJson(json);
   }
 }
@@ -192,24 +193,24 @@ class _$_StatSet extends _StatSet with DiagnosticableTreeMixin {
       : super._();
 
   factory _$_StatSet.fromJson(Map<String, dynamic> json) =>
-      _$_$_StatSetFromJson(json);
+      _$$_StatSetFromJson(json);
 
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int hp;
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int attack;
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int defense;
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int specialAttack;
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int specialDefense;
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int speed;
 
@@ -234,33 +235,27 @@ class _$_StatSet extends _StatSet with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _StatSet &&
-            (identical(other.hp, hp) ||
-                const DeepCollectionEquality().equals(other.hp, hp)) &&
-            (identical(other.attack, attack) ||
-                const DeepCollectionEquality().equals(other.attack, attack)) &&
-            (identical(other.defense, defense) ||
-                const DeepCollectionEquality()
-                    .equals(other.defense, defense)) &&
-            (identical(other.specialAttack, specialAttack) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialAttack, specialAttack)) &&
-            (identical(other.specialDefense, specialDefense) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialDefense, specialDefense)) &&
-            (identical(other.speed, speed) ||
-                const DeepCollectionEquality().equals(other.speed, speed)));
+        (other.runtimeType == runtimeType &&
+            other is _StatSet &&
+            const DeepCollectionEquality().equals(other.hp, hp) &&
+            const DeepCollectionEquality().equals(other.attack, attack) &&
+            const DeepCollectionEquality().equals(other.defense, defense) &&
+            const DeepCollectionEquality()
+                .equals(other.specialAttack, specialAttack) &&
+            const DeepCollectionEquality()
+                .equals(other.specialDefense, specialDefense) &&
+            const DeepCollectionEquality().equals(other.speed, speed));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(hp) ^
-      const DeepCollectionEquality().hash(attack) ^
-      const DeepCollectionEquality().hash(defense) ^
-      const DeepCollectionEquality().hash(specialAttack) ^
-      const DeepCollectionEquality().hash(specialDefense) ^
-      const DeepCollectionEquality().hash(speed);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(hp),
+      const DeepCollectionEquality().hash(attack),
+      const DeepCollectionEquality().hash(defense),
+      const DeepCollectionEquality().hash(specialAttack),
+      const DeepCollectionEquality().hash(specialDefense),
+      const DeepCollectionEquality().hash(speed));
 
   @JsonKey(ignore: true)
   @override
@@ -269,7 +264,7 @@ class _$_StatSet extends _StatSet with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_StatSetToJson(this);
+    return _$$_StatSetToJson(this);
   }
 }
 
@@ -286,17 +281,17 @@ abstract class _StatSet extends StatSet {
   factory _StatSet.fromJson(Map<String, dynamic> json) = _$_StatSet.fromJson;
 
   @override
-  int get hp => throw _privateConstructorUsedError;
+  int get hp;
   @override
-  int get attack => throw _privateConstructorUsedError;
+  int get attack;
   @override
-  int get defense => throw _privateConstructorUsedError;
+  int get defense;
   @override
-  int get specialAttack => throw _privateConstructorUsedError;
+  int get specialAttack;
   @override
-  int get specialDefense => throw _privateConstructorUsedError;
+  int get specialDefense;
   @override
-  int get speed => throw _privateConstructorUsedError;
+  int get speed;
   @override
   @JsonKey(ignore: true)
   _$StatSetCopyWith<_StatSet> get copyWith =>

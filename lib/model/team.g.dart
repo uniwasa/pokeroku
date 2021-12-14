@@ -6,16 +6,14 @@ part of 'team.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Team _$_$_TeamFromJson(Map<String, dynamic> json) {
-  return _$_Team(
-    name: json['name'] as String?,
-    ref: const DocumentReferenceConverter().fromJson(json['ref']),
-    createdAt: const TimestampConverter().fromJson(json['createdAt']),
-    updatedAt: const UpdatedTimestampConverter().fromJson(json['updatedAt']),
-  );
-}
+_$_Team _$$_TeamFromJson(Map<String, dynamic> json) => _$_Team(
+      name: json['name'] as String?,
+      ref: const DocumentReferenceConverter().fromJson(json['ref']),
+      createdAt: const TimestampConverter().fromJson(json['createdAt']),
+      updatedAt: const UpdatedTimestampConverter().fromJson(json['updatedAt']),
+    );
 
-Map<String, dynamic> _$_$_TeamToJson(_$_Team instance) {
+Map<String, dynamic> _$$_TeamToJson(_$_Team instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };

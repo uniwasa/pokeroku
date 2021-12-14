@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'team.dart';
 
@@ -43,7 +44,7 @@ class _$TeamTearOff {
     );
   }
 
-  Team fromJson(Map<String, Object> json) {
+  Team fromJson(Map<String, Object?> json) {
     return Team.fromJson(json);
   }
 }
@@ -216,8 +217,7 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
       @UpdatedTimestampConverter() this.updatedAt})
       : super._();
 
-  factory _$_Team.fromJson(Map<String, dynamic> json) =>
-      _$_$_TeamFromJson(json);
+  factory _$_Team.fromJson(Map<String, dynamic> json) => _$$_TeamFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -259,32 +259,25 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Team &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.builds, builds) ||
-                const DeepCollectionEquality().equals(other.builds, builds)) &&
-            (identical(other.ref, ref) ||
-                const DeepCollectionEquality().equals(other.ref, ref)) &&
-            (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)) &&
-            (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+        (other.runtimeType == runtimeType &&
+            other is _Team &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.builds, builds) &&
+            const DeepCollectionEquality().equals(other.ref, ref) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(builds) ^
-      const DeepCollectionEquality().hash(ref) ^
-      const DeepCollectionEquality().hash(createdAt) ^
-      const DeepCollectionEquality().hash(updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(builds),
+      const DeepCollectionEquality().hash(ref),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -293,7 +286,7 @@ class _$_Team extends _Team with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_TeamToJson(this);
+    return _$$_TeamToJson(this);
   }
 }
 
@@ -317,23 +310,22 @@ abstract class _Team extends Team {
 
   @override
   @JsonKey(ignore: true)
-  String? get id => throw _privateConstructorUsedError;
+  String? get id;
   @override
-  String? get name => throw _privateConstructorUsedError;
+  String? get name;
   @override
   @JsonKey(ignore: true)
-  List<Build>? get builds => throw _privateConstructorUsedError;
+  List<Build>? get builds;
   @override
   @JsonKey(includeIfNull: false)
   @DocumentReferenceConverter()
-  DocumentReference<Map<String, dynamic>>? get ref =>
-      throw _privateConstructorUsedError;
+  DocumentReference<Map<String, dynamic>>? get ref;
   @override
   @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt;
   @override
   @UpdatedTimestampConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$TeamCopyWith<_Team> get copyWith => throw _privateConstructorUsedError;
