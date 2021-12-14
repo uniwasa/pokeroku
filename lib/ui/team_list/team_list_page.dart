@@ -32,7 +32,11 @@ class TeamListPage extends HookConsumerWidget {
             width: kToolbarHeight,
             child: IconButton(
                 onPressed: () async {
-                  await ref.read(teamListViewModelProvider.notifier).addTeam();
+                  final result = await _showInputDialog(context: context);
+                  if (result != null)
+                    await ref
+                        .read(teamListViewModelProvider.notifier)
+                        .addTeam(name: result);
                 },
                 icon: Icon(Icons.add)),
           ),
@@ -144,4 +148,36 @@ class TeamListPage extends HookConsumerWidget {
       }),
     );
   }
+
+  Future<String?> _showInputDialog({required BuildContext context}) async {
+    final result = await showDialog<String?>(
+      context: context,
+      builder: (BuildContext context) {
+        return HookConsumer(builder: (context, ref, child) {
+          final controller = ref.watch(_teamNameControllerProvider);
+          return AlertDialog(
+            content: TextField(
+                controller: controller,
+                decoration: InputDecoration(labelText: "パーティ名")),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(null),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(controller.text),
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
+      },
+    );
+    return result;
+  }
 }
+
+final _teamNameControllerProvider = StateProvider.autoDispose((ref) {
+  ref.onDispose(() => print('bye from _teamNameControllerProvider'));
+  return TextEditingController(text: 'パーティ');
+});

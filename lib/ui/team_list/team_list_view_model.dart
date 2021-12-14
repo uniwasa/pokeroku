@@ -67,11 +67,11 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
     }
   }
 
-  Future<void> addTeam() async {
+  Future<void> addTeam({required String name}) async {
     try {
       final userId = _asyncUser.value?.id;
       if (userId != null) {
-        final newTeam = Team(name: 'パーティ');
+        final newTeam = Team(name: name);
         final createdTeamId = await _read(teamRepositoryProvider)
             .createTeam(userId: userId, team: newTeam);
         final createdTeam = await _read(teamRepositoryProvider)
