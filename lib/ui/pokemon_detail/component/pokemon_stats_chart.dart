@@ -103,7 +103,7 @@ class PokemonStatsChart extends StatelessWidget {
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (context, value) => const TextStyle(
               color: Colors.white, fontWeight: FontWeight.normal, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
@@ -127,7 +127,7 @@ class PokemonStatsChart extends StatelessWidget {
         ),
         topTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (context, value) => const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 18,
