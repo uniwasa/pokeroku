@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/provider/nature_list_provider.dart';
@@ -14,8 +13,8 @@ class NatureSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HookBuilder(builder: (context) {
-      final asyncValue = useProvider(natureListProvider);
+    return HookConsumer(builder: (context, ref, child) {
+      final asyncValue = ref.watch(natureListProvider);
 
       return Scaffold(
         appBar: AppBar(
@@ -36,8 +35,7 @@ class NatureSelectionPage extends StatelessWidget {
                         final teamId = _buildEditParam.teamId;
                         if (teamId != null) {
                           // パーティ画面用
-                          print(nature.rate);
-                          context
+                          ref
                               .read(buildEditViewModelProviderFamily(
                                       _buildEditParam)
                                   .notifier)

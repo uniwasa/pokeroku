@@ -24,8 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   freezed_annotation: ^0.14.1
-  flutter_hooks: ^0.17.0
-  hooks_riverpod: ^0.14.0+4
+  flutter_hooks: ^0.18.1
+  hooks_riverpod: ^1.0.2
   sqflite: ^2.0.0+3
   extended_nested_scroll_view: ^3.0.0
   fl_chart: ^0.36.1

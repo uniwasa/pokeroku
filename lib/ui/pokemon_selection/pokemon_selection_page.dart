@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_view_model.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
@@ -13,9 +12,9 @@ class PokemonSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HookBuilder(builder: (context) {
+    return HookConsumer(builder: (context, ref, chilid) {
       final asyncValue =
-          useProvider(pokemonSelectionViewModelProviderFamily(_teamId));
+          ref.watch(pokemonSelectionViewModelProviderFamily(_teamId));
 
       return Scaffold(
         appBar: AppBar(
@@ -42,7 +41,7 @@ class PokemonSelectionPage extends StatelessWidget {
                       onTap: () {
                         if (_teamId != null) {
                           // パーティ画面用
-                          context
+                          ref
                               .read(teamEditViewModelProviderFamily(_teamId!)
                                   .notifier)
                               .addBuild(pokemon: pokemon);

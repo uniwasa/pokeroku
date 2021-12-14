@@ -85,8 +85,8 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
 
   Future<void> linkOrSignInWithGoogle() async {
     try {
-      final authUser = _asyncAuthUser.data?.value;
-      final appUser = state.data?.value;
+      final authUser = _asyncAuthUser.value;
+      final appUser = state.value;
       if (authUser != null && appUser != null) {
         // 読み込み済みかつ、なにかしら認証済みなら
         final GoogleSignIn googleSignIn = GoogleSignIn();

@@ -39,7 +39,7 @@ class PokemonDetailViewModel extends StateNotifier<PokemonDetailState> {
   void searchForMoves(String input) {
     if (mounted) {
       final pokemon = state.pokemon;
-      final moveList = _read(moveListByPokemonProvider(pokemon.id)).data?.value;
+      final moveList = _read(moveListByPokemonProvider(pokemon.id)).value;
       if (moveList != null) {
         final filtered = moveList.where((move) {
           return hiraToKana(move.nameJp).contains(hiraToKana(input));

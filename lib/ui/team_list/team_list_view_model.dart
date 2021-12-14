@@ -45,7 +45,7 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
     final teams = state.teams;
 
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
         print('次を取得します');
         final nextTeams = await _read(teamRepositoryProvider).getTeams(
@@ -69,7 +69,7 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
 
   Future<void> addTeam() async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
         final newTeam = Team(name: 'パーティ');
         final createdTeamId = await _read(teamRepositoryProvider)
@@ -88,7 +88,7 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
 
   Future<void> removeTeam({required Team team}) async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
         await _read(teamRepositoryProvider)
             .deleteTeam(userId: userId, team: team);

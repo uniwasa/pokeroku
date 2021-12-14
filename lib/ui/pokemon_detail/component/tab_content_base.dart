@@ -20,8 +20,8 @@ extension TabContentBase on PokemonDetailPage {
                       left: 12, top: 4, right: 12, bottom: 12),
                   child: Center(
                     child: Builder(builder: (context) {
-                      final flavorTextList = pokemonDetailState
-                          .asyncPokemonFlavorTextList.data?.value;
+                      final flavorTextList =
+                          pokemonDetailState.asyncPokemonFlavorTextList.value;
                       final flavorText = flavorTextList?.lastWhereOrNull(
                           (element) => element.flavorTextJp != '');
                       return Text(
@@ -157,7 +157,7 @@ extension TabContentBase on PokemonDetailPage {
                     borderRadius: BorderRadius.circular(10),
                     child: Builder(builder: (context) {
                       final abilityList =
-                          pokemonDetailState.asyncAbilityList.data?.value;
+                          pokemonDetailState.asyncAbilityList.value;
                       if (abilityList == null) return Container();
                       return Column(
                         children: abilityList

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon_detail_state.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/util.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class PokemonEvolutionChain extends StatelessWidget {
   PokemonEvolutionChain({required PokemonDetailState pokemonDetailState})
@@ -11,7 +12,7 @@ class PokemonEvolutionChain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final evolutionLine = _pokemonDetailState.asyncEvolutionLine.data?.value;
+    final evolutionLine = _pokemonDetailState.asyncEvolutionLine.value;
     if (evolutionLine == null) return Container();
     List<Widget> evolutionsWidget = [];
     for (final stage in evolutionLine) {

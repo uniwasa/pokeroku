@@ -50,7 +50,7 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
 
   Future<void> init() async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
         final team = await _read(teamRepositoryProvider)
             .getTeam(userId: userId, teamId: _teamId);
@@ -77,13 +77,13 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
 
   Future<void> updateTeam({required Team updatedTeam}) async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
         // Firestoreのデータ更新
         await _read(teamRepositoryProvider)
             .updateTeam(userId: userId, team: updatedTeam);
         // stateの更新(updatedAtは更新されてないが)
-        final teamEditState = state.data?.value;
+        final teamEditState = state.value;
         if (teamEditState != null) {
           state = AsyncData(teamEditState.copyWith(team: updatedTeam));
         }
@@ -100,9 +100,9 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
   @override
   Future<void> addBuild({required Pokemon pokemon}) async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
-        final teamEditState = state.data?.value;
+        final teamEditState = state.value;
         if (teamEditState != null) {
           state =
               AsyncData(teamEditState.copyWith(isAddable: false)); // 追加不可にする
@@ -133,9 +133,9 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
   @override
   Future<void> updateBuild({required Build build}) async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
-        final teamEditState = state.data?.value;
+        final teamEditState = state.value;
         if (teamEditState != null) {
           final team = teamEditState.team;
           // Firestoreのデータ更新
@@ -153,9 +153,9 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
 
   Future<void> removeBuild({required Build build}) async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
-        final teamEditState = state.data?.value;
+        final teamEditState = state.value;
         if (teamEditState != null) {
           final team = teamEditState.team;
           // Firestoreのデータ更新
@@ -178,7 +178,7 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
   }
 
   void replaceBuild({required Build build}) {
-    final teamEditState = state.data?.value;
+    final teamEditState = state.value;
     if (teamEditState != null) {
       final team = teamEditState.team;
       // 画面上のTeam更新

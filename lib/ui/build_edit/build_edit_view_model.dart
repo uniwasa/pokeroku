@@ -43,7 +43,7 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
 
   Future<void> init() async {
     try {
-      final userId = _asyncUser.data?.value.id;
+      final userId = _asyncUser.value?.id;
       if (userId != null) {
         final teamId = _buildEditParam.teamId;
         final buildId = _buildEditParam.buildId;
@@ -69,7 +69,7 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
   }
 
   void updateLevel({required int level}) {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       state = AsyncData(build.copyWith(level: level));
     }
@@ -77,7 +77,7 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
 
   void updateIndividualValues(
       {required String statName, required int individualValue}) {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       final individualValues = build.individualValues?.toJson() ?? {};
       individualValues[statName] = individualValue;
@@ -88,7 +88,7 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
 
   void updateEffortValues(
       {required String statName, required int effortValue}) {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       final effortValues = build.effortValues?.toJson() ?? {};
       effortValues[statName] = effortValue;
@@ -98,28 +98,28 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
   }
 
   void updateAbility({required int abilityId}) {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       state = AsyncData(build.copyWith(abilityId: abilityId));
     }
   }
 
   void updateNature({required int natureId}) {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       state = AsyncData(build.copyWith(natureId: natureId));
     }
   }
 
   void updateItem({required int itemId}) {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       state = AsyncData(build.copyWith(itemId: itemId));
     }
   }
 
   void updateMoves({required int moveIndex, required int moveId}) {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       final moves = [...build.moves ?? <int?>[]]..length = 4;
       moves[moveIndex] = moveId;
@@ -128,7 +128,7 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
   }
 
   Future<bool> saveBuild() async {
-    final build = state.data?.value;
+    final build = state.value;
     if (build != null) {
       if (build.effortValues == null ||
           build.effortValues?.isValidEffortValues() == true) {

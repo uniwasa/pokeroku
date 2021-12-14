@@ -19,7 +19,7 @@ import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
 import 'package:dartx/dartx.dart';
 
-class BuildEditPage extends HookWidget with ValidationMixin {
+class BuildEditPage extends HookConsumerWidget with ValidationMixin {
   BuildEditPage({Key? key, required BuildEditParam buildEditParam})
       : _buildEditParam = buildEditParam,
         super(key: key);
@@ -28,10 +28,10 @@ class BuildEditPage extends HookWidget with ValidationMixin {
   final GlobalKey<FormState> _formGlobalKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    final pokemonList = useProvider(pokemonListProvider).data?.value;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pokemonList = ref.watch(pokemonListProvider).value;
     final asyncBuild =
-        useProvider(buildEditViewModelProviderFamily(_buildEditParam));
+        ref.watch(buildEditViewModelProviderFamily(_buildEditParam));
 
     return asyncBuild.when(
       data: (build) {
@@ -60,7 +60,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                     onPressed: () async {
                       if (_formGlobalKey.currentState?.validate() == true) {
                         _formGlobalKey.currentState?.save();
-                        final result = await context
+                        final result = await ref
                             .read(buildEditViewModelProviderFamily(
                                     _buildEditParam)
                                 .notifier)
@@ -85,11 +85,11 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             child: Column(
               children: [
                 HookBuilder(builder: (context) {
-                  final ability = useProvider(abilityListByPokemonProvider(
+                  final ability = ref
+                      .watch(abilityListByPokemonProvider(
                           _buildEditParam.pokemonId))
-                      .data
-                      ?.value
-                      .firstOrNullWhere(
+                      .value
+                      ?.firstOrNullWhere(
                           (element) => element.id == build.abilityId);
                   return ListTile(
                     leading: Text('特性'),
@@ -101,10 +101,10 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                   );
                 }),
                 HookBuilder(builder: (context) {
-                  final nature = useProvider(natureListProvider)
-                      .data
-                      ?.value
-                      .firstOrNullWhere(
+                  final nature = ref
+                      .watch(natureListProvider)
+                      .value
+                      ?.firstOrNullWhere(
                           (element) => element.id == build.natureId);
                   return ListTile(
                     leading: Text('性格'),
@@ -116,10 +116,10 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                   );
                 }),
                 HookBuilder(builder: (context) {
-                  final item = useProvider(itemListProvider)
-                      .data
-                      ?.value
-                      .firstOrNullWhere(
+                  final item = ref
+                      .watch(itemListProvider)
+                      .value
+                      ?.firstOrNullWhere(
                           (element) => element.id == build.itemId);
                   return ListTile(
                     leading: Text('持ち物'),
@@ -134,14 +134,14 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                   key: _formGlobalKey,
                   child: Column(
                     children: [
-                      makeLevelListTile(context: context, level: build.level),
+                      makeLevelListTile(ref: ref, level: build.level),
                       for (final statName in StatSet.keys)
                         HookBuilder(builder: (context) {
                           final natureList =
-                              useProvider(natureListProvider).data?.value;
+                              ref.watch(natureListProvider).value;
                           if (natureList == null) return ListTile();
                           return makeStatListTile(
-                            context: context,
+                            ref: ref,
                             statName: statName,
                             pokemon: pokemon,
                             build: build,
@@ -153,10 +153,10 @@ class BuildEditPage extends HookWidget with ValidationMixin {
                 ),
                 for (var i = 0; i < 4; i++)
                   HookBuilder(builder: (context) {
-                    final move = useProvider(moveListProvider)
-                        .data
-                        ?.value
-                        .firstOrNullWhere((element) =>
+                    final move = ref
+                        .watch(moveListProvider)
+                        .value
+                        ?.firstOrNullWhere((element) =>
                             element.id == build.moves?.elementAtOrNull(i));
                     return ListTile(
                       leading: Text('技' + (i + 1).toString()),
@@ -223,7 +223,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
   }
 
   Widget makeStatListTile({
-    required BuildContext context,
+    required WidgetRef ref,
     required String statName,
     required Pokemon pokemon,
     required Build build,
@@ -262,7 +262,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             labelText: 'IV',
             onChanged: (value) {
               if (isValidIndividualValue(value))
-                context
+                ref
                     .read(buildEditViewModelProviderFamily(_buildEditParam)
                         .notifier)
                     .updateIndividualValues(
@@ -270,7 +270,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             },
             onSaved: (value) {
               if (value != null)
-                context
+                ref
                     .read(buildEditViewModelProviderFamily(_buildEditParam)
                         .notifier)
                     .updateIndividualValues(
@@ -286,7 +286,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             labelText: 'EV',
             onChanged: (value) {
               if (isValidEffortValue(value))
-                context
+                ref
                     .read(buildEditViewModelProviderFamily(_buildEditParam)
                         .notifier)
                     .updateEffortValues(
@@ -294,7 +294,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             },
             onSaved: (value) {
               if (value != null)
-                context
+                ref
                     .read(buildEditViewModelProviderFamily(_buildEditParam)
                         .notifier)
                     .updateEffortValues(
@@ -310,8 +310,7 @@ class BuildEditPage extends HookWidget with ValidationMixin {
     );
   }
 
-  Widget makeLevelListTile(
-      {required BuildContext context, required int? level}) {
+  Widget makeLevelListTile({required WidgetRef ref, required int? level}) {
     return ListTile(
       leading: Text('ステータス'),
       title: Row(
@@ -322,14 +321,14 @@ class BuildEditPage extends HookWidget with ValidationMixin {
             labelText: 'Level',
             onChanged: (value) {
               if (isValidLevel(value))
-                context
+                ref
                     .read(buildEditViewModelProviderFamily(_buildEditParam)
                         .notifier)
                     .updateLevel(level: int.parse(value));
             },
             onSaved: (value) {
               if (value != null)
-                context
+                ref
                     .read(buildEditViewModelProviderFamily(_buildEditParam)
                         .notifier)
                     .updateLevel(level: int.parse(value));

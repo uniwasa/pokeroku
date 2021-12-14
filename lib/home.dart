@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:pokeroku/model/ability.dart';
@@ -26,8 +25,8 @@ final hideNavigationBarProvider = StateProvider<bool>((ref) => false);
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return HookBuilder(builder: (context) {
-      final hideNavigationBar = useProvider(hideNavigationBarProvider).state;
+    return HookConsumer(builder: (context, ref, child) {
+      final hideNavigationBar = ref.watch(hideNavigationBarProvider);
       return PersistentTabView(
         context,
         navBarHeight: 44,

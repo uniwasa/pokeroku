@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/move_selection_param.dart';
@@ -17,8 +16,8 @@ class MoveSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HookBuilder(builder: (context) {
-      final asyncValue = useProvider(moveListProvider);
+    return HookConsumer(builder: (context, ref, child) {
+      final asyncValue = ref.watch(moveListProvider);
 
       return Scaffold(
         appBar: AppBar(
@@ -40,7 +39,7 @@ class MoveSelectionPage extends StatelessWidget {
                         final teamId = _buildEditParam.teamId;
                         if (teamId != null) {
                           // パーティ画面用
-                          context
+                          ref
                               .read(buildEditViewModelProviderFamily(
                                       _buildEditParam)
                                   .notifier)

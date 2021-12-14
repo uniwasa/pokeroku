@@ -48,7 +48,6 @@ abstract class $AbilityDetailStateCopyWith<$Res> {
   $Res call({Ability ability, AsyncValue<List<Pokemon>> asyncPokemonList});
 
   $AbilityCopyWith<$Res> get ability;
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc
@@ -83,14 +82,6 @@ class _$AbilityDetailStateCopyWithImpl<$Res>
       return _then(_value.copyWith(ability: value));
     });
   }
-
-  @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList {
-    return $AsyncValueCopyWith<List<Pokemon>, $Res>(_value.asyncPokemonList,
-        (value) {
-      return _then(_value.copyWith(asyncPokemonList: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -104,8 +95,6 @@ abstract class _$AbilityDetailStateCopyWith<$Res>
 
   @override
   $AbilityCopyWith<$Res> get ability;
-  @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc

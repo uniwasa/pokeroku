@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/ability_detail_state.dart';
@@ -22,10 +21,10 @@ class AbilityDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HookBuilder(builder: (context) {
-        final ability = useProvider(_provider.select((value) => value.ability));
+      body: HookConsumer(builder: (context, ref, child) {
+        final ability = ref.watch(_provider.select((value) => value.ability));
         final asyncPokemonList =
-            useProvider(_provider.select((value) => value.asyncPokemonList));
+            ref.watch(_provider.select((value) => value.asyncPokemonList));
         return CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(

@@ -65,11 +65,6 @@ abstract class $PokemonDetailStateCopyWith<$Res> {
       AsyncValue<List<List<Pokemon>>> asyncEvolutionLine});
 
   $PokemonCopyWith<$Res> get pokemon;
-  $AsyncValueCopyWith<List<Move>, $Res> get asyncMoveList;
-  $AsyncValueCopyWith<List<PokemonFlavorText>, $Res>
-      get asyncPokemonFlavorTextList;
-  $AsyncValueCopyWith<List<Ability>, $Res> get asyncAbilityList;
-  $AsyncValueCopyWith<List<List<Pokemon>>, $Res> get asyncEvolutionLine;
 }
 
 /// @nodoc
@@ -119,38 +114,6 @@ class _$PokemonDetailStateCopyWithImpl<$Res>
       return _then(_value.copyWith(pokemon: value));
     });
   }
-
-  @override
-  $AsyncValueCopyWith<List<Move>, $Res> get asyncMoveList {
-    return $AsyncValueCopyWith<List<Move>, $Res>(_value.asyncMoveList, (value) {
-      return _then(_value.copyWith(asyncMoveList: value));
-    });
-  }
-
-  @override
-  $AsyncValueCopyWith<List<PokemonFlavorText>, $Res>
-      get asyncPokemonFlavorTextList {
-    return $AsyncValueCopyWith<List<PokemonFlavorText>, $Res>(
-        _value.asyncPokemonFlavorTextList, (value) {
-      return _then(_value.copyWith(asyncPokemonFlavorTextList: value));
-    });
-  }
-
-  @override
-  $AsyncValueCopyWith<List<Ability>, $Res> get asyncAbilityList {
-    return $AsyncValueCopyWith<List<Ability>, $Res>(_value.asyncAbilityList,
-        (value) {
-      return _then(_value.copyWith(asyncAbilityList: value));
-    });
-  }
-
-  @override
-  $AsyncValueCopyWith<List<List<Pokemon>>, $Res> get asyncEvolutionLine {
-    return $AsyncValueCopyWith<List<List<Pokemon>>, $Res>(
-        _value.asyncEvolutionLine, (value) {
-      return _then(_value.copyWith(asyncEvolutionLine: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -169,15 +132,6 @@ abstract class _$PokemonDetailStateCopyWith<$Res>
 
   @override
   $PokemonCopyWith<$Res> get pokemon;
-  @override
-  $AsyncValueCopyWith<List<Move>, $Res> get asyncMoveList;
-  @override
-  $AsyncValueCopyWith<List<PokemonFlavorText>, $Res>
-      get asyncPokemonFlavorTextList;
-  @override
-  $AsyncValueCopyWith<List<Ability>, $Res> get asyncAbilityList;
-  @override
-  $AsyncValueCopyWith<List<List<Pokemon>>, $Res> get asyncEvolutionLine;
 }
 
 /// @nodoc

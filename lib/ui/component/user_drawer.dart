@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 
 final _absorbingProvider = StateProvider.autoDispose((ref) => false);
 
-class UserDrawer extends HookWidget {
+class UserDrawer extends HookConsumerWidget {
   UserDrawer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final asyncValue = useProvider(authServiceProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncValue = ref.watch(authServiceProvider);
 
     final drawerContent = asyncValue.when(
       data: (appUser) {
@@ -84,7 +83,7 @@ class UserDrawer extends HookWidget {
                                       TextButton(
                                         child: Text("OK"),
                                         onPressed: () async {
-                                          await context
+                                          await ref
                                               .read(
                                                   authServiceProvider.notifier)
                                               .signOut();
@@ -107,8 +106,8 @@ class UserDrawer extends HookWidget {
               ),
               SizedBox(height: 20),
               if (authUser.isAnonymous)
-                HookBuilder(builder: (context) {
-                  final absorbing = useProvider(_absorbingProvider).state;
+                HookConsumer(builder: (context, ref, child) {
+                  final absorbing = ref.watch(_absorbingProvider);
                   return AbsorbPointer(
                     absorbing: absorbing,
                     child: Column(
@@ -116,13 +115,14 @@ class UserDrawer extends HookWidget {
                         SignInButton(
                           Buttons.Google,
                           onPressed: () async {
-                            context.read(_absorbingProvider).state = true;
+                            ref.watch(_absorbingProvider.notifier).state = true;
 
-                            await context
+                            await ref
                                 .read(authServiceProvider.notifier)
                                 .linkOrSignInWithGoogle();
 
-                            context.read(_absorbingProvider).state = false;
+                            ref.watch(_absorbingProvider.notifier).state =
+                                false;
                           },
                         )
                       ],

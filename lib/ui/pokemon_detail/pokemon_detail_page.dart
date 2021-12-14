@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/move.dart';
@@ -76,9 +75,9 @@ class PokemonDetailPage extends StatelessWidget {
                     sliver: SliverSafeArea(
                       top: false,
                       bottom: Platform.isIOS ? false : true,
-                      sliver: HookBuilder(builder: (context) {
-                        final pokemon = useProvider(
-                            _provider.select((value) => value.pokemon));
+                      sliver: HookConsumer(builder: (context, ref, child) {
+                        final pokemon = ref
+                            .watch(_provider.select((value) => value.pokemon));
                         return SliverPadding(
                           padding: EdgeInsets.only(bottom: 0.0),
                           sliver: SliverPersistentHeader(
@@ -109,8 +108,8 @@ class PokemonDetailPage extends StatelessWidget {
               innerScrollPositionKeyBuilder: () {
                 return Key('tab_${DefaultTabController.of(context)!.index}');
               },
-              body: HookBuilder(builder: (context) {
-                final pokemonDetailState = useProvider(_provider);
+              body: HookConsumer(builder: (context, ref, child) {
+                final pokemonDetailState = ref.watch(_provider);
                 return TabBarView(
                   children: [
                     TabViewItem(
@@ -126,14 +125,16 @@ class PokemonDetailPage extends StatelessWidget {
                         pokemonDetailState: pokemonDetailState,
                       ),
                     ),
-                    HookBuilder(
-                      builder: (context) {
-                        final asyncMoveList = useProvider(
+                    HookConsumer(
+                      builder: (context, ref, child) {
+                        final asyncMoveList = ref.watch(
                             _provider.select((value) => value.asyncMoveList));
                         return TabViewItem(
                           tabKey: Key('tab_2'),
                           slivers: buildTabContentMove(
-                              context: context, asyncMoveList: asyncMoveList),
+                              context: context,
+                              ref: ref,
+                              asyncMoveList: asyncMoveList),
                         );
                       },
                     ),

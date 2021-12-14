@@ -17,9 +17,9 @@ class TeamEditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HookBuilder(builder: (context) {
-      final asyncValue = useProvider(teamEditViewModelProviderFamily(_teamId));
-      final pokemonList = useProvider(pokemonListProvider).data?.value;
+    return HookConsumer(builder: (context, ref, child) {
+      final asyncValue = ref.watch(teamEditViewModelProviderFamily(_teamId));
+      final pokemonList = ref.watch(pokemonListProvider).value;
       final textEditingController = useTextEditingController();
 
       return asyncValue.when(
@@ -38,7 +38,7 @@ class TeamEditPage extends StatelessWidget {
                       if (hasFocus == false) {
                         final updatedTeam =
                             team.copyWith(name: textEditingController.text);
-                        context
+                        ref
                             .read(teamEditViewModelProviderFamily(_teamId)
                                 .notifier)
                             .updateTeam(updatedTeam: updatedTeam);
@@ -70,8 +70,7 @@ class TeamEditPage extends StatelessWidget {
             ),
             body: RefreshIndicator(
               onRefresh: () async {
-                context
-                    .refresh(teamEditViewModelProviderFamily(_teamId).notifier);
+                ref.refresh(teamEditViewModelProviderFamily(_teamId).notifier);
               },
               child: Builder(
                 builder: (context) {
@@ -114,7 +113,7 @@ class TeamEditPage extends StatelessWidget {
                               return confirmResult;
                             },
                             onDismissed: (final direction) async {
-                              await context
+                              await ref
                                   .read(teamEditViewModelProviderFamily(_teamId)
                                       .notifier)
                                   .removeBuild(build: build);

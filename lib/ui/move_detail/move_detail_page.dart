@@ -25,10 +25,10 @@ class MoveDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HookBuilder(builder: (context) {
-        final move = useProvider(_provider.select((value) => value.move));
+      body: HookConsumer(builder: (context, ref, child) {
+        final move = ref.watch(_provider.select((value) => value.move));
         final asyncPokemonList =
-            useProvider(_provider.select((value) => value.asyncPokemonList));
+            ref.watch(_provider.select((value) => value.asyncPokemonList));
 
         //ポケモンのリスト部分
         final pokemonGroupSlivers = asyncPokemonList.when(

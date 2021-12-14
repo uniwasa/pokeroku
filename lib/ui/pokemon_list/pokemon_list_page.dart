@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/home.dart';
 import 'package:pokeroku/ui/pokemon_list/pokemon_list_view_model.dart';
@@ -8,13 +7,14 @@ import 'package:pokeroku/ui/component/user_drawer.dart';
 import '../../routes.dart';
 import '../../util.dart';
 
-class PokemonListPage extends StatelessWidget {
+class PokemonListPage extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncPokemonList = ref.watch(pokemonListViewModelProvider);
     return Scaffold(
       drawer: UserDrawer(),
       onDrawerChanged: (isOpen) {
-        context.read(hideNavigationBarProvider).state = isOpen;
+        ref.watch(hideNavigationBarProvider.notifier).state = isOpen;
       },
       appBar: AppBar(
         leading: Builder(builder: (context) {
@@ -35,8 +35,7 @@ class PokemonListPage extends StatelessWidget {
           height: kToolbarHeight - 16,
           child: TextField(
             onChanged: (text) {
-              final provider =
-                  context.read(pokemonListViewModelProvider.notifier);
+              final provider = ref.read(pokemonListViewModelProvider.notifier);
               provider.searchForText(text);
             },
             decoration: InputDecoration(
@@ -55,80 +54,77 @@ class PokemonListPage extends StatelessWidget {
           ),
         ),
       ),
-      body: HookBuilder(builder: (context) {
-        final asyncPokemonList = useProvider(pokemonListViewModelProvider);
-        return asyncPokemonList.when(
-          data: (pokemonList) {
-            return ListView.builder(
-              itemCount: pokemonList.length,
-              itemBuilder: (BuildContext context, int index) {
-                final pokemon = pokemonList[index];
-                // final isPrevGenIcon = pokemon.gen8!.forms!['\$']!.isPrevGenIcon!;
-                final Image pokemonImage = Image.asset(
-                  pokemon.imageName,
-                  isAntiAlias: true,
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.none,
-                );
-                final pokemonHeroImage = Hero(
-                  tag: pokemon.identifier,
-                  child: pokemonImage,
-                );
+      body: asyncPokemonList.when(
+        data: (pokemonList) {
+          return ListView.builder(
+            itemCount: pokemonList.length,
+            itemBuilder: (BuildContext context, int index) {
+              final pokemon = pokemonList[index];
+              // final isPrevGenIcon = pokemon.gen8!.forms!['\$']!.isPrevGenIcon!;
+              final Image pokemonImage = Image.asset(
+                pokemon.imageName,
+                isAntiAlias: true,
+                fit: BoxFit.contain,
+                filterQuality: FilterQuality.none,
+              );
+              final pokemonHeroImage = Hero(
+                tag: pokemon.identifier,
+                child: pokemonImage,
+              );
 
-                return ListTile(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.pokemonDetail,
-                        arguments: pokemon);
-                  },
-                  leading: Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: pokemonHeroImage,
-                  ),
-                  title: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Text(
-                        pokemon.nameJp,
+              return ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.pokemonDetail,
+                      arguments: pokemon);
+                },
+                leading: Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: pokemonHeroImage,
+                ),
+                title: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text(
+                      pokemon.nameJp,
+                    ),
+                    if (pokemon.formNameJp != null)
+                      Padding(
+                        padding: EdgeInsets.only(left: 8),
+                        child: Text(
+                          pokemon.formNameJp!,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.white70,
+                          ),
+                        ),
                       ),
-                      if (pokemon.formNameJp != null)
-                        Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: Text(
-                            pokemon.formNameJp!,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white70,
-                            ),
-                          ),
+                  ],
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (pokemon.firstType != null)
+                      buildCircle(color: pokemon.firstType!.color),
+                    if (pokemon.secondType != null)
+                      Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: buildCircle(
+                          color: pokemon.secondType!.color,
                         ),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (pokemon.firstType != null)
-                        buildCircle(color: pokemon.firstType!.color),
-                      if (pokemon.secondType != null)
-                        Padding(
-                          padding: EdgeInsets.only(left: 5),
-                          child: buildCircle(
-                            color: pokemon.secondType!.color,
-                          ),
-                        ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          loading: () => Center(
-            child: CircularProgressIndicator(),
-          ),
-          error: (error, _) => Center(
-            child: Text(error.toString()),
-          ),
-        );
-      }),
+                      ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+        loading: () => Center(
+          child: CircularProgressIndicator(),
+        ),
+        error: (error, _) => Center(
+          child: Text(error.toString()),
+        ),
+      ),
     );
   }
 }

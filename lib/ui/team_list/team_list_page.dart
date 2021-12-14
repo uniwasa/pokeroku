@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/home.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
@@ -10,15 +8,15 @@ import 'package:pokeroku/ui/component/delete_dialog.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 import 'package:pokeroku/ui/component/user_drawer.dart';
 
-class TeamListPage extends StatelessWidget {
+class TeamListPage extends HookConsumerWidget {
   TeamListPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       drawer: UserDrawer(),
       onDrawerChanged: (isOpen) {
-        context.read(hideNavigationBarProvider).state = isOpen;
+        ref.watch(hideNavigationBarProvider.notifier).state = isOpen;
       },
       appBar: AppBar(
         leading: Builder(builder: (context) {
@@ -34,36 +32,34 @@ class TeamListPage extends StatelessWidget {
             width: kToolbarHeight,
             child: IconButton(
                 onPressed: () async {
-                  await context
-                      .read(teamListViewModelProvider.notifier)
-                      .addTeam();
+                  await ref.read(teamListViewModelProvider.notifier).addTeam();
                 },
                 icon: Icon(Icons.add)),
           ),
         ],
         title: Text('パーティ'),
       ),
-      body: HookBuilder(builder: (context) {
-        final state = useProvider(teamListViewModelProvider);
+      body: HookConsumer(builder: (context, ref, child) {
+        final state = ref.watch(teamListViewModelProvider);
         final teams = state.teams;
         final isLoading = state.isLoading;
         final hasNext = state.hasNext;
 
-        final pokemonList = useProvider(pokemonListProvider).data?.value;
+        final pokemonList = ref.watch(pokemonListProvider).value;
 
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             if (!isLoading &&
                 hasNext &&
                 notification.metrics.extentAfter < 100) {
-              context.read(teamListViewModelProvider.notifier).getNextTeams();
+              ref.read(teamListViewModelProvider.notifier).getNextTeams();
             }
 
             return false;
           },
           child: RefreshIndicator(
             onRefresh: () async {
-              context.refresh(teamListViewModelProvider.notifier);
+              ref.refresh(teamListViewModelProvider.notifier);
             },
             child: Builder(
               builder: (context) {
@@ -114,7 +110,7 @@ class TeamListPage extends StatelessWidget {
                           return confirmResult;
                         },
                         onDismissed: (final direction) async {
-                          await context
+                          await ref
                               .read(teamListViewModelProvider.notifier)
                               .removeTeam(team: team);
                         },

@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 mixin ValidationMixin {
   bool isNumeric(String? value) {
     if (value == null) return false;

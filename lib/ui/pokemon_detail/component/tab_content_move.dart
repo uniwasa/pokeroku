@@ -1,9 +1,11 @@
 part of '../pokemon_detail_page.dart';
 
 extension TabContentMove on PokemonDetailPage {
-  List<Widget> buildTabContentMove(
-      {required BuildContext context,
-      required AsyncValue<List<Move>> asyncMoveList}) {
+  List<Widget> buildTabContentMove({
+    required BuildContext context,
+    required WidgetRef ref,
+    required AsyncValue<List<Move>> asyncMoveList,
+  }) {
     return asyncMoveList.when(
       data: (allMoves) {
         final movesLevel =
@@ -89,7 +91,7 @@ extension TabContentMove on PokemonDetailPage {
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
               child: TextField(
                 onChanged: (text) {
-                  final provider = context.read(_provider.notifier);
+                  final provider = ref.read(_provider.notifier);
                   provider.searchForMoves(text);
                 },
                 decoration: InputDecoration(

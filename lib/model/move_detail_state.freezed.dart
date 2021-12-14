@@ -48,7 +48,6 @@ abstract class $MoveDetailStateCopyWith<$Res> {
   $Res call({Move move, AsyncValue<List<Pokemon>> asyncPokemonList});
 
   $MoveCopyWith<$Res> get move;
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc
@@ -83,14 +82,6 @@ class _$MoveDetailStateCopyWithImpl<$Res>
       return _then(_value.copyWith(move: value));
     });
   }
-
-  @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList {
-    return $AsyncValueCopyWith<List<Pokemon>, $Res>(_value.asyncPokemonList,
-        (value) {
-      return _then(_value.copyWith(asyncPokemonList: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -104,8 +95,6 @@ abstract class _$MoveDetailStateCopyWith<$Res>
 
   @override
   $MoveCopyWith<$Res> get move;
-  @override
-  $AsyncValueCopyWith<List<Pokemon>, $Res> get asyncPokemonList;
 }
 
 /// @nodoc

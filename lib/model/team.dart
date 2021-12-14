@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pokeroku/model/build.dart';
-import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/util/document_reference_converter.dart';
 import 'package:pokeroku/util/timestamp_converter.dart';
 
