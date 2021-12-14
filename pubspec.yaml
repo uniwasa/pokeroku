@@ -29,12 +29,12 @@ dependencies:
   sqflite: ^2.0.0+3
   extended_nested_scroll_view: ^3.0.0
   fl_chart: ^0.36.1
-  firebase_core: ^1.6.0
-  cloud_firestore: ^2.5.2
-  firebase_auth: ^3.1.1
+  firebase_core: ^1.10.5
+  cloud_firestore: ^3.1.4
+  firebase_auth: ^3.3.3
   recase: ^4.0.0
   dartx: ^1.0.0
-  google_sign_in: ^5.1.0
+  google_sign_in: ^5.2.1
   flutter_signin_button: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
