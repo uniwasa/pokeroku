@@ -162,10 +162,13 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
           await _read(buildRepositoryProvider)
               .deleteBuild(userId: userId, build: build, team: team);
           // 画面上のTeam更新
-          final updatedBuilds =
-              team.builds?.where((element) => element.id != build.id).toList();
+          final updatedBuilds = team.builds
+                  ?.where((element) => element.id != build.id)
+                  .toList() ??
+              [];
           final updatedTeam = team.copyWith(builds: updatedBuilds);
-          state = AsyncData(teamEditState.copyWith(team: updatedTeam));
+          state = AsyncData(teamEditState.copyWith(
+              team: updatedTeam, isAddable: _isAddable(updatedBuilds)));
           // リスト側の更新
           _read(teamListViewModelProvider.notifier)
               .replaceTeam(targetTeam: updatedTeam);
