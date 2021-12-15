@@ -43,7 +43,7 @@ class PokedexDataSource {
           identifier: e['identifier'],
           nameJp: e['name_jp'],
           damageFactors: damageFactors,
-          color: PokemonTypeExtension.init(e['identifier']).color);
+          color: PokemonTypeEnum.values.byName(e['identifier']).color);
     }).toList();
 
     return pokemonTypes;

@@ -22,18 +22,7 @@ enum PokemonTypeEnum {
   unknown,
 }
 
-extension PokemonTypeExtension on PokemonTypeEnum {
-  String get toShortString => this.toString().split('.').last;
-
-  static PokemonTypeEnum init(String rawValue) {
-    final type = PokemonTypeEnum.values.firstWhere(
-      (element) =>
-          element.toShortString.toLowerCase() == rawValue.toLowerCase(),
-      orElse: () => PokemonTypeEnum.unknown,
-    );
-    return type;
-  }
-
+extension PokemonTypeEnumX on PokemonTypeEnum {
   Color get color {
     switch (this) {
       case PokemonTypeEnum.normal:
@@ -102,7 +91,7 @@ enum TypeColorEnum {
   unknown,
 }
 
-extension TypeColorExtension on TypeColorEnum {
+extension TypeColorEnumX on TypeColorEnum {
   Color get color {
     switch (this) {
       case TypeColorEnum.normal:
