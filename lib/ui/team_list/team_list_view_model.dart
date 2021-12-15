@@ -54,16 +54,17 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
           lastTeam: teams.isNotEmpty ? teams.last : null,
         );
         final hasNext = nextTeams.length >= limitNum;
-        state = state.copyWith(
-          teams: teams + nextTeams,
-          isLoading: false,
-          hasNext: hasNext,
-          error: null,
-        );
+        if (mounted)
+          state = state.copyWith(
+            teams: teams + nextTeams,
+            isLoading: false,
+            hasNext: hasNext,
+            error: null,
+          );
       }
     } catch (e) {
-      print(e);
-      state = state.copyWith(error: e.toString(), isLoading: false);
+      if (mounted)
+        state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }
 
@@ -77,12 +78,12 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
         final createdTeam = await _read(teamRepositoryProvider)
             .getTeam(userId: userId, teamId: createdTeamId);
         // TODO: ちゃんとエラー処理する
-        if (createdTeam != null)
+        if (mounted && createdTeam != null)
           state = state.copyWith(teams: state.teams..insert(0, createdTeam));
       }
     } catch (e) {
-      print(e);
-      state = state.copyWith(error: e.toString(), isLoading: false);
+      if (mounted)
+        state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }
 
@@ -92,22 +93,23 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
       if (userId != null) {
         await _read(teamRepositoryProvider)
             .deleteTeam(userId: userId, team: team);
-        state = state.copyWith(
-          teams: state.teams.where((element) => element.id != team.id).toList(),
-        );
+        if (mounted)
+          state = state.copyWith(
+            teams:
+                state.teams.where((element) => element.id != team.id).toList(),
+          );
       }
     } catch (e) {
-      print(e);
-      state = state.copyWith(error: e.toString(), isLoading: false);
+      if (mounted)
+        state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }
 
   Future<void> replaceTeam({required Team targetTeam}) async {
-    state = state.copyWith(
-      teams: [
+    if (mounted)
+      state = state.copyWith(teams: [
         for (final team in state.teams)
           team.id == targetTeam.id ? targetTeam : team
-      ],
-    );
+      ]);
   }
 }
