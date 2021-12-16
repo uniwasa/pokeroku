@@ -66,6 +66,9 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
       }
     } on Exception catch (e) {
       _read(appErrorProvider.notifier).update((state) => AppError(e));
+      // エラー出ても読み込み続行させたいなら、isLoadingをfalseにすればいいが、とりま保留
+      // falseにして、解消されないエラーだった場合、スクロール起こるたびずっと呼び出されてしまう
+      // state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }
 
