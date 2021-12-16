@@ -63,23 +63,18 @@ class BuildRepositoryImpl implements BuildRepository {
     required Build build,
     Team? team,
   }) async {
-    try {
-      if (team != null) {
-        final batch = _read(firebaseFirestoreProvider).batch();
+    if (team != null) {
+      final batch = _read(firebaseFirestoreProvider).batch();
 
-        final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
-        final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
-        final buildRef =
-            teamRef.collection(CollectionName.builds).doc(build.id);
-        batch.update(buildRef, build.toJson());
-        final denormalizedBuild = Team.makeDenormalizedBuild(build: build);
-        batch.update(teamRef, denormalizedBuild);
+      final userRef = _read(firebaseFirestoreProvider).getUserDocRef(userId);
+      final teamRef = userRef.collection(CollectionName.teams).doc(team.id);
+      final buildRef = teamRef.collection(CollectionName.builds).doc(build.id);
+      batch.update(buildRef, build.toJson());
+      final denormalizedBuild = Team.makeDenormalizedBuild(build: build);
+      batch.update(teamRef, denormalizedBuild);
 
-        await batch.commit();
-      } else {}
-    } on FirebaseException catch (e) {
-      throw e;
-    }
+      await batch.commit();
+    } else {}
   }
 
   @override

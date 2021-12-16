@@ -16,6 +16,7 @@ import 'package:pokeroku/provider/nature_list_provider.dart';
 import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
+import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 import 'package:pokeroku/util/stat_text_input_formatter.dart';
 import 'package:dartx/dartx.dart';
 
@@ -60,21 +61,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
                     onPressed: () async {
                       if (_formGlobalKey.currentState?.validate() == true) {
                         _formGlobalKey.currentState?.save();
-                        final result = await ref
-                            .read(buildEditViewModelProviderFamily(
-                                    _buildEditParam)
-                                .notifier)
-                            .saveBuild();
-                        if (result) {
-                          Navigator.pop(context);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('努力値合計は510以下にしてください'),
-                              duration: const Duration(seconds: 3),
-                            ),
-                          );
-                        }
+                        _saveBuild(context: context, ref: ref);
                       }
                     },
                     icon: Icon(Icons.save)),
@@ -134,13 +121,13 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
                   key: _formGlobalKey,
                   child: Column(
                     children: [
-                      makeLevelListTile(ref: ref, level: build.level),
+                      _makeLevelListTile(ref: ref, level: build.level),
                       for (final statName in StatSet.keys)
                         HookBuilder(builder: (context) {
                           final natureList =
                               ref.watch(natureListProvider).value;
                           if (natureList == null) return ListTile();
-                          return makeStatListTile(
+                          return _makeStatListTile(
                             ref: ref,
                             statName: statName,
                             pokemon: pokemon,
@@ -184,7 +171,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
     );
   }
 
-  Widget makeStatTextFormField({
+  Widget _makeStatTextFormField({
     required String initialValue,
     required String labelText,
     required TextInputFormatter textInputFormatter,
@@ -222,7 +209,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
     );
   }
 
-  Widget makeStatListTile({
+  Widget _makeStatListTile({
     required WidgetRef ref,
     required String statName,
     required Pokemon pokemon,
@@ -257,7 +244,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
           Expanded(
             child: Text((actualValue).toString()),
           ),
-          makeStatTextFormField(
+          _makeStatTextFormField(
             initialValue: (individualValue).toString(),
             labelText: 'IV',
             onChanged: (value) {
@@ -281,7 +268,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             },
             textInputFormatter: StatTextInputFormatter(min: 0, max: 31),
           ),
-          makeStatTextFormField(
+          _makeStatTextFormField(
             initialValue: (effortValue).toString(),
             labelText: 'EV',
             onChanged: (value) {
@@ -310,13 +297,13 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
     );
   }
 
-  Widget makeLevelListTile({required WidgetRef ref, required int? level}) {
+  Widget _makeLevelListTile({required WidgetRef ref, required int? level}) {
     return ListTile(
       leading: Text('ステータス'),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          makeStatTextFormField(
+          _makeStatTextFormField(
             initialValue: (level ?? 50).toString(),
             labelText: 'Level',
             onChanged: (value) {
@@ -341,5 +328,35 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
         ],
       ),
     );
+  }
+
+  Future<void> _saveBuild(
+      {required BuildContext context, required WidgetRef ref}) async {
+    final build =
+        ref.read(buildEditViewModelProviderFamily(_buildEditParam)).value;
+    if (build != null) {
+      final effortValues = build.effortValues;
+      if (effortValues == null || effortValues.isValidEffortValues()) {
+        final teamId = _buildEditParam.teamId;
+        if (teamId != null) {
+          // パーティ画面用
+          final result = await ref
+              .read(teamEditViewModelProviderFamily(teamId).notifier)
+              .updateBuild(build: build);
+          if (result) Navigator.pop(context);
+        } else {
+          // ポケモン単体画面用
+          // TODO: ポケモン単体画面用
+        }
+      } else {
+        // 無効な努力値の場合
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('努力値合計は510以下にしてください'),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    }
   }
 }

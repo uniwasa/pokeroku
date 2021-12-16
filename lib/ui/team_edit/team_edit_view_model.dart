@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/interface/build_manager.dart';
 import 'package:pokeroku/model/app_user.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/model/team_edit_state.dart';
+import 'package:pokeroku/provider/app_error_provider.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/repository/build_repository.dart';
 import 'package:pokeroku/repository/team_repository.dart';
@@ -131,7 +134,7 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
   }
 
   @override
-  Future<void> updateBuild({required Build build}) async {
+  Future<bool> updateBuild({required Build build}) async {
     try {
       final userId = _asyncUser.value?.id;
       if (userId != null) {
@@ -143,11 +146,13 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
               .updateBuild(userId: userId, build: build, team: team);
           // 画面上の更新
           replaceBuild(build: build);
+          return true;
         }
       }
-    } catch (e) {
-      print(e);
-      state = AsyncError(e);
+      return false;
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
+      return false;
     }
   }
 

@@ -126,25 +126,4 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
       state = AsyncData(build.copyWith(moves: moves));
     }
   }
-
-  Future<bool> saveBuild() async {
-    final build = state.value;
-    if (build != null) {
-      if (build.effortValues == null ||
-          build.effortValues?.isValidEffortValues() == true) {
-        // 努力値が空か有効な努力値の場合
-        final teamId = _buildEditParam.teamId;
-        if (teamId != null) {
-          // パーティ画面用
-          _read(teamEditViewModelProviderFamily(teamId).notifier)
-              .updateBuild(build: build);
-        } else {
-          // ポケモン単体画面用
-          // TODO: ポケモン単体画面用
-        }
-        return true;
-      }
-    }
-    return false;
-  }
 }
