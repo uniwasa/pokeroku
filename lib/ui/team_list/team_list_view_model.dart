@@ -1,7 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/model/app_user.dart';
 import 'package:pokeroku/model/team.dart';
 import 'package:pokeroku/model/team_list_state.dart';
+import 'package:pokeroku/provider/app_error_provider.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/repository/team_repository.dart';
 
@@ -62,9 +64,8 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
             error: null,
           );
       }
-    } catch (e) {
-      if (mounted)
-        state = state.copyWith(error: e.toString(), isLoading: false);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
@@ -81,9 +82,8 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
         if (mounted && createdTeam != null)
           state = state.copyWith(teams: state.teams..insert(0, createdTeam));
       }
-    } catch (e) {
-      if (mounted)
-        state = state.copyWith(error: e.toString(), isLoading: false);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
@@ -99,13 +99,12 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
                 state.teams.where((element) => element.id != team.id).toList(),
           );
       }
-    } catch (e) {
-      if (mounted)
-        state = state.copyWith(error: e.toString(), isLoading: false);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
-  Future<void> replaceTeam({required Team targetTeam}) async {
+  void replaceTeam({required Team targetTeam}) {
     if (mounted)
       state = state.copyWith(teams: [
         for (final team in state.teams)

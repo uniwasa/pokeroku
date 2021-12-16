@@ -1,9 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/app_user.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/stat_set.dart';
+import 'package:pokeroku/provider/app_error_provider.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/repository/build_repository.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
@@ -62,9 +64,8 @@ class BuildEditViewModel extends StateNotifier<AsyncValue<Build>>
           }
         }
       }
-    } catch (e) {
-      print(e);
-      throw (e);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 

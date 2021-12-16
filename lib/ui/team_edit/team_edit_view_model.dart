@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/interface/build_manager.dart';
@@ -72,9 +71,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
               .replaceTeam(targetTeam: teamWithBuilds);
         }
       }
-    } catch (e) {
-      print(e);
-      throw (e);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
@@ -94,9 +92,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
         _read(teamListViewModelProvider.notifier)
             .replaceTeam(targetTeam: updatedTeam);
       }
-    } catch (e) {
-      print(e);
-      state = AsyncError(e);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
@@ -127,9 +124,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
               .replaceTeam(targetTeam: updatedTeam);
         }
       }
-    } catch (e) {
-      print(e);
-      state = AsyncError(e);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
@@ -179,9 +175,8 @@ class TeamEditViewModel extends StateNotifier<AsyncValue<TeamEditState>>
               .replaceTeam(targetTeam: updatedTeam);
         }
       }
-    } catch (e) {
-      print(e);
-      state = AsyncError(e);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
