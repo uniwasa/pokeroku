@@ -30,10 +30,15 @@ class Home extends StatelessWidget {
     return HookConsumer(builder: (context, ref, child) {
       ref.listen<AppError?>(appErrorProvider, (previousError, newError) {
         if (newError != null)
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(newError.message),
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                newError.message,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
       });
 
       final hideNavigationBar = ref.watch(hideNavigationBarProvider);
