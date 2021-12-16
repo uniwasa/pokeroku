@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/model/app_user.dart';
+import 'package:pokeroku/provider/app_error_provider.dart';
 import 'package:pokeroku/provider/auth_user_provider.dart';
 import 'package:pokeroku/provider/firebase_providers.dart';
 import 'package:pokeroku/repository/user_repository.dart';
@@ -69,8 +71,8 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
               state = AsyncData(createdUser.copyWith(authUser: authUser));
           }
         }
-      } on Exception catch (error) {
-        throw (error);
+      } on Exception catch (e) {
+        _read(appErrorProvider.notifier).update((state) => AppError(e));
       }
     });
   }
@@ -78,8 +80,8 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
   Future<void> signOut() async {
     try {
       await _read(firebaseAuthProvider).signOut();
-    } on Exception catch (error) {
-      throw (error);
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
@@ -112,21 +114,22 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
           state = AsyncData(newUser);
         }
       }
-    } on FirebaseAuthException catch (error) {
-      if (error.code == 'credential-already-in-use') {
+    } on Exception catch (e) {
+      final appError = AppError(e);
+      if (appError.type == AppErrorType.credentialAlreadyInUse) {
+        // 連携済みのエラーならサインイン
         if (_credential != null) {
           try {
             await _read(firebaseAuthProvider)
                 .signInWithCredential(_credential!);
           } on Exception catch (error) {
-            throw (error);
+            _read(appErrorProvider.notifier).update((state) => AppError(error));
           }
         }
-      } else if (error.code == 'provider-already-linked') {
-        print('ログイン済み');
+      } else {
+        // それ以外のエラーなら
+        _read(appErrorProvider.notifier).update((state) => appError);
       }
-    } on Exception catch (error) {
-      throw (error);
     }
   }
 }
