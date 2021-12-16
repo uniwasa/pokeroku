@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/model/ability.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/move_selection_param.dart';
 import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/provider/app_error_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_detail/ability_detail_page.dart';
 import 'package:pokeroku/ui/ability_selection/ability_selection_page.dart';
@@ -26,6 +28,14 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HookConsumer(builder: (context, ref, child) {
+      ref.listen<AppError?>(appErrorProvider, (previousError, newError) {
+        if (newError != null)
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(newError.message),
+          ));
+      });
+
       final hideNavigationBar = ref.watch(hideNavigationBarProvider);
       return PersistentTabView(
         context,
