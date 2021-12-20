@@ -1,3 +1,4 @@
+import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/home.dart';
@@ -10,6 +11,8 @@ import 'package:pokeroku/ui/component/user_drawer.dart';
 
 class TeamListPage extends HookConsumerWidget {
   TeamListPage({Key? key}) : super(key: key);
+
+  final _padding = 5.0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -119,22 +122,55 @@ class TeamListPage extends HookConsumerWidget {
                               .removeTeam(team: team);
                         },
                         child: ListTile(
+                          contentPadding: EdgeInsets.all(_padding),
                           onTap: () {
                             Navigator.pushNamed(context, Routes.teamEdit,
                                 arguments: team.id);
                           },
-                          title: ConstrainedBox(
-                            constraints: BoxConstraints(minHeight: 100),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (teamName != null) Text(teamName),
-                                if (builds != null)
-                                  Wrap(
-                                    children: buildIcons,
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: _padding),
+                                child: Text(
+                                  teamName ?? '',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context).hintColor,
                                   ),
-                              ],
-                            ),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  for (var i = 0; i < 6; i++)
+                                    Container(
+                                      width: _calcIconSize(
+                                          context: context,
+                                          horizontalPadding: _padding),
+                                      height: _calcIconSize(
+                                          context: context,
+                                          horizontalPadding: _padding),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: _padding),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context).hoverColor,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 10.0),
+                                            child:
+                                                buildIcons.elementAtOrNull(i) ??
+                                                    Container(),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -147,6 +183,14 @@ class TeamListPage extends HookConsumerWidget {
         );
       }),
     );
+  }
+
+  double _calcIconSize(
+      {required BuildContext context, required double horizontalPadding}) {
+    return (MediaQuery.of(context).size.width -
+            (horizontalPadding * 2) -
+            MediaQuery.of(context).padding.horizontal) /
+        6;
   }
 
   Future<String?> _showInputDialog({required BuildContext context}) async {
