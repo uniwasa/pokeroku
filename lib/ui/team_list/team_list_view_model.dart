@@ -27,7 +27,7 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
 
   final Reader _read;
   final AsyncValue<AppUser> _asyncUser;
-  final limitNum = 2;
+  final limitNum = 10;
 
   @override
   void dispose() {
