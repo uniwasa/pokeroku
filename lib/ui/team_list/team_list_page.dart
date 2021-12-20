@@ -223,5 +223,5 @@ class TeamListPage extends HookConsumerWidget {
 
 final _teamNameControllerProvider = StateProvider.autoDispose((ref) {
   ref.onDispose(() => print('bye from _teamNameControllerProvider'));
-  return TextEditingController(text: 'パーティ');
+  return TextEditingController(text: 'マイパーティ');
 });
