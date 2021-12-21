@@ -194,8 +194,9 @@ class PokedexDataSource {
         .loadString('assets/query/not_eligible_pokemon_list.sql');
     List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
     final notEligibleList = queryResult.map((e) => e['id'] as int).toList();
-    pokemonList.removeWhere((element) =>
-        notEligibleList.contains(element.id) || element.isDefault == true);
-    return pokemonList;
+
+    return pokemonList
+        .where((element) => !notEligibleList.contains(element.id))
+        .toList();
   }
 }
