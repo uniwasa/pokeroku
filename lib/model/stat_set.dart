@@ -54,7 +54,9 @@ class StatSet with _$StatSet {
     required int level,
     required int individualValue,
     required int effortValue,
+    required int pokemonId,
   }) {
+    if (pokemonId == 292) return 1; // ヌケニンなら
     return ((baseValue * 2 + individualValue + (effortValue / 4).floor()) *
                 level /
                 100)

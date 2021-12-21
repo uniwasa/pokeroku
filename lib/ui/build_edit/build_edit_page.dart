@@ -229,7 +229,8 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             baseValue: baseValue,
             level: level,
             individualValue: individualValue,
-            effortValue: effortValue)
+            effortValue: effortValue,
+            pokemonId: pokemon.id)
         : StatSet.actualValue(
             baseValue: baseValue,
             level: level,
