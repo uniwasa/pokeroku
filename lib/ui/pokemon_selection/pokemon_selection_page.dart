@@ -12,7 +12,7 @@ class PokemonSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HookConsumer(builder: (context, ref, chilid) {
+    return HookConsumer(builder: (context, ref, child) {
       final asyncValue =
           ref.watch(pokemonSelectionViewModelProviderFamily(_teamId));
 
