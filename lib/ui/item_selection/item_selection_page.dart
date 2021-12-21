@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
+import 'package:pokeroku/ui/component/serch_field.dart';
 import 'package:pokeroku/ui/item_selection/item_selection_view_model.dart';
 
 class ItemSelectionPage extends StatelessWidget {
@@ -25,30 +26,45 @@ class ItemSelectionPage extends StatelessWidget {
           builder: (BuildContext context) {
             return asyncValue.when(
               data: (itemList) {
-                return ListView.builder(
-                  itemCount: itemList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = itemList[index];
-
-                    return ListTile(
-                      title: Text(item.nameJp),
-                      onTap: () {
-                        final teamId = _buildEditParam.teamId;
-                        if (teamId != null) {
-                          // パーティ画面用
-                          ref
-                              .read(buildEditViewModelProviderFamily(
-                                      _buildEditParam)
-                                  .notifier)
-                              .updateItem(itemId: item.id);
-                        } else {
-                          // ポケモン単体画面用
-                          // TODO: ポケモン単体画面用
-                        }
-                        Navigator.pop(context);
+                return Column(
+                  children: [
+                    SearchField(
+                      callback: (final text) {
+                        final provider = ref.read(
+                            itemSelectionViewModelProviderFamily(
+                                    _buildEditParam)
+                                .notifier);
+                        provider.searchForText(text);
                       },
-                    );
-                  },
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: itemList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = itemList[index];
+
+                          return ListTile(
+                            title: Text(item.nameJp),
+                            onTap: () {
+                              final teamId = _buildEditParam.teamId;
+                              if (teamId != null) {
+                                // パーティ画面用
+                                ref
+                                    .read(buildEditViewModelProviderFamily(
+                                            _buildEditParam)
+                                        .notifier)
+                                    .updateItem(itemId: item.id);
+                              } else {
+                                // ポケモン単体画面用
+                                // TODO: ポケモン単体画面用
+                              }
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 );
               },
               loading: () => Center(
