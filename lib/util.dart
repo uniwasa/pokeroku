@@ -30,10 +30,17 @@ Color lighten(Color color, [double amount = .1]) {
   return hslLight.toColor();
 }
 
-Widget buildBadge(
-    {required String text, required Color color, bool? isSquare}) {
+Widget buildBadge({
+  required String text,
+  required Color color,
+  bool? isSquare,
+  double fontSize = 12,
+  double? height,
+  double width = 80,
+}) {
   return Container(
-    width: 80,
+    height: height,
+    width: width,
     decoration: new BoxDecoration(
       color: color,
       borderRadius: isSquare == true
@@ -51,7 +58,7 @@ Widget buildBadge(
                 (string) => Text(
                   string,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: fontSize,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
