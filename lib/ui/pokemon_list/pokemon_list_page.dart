@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/home.dart';
+import 'package:pokeroku/ui/navigation_page.dart';
 import 'package:pokeroku/ui/pokemon_list/pokemon_list_view_model.dart';
 import 'package:pokeroku/ui/component/user_drawer.dart';
 

@@ -1,11 +1,11 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokeroku/home.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/empty_scroll_view.dart';
 import 'package:pokeroku/ui/component/delete_dialog.dart';
+import 'package:pokeroku/ui/navigation_page.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
 import 'package:pokeroku/ui/component/user_drawer.dart';
 
