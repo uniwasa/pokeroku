@@ -130,11 +130,12 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
             ),
           ),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.favorite_border,
-                ),
-                onPressed: () => {})
+            // IconButton(
+            //   icon: Icon(
+            //     Icons.favorite_border,
+            //   ),
+            //   onPressed: () => {},
+            // )
           ],
         ),
         Positioned(

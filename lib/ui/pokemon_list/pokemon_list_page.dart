@@ -28,7 +28,7 @@ class PokemonListPage extends HookConsumerWidget {
         actions: [
           Container(
             width: kToolbarHeight,
-            child: Icon(Icons.filter_alt),
+            // child: Icon(Icons.filter_alt),
           ),
         ],
         title: Container(
