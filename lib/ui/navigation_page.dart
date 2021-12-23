@@ -30,7 +30,7 @@ class NavigationPage extends HookConsumerWidget {
     // NOTE: This widget includes SCAFFOLD (based on CupertinoTabScaffold), so no need to declare it.
     return PersistentTabView(
       context,
-      navBarHeight: 44,
+      navBarHeight: 50,
       hideNavigationBar: hideNavigationBar,
       resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).primaryColor,
@@ -62,6 +62,7 @@ class NavigationPage extends HookConsumerWidget {
       navBarStyle: NavBarStyle.style6,
     );
   }
+
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     bool isFullscreen = false;
     final arguments = settings.arguments;
