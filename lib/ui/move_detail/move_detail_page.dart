@@ -59,7 +59,7 @@ class MoveDetailPage extends StatelessWidget {
               return SliverStickyHeader(
                   header: Container(
                     height: 30.0,
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).canvasColor,
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
                     alignment: Alignment.centerLeft,
                     child: Text(

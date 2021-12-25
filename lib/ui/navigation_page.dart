@@ -33,7 +33,7 @@ class NavigationPage extends HookConsumerWidget {
       navBarHeight: 50,
       hideNavigationBar: hideNavigationBar,
       resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor!,
       screens: [PokemonListPage(), TeamListPage()],
       items: [
         PersistentBottomNavBarItem(

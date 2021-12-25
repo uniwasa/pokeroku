@@ -21,10 +21,10 @@ class App extends HookWidget {
     final darkTheme = ThemeData.dark();
     final customTheme = darkTheme.copyWith(
       appBarTheme: darkTheme.appBarTheme
-          .copyWith(backgroundColor: darkTheme.primaryColor),
-      scaffoldBackgroundColor: Color.fromRGBO(40, 40, 40, 1),
-      cardColor: Color.fromRGBO(52, 52, 52, 1),
-      dialogBackgroundColor: Color.fromRGBO(52, 52, 52, 1),
+          .copyWith(backgroundColor: Color.fromRGBO(28, 28, 28, 1)),
+      scaffoldBackgroundColor: Color.fromRGBO(24, 24, 24, 1),
+      cardColor: Color.fromRGBO(32, 32, 32, 1),
+      dialogBackgroundColor: Color.fromRGBO(32, 32, 32, 1),
     );
     return customTheme;
   }
