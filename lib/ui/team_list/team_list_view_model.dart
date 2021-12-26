@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/model/app_user.dart';
@@ -21,7 +22,8 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
     required AsyncValue<AppUser> asyncUser,
   })  : _read = read,
         _asyncUser = asyncUser,
-        super(TeamListState(teams: [], isLoading: false, hasNext: true)) {
+        super(TeamListState(
+            teamList: AsyncLoading(), isFetching: false, hasNext: true)) {
     init();
   }
 
@@ -42,9 +44,9 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
   Future<void> getNextTeams() async {
     // TODO: userIdチェックしたあとでよさそう
     if (!mounted) return;
-    if (state.isLoading || !state.hasNext) return;
-    state = state.copyWith(isLoading: true, error: null);
-    final teams = state.teams;
+    if (state.isFetching || !state.hasNext) return;
+    state = state.copyWith(isFetching: true, error: null);
+    final teamList = state.teamList.value ?? [];
 
     try {
       final userId = _asyncUser.value?.id;
@@ -53,13 +55,13 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
         final nextTeams = await _read(teamRepositoryProvider).getTeams(
           userId: userId,
           limitNum: limitNum,
-          lastTeam: teams.isNotEmpty ? teams.last : null,
+          lastTeam: teamList.lastOrNull,
         );
         final hasNext = nextTeams.length >= limitNum;
         if (mounted)
           state = state.copyWith(
-            teams: teams + nextTeams,
-            isLoading: false,
+            teamList: AsyncData(teamList + nextTeams),
+            isFetching: false,
             hasNext: hasNext,
             error: null,
           );
@@ -75,7 +77,8 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
   Future<void> addTeam({required String name}) async {
     try {
       final userId = _asyncUser.value?.id;
-      if (userId != null) {
+      final teamList = state.teamList.value;
+      if (userId != null && teamList != null) {
         final newTeam = Team(name: name);
         final createdTeamId = await _read(teamRepositoryProvider)
             .createTeam(userId: userId, team: newTeam);
@@ -83,7 +86,8 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
             .getTeam(userId: userId, teamId: createdTeamId);
         // TODO: ちゃんとエラー処理する
         if (mounted && createdTeam != null)
-          state = state.copyWith(teams: state.teams..insert(0, createdTeam));
+          state = state.copyWith(
+              teamList: AsyncData(teamList..insert(0, createdTeam)));
       }
     } on Exception catch (e) {
       _read(appErrorProvider.notifier).update((state) => AppError(e));
@@ -93,13 +97,14 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
   Future<void> removeTeam({required Team team}) async {
     try {
       final userId = _asyncUser.value?.id;
-      if (userId != null) {
+      final teamList = state.teamList.value;
+      if (userId != null && teamList != null) {
         await _read(teamRepositoryProvider)
             .deleteTeam(userId: userId, team: team);
         if (mounted)
           state = state.copyWith(
-            teams:
-                state.teams.where((element) => element.id != team.id).toList(),
+            teamList: AsyncData(
+                teamList.where((element) => element.id != team.id).toList()),
           );
       }
     } on Exception catch (e) {
@@ -108,10 +113,15 @@ class TeamListViewModel extends StateNotifier<TeamListState> {
   }
 
   void replaceTeam({required Team targetTeam}) {
-    if (mounted)
-      state = state.copyWith(teams: [
-        for (final team in state.teams)
-          team.id == targetTeam.id ? targetTeam : team
-      ]);
+    final teamList = state.teamList.value;
+    if (mounted && teamList != null)
+      state = state.copyWith(
+        teamList: AsyncData(
+          [
+            for (final team in teamList)
+              team.id == targetTeam.id ? targetTeam : team
+          ],
+        ),
+      );
   }
 }

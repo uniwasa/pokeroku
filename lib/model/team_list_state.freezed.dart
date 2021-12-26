@@ -18,13 +18,13 @@ class _$TeamListStateTearOff {
   const _$TeamListStateTearOff();
 
   _TeamListState call(
-      {required List<Team> teams,
-      required bool isLoading,
+      {required AsyncValue<List<Team>> teamList,
+      required bool isFetching,
       required bool hasNext,
       String? error}) {
     return _TeamListState(
-      teams: teams,
-      isLoading: isLoading,
+      teamList: teamList,
+      isFetching: isFetching,
       hasNext: hasNext,
       error: error,
     );
@@ -36,8 +36,8 @@ const $TeamListState = _$TeamListStateTearOff();
 
 /// @nodoc
 mixin _$TeamListState {
-  List<Team> get teams => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
+  AsyncValue<List<Team>> get teamList => throw _privateConstructorUsedError;
+  bool get isFetching => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -51,7 +51,11 @@ abstract class $TeamListStateCopyWith<$Res> {
   factory $TeamListStateCopyWith(
           TeamListState value, $Res Function(TeamListState) then) =
       _$TeamListStateCopyWithImpl<$Res>;
-  $Res call({List<Team> teams, bool isLoading, bool hasNext, String? error});
+  $Res call(
+      {AsyncValue<List<Team>> teamList,
+      bool isFetching,
+      bool hasNext,
+      String? error});
 }
 
 /// @nodoc
@@ -65,19 +69,19 @@ class _$TeamListStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? teams = freezed,
-    Object? isLoading = freezed,
+    Object? teamList = freezed,
+    Object? isFetching = freezed,
     Object? hasNext = freezed,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
-      teams: teams == freezed
-          ? _value.teams
-          : teams // ignore: cast_nullable_to_non_nullable
-              as List<Team>,
-      isLoading: isLoading == freezed
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      teamList: teamList == freezed
+          ? _value.teamList
+          : teamList // ignore: cast_nullable_to_non_nullable
+              as AsyncValue<List<Team>>,
+      isFetching: isFetching == freezed
+          ? _value.isFetching
+          : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
       hasNext: hasNext == freezed
           ? _value.hasNext
@@ -98,7 +102,11 @@ abstract class _$TeamListStateCopyWith<$Res>
           _TeamListState value, $Res Function(_TeamListState) then) =
       __$TeamListStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Team> teams, bool isLoading, bool hasNext, String? error});
+  $Res call(
+      {AsyncValue<List<Team>> teamList,
+      bool isFetching,
+      bool hasNext,
+      String? error});
 }
 
 /// @nodoc
@@ -114,19 +122,19 @@ class __$TeamListStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? teams = freezed,
-    Object? isLoading = freezed,
+    Object? teamList = freezed,
+    Object? isFetching = freezed,
     Object? hasNext = freezed,
     Object? error = freezed,
   }) {
     return _then(_TeamListState(
-      teams: teams == freezed
-          ? _value.teams
-          : teams // ignore: cast_nullable_to_non_nullable
-              as List<Team>,
-      isLoading: isLoading == freezed
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      teamList: teamList == freezed
+          ? _value.teamList
+          : teamList // ignore: cast_nullable_to_non_nullable
+              as AsyncValue<List<Team>>,
+      isFetching: isFetching == freezed
+          ? _value.isFetching
+          : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
       hasNext: hasNext == freezed
           ? _value.hasNext
@@ -144,16 +152,16 @@ class __$TeamListStateCopyWithImpl<$Res>
 
 class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
   const _$_TeamListState(
-      {required this.teams,
-      required this.isLoading,
+      {required this.teamList,
+      required this.isFetching,
       required this.hasNext,
       this.error})
       : super._();
 
   @override
-  final List<Team> teams;
+  final AsyncValue<List<Team>> teamList;
   @override
-  final bool isLoading;
+  final bool isFetching;
   @override
   final bool hasNext;
   @override
@@ -161,7 +169,7 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TeamListState(teams: $teams, isLoading: $isLoading, hasNext: $hasNext, error: $error)';
+    return 'TeamListState(teamList: $teamList, isFetching: $isFetching, hasNext: $hasNext, error: $error)';
   }
 
   @override
@@ -169,8 +177,8 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TeamListState'))
-      ..add(DiagnosticsProperty('teams', teams))
-      ..add(DiagnosticsProperty('isLoading', isLoading))
+      ..add(DiagnosticsProperty('teamList', teamList))
+      ..add(DiagnosticsProperty('isFetching', isFetching))
       ..add(DiagnosticsProperty('hasNext', hasNext))
       ..add(DiagnosticsProperty('error', error));
   }
@@ -180,8 +188,9 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _TeamListState &&
-            const DeepCollectionEquality().equals(other.teams, teams) &&
-            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.teamList, teamList) &&
+            const DeepCollectionEquality()
+                .equals(other.isFetching, isFetching) &&
             const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
             const DeepCollectionEquality().equals(other.error, error));
   }
@@ -189,8 +198,8 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(teams),
-      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(teamList),
+      const DeepCollectionEquality().hash(isFetching),
       const DeepCollectionEquality().hash(hasNext),
       const DeepCollectionEquality().hash(error));
 
@@ -202,16 +211,16 @@ class _$_TeamListState extends _TeamListState with DiagnosticableTreeMixin {
 
 abstract class _TeamListState extends TeamListState {
   const factory _TeamListState(
-      {required List<Team> teams,
-      required bool isLoading,
+      {required AsyncValue<List<Team>> teamList,
+      required bool isFetching,
       required bool hasNext,
       String? error}) = _$_TeamListState;
   const _TeamListState._() : super._();
 
   @override
-  List<Team> get teams;
+  AsyncValue<List<Team>> get teamList;
   @override
-  bool get isLoading;
+  bool get isFetching;
   @override
   bool get hasNext;
   @override

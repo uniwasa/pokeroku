@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/model/team.dart';
 
 part 'team_list_state.freezed.dart';
@@ -9,8 +10,8 @@ class TeamListState with _$TeamListState {
   const TeamListState._();
 
   const factory TeamListState({
-    required List<Team> teams,
-    required bool isLoading,
+    required AsyncValue<List<Team>> teamList,
+    required bool isFetching,
     required bool hasNext,
     final String? error,
   }) = _TeamListState;
