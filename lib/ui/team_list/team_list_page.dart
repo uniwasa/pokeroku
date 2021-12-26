@@ -55,147 +55,145 @@ class TeamListPage extends HookConsumerWidget {
         ],
         title: Text('パーティ'),
       ),
-      body: Builder(builder: (context) {
-        return asyncTeamList.when(
-          data: (teamList) {
-            return NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                if (!isFetching &&
-                    hasNext &&
-                    notification.metrics.extentAfter < 100) {
-                  ref.read(teamListViewModelProvider.notifier).getNextTeams();
-                }
+      body: asyncTeamList.when(
+        data: (teamList) {
+          return NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              if (!isFetching &&
+                  hasNext &&
+                  notification.metrics.extentAfter < 100) {
+                ref.read(teamListViewModelProvider.notifier).getNextTeams();
+              }
 
-                return false;
+              return false;
+            },
+            child: RefreshIndicator(
+              onRefresh: () async {
+                ref.refresh(teamListViewModelProvider.notifier);
               },
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  ref.refresh(teamListViewModelProvider.notifier);
-                },
-                child: Builder(
-                  builder: (context) {
-                    if (teamList.isEmpty) {
-                      return EmptyScrollView();
-                    } else {
-                      return ListView.builder(
-                        itemCount: teamList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final team = teamList[index];
-                          final builds = team.builds;
-                          final teamName = team.name;
+              child: Builder(
+                builder: (context) {
+                  if (teamList.isEmpty) {
+                    return EmptyScrollView();
+                  } else {
+                    return ListView.builder(
+                      itemCount: teamList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final team = teamList[index];
+                        final builds = team.builds;
+                        final teamName = team.name;
 
-                          final List<Widget> buildIcons =
-                              pokemonList != null && builds != null
-                                  ? builds.map(
-                                      (build) {
-                                        final pokemon = pokemonList.firstWhere(
-                                            (element) =>
-                                                element.id == build.pokemonId);
-                                        return Image.asset(
-                                          pokemon.imageName,
-                                          isAntiAlias: true,
-                                          fit: BoxFit.contain,
-                                          filterQuality: FilterQuality.none,
-                                        );
-                                      },
-                                    ).toList()
-                                  : [];
+                        final List<Widget> buildIcons =
+                            pokemonList != null && builds != null
+                                ? builds.map(
+                                    (build) {
+                                      final pokemon = pokemonList.firstWhere(
+                                          (element) =>
+                                              element.id == build.pokemonId);
+                                      return Image.asset(
+                                        pokemon.imageName,
+                                        isAntiAlias: true,
+                                        fit: BoxFit.contain,
+                                        filterQuality: FilterQuality.none,
+                                      );
+                                    },
+                                  ).toList()
+                                : [];
 
-                          return Dismissible(
-                            key: UniqueKey(),
-                            background: Container(
-                              padding: EdgeInsets.only(
-                                right: 20,
-                              ),
-                              alignment: AlignmentDirectional.centerEnd,
-                              color: Colors.red,
-                              child: Icon(
-                                Icons.delete,
-                                size: 32,
-                                color: Colors.white,
-                              ),
+                        return Dismissible(
+                          key: UniqueKey(),
+                          background: Container(
+                            padding: EdgeInsets.only(
+                              right: 20,
                             ),
-                            direction: DismissDirection.endToStart,
-                            confirmDismiss: (final direction) async {
-                              final confirmResult = await showDeleteDialog(
-                                  context: context, title: team.name);
-                              return confirmResult;
+                            alignment: AlignmentDirectional.centerEnd,
+                            color: Colors.red,
+                            child: Icon(
+                              Icons.delete,
+                              size: 32,
+                              color: Colors.white,
+                            ),
+                          ),
+                          direction: DismissDirection.endToStart,
+                          confirmDismiss: (final direction) async {
+                            final confirmResult = await showDeleteDialog(
+                                context: context, title: team.name);
+                            return confirmResult;
+                          },
+                          onDismissed: (final direction) async {
+                            await ref
+                                .read(teamListViewModelProvider.notifier)
+                                .removeTeam(team: team);
+                          },
+                          child: ListTile(
+                            contentPadding: EdgeInsets.all(_padding),
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.teamEdit,
+                                  arguments: team.id);
                             },
-                            onDismissed: (final direction) async {
-                              await ref
-                                  .read(teamListViewModelProvider.notifier)
-                                  .removeTeam(team: team);
-                            },
-                            child: ListTile(
-                              contentPadding: EdgeInsets.all(_padding),
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.teamEdit,
-                                    arguments: team.id);
-                              },
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: _padding),
-                                    child: Text(
-                                      teamName ?? '',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Theme.of(context).hintColor,
-                                      ),
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: _padding),
+                                  child: Text(
+                                    teamName ?? '',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Theme.of(context).hintColor,
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      for (var i = 0; i < 6; i++)
-                                        Container(
-                                          width: _calcIconSize(
-                                              context: context,
-                                              horizontalPadding: _padding),
-                                          height: _calcIconSize(
-                                              context: context,
-                                              horizontalPadding: _padding),
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: _padding),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .hoverColor,
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 10.0),
-                                                child: buildIcons
-                                                        .elementAtOrNull(i) ??
-                                                    Container(),
-                                              ),
+                                ),
+                                Row(
+                                  children: [
+                                    for (var i = 0; i < 6; i++)
+                                      Container(
+                                        width: _calcIconSize(
+                                            context: context,
+                                            horizontalPadding: _padding),
+                                        height: _calcIconSize(
+                                            context: context,
+                                            horizontalPadding: _padding),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: _padding),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Theme.of(context).hoverColor,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 10.0),
+                                              child: buildIcons
+                                                      .elementAtOrNull(i) ??
+                                                  Container(),
                                             ),
                                           ),
-                                        )
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                        ),
+                                      )
+                                  ],
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                      );
-                    }
-                  },
-                ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
               ),
-            );
-          },
-          error: (error, _) => Center(
-            child: Text(error.toString()),
-          ),
-          loading: () => Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      }),
+            ),
+          );
+        },
+        error: (error, _) => Center(
+          child: Text(error.toString()),
+        ),
+        loading: () => Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 
