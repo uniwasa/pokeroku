@@ -17,6 +17,7 @@ import 'package:pokeroku/provider/nature_list_provider.dart';
 import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
+import 'package:pokeroku/ui/component/list_group.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 import 'package:dartx/dartx.dart';
 
@@ -88,55 +89,59 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             ),
             child: Column(
               children: [
-                HookBuilder(builder: (context) {
-                  final ability = ref
-                      .watch(abilityListByPokemonProvider(
-                          _buildEditParam.pokemonId))
-                      .value
-                      ?.firstOrNullWhere(
-                          (element) => element.id == build.abilityId);
-                  return ListTile(
-                    leading: Text('特性'),
-                    title: Text(ability == null ? '未選択' : ability.nameJp),
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.abilitySelection,
-                          arguments: _buildEditParam);
-                    },
-                  );
-                }),
-                HookBuilder(builder: (context) {
-                  final nature = ref
-                      .watch(natureListProvider)
-                      .value
-                      ?.firstOrNullWhere(
-                          (element) => element.id == build.natureId);
-                  return ListTile(
-                    leading: Text('性格'),
-                    title: Text(nature == null ? '未選択' : nature.nameJp),
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.natureSelection,
-                          arguments: _buildEditParam);
-                    },
-                  );
-                }),
-                HookBuilder(builder: (context) {
-                  final item = ref
-                      .watch(itemListProvider)
-                      .value
-                      ?.firstOrNullWhere(
-                          (element) => element.id == build.itemId);
-                  return ListTile(
-                    leading: Text('持ち物'),
-                    title: Text(item == null ? '未選択' : item.nameJp),
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.itemSelection,
-                          arguments: _buildEditParam);
-                    },
-                  );
-                }),
+                ListGroup(
+                  children: [
+                    HookBuilder(builder: (context) {
+                      final ability = ref
+                          .watch(abilityListByPokemonProvider(
+                              _buildEditParam.pokemonId))
+                          .value
+                          ?.firstOrNullWhere(
+                              (element) => element.id == build.abilityId);
+                      return ListTile(
+                        leading: Text('特性'),
+                        title: Text(ability == null ? '未選択' : ability.nameJp),
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.abilitySelection,
+                              arguments: _buildEditParam);
+                        },
+                      );
+                    }),
+                    HookBuilder(builder: (context) {
+                      final nature = ref
+                          .watch(natureListProvider)
+                          .value
+                          ?.firstOrNullWhere(
+                              (element) => element.id == build.natureId);
+                      return ListTile(
+                        leading: Text('性格'),
+                        title: Text(nature == null ? '未選択' : nature.nameJp),
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.natureSelection,
+                              arguments: _buildEditParam);
+                        },
+                      );
+                    }),
+                    HookBuilder(builder: (context) {
+                      final item = ref
+                          .watch(itemListProvider)
+                          .value
+                          ?.firstOrNullWhere(
+                              (element) => element.id == build.itemId);
+                      return ListTile(
+                        leading: Text('持ち物'),
+                        title: Text(item == null ? '未選択' : item.nameJp),
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.itemSelection,
+                              arguments: _buildEditParam);
+                        },
+                      );
+                    }),
+                  ],
+                ),
                 Form(
                   key: _formGlobalKey,
-                  child: Column(
+                  child: ListGroup(
                     children: [
                       _makeLevelListTile(
                           ref: ref, level: build.level, focusNode: focusNodeLV),
@@ -160,23 +165,31 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
                     ],
                   ),
                 ),
-                for (var i = 0; i < 4; i++)
-                  HookBuilder(builder: (context) {
-                    final move = ref
-                        .watch(moveListProvider)
-                        .value
-                        ?.firstOrNullWhere((element) =>
-                            element.id == build.moves?.elementAtOrNull(i));
-                    return ListTile(
-                      leading: Text('技' + (i + 1).toString()),
-                      title: Text(move == null ? '未選択' : move.nameJp),
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.moveSelection,
-                            arguments: MoveSelectionParam(
-                                moveIndex: i, buildEditParam: _buildEditParam));
-                      },
-                    );
-                  }),
+                ListGroup(
+                  children: [
+                    for (var i = 0; i < 4; i++)
+                      HookBuilder(
+                        builder: (context) {
+                          final move = ref
+                              .watch(moveListProvider)
+                              .value
+                              ?.firstOrNullWhere((element) =>
+                                  element.id ==
+                                  build.moves?.elementAtOrNull(i));
+                          return ListTile(
+                            leading: Text('技' + (i + 1).toString()),
+                            title: Text(move == null ? '未選択' : move.nameJp),
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.moveSelection,
+                                  arguments: MoveSelectionParam(
+                                      moveIndex: i,
+                                      buildEditParam: _buildEditParam));
+                            },
+                          );
+                        },
+                      ),
+                  ],
+                )
               ],
             ),
           ),
@@ -330,7 +343,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
     required FocusNode focusNode,
   }) {
     return ListTile(
-      leading: Text('ステータス'),
+      leading: Text('レベル'),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
