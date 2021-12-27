@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:pokeroku/mixin/validation_mixin.dart';
 import 'package:pokeroku/model/build.dart';
 import 'package:pokeroku/model/build_edit_param.dart';
@@ -32,6 +33,18 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
     final pokemonList = ref.watch(pokemonListProvider).value;
     final asyncBuild =
         ref.watch(buildEditViewModelProviderFamily(_buildEditParam));
+
+    final focusNodeLV = useFocusNode();
+    final Map<String, FocusNode> focusNodesIV = Map.fromIterables(
+        StatSet.keys.map((e) => e), StatSet.keys.map((e) => useFocusNode()));
+    final Map<String, FocusNode> focusNodesEV = Map.fromIterables(
+        StatSet.keys.map((e) => e), StatSet.keys.map((e) => useFocusNode()));
+
+    final actions = [KeyboardActionsItem(focusNode: focusNodeLV)];
+    for (final statName in StatSet.keys) {
+      actions.add(KeyboardActionsItem(focusNode: focusNodesIV[statName]!));
+      actions.add(KeyboardActionsItem(focusNode: focusNodesEV[statName]!));
+    }
 
     return asyncBuild.when(
       data: (build) {
@@ -67,7 +80,12 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
               ),
             ],
           ),
-          body: SingleChildScrollView(
+          body: KeyboardActions(
+            config: KeyboardActionsConfig(
+              keyboardBarColor: Colors.black,
+              defaultDoneWidget: Icon(Icons.close),
+              actions: actions,
+            ),
             child: Column(
               children: [
                 HookBuilder(builder: (context) {
@@ -120,20 +138,25 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
                   key: _formGlobalKey,
                   child: Column(
                     children: [
-                      _makeLevelListTile(ref: ref, level: build.level),
+                      _makeLevelListTile(
+                          ref: ref, level: build.level, focusNode: focusNodeLV),
                       for (final statName in StatSet.keys)
-                        HookBuilder(builder: (context) {
-                          final natureList =
-                              ref.watch(natureListProvider).value;
-                          if (natureList == null) return ListTile();
-                          return _makeStatListTile(
-                            ref: ref,
-                            statName: statName,
-                            pokemon: pokemon,
-                            build: build,
-                            natureList: natureList,
-                          );
-                        }),
+                        HookBuilder(
+                          builder: (context) {
+                            final natureList =
+                                ref.watch(natureListProvider).value;
+                            if (natureList == null) return ListTile();
+                            return _makeStatListTile(
+                              ref: ref,
+                              statName: statName,
+                              pokemon: pokemon,
+                              build: build,
+                              natureList: natureList,
+                              focusNodesIV: focusNodesIV,
+                              focusNodesEV: focusNodesEV,
+                            );
+                          },
+                        ),
                     ],
                   ),
                 ),
@@ -176,6 +199,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
     required String? Function(String?) validator,
     required void Function(String) onChanged,
     required void Function(String?) onSaved,
+    required FocusNode focusNode,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 3.0),
@@ -184,6 +208,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
         width: 42.0,
         child: TextFormField(
           initialValue: initialValue,
+          focusNode: focusNode,
           decoration: InputDecoration(
             errorStyle: TextStyle(height: 0, fontSize: 0),
             labelText: labelText,
@@ -201,10 +226,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
           ],
-          keyboardType: TextInputType.numberWithOptions(
-            signed: true,
-            decimal: true,
-          ),
+          keyboardType: TextInputType.number,
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
       ),
@@ -217,6 +239,8 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
     required Pokemon pokemon,
     required Build build,
     required List<Nature> natureList,
+    required Map<String, FocusNode> focusNodesIV,
+    required Map<String, FocusNode> focusNodesEV,
   }) {
     final natureId = build.natureId ?? 1; // nullならがんばりや
     final nature = natureList.firstWhere((element) => element.id == natureId);
@@ -269,6 +293,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             validator: (value) {
               if (!isValidIndividualValue(value)) return '有効な値を入力してください';
             },
+            focusNode: focusNodesIV[statName]!,
           ),
           _makeStatTextFormField(
             initialValue: (effortValue).toString(),
@@ -292,13 +317,18 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             validator: (value) {
               if (!isValidEffortValue(value)) return '無効';
             },
+            focusNode: focusNodesEV[statName]!,
           )
         ],
       ),
     );
   }
 
-  Widget _makeLevelListTile({required WidgetRef ref, required int? level}) {
+  Widget _makeLevelListTile({
+    required WidgetRef ref,
+    required int? level,
+    required FocusNode focusNode,
+  }) {
     return ListTile(
       leading: Text('ステータス'),
       title: Row(
@@ -324,6 +354,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             validator: (value) {
               if (!isValidLevel(value)) return '無効';
             },
+            focusNode: focusNode,
           ),
         ],
       ),
