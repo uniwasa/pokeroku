@@ -25,7 +25,7 @@ class StatSet with _$StatSet {
   }
 
   static Map<String, String> get abbr {
-    final abbrList = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'];
+    final abbrList = ['HP', '攻撃', '防御', '特攻', '特防', '素早'];
     final Map<String, String> abbrMap = {};
     StatSet.keys
         .asMap()
