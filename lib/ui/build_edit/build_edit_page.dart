@@ -17,7 +17,6 @@ import 'package:pokeroku/provider/ability_list_by_pokemon_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_view_model.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
-import 'package:pokeroku/util/stat_text_input_formatter.dart';
 import 'package:dartx/dartx.dart';
 
 class BuildEditPage extends HookConsumerWidget with ValidationMixin {
@@ -174,7 +173,6 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
   Widget _makeStatTextFormField({
     required String initialValue,
     required String labelText,
-    required TextInputFormatter textInputFormatter,
     required String? Function(String?) validator,
     required void Function(String) onChanged,
     required void Function(String?) onSaved,
@@ -187,8 +185,13 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
         child: TextFormField(
           initialValue: initialValue,
           decoration: InputDecoration(
+            errorStyle: TextStyle(height: 0, fontSize: 0),
             labelText: labelText,
             border: OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white24)),
+            errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2)),
             contentPadding:
                 EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
           ),
@@ -197,7 +200,6 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
           onSaved: onSaved,
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
-            textInputFormatter,
           ],
           keyboardType: TextInputType.numberWithOptions(
             signed: true,
@@ -267,7 +269,6 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             validator: (value) {
               if (!isValidIndividualValue(value)) return '有効な値を入力してください';
             },
-            textInputFormatter: StatTextInputFormatter(min: 0, max: 31),
           ),
           _makeStatTextFormField(
             initialValue: (effortValue).toString(),
@@ -289,9 +290,8 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
                         statName: statName, effortValue: int.parse(value));
             },
             validator: (value) {
-              if (!isValidEffortValue(value)) return '有効な値を入力してください';
+              if (!isValidEffortValue(value)) return '無効';
             },
-            textInputFormatter: StatTextInputFormatter(min: 0, max: 252),
           )
         ],
       ),
@@ -306,7 +306,7 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
         children: [
           _makeStatTextFormField(
             initialValue: (level ?? 50).toString(),
-            labelText: 'Level',
+            labelText: 'LV',
             onChanged: (value) {
               if (isValidLevel(value))
                 ref
@@ -322,9 +322,8 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
                     .updateLevel(level: int.parse(value));
             },
             validator: (value) {
-              if (!isValidLevel(value)) return '有効な値を入力してください';
+              if (!isValidLevel(value)) return '無効';
             },
-            textInputFormatter: StatTextInputFormatter(min: 1, max: 100),
           ),
         ],
       ),
