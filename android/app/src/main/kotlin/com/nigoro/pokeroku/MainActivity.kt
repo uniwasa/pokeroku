@@ -1,4 +1,4 @@
-package com.example.pokeroku
+package com.nigoro.pokeroku
 
 import io.flutter.embedding.android.FlutterActivity
 

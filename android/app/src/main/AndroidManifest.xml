@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pokeroku">
+    package="com.nigoro.pokeroku">
    <application
         android:label="pokeroku"
         android:icon="@mipmap/ic_launcher">
