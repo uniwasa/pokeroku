@@ -11,7 +11,9 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>pokeroku</string>
+		<string>Pokeroku$(APP_ID_SUFFIX)</string>
+		<key>CFBundleDisplayName</key>
+		<string>Pokeroku$(APP_ID_SUFFIX)</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
