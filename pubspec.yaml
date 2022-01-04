@@ -63,9 +63,11 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/icon.png"
+  adaptive_icon_background: "#202020"
+  adaptive_icon_foreground: "assets/icon_adaptive.png"
 flutter_native_splash:
   color: "#202020"
-  image: "assets/icon_transparent.png"
+  image: "assets/icon_splash.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
