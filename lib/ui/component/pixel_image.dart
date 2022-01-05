@@ -17,6 +17,10 @@ class PixelImage extends StatelessWidget {
       fit: BoxFit.contain,
       filterQuality: FilterQuality.none,
       width: _width,
+
+      // For Screenshot
+      // colorBlendMode: BlendMode.srcIn,
+      // color: Colors.black,
     );
   }
 }
