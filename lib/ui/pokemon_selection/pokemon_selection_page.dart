@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/ui/component/pixel_image.dart';
 import 'package:pokeroku/ui/component/serch_field.dart';
 import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_view_model.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
@@ -40,12 +41,7 @@ class PokemonSelectionPage extends StatelessWidget {
                         itemCount: pokemonList.length,
                         itemBuilder: (BuildContext context, int index) {
                           final pokemon = pokemonList[index];
-                          final Image pokemonImage = Image.asset(
-                            pokemon.imageName,
-                            isAntiAlias: true,
-                            fit: BoxFit.contain,
-                            filterQuality: FilterQuality.none,
-                          );
+                          final pokemonImage = PixelImage(pokemon.imageName);
 
                           return ListTile(
                             leading: pokemonImage,

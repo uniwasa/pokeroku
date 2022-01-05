@@ -6,6 +6,7 @@ import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/model/move_detail_state.dart';
 import 'package:pokeroku/provider/pokemon_list_by_move_provider.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/component/pixel_image.dart';
 import 'package:pokeroku/ui/move_detail/move_detail_view_model.dart';
 import 'package:pokeroku/util.dart';
 
@@ -71,12 +72,7 @@ class MoveDetailPage extends StatelessWidget {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         final pokemon = pokemons[index];
-                        final Image pokemonImage = Image.asset(
-                          pokemon.imageName,
-                          isAntiAlias: true,
-                          fit: BoxFit.contain,
-                          filterQuality: FilterQuality.none,
-                        );
+                        final pokemonImage = PixelImage(pokemon.imageName);
                         final pokemonHeroImage = Hero(
                           tag: pokemon.identifier,
                           child: pokemonImage,

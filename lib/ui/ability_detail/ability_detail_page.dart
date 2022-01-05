@@ -5,6 +5,7 @@ import 'package:pokeroku/model/ability_detail_state.dart';
 import 'package:pokeroku/provider/pokemon_list_by_ability_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_detail/ability_detail_view_model.dart';
+import 'package:pokeroku/ui/component/pixel_image.dart';
 
 class AbilityDetailPage extends StatelessWidget {
   AbilityDetailPage({Key? key, required Ability ability}) : super(key: key) {
@@ -59,12 +60,7 @@ class AbilityDetailPage extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     final pokemon = pokemons[index];
-                    final Image pokemonImage = Image.asset(
-                      pokemon.imageName,
-                      isAntiAlias: true,
-                      fit: BoxFit.contain,
-                      filterQuality: FilterQuality.none,
-                    );
+                    final pokemonImage = PixelImage(pokemon.imageName);
                     final pokemonHeroImage = Hero(
                       tag: pokemon.identifier,
                       child: pokemonImage,

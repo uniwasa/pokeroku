@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon_detail_state.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/component/pixel_image.dart';
 import 'package:pokeroku/util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,11 +22,8 @@ class PokemonEvolutionChain extends StatelessWidget {
         child: Center(
           child: Wrap(
             children: stage.map((stagePokemon) {
-              final Image pokemonImage = Image.asset(
+              final pokemonImage = PixelImage(
                 stagePokemon.imageName,
-                isAntiAlias: true,
-                fit: BoxFit.contain,
-                filterQuality: FilterQuality.none,
                 width: double.infinity,
               );
               return ConstrainedBox(

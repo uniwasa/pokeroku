@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pokeroku/model/pokemon.dart';
+import 'package:pokeroku/ui/component/pixel_image.dart';
 
 import '../../../util.dart';
 
@@ -108,13 +109,9 @@ class PokemonHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
               opacity: opacity,
               child: Hero(
                 tag: _pokemon.identifier,
-                child: Image.asset(
+                child: PixelImage(
                   _pokemon.imageName,
-                  isAntiAlias: true,
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.none,
                   width: MediaQuery.of(context).size.width,
-                  // height: maxExtent,
                 ),
               ),
             ),

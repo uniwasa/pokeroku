@@ -6,6 +6,7 @@ import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/empty_scroll_view.dart';
 import 'package:pokeroku/ui/component/delete_dialog.dart';
+import 'package:pokeroku/ui/component/pixel_image.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
 class TeamEditPage extends StatelessWidget {
@@ -85,12 +86,7 @@ class TeamEditPage extends StatelessWidget {
                         if (pokemonList != null) {
                           final pokemon = pokemonList.firstWhere(
                               (element) => element.id == build.pokemonId);
-                          final image = Image.asset(
-                            pokemon.imageName,
-                            isAntiAlias: true,
-                            fit: BoxFit.contain,
-                            filterQuality: FilterQuality.none,
-                          );
+                          final image = PixelImage(pokemon.imageName);
 
                           return Dismissible(
                             key: UniqueKey(),
