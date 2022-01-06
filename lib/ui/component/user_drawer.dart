@@ -124,7 +124,18 @@ class UserDrawer extends HookConsumerWidget {
                             ref.watch(_absorbingProvider.notifier).state =
                                 false;
                           },
-                        )
+                        ),
+                        if (Theme.of(context).platform == TargetPlatform.iOS)
+                          SignInButton(
+                            Buttons.Apple,
+                            onPressed: () async {
+                              ref.watch(_absorbingProvider.notifier).state =
+                                  true;
+
+                              ref.watch(_absorbingProvider.notifier).state =
+                                  false;
+                            },
+                          ),
                       ],
                     ),
                   );
