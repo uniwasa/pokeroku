@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,6 +11,7 @@ import 'package:pokeroku/provider/app_error_provider.dart';
 import 'package:pokeroku/provider/auth_user_provider.dart';
 import 'package:pokeroku/provider/firebase_providers.dart';
 import 'package:pokeroku/repository/user_repository.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 // TODO: Riverpod1.0.0ではこの書き方できるらしいから、authServiceProviderじゃなくてこっちをref.watchするように変更
 // final userIdProvider = Provider<String?>(
@@ -131,5 +135,66 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
         _read(appErrorProvider.notifier).update((state) => appError);
       }
     }
+  }
+
+  Future<void> linkOrSignInWithApple() async {
+    try {
+      final authUser = _asyncAuthUser.value;
+      final appUser = state.value;
+      if (authUser != null && appUser != null) {
+        // 読み込み済みかつ、なにかしら認証済みなら
+
+        final rawNonce = _generateNonce();
+        final nonce = _sha256ofString(rawNonce);
+
+        final appleCredential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+          nonce: nonce,
+        );
+
+        final oauthCredential = OAuthProvider("apple.com").credential(
+          idToken: appleCredential.identityToken,
+          rawNonce: rawNonce,
+        );
+
+        print(appleCredential);
+        print(oauthCredential);
+        _credential = oauthCredential;
+
+        await authUser.linkWithCredential(_credential!);
+        // await _read(firebaseAuthProvider).signInWithCredential(_credential!);
+
+        // linkWithCredentialしてもauthStateChanges走らないみたいだから自分でstate更新
+        // linkWithCredential後のデータが欲しいのでcurrentUserから最新取得
+        // authStateChangesの代わりにuserChanges使うのもありかも
+        AppUser newUser =
+            appUser.copyWith(authUser: _read(firebaseAuthProvider).currentUser);
+        if (newUser.name == null) {
+          // ユーザー名未設定ならアカウントのユーザー名で設定
+          newUser = newUser.copyWith(name: appleCredential.email);
+          await _read(userRepositoryProvider).updateUser(user: newUser);
+        }
+        state = AsyncData(newUser);
+      }
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
+    }
+  }
+
+  String _generateNonce([int length = 32]) {
+    final charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  String _sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
   }
 }

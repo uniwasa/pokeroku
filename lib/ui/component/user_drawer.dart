@@ -132,6 +132,10 @@ class UserDrawer extends HookConsumerWidget {
                               ref.watch(_absorbingProvider.notifier).state =
                                   true;
 
+                              await ref
+                                  .read(authServiceProvider.notifier)
+                                  .linkOrSignInWithApple();
+
                               ref.watch(_absorbingProvider.notifier).state =
                                   false;
                             },
