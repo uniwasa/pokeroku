@@ -61,12 +61,6 @@ class BuildEditPage extends HookConsumerWidget with ValidationMixin {
             title: HookBuilder(builder: (context) {
               return Text(pokemon.fullNameJp);
             }),
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.close)),
             actions: [
               Container(
                 width: kToolbarHeight,
