@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
+import 'package:pokeroku/ui/component/rounded_button.dart';
 
 final _absorbingProvider = StateProvider.autoDispose((ref) => false);
 
@@ -24,14 +25,14 @@ class UserDrawer extends HookConsumerWidget {
                     EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Row(
                       children: [
                         Icon(
-                          Icons.account_circle,
-                          size: 50,
+                          Icons.person,
+                          color: Theme.of(context).hintColor,
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 10.0),
                         Flexible(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -59,43 +60,6 @@ class UserDrawer extends HookConsumerWidget {
                             ],
                           ),
                         ),
-                        if (!authUser.isAnonymous)
-                          Spacer()
-                        else
-                          SizedBox(width: 10),
-                        if (!authUser.isAnonymous)
-                          IconButton(
-                            icon: Icon(Icons.logout),
-                            iconSize: 20,
-                            color: Colors.grey,
-                            onPressed: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text('ログアウト'),
-                                    content: Text('ログアウトしますか？'),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Cancel"),
-                                        onPressed: () => Navigator.pop(context),
-                                      ),
-                                      TextButton(
-                                        child: Text("OK"),
-                                        onPressed: () async {
-                                          await ref
-                                              .read(
-                                                  authServiceProvider.notifier)
-                                              .signOut();
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                          )
                       ],
                     ),
                   ),
@@ -143,8 +107,38 @@ class UserDrawer extends HookConsumerWidget {
                       ],
                     ),
                   );
-                }),
-              SizedBox(height: 20),
+                })
+              else
+                RoundedButton(
+                  child: Text('ログアウト'),
+                  color: Colors.redAccent,
+                  onPressed: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('ログアウト'),
+                          content: Text('ログアウトしますか？'),
+                          actions: [
+                            TextButton(
+                              child: Text("Cancel"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            TextButton(
+                              child: Text("OK"),
+                              onPressed: () async {
+                                await ref
+                                    .read(authServiceProvider.notifier)
+                                    .signOut();
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                )
             ],
           ),
         );
