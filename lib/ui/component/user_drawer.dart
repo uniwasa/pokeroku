@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/component/dialogs.dart';
 import 'package:pokeroku/ui/component/rounded_button.dart';
 
 class UserDrawer extends HookConsumerWidget {
@@ -82,7 +83,14 @@ class UserDrawer extends HookConsumerWidget {
                     ListTile(
                       title: Text('ユーザー名変更'),
                       leading: Icon(Icons.edit),
-                      onTap: () async {},
+                      onTap: () async {
+                        final result = await showInputDialog(context,
+                            initialValue: appUser.name, labelText: 'ユーザー名');
+                        if (result != null)
+                          await ref
+                              .read(authServiceProvider.notifier)
+                              .updateUser(appUser.copyWith(name: result));
+                      },
                     ),
                     ListTile(
                       title: Text('ログアウト'),

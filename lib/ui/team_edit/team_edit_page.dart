@@ -5,7 +5,7 @@ import 'package:pokeroku/model/build_edit_param.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/empty_scroll_view.dart';
-import 'package:pokeroku/ui/component/delete_dialog.dart';
+import 'package:pokeroku/ui/component/dialogs.dart';
 import 'package:pokeroku/ui/component/pixel_image.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_view_model.dart';
 
@@ -35,11 +35,11 @@ class TeamEditPage extends StatelessWidget {
                 constraints: BoxConstraints(minWidth: 120, maxHeight: 32),
                 child: IntrinsicWidth(
                   child: Focus(
-                    onFocusChange: (hasFocus) {
+                    onFocusChange: (hasFocus) async {
                       if (hasFocus == false) {
                         final updatedTeam =
                             team.copyWith(name: textEditingController.text);
-                        ref
+                        await ref
                             .read(teamEditViewModelProviderFamily(_teamId)
                                 .notifier)
                             .updateTeam(updatedTeam: updatedTeam);

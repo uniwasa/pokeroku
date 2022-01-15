@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/provider/pokemon_list_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/empty_scroll_view.dart';
-import 'package:pokeroku/ui/component/delete_dialog.dart';
+import 'package:pokeroku/ui/component/dialogs.dart';
 import 'package:pokeroku/ui/component/pixel_image.dart';
 import 'package:pokeroku/ui/navigation_page.dart';
 import 'package:pokeroku/ui/team_list/team_list_view_model.dart';
@@ -45,7 +45,11 @@ class TeamListPage extends HookConsumerWidget {
                 onPressed: asyncTeamList.value == null
                     ? null // 読み込み中ならdisabled
                     : () async {
-                        final result = await _showInputDialog(context: context);
+                        final result = await showInputDialog(
+                          context,
+                          labelText: 'パーティ名',
+                          initialValue: 'マイパーティ',
+                        );
                         if (result != null)
                           await ref
                               .read(teamListViewModelProvider.notifier)
@@ -200,36 +204,4 @@ class TeamListPage extends HookConsumerWidget {
             MediaQuery.of(context).padding.horizontal) /
         6;
   }
-
-  Future<String?> _showInputDialog({required BuildContext context}) async {
-    final result = await showDialog<String?>(
-      context: context,
-      builder: (BuildContext context) {
-        return HookConsumer(builder: (context, ref, child) {
-          final controller = ref.watch(_teamNameControllerProvider);
-          return AlertDialog(
-            content: TextField(
-                controller: controller,
-                decoration: InputDecoration(labelText: "パーティ名")),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(null),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(controller.text),
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        });
-      },
-    );
-    return result;
-  }
 }
-
-final _teamNameControllerProvider = StateProvider.autoDispose((ref) {
-  ref.onDispose(() => print('bye from _teamNameControllerProvider'));
-  return TextEditingController(text: 'マイパーティ');
-});

@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/app.dart';
 import 'package:pokeroku/app_error.dart';
 import 'package:pokeroku/model/app_user.dart';
 import 'package:pokeroku/provider/app_error_provider.dart';
@@ -147,6 +148,15 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
       if (appError.type != AppErrorType.authorizationCanceled)
         _read(appErrorProvider.notifier).update((state) => appError);
       return false;
+    }
+  }
+
+  Future<void> updateUser(AppUser appUser) async {
+    try {
+      await _read(userRepositoryProvider).updateUser(user: appUser);
+      if (mounted) state = AsyncData(appUser); // updatedAtは更新されてない
+    } on Exception catch (e) {
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
     }
   }
 
