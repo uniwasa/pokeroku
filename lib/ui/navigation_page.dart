@@ -17,6 +17,7 @@ import 'package:pokeroku/ui/nature_selection/nature_selection_page.dart';
 import 'package:pokeroku/ui/pokemon_list/pokemon_list_page.dart';
 import 'package:pokeroku/ui/pokemon_detail/pokemon_detail_page.dart';
 import 'package:pokeroku/ui/pokemon_selection/pokemon_selection_page.dart';
+import 'package:pokeroku/ui/sign_in/sign_in_page.dart';
 import 'package:pokeroku/ui/team_edit/team_edit_page.dart';
 import 'package:pokeroku/ui/team_list/team_list_page.dart';
 
@@ -66,7 +67,7 @@ class NavigationPage extends HookConsumerWidget {
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     bool isFullscreen = false;
     final arguments = settings.arguments;
-    Widget page;
+    final Widget page;
     switch (settings.name) {
       case Routes.pokemonDetail:
         page = PokemonDetailPage(pokemon: arguments as Pokemon);
@@ -103,6 +104,10 @@ class NavigationPage extends HookConsumerWidget {
       case Routes.moveSelection:
         page = MoveSelectionPage(
             moveSelectionParam: arguments as MoveSelectionParam);
+        break;
+      case Routes.signIn:
+        page = SignInPage();
+        isFullscreen = true;
         break;
       default:
         page = PokemonListPage();

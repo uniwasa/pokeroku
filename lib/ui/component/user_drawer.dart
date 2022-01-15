@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
+import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/rounded_button.dart';
-
-final _absorbingProvider = StateProvider.autoDispose((ref) => false);
 
 class UserDrawer extends HookConsumerWidget {
   UserDrawer({Key? key}) : super(key: key);
@@ -40,23 +38,22 @@ class UserDrawer extends HookConsumerWidget {
                             children: [
                               Text(
                                 authUser.isAnonymous
-                                    ? '未認証ユーザー'
+                                    ? 'ゲストユーザー'
                                     : appUser.name ?? 'ユーザー名未設定',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                 ),
                               ),
-                              Text(
-                                authUser.isAnonymous
-                                    ? '下記のアカウントで連携できます (連携済みのアカウントを選択するとログインできます)'
-                                    : '連携済み',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  color: Colors.grey,
+                              if (authUser.isAnonymous)
+                                Text(
+                                  '下のボタンより新規登録/ログインできます',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
@@ -71,41 +68,12 @@ class UserDrawer extends HookConsumerWidget {
               SizedBox(height: 20),
               if (authUser.isAnonymous)
                 HookConsumer(builder: (context, ref, child) {
-                  final absorbing = ref.watch(_absorbingProvider);
-                  return AbsorbPointer(
-                    absorbing: absorbing,
-                    child: Column(
-                      children: [
-                        SignInButton(
-                          Buttons.Google,
-                          onPressed: () async {
-                            ref.watch(_absorbingProvider.notifier).state = true;
-
-                            await ref
-                                .read(authServiceProvider.notifier)
-                                .linkOrSignInWithGoogle();
-
-                            ref.watch(_absorbingProvider.notifier).state =
-                                false;
-                          },
-                        ),
-                        if (Theme.of(context).platform == TargetPlatform.iOS)
-                          SignInButton(
-                            Buttons.Apple,
-                            onPressed: () async {
-                              ref.watch(_absorbingProvider.notifier).state =
-                                  true;
-
-                              await ref
-                                  .read(authServiceProvider.notifier)
-                                  .linkOrSignInWithApple();
-
-                              ref.watch(_absorbingProvider.notifier).state =
-                                  false;
-                            },
-                          ),
-                      ],
-                    ),
+                  return RoundedButton(
+                    child: Text('新規登録 / ログイン'),
+                    color: Colors.blueAccent,
+                    onPressed: () async {
+                      Navigator.pushNamed(context, Routes.signIn);
+                    },
                   );
                 })
               else
