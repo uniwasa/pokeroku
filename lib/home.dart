@@ -13,10 +13,18 @@ class Home extends StatelessWidget {
         if (newError != null)
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: Colors.red,
+              duration: Duration(seconds: 10),
+              backgroundColor: Colors.redAccent,
               content: Text(
                 newError.message,
                 style: TextStyle(color: Colors.white),
+              ),
+              action: SnackBarAction(
+                textColor: Colors.white,
+                label: '閉じる',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                },
               ),
             ),
           );

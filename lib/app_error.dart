@@ -22,11 +22,15 @@ class AppError {
       switch (error.code) {
         case 'credential-already-in-use':
           type = AppErrorType.credentialAlreadyInUse;
-          message = 'すでに連携済みのアカウントです';
+          message = 'すでに連携済みのアカウントです。新規登録ではなくログインでご使用ください';
           break;
         case 'provider-already-linked':
           type = AppErrorType.providerAlreadyLinked;
           message = 'ログイン済みです';
+          break;
+        case 'email-already-in-use':
+          type = AppErrorType.providerAlreadyLinked;
+          message = '別のアカウントで同じメールアドレスが使用されています。違うメールアドレスのアカウントでお試しください';
           break;
         default:
           type = AppErrorType.unknown;
