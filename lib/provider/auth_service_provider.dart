@@ -42,7 +42,6 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
 
   final Reader _read;
   final AsyncValue<User?> _asyncAuthUser;
-  AuthCredential? _credential;
 
   @override
   void dispose() {
@@ -66,8 +65,7 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
             state = AsyncData(user.copyWith(authUser: authUser));
           } else {
             // 認証済みだが、userドキュメント未作成の場合
-            final newUser =
-                AppUser(id: authUser.uid, name: authUser.displayName);
+            final newUser = AppUser(id: authUser.uid);
             await _read(userRepositoryProvider).createUser(user: newUser);
             final createdUser = await _read(userRepositoryProvider)
                 .getUser(userId: authUser.uid);
@@ -89,7 +87,7 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
     }
   }
 
-  Future<void> linkOrSignInWithGoogle() async {
+  Future<bool> signInWithGoogle({required bool isSignUp}) async {
     try {
       final authUser = _asyncAuthUser.value;
       final appUser = state.value;
@@ -97,53 +95,31 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
         // 読み込み済みかつ、なにかしら認証済みなら
         final GoogleSignIn googleSignIn = GoogleSignIn();
         final googleAccount = await googleSignIn.signIn();
-        if (googleAccount != null) {
-          final googleAuth = await googleAccount.authentication;
-          _credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth.accessToken,
-            idToken: googleAuth.idToken,
-          );
-          await authUser.linkWithCredential(_credential!);
 
-          // linkWithCredentialしてもauthStateChanges走らないみたいだから自分でstate更新
-          // linkWithCredential後のデータが欲しいのでcurrentUserから最新取得
-          // authStateChangesの代わりにuserChanges使うのもありかも
-          AppUser newUser = appUser.copyWith(
-              authUser: _read(firebaseAuthProvider).currentUser);
-          if (newUser.name == null) {
-            // ユーザー名未設定ならアカウントのユーザー名で設定
-            newUser = newUser.copyWith(name: googleAccount.displayName);
-            await _read(userRepositoryProvider).updateUser(user: newUser);
-          }
-          state = AsyncData(newUser);
-        }
+        if (googleAccount == null) return false;
+        final googleAuth = await googleAccount.authentication;
+        final googleCredential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await (isSignUp
+            ? authUser.linkWithCredential(googleCredential)
+            : _read(firebaseAuthProvider)
+                .signInWithCredential(googleCredential));
       }
+      return true;
     } on Exception catch (e) {
-      final appError = AppError(e);
-      if (appError.type == AppErrorType.credentialAlreadyInUse) {
-        // 連携済みのエラーならサインイン
-        if (_credential != null) {
-          try {
-            await _read(firebaseAuthProvider)
-                .signInWithCredential(_credential!);
-          } on Exception catch (error) {
-            _read(appErrorProvider.notifier).update((state) => AppError(error));
-          }
-        }
-      } else {
-        // それ以外のエラーなら
-        _read(appErrorProvider.notifier).update((state) => appError);
-      }
+      _read(appErrorProvider.notifier).update((state) => AppError(e));
+      return false;
     }
   }
 
-  Future<void> linkOrSignInWithApple() async {
+  Future<bool> signInWithApple({required bool isSignUp}) async {
     try {
       final authUser = _asyncAuthUser.value;
       final appUser = state.value;
       if (authUser != null && appUser != null) {
         // 読み込み済みかつ、なにかしら認証済みなら
-
         final rawNonce = _generateNonce();
         final nonce = _sha256ofString(rawNonce);
 
@@ -159,28 +135,15 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
           idToken: appleCredential.identityToken,
           rawNonce: rawNonce,
         );
-
-        print(appleCredential);
-        print(oauthCredential);
-        _credential = oauthCredential;
-
-        await authUser.linkWithCredential(_credential!);
-        // await _read(firebaseAuthProvider).signInWithCredential(_credential!);
-
-        // linkWithCredentialしてもauthStateChanges走らないみたいだから自分でstate更新
-        // linkWithCredential後のデータが欲しいのでcurrentUserから最新取得
-        // authStateChangesの代わりにuserChanges使うのもありかも
-        AppUser newUser =
-            appUser.copyWith(authUser: _read(firebaseAuthProvider).currentUser);
-        if (newUser.name == null) {
-          // ユーザー名未設定ならアカウントのユーザー名で設定
-          newUser = newUser.copyWith(name: appleCredential.email);
-          await _read(userRepositoryProvider).updateUser(user: newUser);
-        }
-        state = AsyncData(newUser);
+        await (isSignUp
+            ? authUser.linkWithCredential(oauthCredential)
+            : _read(firebaseAuthProvider)
+                .signInWithCredential(oauthCredential));
       }
+      return true;
     } on Exception catch (e) {
       _read(appErrorProvider.notifier).update((state) => AppError(e));
+      return false;
     }
   }
 

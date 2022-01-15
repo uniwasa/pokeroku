@@ -48,17 +48,17 @@ class SignInPage extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomSignInButton(
                   icon: Image.asset('assets/google.png', height: 19),
                   labelText: 'Googleでサイン' + (isSignUp ? 'アップ' : 'イン'),
                   onPressed: () async {
                     ref.watch(_absorbingProvider.notifier).state = true;
-                    await ref
+                    final result = await ref
                         .read(authServiceProvider.notifier)
-                        .linkOrSignInWithGoogle();
+                        .signInWithGoogle(isSignUp: isSignUp);
                     ref.watch(_absorbingProvider.notifier).state = false;
+                    if (result) Navigator.pop(context);
                   },
                 ),
                 if (Theme.of(context).platform == TargetPlatform.iOS)
@@ -67,10 +67,11 @@ class SignInPage extends StatelessWidget {
                     labelText: 'Appleでサイン' + (isSignUp ? 'アップ' : 'イン'),
                     onPressed: () async {
                       ref.watch(_absorbingProvider.notifier).state = true;
-                      await ref
+                      final result = await ref
                           .read(authServiceProvider.notifier)
-                          .linkOrSignInWithApple();
+                          .signInWithApple(isSignUp: isSignUp);
                       ref.watch(_absorbingProvider.notifier).state = false;
+                      if (result) Navigator.pop(context);
                     },
                   ),
                 Padding(
