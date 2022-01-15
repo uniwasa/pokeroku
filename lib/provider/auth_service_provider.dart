@@ -142,7 +142,10 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
       }
       return true;
     } on Exception catch (e) {
-      _read(appErrorProvider.notifier).update((state) => AppError(e));
+      final appError = AppError(e);
+      // 操作がキャンセルされたとき以外は、エラーを設定
+      if (appError.type != AppErrorType.authorizationCanceled)
+        _read(appErrorProvider.notifier).update((state) => appError);
       return false;
     }
   }
