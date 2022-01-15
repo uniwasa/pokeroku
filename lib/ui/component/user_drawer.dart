@@ -27,7 +27,7 @@ class UserDrawer extends HookConsumerWidget {
                     child: Row(
                       children: [
                         Icon(
-                          Icons.person,
+                          Icons.account_circle,
                           color: Theme.of(context).hintColor,
                         ),
                         SizedBox(width: 10.0),
@@ -65,47 +65,33 @@ class UserDrawer extends HookConsumerWidget {
                 width: double.infinity,
                 height: 150,
               ),
-              SizedBox(height: 20),
               if (authUser.isAnonymous)
-                HookConsumer(builder: (context, ref, child) {
-                  return RoundedButton(
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: RoundedButton(
                     child: Text('新規登録 / ログイン'),
                     color: Colors.blueAccent,
                     onPressed: () async {
                       Navigator.pushNamed(context, Routes.signIn);
                     },
-                  );
-                })
+                  ),
+                )
               else
-                RoundedButton(
-                  child: Text('ログアウト'),
-                  color: Colors.redAccent,
-                  onPressed: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('ログアウト'),
-                          content: Text('ログアウトしますか？'),
-                          actions: [
-                            TextButton(
-                              child: Text("Cancel"),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                            TextButton(
-                              child: Text("OK"),
-                              onPressed: () async {
-                                await ref
-                                    .read(authServiceProvider.notifier)
-                                    .signOut();
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        );
+                Column(
+                  children: [
+                    ListTile(
+                      title: Text('ユーザー名変更'),
+                      leading: Icon(Icons.edit),
+                      onTap: () async {},
+                    ),
+                    ListTile(
+                      title: Text('ログアウト'),
+                      leading: Icon(Icons.logout),
+                      onTap: () async {
+                        await _showLogoutDialog(context, ref);
                       },
-                    );
-                  },
+                    ),
+                  ],
                 )
             ],
           ),
@@ -120,6 +106,31 @@ class UserDrawer extends HookConsumerWidget {
     );
     return Drawer(
       child: drawerContent,
+    );
+  }
+
+  Future<void> _showLogoutDialog(BuildContext context, WidgetRef ref) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('ログアウト'),
+          content: Text('ログアウトしますか？'),
+          actions: [
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("OK"),
+              onPressed: () async {
+                await ref.read(authServiceProvider.notifier).signOut();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
