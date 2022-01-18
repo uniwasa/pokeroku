@@ -1,5 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pokeroku/class/auth_method.dart';
 import 'package:pokeroku/provider/auth_service_provider.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/component/dialogs.dart';
@@ -15,7 +17,16 @@ class UserDrawer extends HookConsumerWidget {
     final drawerContent = asyncValue.when(
       data: (appUser) {
         final authUser = appUser.authUser;
+
         if (authUser == null) return Center(child: CircularProgressIndicator());
+
+        final authMethods = authUser.providerData
+            .map((userInfo) => AuthMethod(userInfo).type.name)
+            .toList();
+
+        final authStatusText = authUser.isAnonymous
+            ? '下のボタンより新規登録/ログインできます'
+            : authMethods.join(', ') + 'でログイン中';
         return SingleChildScrollView(
           child: Column(
             children: [
@@ -46,15 +57,14 @@ class UserDrawer extends HookConsumerWidget {
                                   fontSize: 16,
                                 ),
                               ),
-                              if (authUser.isAnonymous)
-                                Text(
-                                  '下のボタンより新規登録/ログインできます',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10,
-                                    color: Colors.grey,
-                                  ),
+                              Text(
+                                authStatusText,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  color: Colors.grey,
                                 ),
+                              ),
                             ],
                           ),
                         ),

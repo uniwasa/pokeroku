@@ -63,14 +63,14 @@ class AuthService extends StateNotifier<AsyncValue<AppUser>> {
               await _read(userRepositoryProvider).getUser(userId: authUser.uid);
           if (user != null) {
             // 認証済みで、userドキュメント作成済みの場合
-            state = AsyncData(user.copyWith(authUser: authUser));
+            if (mounted) state = AsyncData(user.copyWith(authUser: authUser));
           } else {
             // 認証済みだが、userドキュメント未作成の場合
             final newUser = AppUser(id: authUser.uid);
             await _read(userRepositoryProvider).createUser(user: newUser);
             final createdUser = await _read(userRepositoryProvider)
                 .getUser(userId: authUser.uid);
-            if (createdUser != null)
+            if (createdUser != null && mounted)
               state = AsyncData(createdUser.copyWith(authUser: authUser));
           }
         }
