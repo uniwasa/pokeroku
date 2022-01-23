@@ -13,6 +13,7 @@ import 'package:pokeroku/provider/evolution_line_provider.dart';
 import 'package:pokeroku/provider/pokemon_flavor_text_list_provider.dart';
 import 'package:pokeroku/provider/move_list_by_pokemon_provider.dart';
 import 'package:pokeroku/routes.dart';
+import 'package:pokeroku/ui/component/move_list_tile.dart';
 import 'package:pokeroku/ui/pokemon_detail/component/pokemon_evolution_chain.dart';
 import 'package:pokeroku/ui/pokemon_detail/component/pokemon_header_sliver_delegate.dart';
 import 'package:pokeroku/ui/pokemon_detail/component/pokemon_stats_chart.dart';

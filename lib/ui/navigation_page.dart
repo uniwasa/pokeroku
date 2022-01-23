@@ -12,6 +12,7 @@ import 'package:pokeroku/ui/ability_selection/ability_selection_page.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_page.dart';
 import 'package:pokeroku/ui/item_selection/item_selection_page.dart';
 import 'package:pokeroku/ui/move_detail/move_detail_page.dart';
+import 'package:pokeroku/ui/move_list/move_list_page.dart';
 import 'package:pokeroku/ui/move_selection/move_selection_page.dart';
 import 'package:pokeroku/ui/nature_selection/nature_selection_page.dart';
 import 'package:pokeroku/ui/pokemon_list/pokemon_list_page.dart';
@@ -35,32 +36,29 @@ class NavigationPage extends HookConsumerWidget {
       hideNavigationBar: hideNavigationBar,
       resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor!,
-      screens: [PokemonListPage(), TeamListPage()],
+      screens: [PokemonListPage(), MoveListPage(), TeamListPage()],
       items: [
-        PersistentBottomNavBarItem(
-          icon: Icon(Icons.bar_chart),
-          title: ('ずかん'),
-          iconSize: 20,
-          textStyle: TextStyle(fontSize: 8),
-          activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Theme.of(context).hintColor,
-          routeAndNavigatorSettings: RouteAndNavigatorSettings(
-            onGenerateRoute: _onGenerateRoute,
-          ),
-        ),
-        PersistentBottomNavBarItem(
-          icon: Icon(Icons.build),
-          title: ('パーティ'),
-          iconSize: 20,
-          textStyle: TextStyle(fontSize: 8),
-          activeColorPrimary: Colors.white,
-          inactiveColorPrimary: Theme.of(context).hintColor,
-          routeAndNavigatorSettings: RouteAndNavigatorSettings(
-            onGenerateRoute: _onGenerateRoute,
-          ),
-        ),
+        _buildBottomNavBarItem(context,
+            icon: Icon(Icons.bar_chart), title: 'ずかん'),
+        _buildBottomNavBarItem(context, icon: Icon(Icons.album), title: 'わざ'),
+        _buildBottomNavBarItem(context, icon: Icon(Icons.build), title: 'パーティ'),
       ],
       navBarStyle: NavBarStyle.style6,
+    );
+  }
+
+  PersistentBottomNavBarItem _buildBottomNavBarItem(BuildContext context,
+      {required Widget icon, String? title}) {
+    return PersistentBottomNavBarItem(
+      icon: icon,
+      title: title,
+      iconSize: 20,
+      textStyle: TextStyle(fontSize: 8),
+      activeColorPrimary: Colors.white,
+      inactiveColorPrimary: Theme.of(context).hintColor,
+      routeAndNavigatorSettings: RouteAndNavigatorSettings(
+        onGenerateRoute: _onGenerateRoute,
+      ),
     );
   }
 
@@ -108,6 +106,9 @@ class NavigationPage extends HookConsumerWidget {
       case Routes.signIn:
         page = SignInPage();
         isFullscreen = true;
+        break;
+      case Routes.moveList:
+        page = MoveListPage();
         break;
       default:
         page = PokemonListPage();

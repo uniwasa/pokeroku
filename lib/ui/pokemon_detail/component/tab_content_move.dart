@@ -41,14 +41,6 @@ extension TabContentMove on PokemonDetailPage {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   final move = moves[index];
-                  String trailingText = '';
-                  if (move.versionGroupId != 20) {
-                    trailingText = '剣盾では不確定';
-                  } else if (move.pokemonMoveMethodId == 1) {
-                    trailingText = 'LV' + move.level.toString();
-                  } else if (move.pokemonMoveMethodId == 4) {
-                    trailingText = move.itemIdentifier?.toUpperCase() ?? '';
-                  }
                   return Material(
                     color: Colors.transparent,
                     child: InkWell(
@@ -59,22 +51,7 @@ extension TabContentMove on PokemonDetailPage {
                           arguments: move,
                         );
                       },
-                      child: ListTile(
-                        leading: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (move.type != null)
-                              buildCircle(color: move.type!.color),
-                          ],
-                        ),
-                        title: Text(move.nameJp),
-                        trailing: move.versionGroupId != 20
-                            ? Text(trailingText,
-                                style: TextStyle(
-                                    color: Colors.white54, fontSize: 10))
-                            : Text(trailingText,
-                                style: TextStyle(color: Colors.white54)),
-                      ),
+                      child: MoveListTitle(move: move, isDetailPage: true),
                     ),
                   );
                 },

@@ -46,9 +46,9 @@ class Move with _$Move {
 
   Color get damageClassColor {
     if (damageClassId == 2)
-      return Color(0xFFFF4400);
+      return Color(0xFFEE5522);
     else if (damageClassId == 3)
-      return Color(0xFF2266CC);
+      return Color(0xFF3366DD);
     else
       return Color(0xFF999999);
   }

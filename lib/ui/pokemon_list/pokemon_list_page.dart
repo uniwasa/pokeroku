@@ -40,6 +40,7 @@ class PokemonListPage extends HookConsumerWidget {
               provider.searchForText(text);
             },
             decoration: InputDecoration(
+              hintText: 'ポケモン名',
               prefixIcon: Icon(Icons.search, color: Colors.white54),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               border: OutlineInputBorder(
