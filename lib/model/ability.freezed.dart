@@ -24,10 +24,10 @@ class _$AbilityTearOff {
   _Ability call(
       {required int id,
       required String identifier,
-      required int slot,
-      @JsonKey(name: 'is_hidden', fromJson: intToBool) required bool isHidden,
-      @JsonKey(name: 'name_jp') required String nameJp,
-      @JsonKey(name: 'flavor_text_jp') required String flavorTextJp}) {
+      required int? slot,
+      @JsonKey(fromJson: intToBool, defaultValue: false) required bool isHidden,
+      required String nameJp,
+      required String flavorTextJp}) {
     return _Ability(
       id: id,
       identifier: identifier,
@@ -50,12 +50,10 @@ const $Ability = _$AbilityTearOff();
 mixin _$Ability {
   int get id => throw _privateConstructorUsedError;
   String get identifier => throw _privateConstructorUsedError;
-  int get slot => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_hidden', fromJson: intToBool)
+  int? get slot => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: intToBool, defaultValue: false)
   bool get isHidden => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name_jp')
   String get nameJp => throw _privateConstructorUsedError;
-  @JsonKey(name: 'flavor_text_jp')
   String get flavorTextJp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -70,10 +68,10 @@ abstract class $AbilityCopyWith<$Res> {
   $Res call(
       {int id,
       String identifier,
-      int slot,
-      @JsonKey(name: 'is_hidden', fromJson: intToBool) bool isHidden,
-      @JsonKey(name: 'name_jp') String nameJp,
-      @JsonKey(name: 'flavor_text_jp') String flavorTextJp});
+      int? slot,
+      @JsonKey(fromJson: intToBool, defaultValue: false) bool isHidden,
+      String nameJp,
+      String flavorTextJp});
 }
 
 /// @nodoc
@@ -105,7 +103,7 @@ class _$AbilityCopyWithImpl<$Res> implements $AbilityCopyWith<$Res> {
       slot: slot == freezed
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isHidden: isHidden == freezed
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -130,10 +128,10 @@ abstract class _$AbilityCopyWith<$Res> implements $AbilityCopyWith<$Res> {
   $Res call(
       {int id,
       String identifier,
-      int slot,
-      @JsonKey(name: 'is_hidden', fromJson: intToBool) bool isHidden,
-      @JsonKey(name: 'name_jp') String nameJp,
-      @JsonKey(name: 'flavor_text_jp') String flavorTextJp});
+      int? slot,
+      @JsonKey(fromJson: intToBool, defaultValue: false) bool isHidden,
+      String nameJp,
+      String flavorTextJp});
 }
 
 /// @nodoc
@@ -166,7 +164,7 @@ class __$AbilityCopyWithImpl<$Res> extends _$AbilityCopyWithImpl<$Res>
       slot: slot == freezed
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isHidden: isHidden == freezed
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
@@ -184,15 +182,16 @@ class __$AbilityCopyWithImpl<$Res> extends _$AbilityCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Ability extends _Ability with DiagnosticableTreeMixin {
   const _$_Ability(
       {required this.id,
       required this.identifier,
       required this.slot,
-      @JsonKey(name: 'is_hidden', fromJson: intToBool) required this.isHidden,
-      @JsonKey(name: 'name_jp') required this.nameJp,
-      @JsonKey(name: 'flavor_text_jp') required this.flavorTextJp})
+      @JsonKey(fromJson: intToBool, defaultValue: false) required this.isHidden,
+      required this.nameJp,
+      required this.flavorTextJp})
       : super._();
 
   factory _$_Ability.fromJson(Map<String, dynamic> json) =>
@@ -203,15 +202,13 @@ class _$_Ability extends _Ability with DiagnosticableTreeMixin {
   @override
   final String identifier;
   @override
-  final int slot;
+  final int? slot;
   @override
-  @JsonKey(name: 'is_hidden', fromJson: intToBool)
+  @JsonKey(fromJson: intToBool, defaultValue: false)
   final bool isHidden;
   @override
-  @JsonKey(name: 'name_jp')
   final String nameJp;
   @override
-  @JsonKey(name: 'flavor_text_jp')
   final String flavorTextJp;
 
   @override
@@ -272,13 +269,10 @@ abstract class _Ability extends Ability {
   const factory _Ability(
       {required int id,
       required String identifier,
-      required int slot,
-      @JsonKey(name: 'is_hidden', fromJson: intToBool)
-          required bool isHidden,
-      @JsonKey(name: 'name_jp')
-          required String nameJp,
-      @JsonKey(name: 'flavor_text_jp')
-          required String flavorTextJp}) = _$_Ability;
+      required int? slot,
+      @JsonKey(fromJson: intToBool, defaultValue: false) required bool isHidden,
+      required String nameJp,
+      required String flavorTextJp}) = _$_Ability;
   const _Ability._() : super._();
 
   factory _Ability.fromJson(Map<String, dynamic> json) = _$_Ability.fromJson;
@@ -288,15 +282,13 @@ abstract class _Ability extends Ability {
   @override
   String get identifier;
   @override
-  int get slot;
+  int? get slot;
   @override
-  @JsonKey(name: 'is_hidden', fromJson: intToBool)
+  @JsonKey(fromJson: intToBool, defaultValue: false)
   bool get isHidden;
   @override
-  @JsonKey(name: 'name_jp')
   String get nameJp;
   @override
-  @JsonKey(name: 'flavor_text_jp')
   String get flavorTextJp;
   @override
   @JsonKey(ignore: true)

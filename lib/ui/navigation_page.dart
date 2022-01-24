@@ -8,6 +8,7 @@ import 'package:pokeroku/model/move_selection_param.dart';
 import 'package:pokeroku/model/pokemon.dart';
 import 'package:pokeroku/routes.dart';
 import 'package:pokeroku/ui/ability_detail/ability_detail_page.dart';
+import 'package:pokeroku/ui/ability_list/ability_list_page.dart';
 import 'package:pokeroku/ui/ability_selection/ability_selection_page.dart';
 import 'package:pokeroku/ui/build_edit/build_edit_page.dart';
 import 'package:pokeroku/ui/item_selection/item_selection_page.dart';
@@ -36,11 +37,18 @@ class NavigationPage extends HookConsumerWidget {
       hideNavigationBar: hideNavigationBar,
       resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor!,
-      screens: [PokemonListPage(), MoveListPage(), TeamListPage()],
+      screens: [
+        PokemonListPage(),
+        MoveListPage(),
+        AbilityListPage(),
+        TeamListPage()
+      ],
       items: [
         _buildBottomNavBarItem(context,
             icon: Icon(Icons.bar_chart), title: 'ずかん'),
         _buildBottomNavBarItem(context, icon: Icon(Icons.album), title: 'わざ'),
+        _buildBottomNavBarItem(context,
+            icon: Icon(Icons.psychology), title: 'とくせい'),
         _buildBottomNavBarItem(context, icon: Icon(Icons.build), title: 'パーティ'),
       ],
       navBarStyle: NavBarStyle.style6,
@@ -109,6 +117,9 @@ class NavigationPage extends HookConsumerWidget {
         break;
       case Routes.moveList:
         page = MoveListPage();
+        break;
+      case Routes.abilityList:
+        page = AbilityListPage();
         break;
       default:
         page = PokemonListPage();

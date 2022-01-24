@@ -10,13 +10,14 @@ part 'ability.g.dart';
 class Ability with _$Ability {
   const Ability._();
 
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Ability({
     required int id,
     required String identifier,
-    required int slot,
-    @JsonKey(name: 'is_hidden', fromJson: intToBool) required bool isHidden,
-    @JsonKey(name: 'name_jp') required String nameJp,
-    @JsonKey(name: 'flavor_text_jp') required String flavorTextJp,
+    required int? slot,
+    @JsonKey(fromJson: intToBool, defaultValue: false) required bool isHidden,
+    required String nameJp,
+    required String flavorTextJp,
   }) = _Ability;
 
   factory Ability.fromJson(Map<String, dynamic> json) =>

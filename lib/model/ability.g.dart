@@ -9,8 +9,10 @@ part of 'ability.dart';
 _$_Ability _$$_AbilityFromJson(Map<String, dynamic> json) => _$_Ability(
       id: json['id'] as int,
       identifier: json['identifier'] as String,
-      slot: json['slot'] as int,
-      isHidden: intToBool(json['is_hidden'] as int),
+      slot: json['slot'] as int?,
+      isHidden: json['is_hidden'] == null
+          ? false
+          : intToBool(json['is_hidden'] as int),
       nameJp: json['name_jp'] as String,
       flavorTextJp: json['flavor_text_jp'] as String,
     );

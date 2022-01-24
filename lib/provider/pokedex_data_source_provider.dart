@@ -148,6 +148,13 @@ class PokedexDataSource {
     }).toList();
   }
 
+  Future<List<Ability>> getAbilityList() async {
+    final db = await _databaseHelper.database;
+    String query = await rootBundle.loadString('assets/query/ability_list.sql');
+    List<Map<String, dynamic>> queryResult = await db.rawQuery(query);
+    return queryResult.map((json) => Ability.fromJson(json)).toList();
+  }
+
   Future<List<Item>> getItemList() async {
     final db = await _databaseHelper.database;
     String query = await rootBundle.loadString('assets/query/item_list.sql');

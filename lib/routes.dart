@@ -14,4 +14,5 @@ class Routes {
   static const String moveSelection = '/moveSelection';
   static const String signIn = '/signIn';
   static const String moveList = '/moveList';
+  static const String abilityList = '/abilityList';
 }
