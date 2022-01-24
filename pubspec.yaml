@@ -90,6 +90,7 @@ flutter:
     - assets/icons/pokemon/regular_female/
     - assets/icons/pokemon/shiny/
     - assets/icons/pokemon/shiny_female/
+    - assets/icons/seals/
     - assets/google.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

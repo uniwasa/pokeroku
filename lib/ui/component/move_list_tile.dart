@@ -36,15 +36,7 @@ class MoveListTile extends StatelessWidget {
     } else {
       trailing = Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          buildBadge(
-            text: _move.damageClassNameJp,
-            color: _move.damageClassColor,
-            isSquare: true,
-            fontSize: 10,
-            width: 64,
-          ),
-        ],
+        children: [Container(child: _move.damageClassIcon, width: 24)],
       );
     }
 

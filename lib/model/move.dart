@@ -52,4 +52,20 @@ class Move with _$Move {
     else
       return Color(0xFF999999);
   }
+
+  Widget get damageClassIcon {
+    final String name;
+    if (damageClassId == 2)
+      name = 'assets/icons/seals/move-physical.png';
+    else if (damageClassId == 3)
+      name = 'assets/icons/seals/move-special.png';
+    else
+      name = 'assets/icons/seals/move-status.png';
+    return Image.asset(
+      name,
+      fit: BoxFit.contain,
+      colorBlendMode: BlendMode.srcIn,
+      color: damageClassColor,
+    );
+  }
 }
