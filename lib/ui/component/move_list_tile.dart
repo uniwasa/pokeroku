@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pokeroku/model/move.dart';
 import 'package:pokeroku/util.dart';
 
-class MoveListTitle extends StatelessWidget {
-  MoveListTitle(
+class MoveListTile extends StatelessWidget {
+  MoveListTile(
       {Key? key,
       required Move move,
       GestureTapCallback? onTap,

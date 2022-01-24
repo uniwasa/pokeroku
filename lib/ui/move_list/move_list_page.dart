@@ -60,7 +60,7 @@ class MoveListPage extends HookConsumerWidget {
             itemCount: moveList.length,
             itemBuilder: (BuildContext context, int index) {
               final move = moveList[index];
-              return MoveListTitle(
+              return MoveListTile(
                 move: move,
                 onTap: () {
                   Navigator.pushNamed(

@@ -51,7 +51,7 @@ extension TabContentMove on PokemonDetailPage {
                           arguments: move,
                         );
                       },
-                      child: MoveListTitle(move: move, isDetailPage: true),
+                      child: MoveListTile(move: move, isDetailPage: true),
                     ),
                   );
                 },
