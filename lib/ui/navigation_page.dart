@@ -52,6 +52,11 @@ class NavigationPage extends HookConsumerWidget {
         _buildBottomNavBarItem(context, icon: Icon(Icons.build), title: 'パーティ'),
       ],
       navBarStyle: NavBarStyle.style6,
+      decoration: NavBarDecoration(
+        border: Border(
+          top: BorderSide(width: 1.0, color: Theme.of(context).cardColor),
+        ),
+      ),
     );
   }
 
