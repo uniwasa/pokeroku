@@ -1,16 +1,12 @@
 # pokeroku
 
-A new Flutter project.
+ポケモンの図鑑機能とパーティ管理機能 を搭載したアプリをFlutterで制作。
 
-## Getting Started
+状態管理にはRiverpod、Freezedなどを使用してMVVMアーキテクチャで開発。
 
-This project is a starting point for a Flutter application.
+パーティ管理機能やログイン機能にはFirebaseを使用。
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+|                                             |                                             |                                             |
+|:-------------------------------------------:|:-------------------------------------------:|:-------------------------------------------:|
+| ![1](https://images.wantedly.com/i/cV7hv6F) | ![2](https://images.wantedly.com/i/YQyZ7Sw) | ![3](https://images.wantedly.com/i/bZe6F3t) |
+| ![4](https://images.wantedly.com/i/dxVUTuN) | ![5](https://images.wantedly.com/i/XupVf4x) | ![6](https://images.wantedly.com/i/WfVe31E) |
